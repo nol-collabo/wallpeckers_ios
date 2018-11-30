@@ -26,6 +26,7 @@ class Section:Object {
         self.desc = json["desc"].stringValue
         self.id = json["id"].intValue
         self.badge = json["badge"].stringValue
+        self.image = json["image"].stringValue
     }
     
 }
@@ -50,6 +51,8 @@ class LocalSection:Object {
         self.badge = json["badge"].stringValue
         self.language = json["language"].intValue
         self.section = json["section"].intValue
+        self.image = json["image"].stringValue
+
     }
     
 }

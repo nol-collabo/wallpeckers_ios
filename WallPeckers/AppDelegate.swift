@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let levels = data["level"].arrayValue
                 let sections = data["sections"].arrayValue
-                let clues = data["game"]["clues"].arrayValue
+                let clues = data["clues"].arrayValue
                 let gameArticleLinks = data["article_link"].arrayValue
                 let gameArticles = data["articles"].arrayValue
                 let ages = data["age"].arrayValue
@@ -37,7 +37,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let localArticles = data["locale"]["articles"].arrayValue
                 let localArticleLinks = data["locale"]["article_link"].arrayValue
                 let localLanguages = data["locale"]["language"].arrayValue
+                let five_w_one_hs = data["five_w_one_h"].arrayValue
                 
+                
+                _ = five_w_one_hs.map({
+                    
+                    let fv = Five_W_One_Hs($0)
+                    
+                    Standard.shared.saveData(fv)
+                    
+                })
                 
                 _ = localArticles.map({
                     
@@ -138,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }else{
             print("dataBaseComplete")
-            print(realm.objects(LocalLanguage.self))
+            print(realm.configuration.fileURL)
 
         }
     
