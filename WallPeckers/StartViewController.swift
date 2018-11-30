@@ -14,6 +14,7 @@ class StartViewController: UIViewController {
     
     let imageView = UIImageView()
     let playButton = UIButton()
+    var selectedLanguage:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class StartViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(80)
         }
+        self.navigationController?.isNavigationBarHidden = true
         playButton.backgroundColor = .red
         playButton.addTarget(self, action: #selector(playBtnTouched(sender:)), for: .touchUpInside)
         imageView.snp.makeConstraints { (make) in
@@ -45,7 +47,7 @@ class StartViewController: UIViewController {
     
     @objc func playBtnTouched(sender:UIButton) {
         
-        PopUp.call(selectButtonTitles: ["a","b","c"], bottomButtonTitle: "확인", self)
+        PopUp.call(selectButtonTitles: ["Deutch","한국어","English"], bottomButtonTitle: "확인", self)
         
     }
     
@@ -65,11 +67,22 @@ class StartViewController: UIViewController {
 
 extension StartViewController:SelectPopupDelegate {
     func bottomButtonTouched(sender: UIButton) {
-        print(sender.currentTitle)
+        
+        if let _selectedLanguage = selectedLanguage {
+            print(_selectedLanguage)
+            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as? RegisterViewController else {return}
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }else{
+            print("언어를 선택해주세요")
+        }
     }
     
     func selectButtonTouched(tag: Int) {
-        print(tag)
+        selectedLanguage = tag
+
+        
     }
     
     

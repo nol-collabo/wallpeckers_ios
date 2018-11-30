@@ -35,7 +35,7 @@ class SelectPopUpView:UIView {
         baseView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         popupView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.leading.equalTo(16)
+            make.leading.equalTo(40)
 //            make.bottom.equalToSuperview().offset(-50)
         }
         popupView.addSubview([titleView, buttonView, confirmBtn])
@@ -50,12 +50,12 @@ class SelectPopUpView:UIView {
         
         confirmBtn.snp.makeConstraints { (make) in
             make.bottom.leading.trailing.equalToSuperview()
-            make.height.equalTo(30)
+            make.height.equalTo(50)
         }
         buttonView.snp.makeConstraints { (make) in
             make.top.equalTo(titleView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(60)
             make.bottom.equalTo(confirmBtn.snp.top).offset(-10)
         }
         
