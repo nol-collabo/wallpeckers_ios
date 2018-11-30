@@ -17,4 +17,26 @@ class Standard {
         
     }
     
+    func changeLocalized(_ countryCode:String) {
+        
+        
+        
+        UserDefaults.standard.set(countryCode, forKey: "Language")
+        
+    }
+    
+   
+    func getLocalized() -> String {
+        return UserDefaults.standard.string(forKey: "Language") ?? "ko"
+    }
+    
+    
+}
+
+enum Language:String {
+    
+    case KOREAN = "ko"
+    case GERMAN = "de"
+    case ENGLISH = "en"
+    
 }

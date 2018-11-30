@@ -21,6 +21,7 @@ class StartViewController: UIViewController {
 
         setUI()
         
+        
         // Do any additional setup after loading the view.
     }
     
@@ -81,6 +82,17 @@ extension StartViewController:SelectPopupDelegate {
     
     func selectButtonTouched(tag: Int) {
         selectedLanguage = tag
+        
+        if tag == 0 {
+            Standard.shared.changeLocalized(Language.GERMAN.rawValue)
+
+        }else if tag == 1 {
+            Standard.shared.changeLocalized(Language.KOREAN.rawValue)
+
+        }else {
+            Standard.shared.changeLocalized(Language.ENGLISH.rawValue)
+
+        }
 
         
     }
