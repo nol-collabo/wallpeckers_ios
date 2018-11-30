@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 import Realm
-
+import SwiftyJSON
 
 class Standard {
     
@@ -18,6 +18,7 @@ class Standard {
     private init() {
         
     }
+
     
     func changeLocalized(_ countryCode:String) {
 
@@ -31,6 +32,32 @@ class Standard {
     func addUser(name:String, age:Int) {
         UserDefaults.standard.set(name, forKey: "UserName")
         UserDefaults.standard.set(age, forKey: "UserAge")
+    }
+    
+    func getJSON() -> JSON? {
+        
+        if let path = Bundle.main.path(forResource: "data", ofType: "json") {
+            
+            
+            let data = try! Data.init(contentsOf: URL.init(fileURLWithPath: path), options: .mappedIfSafe)
+            
+            let json = try! JSON.init(data: data)
+            
+            return json
+            
+        }else{
+            return nil
+        }
+        
+        
+        
+    }
+    
+    func saveData(_ data:Object) {
+        
+        try! realm.write {
+            realm.add(data)
+        }
     }
     
     

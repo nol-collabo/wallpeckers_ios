@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,131 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        if !UserDefaults.standard.bool(forKey: "databaseTransformComplete") {
+        
+            if let data = Standard.shared.getJSON() {
+                
+                let levels = data["level"].arrayValue
+                let sections = data["sections"].arrayValue
+                let clues = data["game"]["clues"].arrayValue
+                let gameArticleLinks = data["article_link"].arrayValue
+                let gameArticles = data["articles"].arrayValue
+                let ages = data["age"].arrayValue
+                let localClues = data["locale"]["clues"].arrayValue
+                let localLevels = data["locale"]["level"].arrayValue
+                let localSections = data["locale"]["sections"].arrayValue
+                let localAges = data["locale"]["age"].arrayValue
+                let localArticles = data["locale"]["articles"].arrayValue
+                let localArticleLinks = data["locale"]["article_link"].arrayValue
+                let localLanguages = data["locale"]["language"].arrayValue
+                
+                
+                _ = localArticles.map({
+                    
+                    let lar = LocalArticle($0)
+                    
+                    Standard.shared.saveData(lar)
+                })
+                
+                _ = localArticleLinks.map({
+                    
+                    let lal = LocalArticleLink($0)
+                    
+                    Standard.shared.saveData(lal)
+                    
+                })
+                
+                _ = localLanguages.map({
+                    
+                    let langu = LocalLanguage($0)
+                    
+                    Standard.shared.saveData(langu)
+                })
+                
+                _ = levels.map({
+                    
+                    let lvl = Level($0)
+
+                    Standard.shared.saveData(lvl)
+                    
+                })
+                
+                _ = localLevels.map({
+                    
+                    let lolvl = LocalLevel($0)
+                    
+                    Standard.shared.saveData(lolvl)
+                })
+                
+                _ = sections.map({
+                    
+                    let section = Section($0)
+                    
+                    Standard.shared.saveData(section)
+                    
+                })
+                
+                _ = localSections.map({
+                    
+                    let locals = LocalSection($0)
+                    
+                    Standard.shared.saveData(locals)
+                })
+                
+                _ = clues.map({
+                    
+                    let clue = Clue($0)
+                    
+                    Standard.shared.saveData(clue)
+                })
+                
+                _ = localClues.map({
+                    
+                    let lc = LocalClue($0)
+                    Standard.shared.saveData(lc)
+                })
+                
+                _ = gameArticleLinks.map({
+                    
+                    let gal = ArticleLink($0)
+                    
+                    Standard.shared.saveData(gal)
+                })
+                
+                _ = gameArticles.map({
+                    
+                    let ga = Article($0)
+                    
+                    Standard.shared.saveData(ga)
+                    
+                })
+                
+                _ = ages.map({
+                    
+                    let age = Age($0)
+                    
+                    Standard.shared.saveData(age)
+                    
+                })
+                
+                _ = localAges.map({
+                    
+                    let lage = LocalAge($0)
+                    Standard.shared.saveData(lage)
+                })
+                
+                UserDefaults.standard.set(true, forKey: "databaseTransformComplete")
+            }
+
+        }else{
+            print("dataBaseComplete")
+            print(realm.objects(LocalLanguage.self))
+
+        }
+    
+        
         return true
     }
 
