@@ -30,6 +30,13 @@ class Standard {
         return UserDefaults.standard.string(forKey: "Language") ?? "ko"
     }
     
+    func addUser(name:String, age:Int) {
+        UserDefaults.standard.set(name, forKey: "UserName")
+        UserDefaults.standard.set(age, forKey: "UserAge")
+    }
+    
+//    func getUser() ->
+    
     
 }
 
@@ -40,3 +47,5 @@ enum Language:String {
     case ENGLISH = "en"
     
 }
+
+//clas

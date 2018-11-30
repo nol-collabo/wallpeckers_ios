@@ -12,6 +12,27 @@ import SnapKit
 extension UIView {
     
     
+    func setBorder(color:UIColor, width:CGFloat, cornerRadius:CGFloat = 0) {
+        self.layer.borderColor = color.cgColor
+        self.layer.borderWidth = width
+        self.layer.cornerRadius = cornerRadius
+        
+    }
+    
+    func addUnderBar() {
+        
+        let underBar = UIView()
+        underBar.backgroundColor = .black
+        
+        self.addSubview(underBar)
+        underBar.snp.makeConstraints { (make) in
+            make.bottom.leading.trailing.equalToSuperview()
+            make.height.equalTo(2)
+        }
+        
+        
+    }
+    
     func addSubview(_ views:[UIView]) {
         
         for v in views {

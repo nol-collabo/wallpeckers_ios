@@ -41,6 +41,21 @@
             </objects>
             <point key="canvasLocation" x="1396" y="56"/>
         </scene>
+        <!--After Register View Controller-->
+        <scene sceneID="sOX-7e-v4I">
+            <objects>
+                <viewController storyboardIdentifier="AfterRegisterViewController" id="GQp-iK-FQj" customClass="AfterRegisterViewController" customModule="WallPeckers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W6H-ii-4Bl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="R9A-eM-kpI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OWN-e8-Acl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2233" y="55"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="IHT-p7-kGx">
             <objects>

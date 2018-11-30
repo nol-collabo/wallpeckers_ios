@@ -17,22 +17,55 @@ class RegisterViewController: UIViewController {
     let ageLb = UILabel()
     let nameTf = UITextField()
     let ageSelectPickerView = UIPickerView()
+    let ageSelectIndicatedLb = UILabel()
+    let arrowImv = UIImageView()
     let registBtn = BottomButton()
     let descLb = UILabel()
-    let ages = ["Under 10", "10-19", "20-29", "30-39", "40-49", "50-59", "Above 60", "Select None"]
+    let picketViewGesture = UITapGestureRecognizer()
+    var myName:String? {
+        didSet {
+            
+            if myName != nil && myAge != nil {
+                    registBtn.isHidden = false
+            }
+            
+        }
+    }
+
+    var myAge:Int?{
+        didSet {
+            
+            if myName != nil && myAge != nil {
+                registBtn.isHidden = false
+            }
+            
+        }
+    }
+    
+    
+    let ages = ["Select None", "Under 10", "10-19", "20-29", "30-39", "40-49", "50-59", "Above 60"]
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setUI()
-        ageSelectPickerView.delegate = self
         
-        // Do any additional setup after loading the view.
+        ageSelectPickerView.delegate = self
+        ageSelectPickerView.dataSource = self
+        nameTf.delegate = self
+        picketViewGesture.addTarget(self, action: #selector(callPickerView(sender:)))
+        ageSelectIndicatedLb.addGestureRecognizer(picketViewGesture)
+        cameraBtn.addTarget(self, action: #selector(callProfileImageOption(sender:)), for: .touchUpInside)
+        setUI()
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.allButtonUserIteraction(true)
     }
     
     func setUI() {
         
         
-        view.addSubview([topLb, profileImv, cameraBtn, nameLb, ageLb, nameTf, registBtn, ageSelectPickerView, descLb])
+        view.addSubview([topLb, profileImv, cameraBtn, nameLb, ageLb, nameTf, registBtn, ageSelectPickerView, descLb, ageSelectIndicatedLb])
         
         topLb.setText("기자증 신청\nPRESS PASS", color: .black, size: 20, textAlignment: .center)
         
@@ -51,8 +84,8 @@ class RegisterViewController: UIViewController {
             make.centerX.equalTo(profileImv.snp.trailing)
             make.centerY.equalTo(profileImv.snp.bottom)
             make.width.height.equalTo(50)
-//            make.center.equalTo(profileImv.snp.bottom)
         }
+        
         profileImv.backgroundColor = .blue
         cameraBtn.backgroundColor = .red
         
@@ -71,6 +104,8 @@ class RegisterViewController: UIViewController {
             make.width.equalTo(200)
             make.height.equalTo(30)
         }
+
+        nameTf.addUnderBar()
         
         descLb.setText("*필명:내가 쓴 기사에 사용할 이름", size: 10, textAlignment: .left)
         
@@ -87,14 +122,25 @@ class RegisterViewController: UIViewController {
             make.width.equalTo(50)
 
         }
+        ageSelectPickerView.isHidden = true
+        ageSelectIndicatedLb.snp.makeConstraints { (make) in
+            make.leading.equalTo(nameTf.snp.leading).offset(10)
+            make.width.equalTo(200)
+            make.centerY.equalTo(ageLb.snp.centerY)
+            make.height.equalTo(30)
+        }
+        ageSelectIndicatedLb.text = "hi"
+        ageSelectIndicatedLb.isUserInteractionEnabled = true
+        registBtn.isHidden = true
         ageSelectPickerView.snp.makeConstraints { (make) in
             make.leading.equalTo(nameTf.snp.leading)
             make.width.equalTo(nameTf.snp.width)
-            make.top.equalTo(ageLb.snp.top)
-            make.height.equalTo(80)
+            make.top.equalTo(ageSelectIndicatedLb.snp.bottom)
+            make.height.equalTo(100)
         }
         
-        
+        ageSelectPickerView.addUnderBar()
+        ageSelectIndicatedLb.addUnderBar()
         registBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeArea.bottom)
             make.centerX.equalToSuperview()
@@ -103,20 +149,31 @@ class RegisterViewController: UIViewController {
         }
         
         registBtn.setTitle("Play".localized, for: .normal)
+        registBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func moveToNext(sender:UIButton) {
+        
+        sender.isUserInteractionEnabled = false
+        
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func callPickerView(sender:UITapGestureRecognizer) {
+        
+        self.ageSelectPickerView.isHidden = !(self.ageSelectPickerView.isHidden)
+        
     }
-    */
-
+    
+    @objc func callProfileImageOption(sender:UIButton) {
+//        sender.isUserInteractionEnabled = false
+        PopUp.call(mainTitle: "사진 추가", selectButtonTitles: ["카메라", "사진첩", "기본 이미지로"], bottomButtonTitle: "취소", bottomButtonType: 1, self)
+    }
+    
 }
 
 class BottomButton:UIButton {
@@ -127,6 +184,13 @@ class BottomButton:UIButton {
         self.backgroundColor = .black
         self.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         self.titleLabel?.textColor = .white
+        if self.isEnabled {
+            self.backgroundColor = .black
+
+        }else{
+            self.backgroundColor = .red
+        }
+        
     }
     
     
@@ -136,22 +200,58 @@ class BottomButton:UIButton {
     
 }
 
-extension RegisterViewController:UIPickerViewDelegate {
+extension RegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return ages.count
+
+    }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         
-        
+    
         return ages[row]
         
     }
     
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
-        
-        return UILabel()
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        pickerView.isHidden = true
+        myAge = row
+        ageSelectIndicatedLb.text = ages[row]
         
     }
+
+    
+}
+
+extension RegisterViewController:UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        myName = textField.text
+        return true
+    }
+    
+    
+    
+}
+
+extension RegisterViewController:SelectPopupDelegate {
+    func bottomButtonTouched(sender: UIButton) {
+
+        self.removePopUpView()
+//        print(sender)
+    }
+    
+    func selectButtonTouched(tag: Int) {
+        print(tag)
+    }
+    
     
 }
 

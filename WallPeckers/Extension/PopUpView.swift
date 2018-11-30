@@ -15,7 +15,9 @@ class SelectPopUpView:UIView {
     let baseView = UIView()
     let popupView = UIView()
     let titleView = UIView()
+    let titleLb = UILabel()
     let buttonView = AloeStackView()
+    let bottomView = UIView()
     let confirmBtn = UIButton()
     var delegate:SelectPopupDelegate?
      
@@ -38,19 +40,38 @@ class SelectPopUpView:UIView {
             make.leading.equalTo(40)
 //            make.bottom.equalToSuperview().offset(-50)
         }
-        popupView.addSubview([titleView, buttonView, confirmBtn])
+        popupView.addSubview([titleView, buttonView, bottomView])
         
         titleView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(50)
+            make.leading.equalTo(0)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(70)
         }
-        titleView.backgroundColor = .blue
+        titleView.backgroundColor = .white
         popupView.backgroundColor = .white
         
-        confirmBtn.snp.makeConstraints { (make) in
+        titleView.addSubview(titleLb)
+        
+        titleLb.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.leading.equalTo(30)
+            make.height.equalTo(50)
+        }
+        
+        titleLb.backgroundColor = .black
+        
+        bottomView.snp.makeConstraints { (make) in
             make.bottom.leading.trailing.equalToSuperview()
             make.height.equalTo(50)
+        }
+        
+        bottomView.addSubview(confirmBtn)
+        
+        confirmBtn.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(30)
         }
         buttonView.snp.makeConstraints { (make) in
             make.top.equalTo(titleView.snp.bottom)
@@ -88,12 +109,27 @@ class SelectPopUpView:UIView {
     @objc func bottomBtnTouched(sender:UIButton) {
         
         delegate?.bottomButtonTouched(sender: sender)
+//        self.removeFromSuperview()
     }
     
     @objc func selectBtnTouched(sender:UIButton) {
         
         delegate?.selectButtonTouched(tag: sender.tag)
         
+        
+    }
+    
+    func bottomButtonType(_ type:Int) {
+        if type == 0 {
+            confirmBtn.backgroundColor = .black
+            confirmBtn.setTitleColor(.white, for: .normal)
+        }else if type == 1 {
+            confirmBtn.backgroundColor = .white
+            confirmBtn.setTitleColor(.black, for: .normal)
+            confirmBtn.setBorder(color: .black, width: 1, cornerRadius: 3)
+        }else{
+            
+        }
     }
     
     
@@ -105,25 +141,29 @@ class SelectPopUpView:UIView {
 protocol SelectPopupDelegate {
     func bottomButtonTouched(sender:UIButton)
     func selectButtonTouched(tag:Int)
+    
 }
 
 
 struct PopUp {
     
-    static func call(selectButtonTitles:[String], bottomButtonTitle:String, _ vc:UIViewController) {
+    static func call(mainTitle:String, selectButtonTitles:[String], bottomButtonTitle:String, bottomButtonType:Int,
+                     _ vc:UIViewController) {
         
         let popUpView = SelectPopUpView()
         
         vc.view.addSubview(popUpView)
-        
+        popUpView.titleLb.setText(mainTitle, color: .white, size: 20, textAlignment: .center)
         popUpView.delegate = vc as? SelectPopupDelegate
+        
         
         popUpView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
         
         popUpView.setButton(selectedButton: selectButtonTitles, bottomBtn: bottomButtonTitle)
-        
+        popUpView.bottomButtonType(bottomButtonType)
+        popUpView.popupView.setBorder(color: .black, width: 5)
         
     }
 }

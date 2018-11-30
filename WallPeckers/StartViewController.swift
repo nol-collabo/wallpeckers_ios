@@ -30,7 +30,7 @@ class StartViewController: UIViewController {
         self.view.addSubview([imageView, playButton])
         
         playButton.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeArea.bottom).offset(-50)
             make.leading.equalTo(50)
             make.centerX.equalToSuperview()
             make.height.equalTo(80)
@@ -48,7 +48,7 @@ class StartViewController: UIViewController {
     
     @objc func playBtnTouched(sender:UIButton) {
         
-        PopUp.call(selectButtonTitles: ["Deutch","한국어","English"], bottomButtonTitle: "확인", self)
+        PopUp.call(mainTitle: "LANGUAGE", selectButtonTitles: ["Deutch","한국어","English"], bottomButtonTitle: "확인", bottomButtonType: 0, self)
         
     }
     

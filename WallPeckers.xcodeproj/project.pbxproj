@@ -22,6 +22,19 @@
 		2357819521ABF47A00338CB9 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357819421ABF47A00338CB9 /* PopUpView.swift */; };
 		23D86EFC21AFEC3E00CDC5B6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86EFB21AFEC3A00CDC5B6 /* RegisterViewController.swift */; };
 		23D86EFF21AFF40900CDC5B6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0121AFF40900CDC5B6 /* Localizable.strings */; };
+		23D86F0921B1146900CDC5B6 /* UIViewController_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F0821B1146900CDC5B6 /* UIViewController_extension.swift */; };
+		23D86F0B21B11BC800CDC5B6 /* AfterRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F0A21B11BC800CDC5B6 /* AfterRegisterViewController.swift */; };
+		23D86F1521B125C700CDC5B6 /* notokr_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0D21B125C700CDC5B6 /* notokr_regular.ttf */; };
+		23D86F1621B125C700CDC5B6 /* american_typewriter_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0E21B125C700CDC5B6 /* american_typewriter_light.ttf */; };
+		23D86F1721B125C700CDC5B6 /* notokr_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0F21B125C700CDC5B6 /* notokr_medium.ttf */; };
+		23D86F1821B125C700CDC5B6 /* american_typewriter_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1021B125C700CDC5B6 /* american_typewriter_bold.ttf */; };
+		23D86F1921B125C700CDC5B6 /* notokr_thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1121B125C700CDC5B6 /* notokr_thin.ttf */; };
+		23D86F1A21B125C700CDC5B6 /* notokr_black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1221B125C700CDC5B6 /* notokr_black.ttf */; };
+		23D86F1B21B125C700CDC5B6 /* american_typewriter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1321B125C700CDC5B6 /* american_typewriter.ttf */; };
+		23D86F1C21B125C700CDC5B6 /* notokr_demilight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1421B125C700CDC5B6 /* notokr_demilight.ttf */; };
+		23D86F2021B125D300CDC5B6 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1D21B125D300CDC5B6 /* data.json */; };
+		23D86F2121B125D300CDC5B6 /* loding.json in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1E21B125D300CDC5B6 /* loding.json */; };
+		23D86F2221B125D300CDC5B6 /* game_press.xls in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1F21B125D300CDC5B6 /* game_press.xls */; };
 		27CF50B0274CFED5C6137941 /* Pods_WallPeckers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0997FD62F62E72A2ECCE9E /* Pods_WallPeckers.framework */; };
 		63F7705580BD0081C031FC36 /* Pods_WallPeckersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEDA8DB709A58CD1F5D0B019 /* Pods_WallPeckersTests.framework */; };
 /* End PBXBuildFile section */
@@ -70,6 +83,19 @@
 		23D86F0521AFF43800CDC5B6 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		23D86F0621AFF44000CDC5B6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		23D86F0721AFF44000CDC5B6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		23D86F0821B1146900CDC5B6 /* UIViewController_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_extension.swift; sourceTree = "<group>"; };
+		23D86F0A21B11BC800CDC5B6 /* AfterRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterRegisterViewController.swift; sourceTree = "<group>"; };
+		23D86F0D21B125C700CDC5B6 /* notokr_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notokr_regular.ttf; sourceTree = "<group>"; };
+		23D86F0E21B125C700CDC5B6 /* american_typewriter_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = american_typewriter_light.ttf; sourceTree = "<group>"; };
+		23D86F0F21B125C700CDC5B6 /* notokr_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notokr_medium.ttf; sourceTree = "<group>"; };
+		23D86F1021B125C700CDC5B6 /* american_typewriter_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = american_typewriter_bold.ttf; sourceTree = "<group>"; };
+		23D86F1121B125C700CDC5B6 /* notokr_thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notokr_thin.ttf; sourceTree = "<group>"; };
+		23D86F1221B125C700CDC5B6 /* notokr_black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notokr_black.ttf; sourceTree = "<group>"; };
+		23D86F1321B125C700CDC5B6 /* american_typewriter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = american_typewriter.ttf; sourceTree = "<group>"; };
+		23D86F1421B125C700CDC5B6 /* notokr_demilight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notokr_demilight.ttf; sourceTree = "<group>"; };
+		23D86F1D21B125D300CDC5B6 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		23D86F1E21B125D300CDC5B6 /* loding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loding.json; sourceTree = "<group>"; };
+		23D86F1F21B125D300CDC5B6 /* game_press.xls */ = {isa = PBXFileReference; lastKnownFileType = file; path = game_press.xls; sourceTree = "<group>"; };
 		49F5683513EC949641C5B431 /* Pods-WallPeckersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BDA4C6BCF9B2F1F789F276F /* Pods-WallPeckersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersUITests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersUITests/Pods-WallPeckersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AFDE0B94297251E5C4707EB8 /* Pods-WallPeckers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckers.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckers/Pods-WallPeckers.debug.xcconfig"; sourceTree = "<group>"; };
@@ -135,11 +161,16 @@
 				2357818B21ABF2DA00338CB9 /* Extension */,
 				2357815921ABF28F00338CB9 /* AppDelegate.swift */,
 				2357818721ABF2AE00338CB9 /* StartViewController.swift */,
+				23D86F0A21B11BC800CDC5B6 /* AfterRegisterViewController.swift */,
 				2357818921ABF2B900338CB9 /* Main.storyboard */,
 				23D86EFB21AFEC3A00CDC5B6 /* RegisterViewController.swift */,
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
 				2357816221ABF29000338CB9 /* LaunchScreen.storyboard */,
 				2357816521ABF29000338CB9 /* Info.plist */,
+				23D86F1D21B125D300CDC5B6 /* data.json */,
+				23D86F1F21B125D300CDC5B6 /* game_press.xls */,
+				23D86F1E21B125D300CDC5B6 /* loding.json */,
+				23D86F0C21B125C700CDC5B6 /* font */,
 			);
 			path = WallPeckers;
 			sourceTree = "<group>";
@@ -170,9 +201,25 @@
 				2357818D21ABF2DA00338CB9 /* Standard.swift */,
 				2357818E21ABF2DA00338CB9 /* BaseVerticalScrollView.swift */,
 				2357818F21ABF2DA00338CB9 /* UIView_extension.swift */,
+				23D86F0821B1146900CDC5B6 /* UIViewController_extension.swift */,
 				2357819421ABF47A00338CB9 /* PopUpView.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		23D86F0C21B125C700CDC5B6 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				23D86F0D21B125C700CDC5B6 /* notokr_regular.ttf */,
+				23D86F0E21B125C700CDC5B6 /* american_typewriter_light.ttf */,
+				23D86F0F21B125C700CDC5B6 /* notokr_medium.ttf */,
+				23D86F1021B125C700CDC5B6 /* american_typewriter_bold.ttf */,
+				23D86F1121B125C700CDC5B6 /* notokr_thin.ttf */,
+				23D86F1221B125C700CDC5B6 /* notokr_black.ttf */,
+				23D86F1321B125C700CDC5B6 /* american_typewriter.ttf */,
+				23D86F1421B125C700CDC5B6 /* notokr_demilight.ttf */,
+			);
+			path = font;
 			sourceTree = "<group>";
 		};
 		61594172B079B746AA14A2BC /* Pods */ = {
@@ -308,10 +355,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23D86F2221B125D300CDC5B6 /* game_press.xls in Resources */,
 				2357818A21ABF2B900338CB9 /* Main.storyboard in Resources */,
+				23D86F1721B125C700CDC5B6 /* notokr_medium.ttf in Resources */,
 				23D86EFF21AFF40900CDC5B6 /* Localizable.strings in Resources */,
+				23D86F2021B125D300CDC5B6 /* data.json in Resources */,
+				23D86F2121B125D300CDC5B6 /* loding.json in Resources */,
+				23D86F1621B125C700CDC5B6 /* american_typewriter_light.ttf in Resources */,
+				23D86F1B21B125C700CDC5B6 /* american_typewriter.ttf in Resources */,
+				23D86F1521B125C700CDC5B6 /* notokr_regular.ttf in Resources */,
 				2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */,
+				23D86F1C21B125C700CDC5B6 /* notokr_demilight.ttf in Resources */,
+				23D86F1921B125C700CDC5B6 /* notokr_thin.ttf in Resources */,
+				23D86F1821B125C700CDC5B6 /* american_typewriter_bold.ttf in Resources */,
 				2357816121ABF29000338CB9 /* Assets.xcassets in Resources */,
+				23D86F1A21B125C700CDC5B6 /* notokr_black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,9 +499,11 @@
 				2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */,
 				2357818821ABF2AE00338CB9 /* StartViewController.swift in Sources */,
 				23D86EFC21AFEC3E00CDC5B6 /* RegisterViewController.swift in Sources */,
+				23D86F0B21B11BC800CDC5B6 /* AfterRegisterViewController.swift in Sources */,
 				2357819321ABF2DA00338CB9 /* UIView_extension.swift in Sources */,
 				2357819121ABF2DA00338CB9 /* Standard.swift in Sources */,
 				2357819021ABF2DA00338CB9 /* LeftPaddedTextField.swift in Sources */,
+				23D86F0921B1146900CDC5B6 /* UIViewController_extension.swift in Sources */,
 				2357819221ABF2DA00338CB9 /* BaseVerticalScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
