@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
 class StartViewController: UIViewController {
 
@@ -15,11 +16,18 @@ class StartViewController: UIViewController {
     let imageView = UIImageView()
     let playButton = UIButton()
     var selectedLanguage:Int?
+    let user = realm.objects(User.self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUI()
+        
+        print(user.count)
+        
+        
+        
+        print("CURRENTUSER")
         
         
         // Do any additional setup after loading the view.
@@ -71,9 +79,16 @@ extension StartViewController:SelectPopupDelegate {
         
         if let _selectedLanguage = selectedLanguage {
             print(_selectedLanguage)
-            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as? RegisterViewController else {return}
             
-            self.navigationController?.pushViewController(vc, animated: true)
+            if user.count > 0 { // 유저정보 없을 떄
+                
+            }else{ // 신규유저
+                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as? RegisterViewController else {return}
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            
             
         }else{
             print("언어를 선택해주세요")

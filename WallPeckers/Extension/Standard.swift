@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RealmSwift
+import Realm
 
 
 class Standard {
@@ -18,14 +20,10 @@ class Standard {
     }
     
     func changeLocalized(_ countryCode:String) {
-        
-        
-        
+
         UserDefaults.standard.set(countryCode, forKey: "Language")
         
     }
-    
-   
     func getLocalized() -> String {
         return UserDefaults.standard.string(forKey: "Language") ?? "ko"
     }
@@ -34,6 +32,8 @@ class Standard {
         UserDefaults.standard.set(name, forKey: "UserName")
         UserDefaults.standard.set(age, forKey: "UserAge")
     }
+    
+    
     
 //    func getUser() ->
     

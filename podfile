@@ -12,8 +12,10 @@ target 'WallPeckers' do
 	pod 'ObjectMapper'
 	pod 'Kingfisher'
 	pod 'AloeStackView'
+	pod 'Realm'
+	pod 'RealmSwift'
 	
-  target 'WallPeckersTests' do
+ target 'WallPeckersTests' do
     inherit! :search_paths
     # Pods for testing
   end

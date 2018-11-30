@@ -35,6 +35,8 @@
 		23D86F2021B125D300CDC5B6 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1D21B125D300CDC5B6 /* data.json */; };
 		23D86F2121B125D300CDC5B6 /* loding.json in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1E21B125D300CDC5B6 /* loding.json */; };
 		23D86F2221B125D300CDC5B6 /* game_press.xls in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1F21B125D300CDC5B6 /* game_press.xls */; };
+		23D86F2421B1280200CDC5B6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F2321B1280200CDC5B6 /* User.swift */; };
+		23D86F2621B12C9E00CDC5B6 /* AlreadyRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F2521B12C9E00CDC5B6 /* AlreadyRegisterViewController.swift */; };
 		27CF50B0274CFED5C6137941 /* Pods_WallPeckers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0997FD62F62E72A2ECCE9E /* Pods_WallPeckers.framework */; };
 		63F7705580BD0081C031FC36 /* Pods_WallPeckersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEDA8DB709A58CD1F5D0B019 /* Pods_WallPeckersTests.framework */; };
 /* End PBXBuildFile section */
@@ -96,6 +98,8 @@
 		23D86F1D21B125D300CDC5B6 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		23D86F1E21B125D300CDC5B6 /* loding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loding.json; sourceTree = "<group>"; };
 		23D86F1F21B125D300CDC5B6 /* game_press.xls */ = {isa = PBXFileReference; lastKnownFileType = file; path = game_press.xls; sourceTree = "<group>"; };
+		23D86F2321B1280200CDC5B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		23D86F2521B12C9E00CDC5B6 /* AlreadyRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlreadyRegisterViewController.swift; sourceTree = "<group>"; };
 		49F5683513EC949641C5B431 /* Pods-WallPeckersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BDA4C6BCF9B2F1F789F276F /* Pods-WallPeckersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersUITests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersUITests/Pods-WallPeckersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AFDE0B94297251E5C4707EB8 /* Pods-WallPeckers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckers.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckers/Pods-WallPeckers.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,9 +164,11 @@
 			children = (
 				2357818B21ABF2DA00338CB9 /* Extension */,
 				2357815921ABF28F00338CB9 /* AppDelegate.swift */,
+				23D86F2321B1280200CDC5B6 /* User.swift */,
 				2357818721ABF2AE00338CB9 /* StartViewController.swift */,
 				23D86F0A21B11BC800CDC5B6 /* AfterRegisterViewController.swift */,
 				2357818921ABF2B900338CB9 /* Main.storyboard */,
+				23D86F2521B12C9E00CDC5B6 /* AlreadyRegisterViewController.swift */,
 				23D86EFB21AFEC3A00CDC5B6 /* RegisterViewController.swift */,
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
 				2357816221ABF29000338CB9 /* LaunchScreen.storyboard */,
@@ -403,6 +409,8 @@
 				"${BUILT_PRODUCTS_DIR}/AloeStackView/AloeStackView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -414,6 +422,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AloeStackView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -495,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23D86F2621B12C9E00CDC5B6 /* AlreadyRegisterViewController.swift in Sources */,
 				2357819521ABF47A00338CB9 /* PopUpView.swift in Sources */,
 				2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */,
 				2357818821ABF2AE00338CB9 /* StartViewController.swift in Sources */,
@@ -505,6 +516,7 @@
 				2357819021ABF2DA00338CB9 /* LeftPaddedTextField.swift in Sources */,
 				23D86F0921B1146900CDC5B6 /* UIViewController_extension.swift in Sources */,
 				2357819221ABF2DA00338CB9 /* BaseVerticalScrollView.swift in Sources */,
+				23D86F2421B1280200CDC5B6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

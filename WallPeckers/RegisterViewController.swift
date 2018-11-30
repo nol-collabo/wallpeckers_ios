@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import RealmSwift
+
+
+let realm = try! Realm()
 
 class RegisterViewController: UIViewController {
     
@@ -156,6 +160,15 @@ class RegisterViewController: UIViewController {
         
         sender.isUserInteractionEnabled = false
         
+        let user = User()
+        
+        user.name = myName
+        user.age = myAge ?? 0
+        
+        try! realm.write {
+            realm.add(user)
+        }
+         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
         
         self.navigationController?.pushViewController(vc, animated: true)
