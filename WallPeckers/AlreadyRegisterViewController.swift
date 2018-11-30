@@ -11,6 +11,13 @@ import SnapKit
 
 
 class AlreadyRegisterViewController: UIViewController {
+    
+    let titleLb = UILabel()
+    let descLb = UILabel()
+    let newStartBtn = UIButton()
+    let continueBtn = UIButton()
+    let nextBtn = BottomButton()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

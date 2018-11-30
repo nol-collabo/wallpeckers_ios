@@ -26,6 +26,8 @@ class RegisterViewController: UIViewController {
     let registBtn = BottomButton()
     let descLb = UILabel()
     let picketViewGesture = UITapGestureRecognizer()
+    let imagePicker = UIImagePickerController()
+    var myImage:UIImage?
     var myName:String? {
         didSet {
             
@@ -184,9 +186,25 @@ class RegisterViewController: UIViewController {
     
     @objc func callProfileImageOption(sender:UIButton) {
 //        sender.isUserInteractionEnabled = false
+        imagePicker.delegate = self
         PopUp.call(mainTitle: "사진 추가", selectButtonTitles: ["카메라", "사진첩", "기본 이미지로"], bottomButtonTitle: "취소", bottomButtonType: 1, self)
     }
     
+}
+
+extension RegisterViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print(info)
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            myImage = image
+            self.profileImv.image = image
+        }
+        
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
 
 class BottomButton:UIButton {
@@ -258,11 +276,29 @@ extension RegisterViewController:SelectPopupDelegate {
     func bottomButtonTouched(sender: UIButton) {
 
         self.removePopUpView()
-//        print(sender)
+
     }
     
     func selectButtonTouched(tag: Int) {
-        print(tag)
+        
+        switch tag {
+        case 0:
+            print("CAMERA")
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
+        case 1:
+            print("LIBRARY")
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        case 2:
+            print("DEFAULT")
+        default:
+            break
+        }
+        
+        self.removePopUpView()
+
+//        print(tag)
     }
     
     
@@ -279,15 +315,7 @@ extension UILabel {
         self.textAlignment = textAlignment
         self.numberOfLines = 0
     }
-//
-//    func makeAttributeString() -> NSAttributedString {
-//
-////        let aString:NSMutableAttributedString = self.color
-//
-//
-//
-//    }
-    
+
 }
 
 extension String {
