@@ -14,8 +14,49 @@ import SwiftyJSON
 class Standard {
     
     static let shared = Standard()
+    private var sharedTimer:Timer!
+    var delegate:GamePlayTimeDelegate?
+    private var gamePlayTime:Int = 120 {
+        didSet {
+            
+            delegate?.checkPlayTime(gamePlayTime)
+
+            if gamePlayTime == 0 {
+                sharedTimer.invalidate()
+                sharedTimer = nil
+            }
+        }
+    }
     
     private init() {
+        
+    }
+    
+    
+    func startTimer(gameMode:GameMode) {
+        
+//        gamePlayTime = gameMode?
+        
+        switch gameMode {
+            
+        case .long:
+            gamePlayTime = 1000
+        case .short:
+            gamePlayTime = 5
+        }
+        
+        sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
+            print(self.gamePlayTime)
+            
+            self.gamePlayTime -= 1
+        })
+        
+        
+    }
+    
+    func endTimer() {
+        
+    
         
     }
 
@@ -76,3 +117,13 @@ enum Language:String {
 }
 
 //clas
+
+enum GameMode:String {
+    case long, short
+}
+
+protocol GamePlayTimeDelegate {
+    
+    func checkPlayTime(_ time:Int)
+    
+}

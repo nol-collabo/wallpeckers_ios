@@ -25,9 +25,7 @@ class AfterRegisterViewController: UIViewController {
             guard let _userInfo = userInfo else {return}
             nameLb.text = _userInfo.name
             profileImageView.image = UIImage.init(data: _userInfo.profileImage!)
-            print(_userInfo.profileImage)
-            print("~~~")
-            
+       
         }
     }
     
@@ -37,7 +35,13 @@ class AfterRegisterViewController: UIViewController {
 
         setUI()
         getUserData()
+        addAction()
         // Do any additional setup after loading the view.
+    }
+    
+    func addAction() {
+        myPagebtn.addTarget(self, action: #selector(moveToMaPage(sender:)), for: .touchUpInside)
+        confirmBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
     func setUI() {
@@ -98,8 +102,10 @@ class AfterRegisterViewController: UIViewController {
         }
         confirmBtn.setTitle("확인", for: .normal)
         myPagebtn.setTitle("마이페이지", for: .normal)
-        myPagebtn.addTarget(self, action: #selector(moveToMaPage(sender:)), for: .touchUpInside)
-        confirmBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
+        pressCodeTf.delegate = self
+        confirmBtn.backgroundColor = .gray
+        confirmBtn.isUserInteractionEnabled = false
+
     }
     
     @objc func moveToMaPage(sender:UIButton) {
@@ -127,24 +133,29 @@ class AfterRegisterViewController: UIViewController {
 
     
     func getUserData() {
-        
-   
- 
+
         self.userInfo = realm.objects(User.self).last
         
-        
-        
     }
+
+}
+
+
+extension AfterRegisterViewController:UITextFieldDelegate {
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string.count > 0 {
+            print("Not Empty")
+            confirmBtn.isUserInteractionEnabled = true
+            confirmBtn.backgroundColor = .black
 
+        }
+        return true
+        
+    }
 }

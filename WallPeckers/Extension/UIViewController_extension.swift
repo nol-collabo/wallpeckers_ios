@@ -12,6 +12,46 @@ import UIKit
 
 extension UIViewController {
     
+    func findTimerView() -> NavigationCustomView {
+        if let vv = self.view.subviews.filter({
+            
+            $0 is GameNavigationBar
+            
+        }).first as? GameNavigationBar {
+            if let _timerView = vv.subviews.filter({
+                
+                $0.tag == 99
+                
+            }).first as? NavigationCustomView {
+//                self.timerView = _timerView
+                
+                return _timerView
+            }
+        }else{
+            return NavigationCustomView()
+        }
+        return NavigationCustomView()
+
+    }
+    
+    func setCustomNavigationBar() {
+        
+        let navBar = GameNavigationBar()
+
+        navBar.delegate = self as? GameNavigationBarDelegate
+        Standard.shared.delegate = self as? GamePlayTimeDelegate
+
+        self.navigationController?.isNavigationBarHidden = true
+    
+        self.view.addSubview(navBar)
+        navBar.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeArea.top)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(60)
+        }
+        
+    }
+    
     func allButtonUserIteraction(_ bool:Bool) {
         
         let btns = self.view.subviews.filter({

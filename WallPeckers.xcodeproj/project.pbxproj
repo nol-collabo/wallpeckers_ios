@@ -47,6 +47,8 @@
 		23D86F3721B15DFE00CDC5B6 /* FIVE_W_ONE_HS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F3621B15DFE00CDC5B6 /* FIVE_W_ONE_HS.swift */; };
 		23D86F3921B4D74A00CDC5B6 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F3821B4D74A00CDC5B6 /* MyPageViewController.swift */; };
 		23D86F3B21B4FA0900CDC5B6 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F3A21B4FA0900CDC5B6 /* TutorialViewController.swift */; };
+		23D86F3D21B50DE700CDC5B6 /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F3C21B50DE700CDC5B6 /* Game.storyboard */; };
+		23D86F3F21B50E7000CDC5B6 /* GameMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F3E21B50E7000CDC5B6 /* GameMainViewController.swift */; };
 		27CF50B0274CFED5C6137941 /* Pods_WallPeckers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0997FD62F62E72A2ECCE9E /* Pods_WallPeckers.framework */; };
 		63F7705580BD0081C031FC36 /* Pods_WallPeckersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEDA8DB709A58CD1F5D0B019 /* Pods_WallPeckersTests.framework */; };
 /* End PBXBuildFile section */
@@ -120,6 +122,8 @@
 		23D86F3621B15DFE00CDC5B6 /* FIVE_W_ONE_HS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIVE_W_ONE_HS.swift; sourceTree = "<group>"; };
 		23D86F3821B4D74A00CDC5B6 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		23D86F3A21B4FA0900CDC5B6 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		23D86F3C21B50DE700CDC5B6 /* Game.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
+		23D86F3E21B50E7000CDC5B6 /* GameMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMainViewController.swift; sourceTree = "<group>"; };
 		49F5683513EC949641C5B431 /* Pods-WallPeckersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BDA4C6BCF9B2F1F789F276F /* Pods-WallPeckersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersUITests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersUITests/Pods-WallPeckersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		AFDE0B94297251E5C4707EB8 /* Pods-WallPeckers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckers.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckers/Pods-WallPeckers.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 				23D86F3821B4D74A00CDC5B6 /* MyPageViewController.swift */,
 				23D86EFB21AFEC3A00CDC5B6 /* RegisterViewController.swift */,
 				23D86F3A21B4FA0900CDC5B6 /* TutorialViewController.swift */,
+				23D86F3C21B50DE700CDC5B6 /* Game.storyboard */,
+				23D86F3E21B50E7000CDC5B6 /* GameMainViewController.swift */,
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
 				2357816221ABF29000338CB9 /* LaunchScreen.storyboard */,
 				2357816521ABF29000338CB9 /* Info.plist */,
@@ -399,6 +405,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23D86F3D21B50DE700CDC5B6 /* Game.storyboard in Resources */,
 				23D86F2221B125D300CDC5B6 /* game_press.xls in Resources */,
 				2357818A21ABF2B900338CB9 /* Main.storyboard in Resources */,
 				23D86F1721B125C700CDC5B6 /* notokr_medium.ttf in Resources */,
@@ -560,6 +567,7 @@
 				23D86F2B21B1496F00CDC5B6 /* LocalLanguage.swift in Sources */,
 				23D86F0921B1146900CDC5B6 /* UIViewController_extension.swift in Sources */,
 				23D86F3921B4D74A00CDC5B6 /* MyPageViewController.swift in Sources */,
+				23D86F3F21B50E7000CDC5B6 /* GameMainViewController.swift in Sources */,
 				23D86F2921B1494100CDC5B6 /* Clue.swift in Sources */,
 				23D86F2F21B1518B00CDC5B6 /* Section.swift in Sources */,
 				2357819221ABF2DA00338CB9 /* BaseVerticalScrollView.swift in Sources */,

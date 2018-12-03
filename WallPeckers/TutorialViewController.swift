@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SnapKit
 
 
 let DeviceSize = UIWindow().bounds.size
 
-class TutorialViewController: UIViewController {
+class TutorialViewController: UIViewController, TutorialViewDelegate {
 
     let horizontalScrollView = BaseHorizontalScrollView()
     let t1View = TutorialView()
@@ -22,14 +23,18 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.view.addSubview(horizontalScrollView)
-        
+        setUI()
+    
+        // Do any additional setup after loading the view.
+    }
+    
+    func setUI() {
         horizontalScrollView.setScrollView(vc: self)
-     
+        
         
         
         horizontalScrollView.contentView.addSubview([t1View, t2View, t3View, t4View])
-//        horizontalScrollView.sc
+        
         t1View.snp.makeConstraints { (make) in
             make.height.equalToSuperview()
             make.width.equalTo(DeviceSize.width)
@@ -57,9 +62,21 @@ class TutorialViewController: UIViewController {
         
         t1View.backgroundColor = .red
         t2View.backgroundColor = .blue
-        t3View.backgroundColor = .white
-        t4View.backgroundColor = .black
-        // Do any additional setup after loading the view.
+        t3View.backgroundColor = .black
+        t4View.backgroundColor = .white
+        t1View.setData(title: "d", image: UIImage())
+        t2View.setData(title: "d", image: UIImage())
+        t3View.setData(title: "d", image: UIImage())
+        t4View.setData(title: "d", image: UIImage(), isLast: true)
+        t4View.delegate = self
+
+    }
+    
+    func touchMove(sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+        
+        self.present(vc, animated: true, completion: nil)
     }
     
 
@@ -77,12 +94,65 @@ class TutorialViewController: UIViewController {
 
 class TutorialView:UIView {
     
+    let nextBtn = BottomButton()
+    let descLb = UILabel()
+    let descImv = UIImageView()
+    var delegate:TutorialViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUI()
+        nextBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func setUI() {
+        
+        self.addSubview([nextBtn, descLb, descImv])
+        
+        nextBtn.snp.makeConstraints { (make) in
+            make.bottom.equalTo(-100)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(50)
+        }
+        descLb.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        descLb.numberOfLines = 0
+        descImv.snp.makeConstraints { (make) in
+            make.top.equalTo(20)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(100)
+        }
+        
+    }
+    
+    func setData(title:String, image:UIImage, isLast:Bool = false) {
+        
+        if !isLast {
+            nextBtn.isHidden = true
+        }
+        self.descLb.setText(title, size: 10, textAlignment: .center)
+        self.descImv.image = image
+        
+        
+    }
+    
+    @objc func moveToNext(sender:UIButton) {
+        
+        delegate?.touchMove(sender: sender)
+        
+        
+    }
+    
+}
+
+protocol TutorialViewDelegate {
+    
+    func touchMove(sender:UIButton)
     
 }
