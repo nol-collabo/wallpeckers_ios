@@ -53,11 +53,7 @@ class MyPageViewController: UIViewController {
             make.height.equalTo(200)
         }
         dismissBtn.addTarget(self, action: #selector(dismissTouched(sender:)), for: .touchUpInside)
-//        profileView.snp.make
-//
-//        profileView.snp.makeConstraints { (ma) in
-//            <#code#>
-//        }
+
     }
     
     @objc func dismissTouched(sender:UIButton) {

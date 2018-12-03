@@ -38,6 +38,7 @@ class SelectPopUpView:UIView {
         popupView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.leading.equalTo(40)
+            make.height.equalTo(300)
 //            make.bottom.equalToSuperview().offset(-50)
         }
         popupView.addSubview([titleView, buttonView, bottomView])
@@ -98,6 +99,7 @@ class SelectPopUpView:UIView {
             
             button.setTitle(selectedButton[i], for: .normal)
             button.tag = i
+//            button.setBackgroundColor(color: .gray, forState: .selected)
             button.setTitleColor(.black, for: .normal)
             button.addTarget(self, action: #selector(selectBtnTouched(sender:)), for: .touchUpInside)
             buttonView.addRow(button)
@@ -109,11 +111,28 @@ class SelectPopUpView:UIView {
     @objc func bottomBtnTouched(sender:UIButton) {
         
         delegate?.bottomButtonTouched(sender: sender)
-//        self.removeFromSuperview()
+
+    }
+    
+    func clear() {
+        
+        for i in buttonView.subviews[0].subviews {
+            i.subviews[0].backgroundColor = .white
+        }
+        
+//        for i in buttonView.subviews.filter({
+//
+//            $0 is UIButton
+//        }) {
+//            i.backgroundColor = .white
+//        }
     }
     
     @objc func selectBtnTouched(sender:UIButton) {
+        clear()
+        sender.isSelected = !(sender.isSelected)
         
+        sender.backgroundColor = .gray
         delegate?.selectButtonTouched(tag: sender.tag)
         
         

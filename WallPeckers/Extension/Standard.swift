@@ -66,14 +66,19 @@ class Standard {
         UserDefaults.standard.set(countryCode, forKey: "Language")
         
     }
-    func getLocalized() -> String {
-        return UserDefaults.standard.string(forKey: "Language") ?? "ko"
+    func getLocalized() -> Language {
+        
+        return Language.init(rawValue: UserDefaults.standard.string(forKey: "Language") ?? "ko")!
+        
     }
     
-    func addUser(name:String, age:Int) {
-        UserDefaults.standard.set(name, forKey: "UserName")
-        UserDefaults.standard.set(age, forKey: "UserAge")
+ 
+    func setLanguate() {
+        
+//        UserDefaults.standard.set
+        
     }
+    
     
     func getJSON() -> JSON? {
         

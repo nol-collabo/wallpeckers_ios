@@ -50,9 +50,16 @@ class RegisterViewController: UIViewController {
     }
     
     
-    let ages = ["Select None", "Under 10", "10-19", "20-29", "30-39", "40-49", "50-59", "Above 60"]
+    var ages = realm.objects(Age.self)
+    var localAges = realm.objects(LocalAge.self)
+    
+    let selectedLanguage = Standard.shared.getLocalized()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         ageSelectPickerView.delegate = self
         ageSelectPickerView.dataSource = self
@@ -61,7 +68,15 @@ class RegisterViewController: UIViewController {
         ageSelectIndicatedLb.addGestureRecognizer(picketViewGesture)
         cameraBtn.addTarget(self, action: #selector(callProfileImageOption(sender:)), for: .touchUpInside)
         setUI()
-
+      
+        switch  selectedLanguage {
+        case .ENGLISH:
+            localAges = realm.objects(LocalAge.self).filter("language = 2")
+        case .GERMAN:
+           localAges = realm.objects(LocalAge.self).filter("language = 3")
+        case .KOREAN:
+            ages = realm.objects(Age.self)
+        }
     }
     
     
@@ -277,16 +292,28 @@ extension RegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        
+        if selectedLanguage == .KOREAN {
     
-        return ages[row]
+        return ages[row].age
+        }else{
+            return localAges[row].age
+        }
+        
+
         
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 //        pickerView.isHidden = true
+        
+        if selectedLanguage == .KOREAN {
+            ageSelectIndicatedLb.text = ages[row].age
+
+        }else{
+            ageSelectIndicatedLb.text = localAges[row].age
+
+        }
         myAge = row
-        ageSelectIndicatedLb.text = ages[row]
         
     }
 
@@ -358,7 +385,7 @@ extension String {
         
         let countryCode = Standard.shared.getLocalized()
         
-        let path = Bundle.main.path(forResource: countryCode, ofType: "lproj")
+        let path = Bundle.main.path(forResource: countryCode.rawValue, ofType: "lproj")
         let bundleName = Bundle(path: path!)
         return NSLocalizedString(self, tableName: nil, bundle: bundleName!, value: "", comment: "")    }
 }
