@@ -43,3 +43,40 @@ class BaseVerticalScrollView:UIView {
     }
     
 }
+
+class BaseHorizontalScrollView:UIView {
+    
+    private let scrollView = UIScrollView()
+    let contentView = UIView()
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setScrollView(vc:UIViewController) {
+        
+        vc.view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { (make) in
+            make.height.equalToSuperview()
+            make.centerY.leading.trailing.equalToSuperview()
+            
+        }
+        
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints { (make) in
+            make.height.equalToSuperview()
+            make.centerY.leading.trailing.equalToSuperview()
+        }
+        scrollView.isPagingEnabled = true
+//        scrollView.isUserInteractionEnabled = true
+//        scrollView.isScrollEnabled = true
+        scrollView.delegate = vc as? UIScrollViewDelegate
+        
+    }
+    
+}

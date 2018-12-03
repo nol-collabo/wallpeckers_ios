@@ -73,14 +73,18 @@ extension StartViewController:SelectPopupDelegate {
         if let _selectedLanguage = selectedLanguage {
             print(_selectedLanguage)
 //
-//            if user.count > 0 { // 유저정보 없을 떄
-//
-//            }else{ // 신규유저
+            if user.count > 0 { // 유저정보 없을 떄
+                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+
+                
+            }else{ // 신규유저
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as? RegisterViewController else {return}
                 
                 self.navigationController?.pushViewController(vc, animated: true)
-//            }
-            
+            }
+        
             
             
         }else{

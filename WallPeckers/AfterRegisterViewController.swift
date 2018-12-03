@@ -98,8 +98,33 @@ class AfterRegisterViewController: UIViewController {
         }
         confirmBtn.setTitle("확인", for: .normal)
         myPagebtn.setTitle("마이페이지", for: .normal)
+        myPagebtn.addTarget(self, action: #selector(moveToMaPage(sender:)), for: .touchUpInside)
+        confirmBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func moveToMaPage(sender:UIButton) {
+        
+        sender.isUserInteractionEnabled = false
+        
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyPageViewController") as? MyPageViewController else {return}
+        sender.isUserInteractionEnabled = true
+
+        self.present(vc, animated: true, completion: nil)
         
     }
+    
+    @objc func moveToNext(sender:UIButton) {
+        
+        sender.isUserInteractionEnabled = false
+        
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+        
+        sender.isUserInteractionEnabled = false
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+
     
     func getUserData() {
         

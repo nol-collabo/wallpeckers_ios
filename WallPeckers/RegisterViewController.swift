@@ -229,19 +229,10 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print(info)
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            myImage = image
-            
-            
-            
-            self.myImage = image.jpegData(compressionQuality: 0.5)
 
-            print(self.myImage)
-            print(image.pngData())
-            
-//            myImage = Data.
+            self.myImage = image.jpegData(compressionQuality: 0.5)
             self.profileImv.image = image
         }
         
