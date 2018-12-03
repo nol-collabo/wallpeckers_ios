@@ -19,13 +19,24 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeTf = UITextField()
     let pressCodeLb = UILabel()
     let confirmBtn = BottomButton()
-    
+    var userInfo:User? {
+        didSet {
+            
+            guard let _userInfo = userInfo else {return}
+            nameLb.text = _userInfo.name
+            profileImageView.image = UIImage.init(data: _userInfo.profileImage!)
+            print(_userInfo.profileImage)
+            print("~~~")
+            
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUI()
+        getUserData()
         // Do any additional setup after loading the view.
     }
     
@@ -87,6 +98,16 @@ class AfterRegisterViewController: UIViewController {
         }
         confirmBtn.setTitle("확인", for: .normal)
         myPagebtn.setTitle("마이페이지", for: .normal)
+        
+    }
+    
+    func getUserData() {
+        
+   
+ 
+        self.userInfo = realm.objects(User.self).last
+        
+        
         
     }
     

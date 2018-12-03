@@ -8,7 +8,8 @@
 
 import UIKit
 import RealmSwift
-
+import Photos
+//import King
 
 let realm = try! Realm()
 
@@ -27,7 +28,7 @@ class RegisterViewController: UIViewController {
     let descLb = UILabel()
     let picketViewGesture = UITapGestureRecognizer()
     let imagePicker = UIImagePickerController()
-    var myImage:UIImage?
+    var myImage:Data?
     var myName:String? {
         didSet {
             
@@ -63,9 +64,41 @@ class RegisterViewController: UIViewController {
 
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkPermission()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.allButtonUserIteraction(true)
+    }
+    
+    func checkPermission() {
+        
+        
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    /* do stuff here */
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            // same same
+            print("User do not have access to photo album.")
+        case .denied:
+            // same same
+            print("User has denied the permission.")
+        }
     }
     
     func setUI() {
@@ -166,6 +199,7 @@ class RegisterViewController: UIViewController {
         
         user.name = myName
         user.age = myAge ?? 0
+        user.profileImage = self.myImage
         
         try! realm.write {
             realm.add(user)
@@ -198,7 +232,16 @@ extension RegisterViewController:UIImagePickerControllerDelegate, UINavigationCo
         print(info)
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            myImage = image
+//            myImage = image
+            
+            
+            
+            self.myImage = image.jpegData(compressionQuality: 0.5)
+
+            print(self.myImage)
+            print(image.pngData())
+            
+//            myImage = Data.
             self.profileImv.image = image
         }
         

@@ -14,6 +14,6 @@ class User:Object {
     
     @objc dynamic var name:String?
     @objc dynamic var age:Int = 0
-//    @objc dynamic var profileImage:UIImage?
+    @objc dynamic var profileImage:Data?
     
 }
