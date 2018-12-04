@@ -27,6 +27,7 @@ class RegisterViewController: UIViewController {
     let registBtn = BottomButton()
     let descLb = UILabel()
     let picketViewGesture = UITapGestureRecognizer()
+    let keyboardResigner = UITapGestureRecognizer()
     let imagePicker = UIImagePickerController()
     var myImage:Data?
     var myName:String? {
@@ -60,7 +61,8 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         
         
-        
+        keyboardResigner.addTarget(self, action: #selector(removeKeyboard))
+        view.addGestureRecognizer(keyboardResigner)
         ageSelectPickerView.delegate = self
         ageSelectPickerView.dataSource = self
         nameTf.delegate = self
@@ -79,7 +81,10 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    
+    @objc func removeKeyboard() {
+        nameTf.resignFirstResponder()
+        ageSelectPickerView.isHidden = true
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkPermission()
