@@ -36,7 +36,6 @@ class RegisterViewController: UIViewController {
             if myName != nil && myAge != nil {
                     registBtn.isHidden = false
             }
-            
         }
     }
 
@@ -373,11 +372,9 @@ extension RegisterViewController:SelectPopupDelegate {
 extension UILabel {
     
     
-    func setText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment) {
-        
-        self.text = text.localized
-        self.textColor = color
-        self.font = UIFont.systemFont(ofSize: size, weight: .regular)
+    func setText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:FontSize = FontSize.medium) {
+                
+        self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
         self.textAlignment = textAlignment
         self.numberOfLines = 0
     }
@@ -385,6 +382,15 @@ extension UILabel {
 }
 
 extension String {
+    
+    func makeAttrString(font:UIFont, color:UIColor) -> NSMutableAttributedString {
+        
+        let descTitle = NSMutableAttributedString.init(string:self)
+        
+        descTitle.addAttributes([NSAttributedString.Key.foregroundColor:color, NSAttributedString.Key.font:font], range: NSRange.init(location: 0, length: descTitle.length))
+        
+        return descTitle
+    }
     
     var localized: String {
         
@@ -395,4 +401,12 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: bundleName!, value: "", comment: "")    }
 }
 
+enum FontSize:String {
+    
+    case bold = "NotoKR-Bold"
+    case regular = "NotoKR-Regular"
+    case medium = "NotoKR-Medium"
+    case thin = "NotoKR-Thin"
+    
+}
 
