@@ -97,7 +97,7 @@ class MyPageSectionView:UIView {
     
     func setData(content:ContentType) {
         
-        titleLb.setText(content.rawValue, color: .black, size: 20, textAlignment: .center)
+        titleLb.setNotoText(content.rawValue, color: .black, size: 20, textAlignment: .center)
 //        titleLb.setText(title, color: .black, size: 20, textAlignment: .center)
         switch content {
         case .Badge:

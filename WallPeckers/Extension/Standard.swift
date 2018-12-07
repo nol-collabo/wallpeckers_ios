@@ -16,7 +16,7 @@ class Standard {
     static let shared = Standard()
     private var sharedTimer:Timer!
     var delegate:GamePlayTimeDelegate?
-    private var gamePlayTime:Int = 120 {
+    var gamePlayTime:Int = 120 {
         didSet {
             
             delegate?.checkPlayTime(gamePlayTime)
@@ -42,7 +42,7 @@ class Standard {
         case .long:
             gamePlayTime = 1000
         case .short:
-            gamePlayTime = 5
+            gamePlayTime = 120
         }
         
         sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in

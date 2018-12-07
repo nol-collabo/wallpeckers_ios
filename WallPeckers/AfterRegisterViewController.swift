@@ -11,6 +11,7 @@ import UIKit
 class AfterRegisterViewController: UIViewController {
 
     
+    
     let mainProfileView = UIView()
     let titleLb = UILabel()
     let profileImageView = UIImageView()
@@ -19,6 +20,7 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeTf = UITextField()
     let pressCodeLb = UILabel()
     let confirmBtn = BottomButton()
+    let pressCodeDescLb = UILabel()
     var userInfo:User? {
         didSet {
             
@@ -46,29 +48,33 @@ class AfterRegisterViewController: UIViewController {
     
     func setUI() {
         
-        self.view.addSubview([mainProfileView, pressCodeLb, pressCodeTf, confirmBtn])
-        
+        self.view.addSubview([mainProfileView, pressCodeLb, pressCodeTf, confirmBtn, pressCodeDescLb])
+        self.view.backgroundColor = .basicBackground
         mainProfileView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(20)
             make.centerX.equalToSuperview()
-            make.leading.equalTo(30)
-            make.height.equalTo(300)
+            make.leading.equalTo(64)
+            make.height.equalTo(370)
         }
-        mainProfileView.setBorder(color: .black, width: 5)
+        mainProfileView.setBorder(color: .black, width: 3)
         
         mainProfileView.addSubview([titleLb, profileImageView, nameLb, myPagebtn])
         
         titleLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(10)
-            make.height.equalTo(30)
+            make.top.equalTo(20)
+            make.height.equalTo(40)
         }
+        titleLb.setAeericanTypeText("PRESS", size: 50, textAlignment: .center, font:.bold)
+
         profileImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLb.snp.bottom).offset(10)
-            make.width.equalTo(80)
-            make.height.equalTo(120)
+            make.width.equalTo(150)
+            make.height.equalTo(180)
         }
+        mainProfileView.backgroundColor = .paleOliveGreen
+        profileImageView.setBorder(color: .black, width: 3.5)
         nameLb.snp.makeConstraints { (make) in
             make.top.equalTo(profileImageView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
@@ -76,13 +82,13 @@ class AfterRegisterViewController: UIViewController {
         }
         myPagebtn.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.leading.equalTo(10)
-            make.height.equalTo(30)
+            make.leading.equalTo(20)
+            make.height.equalTo(43)
             make.bottom.equalTo(-20)
         }
         
         pressCodeTf.snp.makeConstraints { (make) in
-            make.top.equalTo(mainProfileView.snp.bottom).offset(10)
+            make.top.equalTo(mainProfileView.snp.bottom).offset(46)
             make.centerX.equalToSuperview()
             make.leading.equalTo(35)
             make.height.equalTo(30)
@@ -90,15 +96,23 @@ class AfterRegisterViewController: UIViewController {
         pressCodeLb.snp.makeConstraints { (make) in
             make.top.equalTo(pressCodeTf.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
-            make.height.equalTo(30)
+            make.height.equalTo(34)
         }
-        pressCodeTf.placeholder = "PRESS CODE"
+        pressCodeDescLb.snp.makeConstraints { (make) in
+            make.top.equalTo(pressCodeLb.snp.bottom).offset(0)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(34)
+        }
+        pressCodeTf.attributedPlaceholder = "PRESS CODE".makeAttrString(font: .NotoSans(.medium, size: 25), color: UIColor.init(white: 155/255, alpha: 1))
         pressCodeTf.textAlignment = .center
-        pressCodeLb.setText("프레스 코드를 입력하고 확인을 누르세요", size: 10, textAlignment: .center)
+        pressCodeTf.addUnderBar()
+        pressCodeLb.setNotoText("프레스 코드를 입력하고 확인을 누르세요", size: 16, textAlignment: .center)
+        pressCodeDescLb.setNotoText("You Could find out PRESS CODE on site.", color: .white, size: 12, textAlignment: .center)
         confirmBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeArea.bottom).offset(-30)
+            make.height.equalTo(55)
             make.centerX.equalToSuperview()
-            make.leading.equalTo(50)
+            make.leading.equalTo(55)
         }
         confirmBtn.setTitle("확인", for: .normal)
         myPagebtn.setTitle("마이페이지", for: .normal)

@@ -30,8 +30,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
     
     func setUI() {
         horizontalScrollView.setScrollView(vc: self)
-        
-        
+        self.view.backgroundColor = .basicBackground
         
         horizontalScrollView.contentView.addSubview([t1View, t2View, t3View, t4View])
         
@@ -59,15 +58,14 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
             make.height.equalToSuperview()
             make.top.equalToSuperview()
         }
+
         
-        t1View.backgroundColor = .red
-        t2View.backgroundColor = .blue
-        t3View.backgroundColor = .black
-        t4View.backgroundColor = .white
-        t1View.setData(title: "d", image: UIImage())
-        t2View.setData(title: "d", image: UIImage())
-        t3View.setData(title: "d", image: UIImage())
-        t4View.setData(title: "d", image: UIImage(), isLast: true)
+//        t1View.set
+        t1View.setData(title: "WHO, WHEN, WHERE,\nWHAT, HOW and WHY?", desc: "As the Wall stood strong,\nit became a part of everyday\nand you forgot WHY.\nThe WALLPECKERS\n- the journalist of the Wall -\nask WHY and find the truth.", image: UIImage.init(named: "tutorial1")!)
+        t2View.setData(title: "From the DMZ to the Berlin Wall", desc: "Cover issues about\nthe Korean DMZ, still standing 65 years\nand the Berlin Wall, demolished in 1989.\nWrite as many articles as you can\nincluding PAIRED ones. ", image:  UIImage.init(named: "tutorial2")!)
+        t3View.setData(title: "INTO THE PRESSROOM", desc: "Collect clues by 5W1H\naround you in the pressroom\nand enter the CODE of them.\nGet a FACT-CHECK\nby the desk of WALLPECKERS\nand publish the article.", image: UIImage.init(named: "tutorial3")!)
+        t4View.setData(title: "GOAL", desc: "You have 20 minutes\nto complete & publish the articles.\nMaximize your article points\nto be the journalist of the day!", image: UIImage.init(named: "tutorial4")!, isLast: true)
+
         t4View.delegate = self
 
     }
@@ -75,7 +73,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
     func touchMove(sender: UIButton) {
         sender.isUserInteractionEnabled = false
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
-        
+//        self.navigationController?.popViewController(animated: true)
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -95,6 +93,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
 class TutorialView:UIView {
     
     let nextBtn = BottomButton()
+    let topLb = UILabel()
     let descLb = UILabel()
     let descImv = UIImageView()
     var delegate:TutorialViewDelegate?
@@ -110,33 +109,49 @@ class TutorialView:UIView {
     }
     
     private func setUI() {
+        self.backgroundColor = .basicBackground
+        self.addSubview([nextBtn, descLb, descImv, topLb])
         
-        self.addSubview([nextBtn, descLb, descImv])
+        
+        topLb.snp.makeConstraints { (make) in
+//            make.leading.equalTo(70)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(70)
+            make.height.equalTo(50)
+        }
+        topLb.numberOfLines = 0
         
         nextBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(-100)
             make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(50)
+            make.width.equalTo(270)
+            make.height.equalTo(55)
+        }
+        nextBtn.setAttributedTitle("START".makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
+        descImv.snp.makeConstraints { (make) in
+            make.top.equalTo(topLb.snp.bottom).offset(50)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(20)
+            make.height.equalTo(270)
         }
         descLb.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-        }
-        descLb.numberOfLines = 0
-        descImv.snp.makeConstraints { (make) in
-            make.top.equalTo(20)
             make.centerX.equalToSuperview()
-            make.width.height.equalTo(100)
+            make.top.equalTo(descImv.snp.bottom).offset(50)
+            make.leading.equalTo(10)
         }
+        descLb.textAlignment = .center
+        descLb.numberOfLines = 0
+
         
     }
     
-    func setData(title:String, image:UIImage, isLast:Bool = false) {
+    func setData(title:String, desc:String, image:UIImage, isLast:Bool = false) {
         
         if !isLast {
             nextBtn.isHidden = true
         }
-        self.descLb.setText(title, size: 10, textAlignment: .center)
+        self.topLb.setNotoText(title, size: 20, textAlignment: .center)
+        self.descLb.setNotoText(desc, size: 16, textAlignment: .center)
         self.descImv.image = image
         
         

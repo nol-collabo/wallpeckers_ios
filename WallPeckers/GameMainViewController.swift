@@ -8,20 +8,55 @@
 
 import UIKit
 
-class GameMainViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate {
+class GameMainViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, TopicButtonDelegate, AlerPopupViewDelegate {
+    func tapBottomButton(sender: AlertPopUpView) {
+        if sender.tag == 1 {
+
+            print("MOVE TO NEXT")
+            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResultViewController") as? ResultViewController else {return}
+            sender.removeFromSuperview()
+
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }else {
+            sender.removeFromSuperview()
+        }
+    }
+    
+ 
     
     
+    
+    
+    func tap(tag: Int) {
+        print("TAG", tag)
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ArticleChooseViewController") as? ArticleChooseViewController else {return}
+
+        self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    
+    let topicTitleLb = UILabel()
     var timerView:NavigationCustomView?
+    let politicsButton = TopicButton()
+    let economyButton = TopicButton()
+    let generalButton = TopicButton()
+    let artButton = TopicButton()
+    let sportsButton = TopicButton()
+    let peopleButton = TopicButton()
+    @IBOutlet weak var containerView: UIView!
     
     func checkPlayTime(_ time: Int) {
 
         timerView?.updateTime(time)
         
-        if time == 0 { //완료 됐을떄
+        if time == 119 { //완료 됐을떄
 
+            PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
             print("END!")
 
         }else if time == 60 { // 1분 남았을 때
+            PopUp.callAlert(time: "01:00", desc: "1분", vc: self, tag: 2)
 
             print("1minute!")
 
@@ -40,12 +75,93 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        setUI()
         
-        self.setCustomNavigationBar()
         self.timerView = self.findTimerView()
 
         Standard.shared.startTimer(gameMode: .short)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Standard.shared.delegate = self
+
+//        Standard.shared.ti
+    }
+    
+    func setUI() {
+        self.view.backgroundColor = .basicBackground
+        self.setCustomNavigationBar()
+
+        
+        self.view.addSubview([topicTitleLb, politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton])
+        politicsButton.setData(title: "POLITICS", image: UIImage.init(named: "topic1")!, tag: 1)
+        economyButton.setData(title: "ECONOMY/\nDIPLOMACY", image: UIImage.init(named: "topic2")!, tag: 2)
+        generalButton.setData(title: "GENERAL", image: UIImage.init(named: "topic3")!, tag: 3)
+        artButton.setData(title: "ART &\nCULTURE", image: UIImage.init(named: "topic4")!, tag: 4)
+        sportsButton.setData(title: "SPORTS", image: UIImage.init(named: "topic5")!, tag: 5)
+        peopleButton.setData(title: "PEOPLE", image: UIImage.init(named: "topic6")!, tag: 6)
+        politicsButton.delegate = self
+        economyButton.delegate = self
+        generalButton.delegate = self
+        artButton.delegate = self
+        sportsButton.delegate = self
+        peopleButton.delegate = self
+
+        
+        topicTitleLb.setNotoText("CHOOSE A TOPIC", color: .black, size: 24, textAlignment: .center, font: .medium)
+        
+        topicTitleLb.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeArea.top).offset(90)
+            make.height.equalTo(35)
+            make.centerX.equalToSuperview()
+        }
+        
+        economyButton.snp.makeConstraints { (make) in
+            make.top.equalTo(topicTitleLb.snp.bottom).offset(34)
+            make.width.equalTo(90)
+            make.height.equalTo(160)
+            make.centerX.equalToSuperview()
+        }
+        
+        politicsButton.snp.makeConstraints { (make) in
+            make.top.equalTo(topicTitleLb.snp.bottom).offset(34)
+            make.width.equalTo(90)
+            make.height.equalTo(160)
+            make.trailing.equalTo(economyButton.snp.leading).offset(-25)
+        }
+        generalButton.snp.makeConstraints { (make) in
+            make.top.equalTo(topicTitleLb.snp.bottom).offset(34)
+            make.width.equalTo(90)
+            make.height.equalTo(160)
+            make.leading.equalTo(economyButton.snp.trailing).offset(25)
+        }
+        
+        sportsButton.snp.makeConstraints { (make) in
+            make.top.equalTo(economyButton.snp.bottom).offset(30)
+            make.width.equalTo(90)
+            make.height.equalTo(180)
+            make.centerX.equalToSuperview()
+        }
+        
+        artButton.snp.makeConstraints { (make) in
+            make.top.equalTo(economyButton.snp.bottom).offset(30)
+            make.width.equalTo(90)
+            make.height.equalTo(180)
+            make.trailing.equalTo(sportsButton.snp.leading).offset(-25)
+        }
+        
+        peopleButton.snp.makeConstraints { (make) in
+            make.top.equalTo(economyButton.snp.bottom).offset(30)
+            make.width.equalTo(90)
+            make.height.equalTo(180)
+            make.leading.equalTo(sportsButton.snp.trailing).offset(25)
+        }
+        
+        
+        
     }
     
     func findTimerView() {
@@ -63,18 +179,6 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
             }
         }
     }
-    
-   
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 class GameNavigationBar:UIView {
@@ -94,31 +198,34 @@ class GameNavigationBar:UIView {
     func setUI() {
         
         self.addSubview([timerView, myPageBtn, scoreView])
-        
+        self.backgroundColor = .basicBackground
         timerView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.width.equalTo(120)
-            make.height.equalTo(50)
-            make.leading.equalTo(10)
+            make.top.equalTo(16)
+            make.width.equalTo(72)
+            make.height.equalTo(33)
+            make.leading.equalTo(18)
         }
         myPageBtn.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(50)
-            make.centerY.equalToSuperview()
+            make.width.equalTo(82)
+            make.height.equalTo(20)
+            make.top.equalTo(29)
+
         }
+        myPageBtn.setBorder(color: .black, width: 1, cornerRadius: 3)
         
         scoreView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.width.equalTo(120)
-            make.height.equalTo(50)
-            make.trailing.equalTo(-10)
+            make.top.equalTo(13)
+            make.width.equalTo(86)
+            make.height.equalTo(36)
+            make.trailing.equalTo(-19)
         }
         
         timerView.tag = 99
-        
-//        scoreView.updateTime(<#T##time: Int##Int#>)
-        myPageBtn.setTitle("마이페이지", for: .normal)
+        timerView.setData(text: "", backgroundimage: UIImage.init(named: "timeSectionView")!)
+        scoreView.setData(text: "", backgroundimage: UIImage.init(named: "scoreSectionView")!)
+
+        myPageBtn.setAttributedTitle("MY PAGE".makeAttrString(font: .NotoSans(.medium, size: 14), color: .white), for: .normal)
         myPageBtn.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)
         
     }
@@ -143,7 +250,7 @@ protocol GameNavigationBarDelegate {
 
 class NavigationCustomView:UIView {
     
-    let topLeftImageView = UIImageView()
+    let backgroundImageView = UIImageView()
     let textLb = UILabel()
     
     override init(frame: CGRect) {
@@ -153,29 +260,42 @@ class NavigationCustomView:UIView {
     
     private func setUI() {
         
-        self.addSubview([textLb, topLeftImageView])
+        self.addSubview([backgroundImageView, textLb])
         
+        backgroundImageView.snp.makeConstraints { (make) in
+            
+            make.edges.equalToSuperview()
+            
+        }
         
         textLb.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.leading.top.equalTo(10)
-            make.width.equalTo(100)
-            make.height.equalTo(50)
+//            make.center.equalToSuperview()
+            make.trailing.equalTo(-8)
+            make.bottom.equalTo(-2)
+//            make.leading.top.equalTo(10)
+//            make.width.equalTo(50)
+//            make.height.equalTo(15)
         }
         
-        topLeftImageView.snp.makeConstraints { (make) in
-            make.top.left.equalToSuperview()
-            make.width.height.equalTo(50)
-        }
+
         
     }
     
-    func setData(text:String, image:UIImage) {
-        
+    func setData(text:String, backgroundimage:UIImage) {
+        backgroundImageView.image = backgroundimage
     }
     
     func updateTime(_ time:Int) {
-        self.textLb.setText("\(time)", size: 12, textAlignment: .center)
+        
+//        transform.
+        
+        let (_, m, s) = secondsToHoursMinutesSeconds(seconds: time)
+        
+        self.textLb.setNotoText("\(m):\(s)", size: 14, textAlignment: .center)
+    }
+    
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -186,3 +306,61 @@ class NavigationCustomView:UIView {
     
 }
 
+class TopicButton:UIView {
+    
+    let selectGesture:UITapGestureRecognizer = UITapGestureRecognizer()
+    let titleImageView = UIImageView()
+    let titleLb = UILabel()
+    var delegate:TopicButtonDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func setUI() {
+        
+        self.addGestureRecognizer(selectGesture)
+        self.isUserInteractionEnabled = true
+        self.backgroundColor = .white
+        selectGesture.addTarget(self, action: #selector(tap))
+        self.setBorder(color: .black, width: 1.5, cornerRadius: 0)
+        self.addSubview([titleImageView, titleLb])
+        
+        titleImageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-10)
+        }
+        titleLb.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(50)
+        
+        }
+        
+        titleLb.numberOfLines = 0
+    }
+    
+    @objc func tap() {
+        delegate?.tap(tag: self.tag)
+    }
+    
+    func setData(title:String, image:UIImage, tag:Int) {
+        
+        self.titleLb.setNotoText(title, size: 13, textAlignment: .center)
+        self.titleImageView.image = image
+        self.tag = tag
+        
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+
+protocol TopicButtonDelegate {
+    
+    func tap(tag:Int)
+}

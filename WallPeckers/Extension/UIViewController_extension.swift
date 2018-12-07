@@ -47,7 +47,7 @@ extension UIViewController {
         navBar.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.safeArea.top)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(60)
+            make.height.equalTo(50)
         }
         
     }

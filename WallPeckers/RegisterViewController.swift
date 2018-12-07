@@ -86,12 +86,44 @@ class RegisterViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkPermission()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.allButtonUserIteraction(true)
+    }
+    
+    func checkPermission(completion:@escaping ((String)->())) {
+        
+        
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+            completion("authorized")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    /* do stuff here */
+                    completion("notDetermined")
+
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            // same same
+            completion("restricted")
+
+            print("User do not have access to photo album.")
+        case .denied:
+            // same same
+            completion("denied")
+
+            print("User has denied the permission.")
+        }
     }
     
     func checkPermission() {
@@ -107,15 +139,18 @@ class RegisterViewController: UIViewController {
                 print("status is \(newStatus)")
                 if newStatus ==  PHAuthorizationStatus.authorized {
                     /* do stuff here */
+                    
                     print("success")
                 }
             })
             print("It is not determined until now")
         case .restricted:
             // same same
+            
             print("User do not have access to photo album.")
         case .denied:
             // same same
+            
             print("User has denied the permission.")
         }
     }
@@ -125,30 +160,32 @@ class RegisterViewController: UIViewController {
         
         view.addSubview([topLb, profileImv, cameraBtn, nameLb, ageLb, nameTf, registBtn, ageSelectPickerView, descLb, ageSelectIndicatedLb])
         
-        topLb.setText("기자증 신청\nPRESS PASS", color: .black, size: 20, textAlignment: .center)
+        topLb.setNotoText("기자증 신청\nPRESS PASS", color: .black, size: 25, textAlignment: .center, font: .medium)
         
         topLb.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeArea.top).offset(20)
+            make.top.equalTo(view.safeArea.top).offset(40)
             make.centerX.equalToSuperview()
         }
         
         profileImv.snp.makeConstraints { (make) in
-            make.top.equalTo(topLb.snp.bottom).offset(20)
+            make.top.equalTo(topLb.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(130)
+            make.width.equalTo(150)
+            make.height.equalTo(180)
         }
+        profileImv.setBorder(color: .black, width: 3.5)
         cameraBtn.snp.makeConstraints { (make) in
             make.centerX.equalTo(profileImv.snp.trailing)
             make.centerY.equalTo(profileImv.snp.bottom)
-            make.width.height.equalTo(50)
+            make.width.equalTo(60)
+            make.height.equalTo(50)
         }
         
-        profileImv.backgroundColor = .blue
+//        profileImv.backgroundColor = .blue
         cameraBtn.backgroundColor = .red
         
-        nameLb.setText("필명", color: .black, size: 16, textAlignment: .right)
-        ageLb.setText("연령대", size: 16, textAlignment: .right)
+        nameLb.setNotoText("필명", color: .black, size: 16, textAlignment: .right)
+        ageLb.setNotoText("연령대", size: 16, textAlignment: .right)
         
         nameLb.snp.makeConstraints { (make) in
             make.top.equalTo(cameraBtn.snp.bottom).offset(30)
@@ -165,7 +202,7 @@ class RegisterViewController: UIViewController {
 
         nameTf.addUnderBar()
         
-        descLb.setText("*필명:내가 쓴 기사에 사용할 이름", size: 10, textAlignment: .left)
+        descLb.setNotoText("*필명:내가 쓴 기사에 사용할 이름", size: 10, textAlignment: .left)
         
         descLb.snp.makeConstraints { (make) in
             make.top.equalTo(nameTf.snp.bottom).offset(1)
@@ -187,7 +224,7 @@ class RegisterViewController: UIViewController {
             make.centerY.equalTo(ageLb.snp.centerY)
             make.height.equalTo(30)
         }
-        ageSelectIndicatedLb.text = "hi"
+        ageSelectIndicatedLb.setNotoText("SELECT AGE", color: .black, size: 26, textAlignment: .left, font: .medium)
         ageSelectIndicatedLb.isUserInteractionEnabled = true
         registBtn.isHidden = true
         ageSelectPickerView.snp.makeConstraints { (make) in
@@ -196,6 +233,8 @@ class RegisterViewController: UIViewController {
             make.top.equalTo(ageSelectIndicatedLb.snp.bottom)
             make.height.equalTo(100)
         }
+        
+        profileImv.image = UIImage.init(named: "basicProfileImage")!
         
         ageSelectPickerView.addUnderBar()
         ageSelectIndicatedLb.addUnderBar()
@@ -206,7 +245,7 @@ class RegisterViewController: UIViewController {
             make.width.equalTo(200)
         }
         
-        registBtn.setTitle("Play".localized, for: .normal)
+        registBtn.setAttributedTitle("REGISTER".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
         registBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
@@ -214,11 +253,16 @@ class RegisterViewController: UIViewController {
         
         sender.isUserInteractionEnabled = false
         
+        
+        guard let myName = nameTf.text else {return}
+
+        
         let user = User()
+        
         
         user.name = myName
         user.age = myAge ?? 0
-        user.profileImage = self.myImage
+        user.profileImage = self.myImage ?? UIImage.init(named: "basicProfileImage")?.pngData()
         
         try! realm.write {
             realm.add(user)
@@ -240,7 +284,7 @@ class RegisterViewController: UIViewController {
     @objc func callProfileImageOption(sender:UIButton) {
 //        sender.isUserInteractionEnabled = false
         imagePicker.delegate = self
-        PopUp.call(mainTitle: "사진 추가", selectButtonTitles: ["카메라", "사진첩", "기본 이미지로"], bottomButtonTitle: "취소", bottomButtonType: 1, self)
+        PopUp.call(mainTitle: "사진 추가", selectButtonTitles: ["카메라", "사진첩", "기본 이미지로"], bottomButtonTitle: "취소", bottomButtonType: 0, self)
     }
     
 }
@@ -266,6 +310,7 @@ class BottomButton:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .black
+//        self.titleLabel?.setNotoText(<#T##text: String##String#>, size: <#T##CGFloat#>, textAlignment: <#T##NSTextAlignment#>)
         self.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         self.titleLabel?.textColor = .white
         if self.isEnabled {
@@ -311,10 +356,12 @@ extension RegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
 //        pickerView.isHidden = true
         
         if selectedLanguage == .KOREAN {
-            ageSelectIndicatedLb.text = ages[row].age
+            ageSelectIndicatedLb.setNotoText(ages[row].age!, color: .black, size: 25, textAlignment: .left, font: .medium)
 
         }else{
-            ageSelectIndicatedLb.text = localAges[row].age
+            ageSelectIndicatedLb.setNotoText(localAges[row].age!, color: .black, size: 25, textAlignment: .left, font: .medium)
+
+//            ageSelectIndicatedLb.text = localAges[row].age
 
         }
         myAge = row
@@ -350,11 +397,22 @@ extension RegisterViewController:SelectPopupDelegate {
         case 0:
             print("CAMERA")
             imagePicker.sourceType = .camera
-            self.present(imagePicker, animated: true, completion: nil)
+            checkPermission()
+//            checkPermission { (result) in
+//                if result == "authorized" {
+                self.present(self.imagePicker, animated: true, completion: nil)
+//                }
+//            }
         case 1:
             print("LIBRARY")
             imagePicker.sourceType = .photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
+            checkPermission()
+
+//            checkPermission { (result) in
+//                if result == "authorized" {
+                    self.present(self.imagePicker, animated: true, completion: nil)
+//                }
+//            }
         case 2:
             print("DEFAULT")
         default:
@@ -372,8 +430,16 @@ extension RegisterViewController:SelectPopupDelegate {
 extension UILabel {
     
     
-    func setText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:FontSize = FontSize.medium) {
+    
+    func setNotoText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:NotoSansFontSize = NotoSansFontSize.medium) {
                 
+        self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
+        self.textAlignment = textAlignment
+        self.numberOfLines = 0
+    }
+    
+    func setAeericanTypeText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:AmericanTypeWriterFontSize = AmericanTypeWriterFontSize.regular) {
+        
         self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
         self.textAlignment = textAlignment
         self.numberOfLines = 0
@@ -401,7 +467,7 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: bundleName!, value: "", comment: "")    }
 }
 
-enum FontSize:String {
+enum NotoSansFontSize:String {
     
     case bold = "NotoKR-Black"
     case regular = "NotoKR-Regular"
@@ -410,12 +476,10 @@ enum FontSize:String {
     
 }
 
-
-extension UIFont {
+enum AmericanTypeWriterFontSize:String {
     
-    func notoSans() {
-        
-//        self.n
-        
-    }
+    case bold = "AmericanTypewriter-Bold"
+    case regular = "AmericanTypewriter"
+    case light = "AmericanTypewriter-Light"
+    
 }

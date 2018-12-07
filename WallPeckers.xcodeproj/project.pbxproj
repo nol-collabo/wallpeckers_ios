@@ -16,6 +16,8 @@
 		230BD47621BA12A500503CD5 /* notokr_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0D21B125C700CDC5B6 /* notokr_regular.ttf */; };
 		230BD47721BA12A500503CD5 /* notokr_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0D21B125C700CDC5B6 /* notokr_regular.ttf */; };
 		230BD47921BA14BB00503CD5 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47821BA14BB00503CD5 /* UIColor+Additions.swift */; };
+		230BD47D21BA50FC00503CD5 /* ArticleChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */; };
+		230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47E21BA667100503CD5 /* ResultViewController.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -85,6 +87,8 @@
 		230BD46F21BA102800503CD5 /* NotoSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.otf"; sourceTree = "<group>"; };
 		230BD47021BA102800503CD5 /* NotoSans-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Medium.otf"; sourceTree = "<group>"; };
 		230BD47821BA14BB00503CD5 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
+		230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleChooseViewController.swift; sourceTree = "<group>"; };
+		230BD47E21BA667100503CD5 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 				23D86EFB21AFEC3A00CDC5B6 /* RegisterViewController.swift */,
 				23D86F3A21B4FA0900CDC5B6 /* TutorialViewController.swift */,
 				23D86F3C21B50DE700CDC5B6 /* Game.storyboard */,
+				230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */,
+				230BD47E21BA667100503CD5 /* ResultViewController.swift */,
 				23D86F3E21B50E7000CDC5B6 /* GameMainViewController.swift */,
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
 				2357816221ABF29000338CB9 /* LaunchScreen.storyboard */,
@@ -577,6 +583,7 @@
 				2357819521ABF47A00338CB9 /* PopUpView.swift in Sources */,
 				23D86F3321B157DC00CDC5B6 /* Article.swift in Sources */,
 				2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */,
+				230BD47D21BA50FC00503CD5 /* ArticleChooseViewController.swift in Sources */,
 				23D86F2D21B150DE00CDC5B6 /* Level.swift in Sources */,
 				2357818821ABF2AE00338CB9 /* StartViewController.swift in Sources */,
 				23D86EFC21AFEC3E00CDC5B6 /* RegisterViewController.swift in Sources */,
@@ -585,6 +592,7 @@
 				2357819321ABF2DA00338CB9 /* UIView_extension.swift in Sources */,
 				2357819121ABF2DA00338CB9 /* Standard.swift in Sources */,
 				2357819021ABF2DA00338CB9 /* LeftPaddedTextField.swift in Sources */,
+				230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */,
 				23D86F3521B1594700CDC5B6 /* ArticleLink.swift in Sources */,
 				23D86F3721B15DFE00CDC5B6 /* FIVE_W_ONE_HS.swift in Sources */,
 				23D86F2B21B1496F00CDC5B6 /* LocalLanguage.swift in Sources */,

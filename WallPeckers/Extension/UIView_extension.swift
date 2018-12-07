@@ -194,9 +194,14 @@ extension UIButton {
 
 extension UIFont {
     
-    static func notoSans(_ font:FontSize, size:CGFloat) -> UIFont {
+    static func NotoSans(_ font:NotoSansFontSize, size:CGFloat) -> UIFont {
         
         return UIFont.init(name: font.rawValue, size: size)!
         
+    }
+    
+    static func AmericanTypeWriter(_ weight:AmericanTypeWriterFontSize, size:CGFloat) -> UIFont {
+        
+        return UIFont.init(name: weight.rawValue, size: size)!
     }
 }
