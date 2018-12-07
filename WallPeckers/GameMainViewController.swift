@@ -34,6 +34,36 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
         print("TAG", tag)
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ArticleChooseViewController") as? ArticleChooseViewController else {return}
 
+        vc.sectionId = tag
+
+        var articleButtons:[ArticleSelectButton] = []
+        
+        switch selectedLanguage {
+            
+        case .ENGLISH:
+            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 2"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons)
+
+        case .GERMAN:
+            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 3"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons)
+
+        case .KOREAN:
+            
+            
+            for article in  realm.objects(Article.self).filter("section = \(tag)") {
+                
+                let btn = ArticleSelectButton()
+                
+                btn.setData(point: "\(article.point) P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
+//                btn.delegate = self
+                articleButtons.append(btn)
+                
+            }
+            
+            vc.setData(localData: nil, articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons)
+        }
+        
+//        vc.setData(localData: <#T##Results<LocalArticle>?#>, articles: <#T##Results<Article>?#>)
+//        vc
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
@@ -115,18 +145,18 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
             
             for i in 0...buttons.count - 1 {
                 
-                buttons[i].setData(title: engsection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: i)
+                buttons[i].setData(title: engsection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: engsection[i].id)
             }
             
         case .KOREAN:
             for i in 0...buttons.count - 1 {
                 
-                buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: i)
+                buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: sections[i].id)
             }
         case .GERMAN:
             for i in 0...buttons.count - 1 {
                 
-                buttons[i].setData(title: gersection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: i)
+                buttons[i].setData(title: gersection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: gersection[i].id)
             }
             
         }

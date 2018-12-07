@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
+import Realm
 
-class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, AlerPopupViewDelegate {
+class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, AlerPopupViewDelegate, ArticleSelectDelegate {
+    func tapArticle(sender: ArticleSelectButton) {
+        print(sender.tag)
+    }
+    
     func tapBottomButton(sender: AlertPopUpView) {
         if sender.tag == 1 {
             
@@ -45,7 +51,22 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
     var timerView:NavigationCustomView?
     let backButton = UIButton()
     let articleTitleLb = UILabel()
-
+    var sectionId:Int = 0
+    var articles:Results<Article>?
+    var localArticles:Results<LocalArticle>? {
+        didSet {
+            print(localArticles)
+            
+            articles.map({
+                
+                article in
+                
+                article.filter("article = \(localArticles)")
+            })
+        }
+    }
+    
+    var articleButtons:[ArticleSelectButton] = []
     
     func touchMoveToMyPage(sender: UIButton) {
         sender.isUserInteractionEnabled = false
@@ -57,6 +78,13 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         
     }
     
+    func setData(localData:Results<LocalArticle>?, articles:Results<Article>?, articleBtns:[ArticleSelectButton]) {
+        
+        self.localArticles = localData
+        self.articles = articles
+        self.articleButtons = articleBtns
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,10 +103,68 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         
         articleTitleLb.setNotoText("CHOOSE A ARTICLE", color: .black, size: 24, textAlignment: .center, font: .medium)
         
+        print(articleButtons.count)
+        
         articleTitleLb.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(90)
             make.height.equalTo(35)
             make.centerX.equalToSuperview()
+        }
+        
+        for i in articleButtons {
+            self.view.addSubview(i)
+            i.delegate = self
+        }
+        
+        articleButtons[1].snp.makeConstraints { (make) in
+            make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(93)
+        }
+        
+        articleButtons[0].snp.makeConstraints { (make) in
+            make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
+            make.width.height.equalTo(93)
+            make.trailing.equalTo( articleButtons[1].snp.leading).offset(-25)
+
+        }
+        articleButtons[2].snp.makeConstraints { (make) in
+            make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
+            make.width.height.equalTo(93)
+            make.leading.equalTo( articleButtons[1].snp.trailing).offset(25)
+        }
+        articleButtons[4].snp.makeConstraints { (make) in
+            make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(93)
+        }
+        articleButtons[3].snp.makeConstraints { (make) in
+            make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
+            make.width.height.equalTo(93)
+            make.trailing.equalTo( articleButtons[4].snp.leading).offset(-25)
+        }
+        articleButtons[5].snp.makeConstraints { (make) in
+            make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
+            make.width.height.equalTo(93)
+            make.leading.equalTo( articleButtons[4].snp.trailing).offset(25)
+        }
+        articleButtons[7].snp.makeConstraints { (make) in
+            make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(93)
+        }
+        articleButtons[6].snp.makeConstraints { (make) in
+            make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
+            make.width.height.equalTo(93)
+            make.trailing.equalTo(articleButtons[7].snp.leading).offset(-25)
+            
+        }
+        
+        articleButtons[8].snp.makeConstraints { (make) in
+            make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
+            make.width.height.equalTo(93)
+            make.leading.equalTo(articleButtons[7].snp.trailing).offset(25)
+            
         }
         
         backButton.addTarget(self, action: #selector(back(sender:)), for: .touchUpInside)
@@ -95,6 +181,14 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         sender.isUserInteractionEnabled = true
         
     }
+    
+    func setButton() {
+        
+        
+        print(articleButtons)
+    }
+    
+    
 
     /*
     // MARK: - Navigation
@@ -106,4 +200,61 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
     }
     */
 
+}
+
+class ArticleSelectButton:UIView {
+    
+    let pointTitleLb = UILabel()
+    let starImageView = UIImageView()
+    let titleLb = UILabel()
+    let tapGesture = UITapGestureRecognizer()
+    var delegate:ArticleSelectDelegate?
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addGestureRecognizer(tapGesture)
+        tapGesture.addTarget(self, action: #selector(tap(sender:)))
+        setUI()
+    }
+    
+    func setUI() {
+        self.addSubview([pointTitleLb, starImageView, titleLb])
+        pointTitleLb.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(5)
+            make.height.equalTo(30)
+        }
+        starImageView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.width.height.equalTo(25)
+        }
+        titleLb.snp.makeConstraints { (make) in
+            make.leading.bottom.trailing.equalToSuperview()
+            make.height.equalTo(30)
+        }
+        
+    }
+    
+    func setData(point:String, textColor:UIColor, title:String, isStar:Bool, tag:Int, backgroundColor:UIColor = .white, borderColor:UIColor = .black) {
+        self.pointTitleLb.setNotoText(point, color: textColor, size: 26, textAlignment: .center, font: .bold)
+        self.titleLb.setNotoText(title, color: textColor, size: 12, textAlignment: .center, font: .bold)
+        self.starImageView.isHidden = !isStar
+        self.backgroundColor = backgroundColor
+        self.tag = tag
+        self.setBorder(color: borderColor, width: 4.5)
+    }
+    
+    @objc func tap(sender:UITapGestureRecognizer) {
+        delegate?.tapArticle(sender: self)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+protocol ArticleSelectDelegate {
+    func tapArticle(sender:ArticleSelectButton)
 }
