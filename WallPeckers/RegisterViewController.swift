@@ -403,10 +403,19 @@ extension String {
 
 enum FontSize:String {
     
-    case bold = "NotoKR-Bold"
+    case bold = "NotoKR-Black"
     case regular = "NotoKR-Regular"
     case medium = "NotoKR-Medium"
     case thin = "NotoKR-Thin"
     
 }
 
+
+extension UIFont {
+    
+    func notoSans() {
+        
+//        self.n
+        
+    }
+}

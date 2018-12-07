@@ -15,6 +15,7 @@
 		230BD47521BA128800503CD5 /* NotoSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 230BD46F21BA102800503CD5 /* NotoSans-Bold.otf */; };
 		230BD47621BA12A500503CD5 /* notokr_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0D21B125C700CDC5B6 /* notokr_regular.ttf */; };
 		230BD47721BA12A500503CD5 /* notokr_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F0D21B125C700CDC5B6 /* notokr_regular.ttf */; };
+		230BD47921BA14BB00503CD5 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47821BA14BB00503CD5 /* UIColor+Additions.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -83,6 +84,7 @@
 		230BD46E21BA102700503CD5 /* NotoSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.otf"; sourceTree = "<group>"; };
 		230BD46F21BA102800503CD5 /* NotoSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.otf"; sourceTree = "<group>"; };
 		230BD47021BA102800503CD5 /* NotoSans-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Medium.otf"; sourceTree = "<group>"; };
+		230BD47821BA14BB00503CD5 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				2357818D21ABF2DA00338CB9 /* Standard.swift */,
 				2357818E21ABF2DA00338CB9 /* BaseVerticalScrollView.swift */,
 				2357818F21ABF2DA00338CB9 /* UIView_extension.swift */,
+				230BD47821BA14BB00503CD5 /* UIColor+Additions.swift */,
 				23D86F0821B1146900CDC5B6 /* UIViewController_extension.swift */,
 			);
 			path = Extension;
@@ -587,6 +590,7 @@
 				23D86F2B21B1496F00CDC5B6 /* LocalLanguage.swift in Sources */,
 				23D86F0921B1146900CDC5B6 /* UIViewController_extension.swift in Sources */,
 				23D86F3921B4D74A00CDC5B6 /* MyPageViewController.swift in Sources */,
+				230BD47921BA14BB00503CD5 /* UIColor+Additions.swift in Sources */,
 				23D86F3F21B50E7000CDC5B6 /* GameMainViewController.swift in Sources */,
 				23D86F2921B1494100CDC5B6 /* Clue.swift in Sources */,
 				23D86F2F21B1518B00CDC5B6 /* Section.swift in Sources */,

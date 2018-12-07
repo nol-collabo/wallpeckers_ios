@@ -191,3 +191,12 @@ extension UIButton {
         self.setBackgroundImage(colorImage, for: forState)
     }
 }
+
+extension UIFont {
+    
+    static func notoSans(_ font:FontSize, size:CGFloat) -> UIFont {
+        
+        return UIFont.init(name: font.rawValue, size: size)!
+        
+    }
+}

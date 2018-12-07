@@ -13,8 +13,12 @@ import SwiftyJSON
 
 class StartViewController: UIViewController {
 
-    
-    let imageView = UIImageView()
+    let titleImv = UIImageView()
+    let descScrollView = BaseHorizontalScrollView()
+    let desc1View = UIImageView()
+    let desc2View = UIImageView()
+    let goetheView = UIImageView()
+    let nolgongView = UIImageView()
     let playButton = UIButton()
     var selectedLanguage:Int?
     let user = realm.objects(User.self)
@@ -28,22 +32,68 @@ class StartViewController: UIViewController {
     
     private func setUI() {
         
-        self.view.addSubview([imageView, playButton])
+        self.view.addSubview([playButton, titleImv, nolgongView, goetheView])
+        self.view.backgroundColor = UIColor.basicBackground
+        
+
+        self.navigationController?.isNavigationBarHidden = true
+        playButton.backgroundColor = .black
+        playButton.setAttributedTitle("PLAY".makeAttrString(font: .notoSans(.bold, size: 30), color: .white), for: .normal)
+        playButton.addTarget(self, action: #selector(playBtnTouched(sender:)), for: .touchUpInside)
+        
+        titleImv.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeArea.top).offset(33)
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.height.equalTo(150)
+        }
+        titleImv.image = UIImage.init(named: "MainTitleImv")!
+        titleImv.contentMode = .scaleAspectFit
+        descScrollView.setScrollViewMiddle(vc: self)
+        
+        descScrollView.contentView.addSubview([desc2View, desc1View])
+        
+        desc1View.snp.makeConstraints { (make) in
+            make.height.equalToSuperview()
+            make.width.equalTo(DeviceSize.width)
+            make.leading.top.equalToSuperview()
+        }
+        desc2View.snp.makeConstraints { (make) in
+            make.leading.equalTo(desc1View.snp.trailing)
+            make.width.equalTo(DeviceSize.width)
+            make.trailing.equalToSuperview()
+            make.height.equalToSuperview()
+            make.top.equalToSuperview()
+        }
         
         playButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeArea.bottom).offset(-50)
-            make.leading.equalTo(50)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-70)
+            make.leading.equalTo(55)
             make.centerX.equalToSuperview()
-            make.height.equalTo(80)
+            make.height.equalTo(56)
         }
-        self.navigationController?.isNavigationBarHidden = true
-        playButton.backgroundColor = .red
-        playButton.addTarget(self, action: #selector(playBtnTouched(sender:)), for: .touchUpInside)
-        imageView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(view.safeArea.top).offset(50)
-            make.width.height.equalTo(300)
+        
+        goetheView.snp.makeConstraints { (make) in
+
+            make.leading.equalTo(100)
+            make.width.equalTo(53)
+            make.height.equalTo(25)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-7)
         }
+        nolgongView.snp.makeConstraints { (make) in
+            
+            make.trailing.equalTo(-100)
+            make.width.equalTo(77)
+            make.height.equalTo(17)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-12)
+        }
+        
+        desc1View.image = UIImage.init(named: "MainDescImv1")
+        desc2View.image = UIImage.init(named: "MainDescImv2")
+        goetheView.image = UIImage.init(named: "goethe")
+        nolgongView.image = UIImage.init(named: "nolgong")
+        
+        
         
     }
     
@@ -108,8 +158,5 @@ extension StartViewController:SelectPopupDelegate {
 
         
     }
-    
-    
-    
-    
+
 }
