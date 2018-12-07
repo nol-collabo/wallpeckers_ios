@@ -78,6 +78,8 @@ class ResultViewController: UIViewController {
         
 //        nvc.set
         
+        self.removeFromParent()
+        
         self.present(nvc, animated: true) {
             nvc.pushViewController(vc, animated: true)
 

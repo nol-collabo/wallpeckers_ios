@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class GameMainViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, TopicButtonDelegate, AlerPopupViewDelegate {
     func tapBottomButton(sender: AlertPopUpView) {
@@ -44,13 +46,17 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
     let artButton = TopicButton()
     let sportsButton = TopicButton()
     let peopleButton = TopicButton()
+    let selectedLanguage = Standard.shared.getLocalized()
+    let sections = realm.objects(Section.self)
+    var engsection = realm.objects(LocalSection.self).filter("language = 2")
+    var gersection = realm.objects(LocalSection.self).filter("language = 3")
     @IBOutlet weak var containerView: UIView!
     
     func checkPlayTime(_ time: Int) {
 
         timerView?.updateTime(time)
         
-        if time == 119 { //완료 됐을떄
+        if time == 0 { //완료 됐을떄
 
             PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
             print("END!")
@@ -78,8 +84,9 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
        
         setUI()
         
+        
         self.timerView = self.findTimerView()
-
+     
         Standard.shared.startTimer(gameMode: .short)
 
     }
@@ -96,13 +103,35 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
         self.setCustomNavigationBar()
 
         
+        
         self.view.addSubview([topicTitleLb, politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton])
-        politicsButton.setData(title: "POLITICS", image: UIImage.init(named: "topic1")!, tag: 1)
-        economyButton.setData(title: "ECONOMY/\nDIPLOMACY", image: UIImage.init(named: "topic2")!, tag: 2)
-        generalButton.setData(title: "GENERAL", image: UIImage.init(named: "topic3")!, tag: 3)
-        artButton.setData(title: "ART &\nCULTURE", image: UIImage.init(named: "topic4")!, tag: 4)
-        sportsButton.setData(title: "SPORTS", image: UIImage.init(named: "topic5")!, tag: 5)
-        peopleButton.setData(title: "PEOPLE", image: UIImage.init(named: "topic6")!, tag: 6)
+
+        
+        let buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
+        
+        switch selectedLanguage {
+            
+        case .ENGLISH:
+            
+            for i in 0...buttons.count - 1 {
+                
+                buttons[i].setData(title: engsection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: i)
+            }
+            
+        case .KOREAN:
+            for i in 0...buttons.count - 1 {
+                
+                buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: i)
+            }
+        case .GERMAN:
+            for i in 0...buttons.count - 1 {
+                
+                buttons[i].setData(title: gersection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: i)
+            }
+            
+        }
+        
+      
         politicsButton.delegate = self
         economyButton.delegate = self
         generalButton.delegate = self
