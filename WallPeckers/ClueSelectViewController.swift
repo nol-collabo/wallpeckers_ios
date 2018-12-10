@@ -225,12 +225,15 @@ final class ClueSelectView:UIView {
     func setData(five:Five_W_One_Hs, clue:Clue) {
         
         self.clue = clue
-        clueButton.setAttributedTitle("\(clue.type!)".makeAttrString(font: .NotoSans(.medium, size: 20), color: .black), for: .normal)
-
+        clueButton.setAttributedTitle("\(clue.type!)".makeAttrString(font: .NotoSans(.bold, size: 20), color: .black), for: .normal)
+        
         if !five.given {
             clueLb.text = ""
             infoLb.isHidden = false
+            clueButton.backgroundColor = .white
+
         }else {
+            clueButton.backgroundColor = .basicBackground
             clueLb.text = clue.desc
             clueButton.isUserInteractionEnabled = false
             infoLb.isHidden = true
@@ -256,7 +259,13 @@ final class ClueSelectView:UIView {
             make.width.equalTo(100)
             make.height.equalTo(34)
         }
-        clueButton.setBorder(color: .white, width: 1)
+
+        clueButton.backgroundColor = .white
+        clueButton.setBorder(color: .black, width: 1)
+        clueButton.layer.shadowColor = UIColor.black.cgColor
+        clueButton.layer.shadowOpacity = 1
+        clueButton.layer.shadowRadius = 5
+        
         infoLb.snp.makeConstraints { (make) in
             make.leading.equalTo(clueButton.snp.trailing).offset(10)
             make.centerY.equalTo(clueButton.snp.centerY)
@@ -370,4 +379,22 @@ protocol CluePopUpViewDelegate {
     
     func inputCode(_ code:String?)
     
+}
+
+extension UIView {
+    
+    func dropShadow() {
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = CGSize(width: -1, height: 1)
+        self.layer.shadowRadius = 1
+        
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        self.layer.shouldRasterize = true
+        
+        self.layer.rasterizationScale = UIScreen.main.scale
+        
+    }
 }
