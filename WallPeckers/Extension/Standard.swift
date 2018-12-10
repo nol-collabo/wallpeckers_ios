@@ -46,7 +46,6 @@ class Standard {
         }
         
         sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
-            print(self.gamePlayTime)
             
             self.gamePlayTime -= 1
         })

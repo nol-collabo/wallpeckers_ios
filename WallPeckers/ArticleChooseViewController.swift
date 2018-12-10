@@ -47,17 +47,18 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
     }
     
     
-    
+    var links:[ArticleLinkLine] = []
     var timerView:NavigationCustomView?
     let backButton = UIButton()
     let articleTitleLb = UILabel()
     var sectionId:Int = 0
     var articles:Results<Article>?
+    var articleLinks:Results<ArticleLink>?
+    var localArticleLinks:Results<LocalArticleLink>?
     var localArticles:Results<LocalArticle>? {
         didSet {
-            print(localArticles)
             
-            articles.map({
+            _ = articles.map({
                 
                 article in
                 
@@ -65,6 +66,7 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
             })
         }
     }
+    
     
     var articleButtons:[ArticleSelectButton] = []
     
@@ -78,17 +80,75 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         
     }
     
-    func setData(localData:Results<LocalArticle>?, articles:Results<Article>?, articleBtns:[ArticleSelectButton]) {
+    func setData(localData:Results<LocalArticle>?, articles:Results<Article>?, articleBtns:[ArticleSelectButton], articleLinks:Results<ArticleLink>) {
         
         self.localArticles = localData
         self.articles = articles
         self.articleButtons = articleBtns
+        self.articleLinks = articleLinks
         
+    }
+    
+    func drawLine() {
+        
+        var ids:[Int] = []
+        for ar in articles! {
+             ids.append(ar.id)
+        }
+  
+        var filtered:[ArticleLink] = []
+        
+        for al in self.articleLinks! {
+            
+            for id in ids {
+                
+                if al.articles.contains(id) {
+                    filtered.append(al)
+                }
+            }
+        }
+        
+        let removeDuplicated = Array(Set(filtered)).sorted(by: {
+            
+            $0.id < $1.id
+        })
+        
+        for i in removeDuplicated {
+            
+            let line = ArticleLinkLine()
+            let color = LineColor.init(rawValue: i.color!)
+            line.setLine(color: color!, vc: self)
+            
+            if let left = articleButtons.filter({
+                $0.tag == i.articles[0]
+            }).first, let right = articleButtons.filter({
+                $0.tag == i.articles[1]
+            }).first {
+                line.linkButton(leftButton: left, rightButton: right, vc: self)
+                links.append(line)
+            }
+            
+        
+            
+        }
+    
+    
+    
+        
+//        links = removeDuplicated
+        print(removeDuplicated)
+
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         Standard.shared.delegate = self
+        setUI()
+
+        // Do any additional setup after loading the view.
+    }
+    
+    func setUI() {
         self.setCustomNavigationBar()
         self.timerView = self.findTimerView()
         self.view.backgroundColor = .basicBackground
@@ -100,6 +160,7 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeArea.bottom).offset(-40)
         }
+        
         
         articleTitleLb.setNotoText("CHOOSE A ARTICLE", color: .black, size: 24, textAlignment: .center, font: .medium)
         
@@ -113,6 +174,9 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         
         for i in articleButtons {
             self.view.addSubview(i)
+            //            print(i.)
+            
+            print(i.tag)
             i.delegate = self
         }
         
@@ -121,12 +185,12 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
             make.centerX.equalToSuperview()
             make.width.height.equalTo(93)
         }
-        
+
         articleButtons[0].snp.makeConstraints { (make) in
             make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
             make.width.height.equalTo(93)
             make.trailing.equalTo( articleButtons[1].snp.leading).offset(-25)
-
+            
         }
         articleButtons[2].snp.makeConstraints { (make) in
             make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
@@ -135,8 +199,8 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         }
         articleButtons[4].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
-            make.centerX.equalToSuperview()
             make.width.height.equalTo(93)
+            make.centerX.equalToSuperview()
         }
         articleButtons[3].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
@@ -146,7 +210,7 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         articleButtons[5].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
             make.width.height.equalTo(93)
-            make.leading.equalTo( articleButtons[4].snp.trailing).offset(25)
+            make.leading.equalTo(articleButtons[4].snp.trailing).offset(25)
         }
         articleButtons[7].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
@@ -168,8 +232,8 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         }
         
         backButton.addTarget(self, action: #selector(back(sender:)), for: .touchUpInside)
-
-        // Do any additional setup after loading the view.
+        
+        drawLine()
     }
     
     @objc func back(sender:UIButton) {
@@ -181,24 +245,7 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         sender.isUserInteractionEnabled = true
         
     }
-    
-    func setButton() {
-        
-        
-        print(articleButtons)
-    }
-    
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -255,6 +302,66 @@ class ArticleSelectButton:UIView {
     
 }
 
+class ArticleLinkLine:UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func linkButton(leftButton:ArticleSelectButton, rightButton:ArticleSelectButton, vc:UIViewController) {
+        
+        self.snp.makeConstraints { (make) in
+         
+            
+            if leftButton.tag - rightButton.tag == -1 {
+                make.centerY.equalTo(leftButton.snp.centerY)
+                make.height.equalTo(30)
+                make.leading.equalTo(leftButton.snp.trailing)
+                make.trailing.equalTo(rightButton.snp.leading)
+            }else{
+                make.centerX.equalTo(leftButton.snp.centerX)
+                make.width.equalTo(30)
+                make.top.equalTo(leftButton.snp.bottom)
+                make.bottom.equalTo(rightButton.snp.top)
+            }
+
+        }
+    }
+    
+    func setLine(color:LineColor, vc:UIViewController) {
+
+        vc.view.addSubview(self)
+
+        switch color {
+        
+        case .BLUE:
+            self.backgroundColor = UIColor.blue
+        case .GREEN:
+            self.backgroundColor = .green
+        case .ORANGE:
+            self.backgroundColor = .orange
+        case .RED:
+            self.backgroundColor = .red
+        }
+        
+       
+    
+        
+        
+    }
+    
+}
+
 protocol ArticleSelectDelegate {
     func tapArticle(sender:ArticleSelectButton)
+}
+
+enum LineColor:String {
+    
+    case BLUE, RED, ORANGE, GREEN
+    
 }

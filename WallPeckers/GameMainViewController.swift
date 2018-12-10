@@ -41,10 +41,10 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
         switch selectedLanguage {
             
         case .ENGLISH:
-            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 2"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons)
+            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 2"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons, articleLinks: realm.objects(ArticleLink.self))
 
         case .GERMAN:
-            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 3"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons)
+            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 3"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons, articleLinks: realm.objects(ArticleLink.self))
 
         case .KOREAN:
             
@@ -59,11 +59,9 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
                 
             }
             
-            vc.setData(localData: nil, articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons)
+            vc.setData(localData: nil, articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons, articleLinks: realm.objects(ArticleLink.self))
         }
         
-//        vc.setData(localData: <#T##Results<LocalArticle>?#>, articles: <#T##Results<Article>?#>)
-//        vc
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
