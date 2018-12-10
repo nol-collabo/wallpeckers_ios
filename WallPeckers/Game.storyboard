@@ -73,6 +73,21 @@
             </objects>
             <point key="canvasLocation" x="2497" y="-412"/>
         </scene>
+        <!--Clue Select View Controller-->
+        <scene sceneID="396-1J-x6X">
+            <objects>
+                <viewController storyboardIdentifier="ClueSelectViewController" id="rOT-dK-gxt" customClass="ClueSelectViewController" customModule="WallPeckers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Apb-GV-Igg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Qb1-F3-xS4"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v06-YJ-7hS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3282" y="-409"/>
+        </scene>
         <!--Article Choose View Controller-->
         <scene sceneID="Isx-zR-9l3">
             <objects>

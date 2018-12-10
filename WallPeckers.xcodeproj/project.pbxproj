@@ -18,6 +18,7 @@
 		230BD47921BA14BB00503CD5 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47821BA14BB00503CD5 /* UIColor+Additions.swift */; };
 		230BD47D21BA50FC00503CD5 /* ArticleChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */; };
 		230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47E21BA667100503CD5 /* ResultViewController.swift */; };
+		230BD48121BE47B600503CD5 /* ClueSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -89,6 +90,7 @@
 		230BD47821BA14BB00503CD5 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleChooseViewController.swift; sourceTree = "<group>"; };
 		230BD47E21BA667100503CD5 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueSelectViewController.swift; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				23D86F3A21B4FA0900CDC5B6 /* TutorialViewController.swift */,
 				23D86F3C21B50DE700CDC5B6 /* Game.storyboard */,
 				230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */,
+				230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */,
 				230BD47E21BA667100503CD5 /* ResultViewController.swift */,
 				23D86F3E21B50E7000CDC5B6 /* GameMainViewController.swift */,
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
@@ -589,6 +592,7 @@
 				23D86EFC21AFEC3E00CDC5B6 /* RegisterViewController.swift in Sources */,
 				23D86F3121B1570000CDC5B6 /* Age.swift in Sources */,
 				23D86F0B21B11BC800CDC5B6 /* AfterRegisterViewController.swift in Sources */,
+				230BD48121BE47B600503CD5 /* ClueSelectViewController.swift in Sources */,
 				2357819321ABF2DA00338CB9 /* UIView_extension.swift in Sources */,
 				2357819121ABF2DA00338CB9 /* Standard.swift in Sources */,
 				2357819021ABF2DA00338CB9 /* LeftPaddedTextField.swift in Sources */,

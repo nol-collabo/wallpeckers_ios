@@ -13,6 +13,27 @@ import Realm
 class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, AlerPopupViewDelegate, ArticleSelectDelegate {
     func tapArticle(sender: ArticleSelectButton) {
         print(sender.tag)
+        
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ClueSelectViewController") as? ClueSelectViewController else {return}
+        
+        if let ar = articles?.filter({
+            
+            $0.id == sender.tag
+        }).first {
+            
+            let a = Array(realm.objects(Five_W_One_Hs.self).filter("article = \(sender.tag)"))
+            
+            vc.setData(article: ar, five: a)
+            vc.questionPoint = (sender.pointTitleLb.text!)
+            
+//            vc.questionPoint =
+            print(a)
+            print("~~")
+            self.navigationController?.pushViewController(vc, animated: true)
+
+        }
+        
+        
     }
     
     func tapBottomButton(sender: AlertPopUpView) {
@@ -117,14 +138,15 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
             
             let line = ArticleLinkLine()
             let color = LineColor.init(rawValue: i.color!)
-            line.setLine(color: color!, vc: self)
+//            line.setLine(color: color!, vc: self)
             
             if let left = articleButtons.filter({
                 $0.tag == i.articles[0]
             }).first, let right = articleButtons.filter({
                 $0.tag == i.articles[1]
             }).first {
-                line.linkButton(leftButton: left, rightButton: right, vc: self)
+                line.setLine(color: color!, leftButton: left, rightButton: right, vc: self)
+//                line.linkButton(leftButton: left, rightButton: right, vc: self)
                 links.append(line)
             }
             
@@ -142,10 +164,15 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Standard.shared.delegate = self
         setUI()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Standard.shared.delegate = self
+
     }
     
     func setUI() {
@@ -312,43 +339,47 @@ class ArticleLinkLine:UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func linkButton(leftButton:ArticleSelectButton, rightButton:ArticleSelectButton, vc:UIViewController) {
-        
-        self.snp.makeConstraints { (make) in
-         
-            
-            if leftButton.tag - rightButton.tag == -1 {
-                make.centerY.equalTo(leftButton.snp.centerY)
-                make.height.equalTo(30)
-                make.leading.equalTo(leftButton.snp.trailing)
-                make.trailing.equalTo(rightButton.snp.leading)
-            }else{
-                make.centerX.equalTo(leftButton.snp.centerX)
-                make.width.equalTo(30)
-                make.top.equalTo(leftButton.snp.bottom)
-                make.bottom.equalTo(rightButton.snp.top)
-            }
-
-        }
-    }
     
-    func setLine(color:LineColor, vc:UIViewController) {
+    func setLine(color:LineColor, leftButton:ArticleSelectButton, rightButton:ArticleSelectButton, vc:UIViewController) {
 
         vc.view.addSubview(self)
 
         switch color {
         
         case .BLUE:
-            self.backgroundColor = UIColor.blue
+            self.backgroundColor = UIColor.niceBlue
+            leftButton.setBorder(color: .niceBlue, width: 5.5)
+            rightButton.setBorder(color: .niceBlue, width: 5.5)
         case .GREEN:
-            self.backgroundColor = .green
+            self.backgroundColor = .darkGrassGreen
+            leftButton.setBorder(color: .darkGrassGreen, width: 5.5)
+            rightButton.setBorder(color: .darkGrassGreen, width: 5.5)
         case .ORANGE:
-            self.backgroundColor = .orange
+            self.backgroundColor = .tangerine
+            leftButton.setBorder(color: .tangerine, width: 5.5)
+            rightButton.setBorder(color: .tangerine, width: 5.5)
         case .RED:
-            self.backgroundColor = .red
+            self.backgroundColor = .scarlet
+            leftButton.setBorder(color: .scarlet, width: 5.5)
+            rightButton.setBorder(color: .scarlet, width: 5.5)
         }
         
-       
+        self.snp.makeConstraints { (make) in
+            
+            
+            if leftButton.tag - rightButton.tag == -1 {
+                make.centerY.equalTo(leftButton.snp.centerY)
+                make.height.equalTo(10)
+                make.leading.equalTo(leftButton.snp.trailing)
+                make.trailing.equalTo(rightButton.snp.leading)
+            }else{
+                make.centerX.equalTo(leftButton.snp.centerX)
+                make.width.equalTo(10)
+                make.top.equalTo(leftButton.snp.bottom)
+                make.bottom.equalTo(rightButton.snp.top)
+            }
+            
+        }
     
         
         

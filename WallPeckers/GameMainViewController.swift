@@ -53,7 +53,14 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
                 
                 let btn = ArticleSelectButton()
                 
-                btn.setData(point: "\(article.point) P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
+                let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
+                    
+                    $0.point
+                }).reduce(0, +)
+                
+                print(aa)
+                
+                btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
 //                btn.delegate = self
                 articleButtons.append(btn)
                 
@@ -122,8 +129,6 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Standard.shared.delegate = self
-
-//        Standard.shared.ti
     }
     
     func setUI() {
