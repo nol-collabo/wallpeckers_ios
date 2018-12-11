@@ -114,29 +114,28 @@ class TutorialView:UIView {
         
         
         topLb.snp.makeConstraints { (make) in
-//            make.leading.equalTo(70)
             make.centerX.equalToSuperview()
-            make.top.equalTo(70)
+            make.top.equalTo(DEVICEHEIGHT > 800 ? 70 : 50)
             make.height.equalTo(50)
         }
         topLb.numberOfLines = 0
         
         nextBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(-100)
+            make.bottom.equalTo(DEVICEHEIGHT > 800 ? -100 : -50)
             make.centerX.equalToSuperview()
             make.width.equalTo(270)
             make.height.equalTo(55)
         }
         nextBtn.setAttributedTitle("START".makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
         descImv.snp.makeConstraints { (make) in
-            make.top.equalTo(topLb.snp.bottom).offset(50)
+            make.top.equalTo(topLb.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
-            make.height.equalTo(270)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 270 : 200)
         }
         descLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(descImv.snp.bottom).offset(50)
+            make.top.equalTo(descImv.snp.bottom).offset(DEVICEHEIGHT > 600 ? 50 : 30)
             make.leading.equalTo(10)
         }
         descLb.textAlignment = .center

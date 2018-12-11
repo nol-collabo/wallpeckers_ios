@@ -67,7 +67,7 @@ class StartViewController: UIViewController {
         }
         
         playButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeArea.bottom).offset(-70)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-50)
             make.leading.equalTo(55)
             make.centerX.equalToSuperview()
             make.height.equalTo(56)
@@ -75,14 +75,14 @@ class StartViewController: UIViewController {
         
         goetheView.snp.makeConstraints { (make) in
 
-            make.leading.equalTo(100)
+            make.leading.equalTo(80)
             make.width.equalTo(53)
             make.height.equalTo(25)
             make.bottom.equalTo(view.safeArea.bottom).offset(-7)
         }
         nolgongView.snp.makeConstraints { (make) in
             
-            make.trailing.equalTo(-100)
+            make.trailing.equalTo(-80)
             make.width.equalTo(77)
             make.height.equalTo(17)
             make.bottom.equalTo(view.safeArea.bottom).offset(-12)
@@ -123,10 +123,30 @@ extension StartViewController:SelectPopupDelegate {
         if let _selectedLanguage = selectedLanguage {
             print(_selectedLanguage)
 //
-            if user.count > 0 { // 유저정보 없을 떄
-                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+            if user.count > 0 { // 유저정보 있을 떄
                 
-                self.navigationController?.pushViewController(vc, animated: true)
+                if let currentUser = RealmUser.shared.getUserData() {
+                    
+                    
+                    if currentUser.score == 0 { // 시작했으나, 점수가 없어 새로 시작하는 것과 같은 상황
+                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+                        
+                        
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }else{ // 한문제 이상 풀어서 이어하기 선택 가능할 때
+                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AlreadyRegisterViewController") as? AlreadyRegisterViewController else {return}
+                        
+                        
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                    
+                   
+                    
+                }
+                
+                
+
+             
 
                 
             }else{ // 신규유저

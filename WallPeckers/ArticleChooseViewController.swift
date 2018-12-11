@@ -11,6 +11,10 @@ import RealmSwift
 import Realm
 
 class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, AlerPopupViewDelegate, ArticleSelectDelegate {
+    
+    let iconWidth = DEVICEHEIGHT > 600 ? 93 : 83
+
+    
     func tapArticle(sender: ArticleSelectButton) {
         print(sender.tag)
         
@@ -184,7 +188,7 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         print(articleButtons.count)
         
         articleTitleLb.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeArea.top).offset(90)
+            make.top.equalTo(view.safeArea.top).offset(70)
             make.height.equalTo(35)
             make.centerX.equalToSuperview()
         }
@@ -200,50 +204,50 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         articleButtons[1].snp.makeConstraints { (make) in
             make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
             make.centerX.equalToSuperview()
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
         }
 
         articleButtons[0].snp.makeConstraints { (make) in
             make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
             make.trailing.equalTo( articleButtons[1].snp.leading).offset(-25)
             
         }
         articleButtons[2].snp.makeConstraints { (make) in
             make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
             make.leading.equalTo( articleButtons[1].snp.trailing).offset(25)
         }
         articleButtons[4].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
             make.centerX.equalToSuperview()
         }
         articleButtons[3].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
             make.trailing.equalTo( articleButtons[4].snp.leading).offset(-25)
         }
         articleButtons[5].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
             make.leading.equalTo(articleButtons[4].snp.trailing).offset(25)
         }
         articleButtons[7].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
             make.centerX.equalToSuperview()
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
         }
         articleButtons[6].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
             make.trailing.equalTo(articleButtons[7].snp.leading).offset(-25)
             
         }
         
         articleButtons[8].snp.makeConstraints { (make) in
             make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
-            make.width.height.equalTo(93)
+            make.width.height.equalTo(iconWidth)
             make.leading.equalTo(articleButtons[7].snp.trailing).offset(25)
             
         }

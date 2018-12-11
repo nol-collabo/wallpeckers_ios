@@ -10,6 +10,42 @@ import Foundation
 import Realm
 import RealmSwift
 
+class RealmUser {
+    
+    static var shared = RealmUser()
+    private var user:User?
+    
+    private init(){}
+    
+    func getUserData() -> User? {
+        if let user = realm.objects(User.self).first {
+            self.user = user
+            return user
+        }else{
+            return nil
+        }
+    }
+    
+    func savePlayTime() {
+        guard let user = user else {return}
+
+        
+        try! realm.write {
+            user.playTime = Standard.shared.gamePlayTime
+        }
+    }
+    
+    func resetPlayTime() {
+        guard let user = user else {return}
+        
+        
+        try! realm.write {
+            user.playTime = 0
+        }
+    }
+    
+}
+
 class RealmArticle {
     
     static var shared = RealmArticle()

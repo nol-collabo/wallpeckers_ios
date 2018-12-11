@@ -12,9 +12,11 @@ import Photos
 //import King
 
 let realm = try! Realm()
+let DEVICEHEIGHT = UIWindow().bounds.height
 
 class RegisterViewController: UIViewController {
     
+    let scrollView = BaseVerticalScrollView()
     let topLb = UILabel()
     let profileImv = UIImageView()
     let cameraBtn = UIButton()
@@ -82,6 +84,7 @@ class RegisterViewController: UIViewController {
     
     @objc func removeKeyboard() {
         nameTf.resignFirstResponder()
+        myName = nameTf.text
         ageSelectPickerView.isHidden = true
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -158,8 +161,9 @@ class RegisterViewController: UIViewController {
     func setUI() {
         
         
-        view.addSubview([topLb, profileImv, cameraBtn, nameLb, ageLb, nameTf, registBtn, ageSelectPickerView, descLb, ageSelectIndicatedLb])
         
+        view.addSubview([topLb, profileImv, cameraBtn, nameLb, ageLb, nameTf, registBtn, ageSelectPickerView, descLb, ageSelectIndicatedLb])
+        view.backgroundColor = .basicBackground
         topLb.setNotoText("기자증 신청\nPRESS PASS", color: .black, size: 25, textAlignment: .center, font: .medium)
         
         topLb.snp.makeConstraints { (make) in
@@ -170,15 +174,15 @@ class RegisterViewController: UIViewController {
         profileImv.snp.makeConstraints { (make) in
             make.top.equalTo(topLb.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
-            make.width.equalTo(150)
-            make.height.equalTo(180)
+            make.width.equalTo(DEVICEHEIGHT > 600 ? 150 : 100)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 180 : 120)
         }
         profileImv.setBorder(color: .black, width: 3.5)
         cameraBtn.snp.makeConstraints { (make) in
             make.centerX.equalTo(profileImv.snp.trailing)
             make.centerY.equalTo(profileImv.snp.bottom)
-            make.width.equalTo(60)
-            make.height.equalTo(50)
+            make.width.equalTo(DEVICEHEIGHT > 600 ? 60 : 40)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 50 : 30)
         }
         
 //        profileImv.backgroundColor = .blue
@@ -188,18 +192,20 @@ class RegisterViewController: UIViewController {
         ageLb.setNotoText("연령대", size: 16, textAlignment: .right)
         
         nameLb.snp.makeConstraints { (make) in
-            make.top.equalTo(cameraBtn.snp.bottom).offset(30)
-            make.leading.equalTo(50)
+            make.top.equalTo(cameraBtn.snp.bottom).offset(DEVICEHEIGHT > 600 ? 30 : 20)
+            make.leading.equalTo(20)
             make.width.equalTo(50)
             make.height.equalTo(30)
         }
         nameTf.snp.makeConstraints { (make) in
             make.leading.equalTo(nameLb.snp.trailing).offset(10)
             make.centerY.equalTo(nameLb.snp.centerY)
-            make.width.equalTo(200)
+            make.trailing.equalTo(-50)
             make.height.equalTo(30)
         }
 
+        nameTf.keyboardType = .default
+        nameTf.autocorrectionType = .no
         nameTf.addUnderBar()
         
         descLb.setNotoText("*필명:내가 쓴 기사에 사용할 이름", size: 10, textAlignment: .left)
@@ -219,8 +225,8 @@ class RegisterViewController: UIViewController {
         }
         ageSelectPickerView.isHidden = true
         ageSelectIndicatedLb.snp.makeConstraints { (make) in
-            make.leading.equalTo(nameTf.snp.leading).offset(10)
-            make.width.equalTo(200)
+            make.leading.equalTo(nameTf.snp.leading)
+            make.trailing.equalTo(-50)
             make.centerY.equalTo(ageLb.snp.centerY)
             make.height.equalTo(30)
         }
@@ -231,7 +237,7 @@ class RegisterViewController: UIViewController {
             make.leading.equalTo(nameTf.snp.leading)
             make.width.equalTo(nameTf.snp.width)
             make.top.equalTo(ageSelectIndicatedLb.snp.bottom)
-            make.height.equalTo(100)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 100 : 70)
         }
         
         profileImv.image = UIImage.init(named: "basicProfileImage")!
@@ -239,7 +245,7 @@ class RegisterViewController: UIViewController {
         ageSelectPickerView.addUnderBar()
         ageSelectIndicatedLb.addUnderBar()
         registBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeArea.bottom)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-20)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
             make.width.equalTo(200)
@@ -342,7 +348,7 @@ extension RegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if selectedLanguage == .KOREAN {
-    
+            
         return ages[row].age
         }else{
             return localAges[row].age
@@ -372,6 +378,31 @@ extension RegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension RegisterViewController:UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        print(UIWindow().bounds.height)
+        
+
+        if DEVICEHEIGHT < 800 {
+            UIView.animate(withDuration: 0.2) {
+                self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 80)
+                
+            }
+        }
+
+    }
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        
+        if DEVICEHEIGHT < 800 {
+            UIView.animate(withDuration: 0.2) {
+                self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 80)
+            }
+        }
+        
+
+
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

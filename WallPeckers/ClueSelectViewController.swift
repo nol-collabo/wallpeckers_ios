@@ -43,7 +43,7 @@ class ClueSelectViewController: UIViewController {
         self.timerView = self.findTimerView()
         self.view.addSubview(stackView)
         stackView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeArea.top).offset(90)
+            make.top.equalTo(view.safeArea.top).offset(60)
             make.bottom.equalTo(view.safeArea.bottom)
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()

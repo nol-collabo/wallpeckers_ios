@@ -53,8 +53,9 @@ class AfterRegisterViewController: UIViewController {
         mainProfileView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(20)
             make.centerX.equalToSuperview()
-            make.leading.equalTo(64)
-            make.height.equalTo(370)
+            make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
+        
         }
         mainProfileView.setBorder(color: .black, width: 3)
         
@@ -70,8 +71,8 @@ class AfterRegisterViewController: UIViewController {
         profileImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLb.snp.bottom).offset(10)
-            make.width.equalTo(150)
-            make.height.equalTo(180)
+            make.width.equalTo(DEVICEHEIGHT > 600 ? 150 : 100)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 180 : 120)
         }
         mainProfileView.backgroundColor = .paleOliveGreen
         profileImageView.setBorder(color: .black, width: 3.5)
@@ -80,6 +81,7 @@ class AfterRegisterViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(20)
         }
+        pressCodeTf.autocorrectionType = .no
         myPagebtn.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
@@ -156,6 +158,23 @@ class AfterRegisterViewController: UIViewController {
 
 
 extension AfterRegisterViewController:UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if DEVICEHEIGHT < 800 {
+            UIView.animate(withDuration: 0.2) {
+                self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 80)
+                
+            }
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if DEVICEHEIGHT < 800 {
+            UIView.animate(withDuration: 0.2) {
+                self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 80)
+            }
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

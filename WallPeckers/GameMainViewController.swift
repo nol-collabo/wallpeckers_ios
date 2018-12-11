@@ -11,6 +11,11 @@ import Realm
 import RealmSwift
 
 class GameMainViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, TopicButtonDelegate, AlerPopupViewDelegate {
+    
+    
+    let iconWidth = DEVICEHEIGHT > 600 ? 90 : 80
+    let iconHeight = DEVICEHEIGHT > 600 ? 160 : 120
+    
     func tapBottomButton(sender: AlertPopUpView) {
         if sender.tag == 1 {
 
@@ -155,49 +160,49 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
         topicTitleLb.setNotoText("CHOOSE A TOPIC", color: .black, size: 24, textAlignment: .center, font: .medium)
         
         topicTitleLb.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeArea.top).offset(90)
+            make.top.equalTo(view.safeArea.top).offset(70)
             make.height.equalTo(35)
             make.centerX.equalToSuperview()
         }
         
         economyButton.snp.makeConstraints { (make) in
             make.top.equalTo(topicTitleLb.snp.bottom).offset(34)
-            make.width.equalTo(90)
-            make.height.equalTo(160)
+            make.width.equalTo(iconWidth)
+            make.height.equalTo(iconHeight)
             make.centerX.equalToSuperview()
         }
         
         politicsButton.snp.makeConstraints { (make) in
             make.top.equalTo(topicTitleLb.snp.bottom).offset(34)
-            make.width.equalTo(90)
-            make.height.equalTo(160)
+            make.width.equalTo(iconWidth)
+            make.height.equalTo(iconHeight)
             make.trailing.equalTo(economyButton.snp.leading).offset(-25)
         }
         generalButton.snp.makeConstraints { (make) in
             make.top.equalTo(topicTitleLb.snp.bottom).offset(34)
-            make.width.equalTo(90)
-            make.height.equalTo(160)
+            make.width.equalTo(iconWidth)
+            make.height.equalTo(iconHeight)
             make.leading.equalTo(economyButton.snp.trailing).offset(25)
         }
         
         sportsButton.snp.makeConstraints { (make) in
             make.top.equalTo(economyButton.snp.bottom).offset(30)
-            make.width.equalTo(90)
-            make.height.equalTo(180)
+            make.width.equalTo(iconWidth)
+            make.height.equalTo(iconHeight)
             make.centerX.equalToSuperview()
         }
         
         artButton.snp.makeConstraints { (make) in
             make.top.equalTo(economyButton.snp.bottom).offset(30)
-            make.width.equalTo(90)
-            make.height.equalTo(180)
+            make.width.equalTo(iconWidth)
+            make.height.equalTo(iconHeight)
             make.trailing.equalTo(sportsButton.snp.leading).offset(-25)
         }
         
         peopleButton.snp.makeConstraints { (make) in
             make.top.equalTo(economyButton.snp.bottom).offset(30)
-            make.width.equalTo(90)
-            make.height.equalTo(180)
+            make.width.equalTo(iconWidth)
+            make.height.equalTo(iconHeight)
             make.leading.equalTo(sportsButton.snp.trailing).offset(25)
         }
         

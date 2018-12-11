@@ -15,5 +15,16 @@ class User:Object {
     @objc dynamic var name:String?
     @objc dynamic var age:Int = 0
     @objc dynamic var profileImage:Data?
+    @objc dynamic var score:Int = 0
+    @objc dynamic var playTime:Int = 0
+    var factCheckList = List<FactCheck>()
+    
+}
+
+class FactCheck:Object {
+    
+    @objc dynamic var selectedClue:Int = 0
+    @objc dynamic var selectedArticleId:Int = 0
+    @objc dynamic var isSubmit:Bool = false
     
 }
