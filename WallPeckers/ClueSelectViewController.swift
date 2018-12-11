@@ -13,7 +13,7 @@ import Realm
 import RealmSwift
 
 class ClueSelectViewController: UIViewController {
-
+    
     var article:Article?
     var timerView:NavigationCustomView?
     let factCheckButton = BottomButton()
@@ -23,7 +23,7 @@ class ClueSelectViewController: UIViewController {
     var sectionString:String?
     var questionPoint:String?
     var checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -68,7 +68,7 @@ class ClueSelectViewController: UIViewController {
         let articleView = ArticleView()
         
         articleView.setData(article: article!, point: questionPoint!)
-
+        
         stackView.addRow(articleView)
         
         for v in five_W_One_Hs! {
@@ -84,7 +84,7 @@ class ClueSelectViewController: UIViewController {
                 
                 _ = checkedFactList.map({
                     
-                
+                    
                     if view.tag == $0.correctClue {
                         view.indicatedWhenBeforeChecked($0)
                     }
@@ -95,7 +95,7 @@ class ClueSelectViewController: UIViewController {
             }
             
             
-    
+            
             
             stackView.addRow(factCheckButton)
             factCheckButton.snp.makeConstraints { (make) in
@@ -104,10 +104,10 @@ class ClueSelectViewController: UIViewController {
                 make.center.equalToSuperview()
             }
             stackView.addRow(backButton)
-
+            
         }
         
-
+        
         print(checkedFactList)
         print("~~~~")
         
@@ -115,13 +115,43 @@ class ClueSelectViewController: UIViewController {
     
     @objc func moveToFactCheck(sender:UIButton) {
         print("MOVE To FactCheck")
+        
+        var sendingData:[FactCheck] = []
+        
+        //        print(checkedFactList)
+        
+        _ = checkedFactList.map({
+            
+            if $0.selectedArticleId == article?.id {
+                if $0.selectedClue == $0.correctClue {
+                    realm.beginWrite()
+                    $0.isCorrect = true
+                    try! realm.commitWrite()
+                    
+                }
+                
+                sendingData.append($0)
+            }
+            
+        })
+        
+        print(sendingData)
+        print("~~~~")
+        
+        //
+        //        checkedFactList.map({
+        //
+        //            $0.sel
+        //
+        //        })
+        
     }
     @objc func moveToBack(sender:UIButton) {
         sender.isUserInteractionEnabled = false
         self.navigationController?.popViewController(animated: true)
         sender.isUserInteractionEnabled = true
     }
-
+    
 }
 
 extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, CluePopUpViewDelegate {
@@ -156,7 +186,7 @@ extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, Clu
                         }
                     }
                 }
-
+                
                 try! realm.write {
                     RealmUser.shared.getUserData()?.factCheckList.append(factCheck)
                 }
@@ -189,9 +219,9 @@ extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, Clu
         
     }
     
-
     
-
+    
+    
     
     func checkPlayTime(_ time: Int) {
         timerView?.updateTime(time)
@@ -247,7 +277,7 @@ final class ArticleView:UIView {
     }
     
     private func setUI() {
-    
+        
         self.addSubview([pathLb, pointLb, titleLb, descLb, articleImageView])
         
         pathLb.snp.makeConstraints { (make) in
@@ -259,21 +289,21 @@ final class ArticleView:UIView {
             make.trailing.equalTo(-10)
             make.centerY.equalTo(pathLb.snp.centerY)
             make.height.equalTo(30)
-
+            
         }
         titleLb.snp.makeConstraints { (make) in
             make.top.equalTo(pathLb.snp.bottom).offset(5)
             make.leading.equalTo(pathLb.snp.leading)
             make.trailing.equalTo(-10)
-//            make.height.equalTo(50)
+            //            make.height.equalTo(50)
         }
         titleLb.numberOfLines = 0
         descLb.snp.makeConstraints { (make) in
             make.top.equalTo(titleLb.snp.bottom).offset(5)
             make.leading.equalTo(titleLb.snp.leading)
-//            make.height.equalTo(50)
+            //            make.height.equalTo(50)
             make.trailing.equalTo(-5)
-//            make.bottom.equalToSuperview()
+            //            make.bottom.equalToSuperview()
         }
         descLb.numberOfLines = 0
         
@@ -317,7 +347,7 @@ final class ClueSelectView:UIView {
             clueLb.text = ""
             infoLb.isHidden = false
             clueButton.backgroundColor = .white
-
+            
         }else {
             clueButton.backgroundColor = .basicBackground
             clueLb.text = clue.desc
@@ -335,13 +365,13 @@ final class ClueSelectView:UIView {
     
     @objc func callCodePopUp(sender:Clue, tag:Int) {
         
-//        print(sender.clueButton.currentTitle)
+        //        print(sender.clueButton.currentTitle)
         delegate?.touchButton(sender: clue!, tag:self.tag)
         
     }
     
     private func setUI() {
-      
+        
         self.addSubview([clueButton, clueLb, infoLb])
         
         clueButton.snp.makeConstraints { (make) in
@@ -350,7 +380,7 @@ final class ClueSelectView:UIView {
             make.width.equalTo(100)
             make.height.equalTo(34)
         }
-
+        
         clueButton.backgroundColor = .white
         clueButton.setBorder(color: .black, width: 1)
         clueButton.layer.shadowColor = UIColor.black.cgColor
