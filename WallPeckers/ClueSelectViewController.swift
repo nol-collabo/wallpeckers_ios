@@ -112,7 +112,7 @@ extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, Clu
             return
         }
         
-        if let selectedClue = RealmClue.shared.getLocalClue(id: Int(code)!, language: Standard.shared.getLocalized()) {
+        if let selectedClue = RealmClue.shared.getClueAsIdentification(code, language: Standard.shared.getLocalized()) {
             print(selectedClue)
             print(tag, "CLUESELECTEVIEWTAG")
             

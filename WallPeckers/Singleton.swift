@@ -149,6 +149,48 @@ class RealmClue {
         }
     }
     
+    func getClueAsIdentification(_ identification:String, language:Language) -> Clue? {
+        
+        var lanInt = 0
+        
+        switch language {
+        case .KOREAN:
+            return realm.objects(Clue.self).filter("identification = '\(identification)'").first
+        case .GERMAN:
+            lanInt = 3
+        case .ENGLISH:
+            lanInt = 2
+        }
+        let localClue = Array(realm.objects(LocalClue.self).filter("language = \(lanInt)"))
+
+        
+
+        if let original = realm.objects(Clue.self).filter("identification = '\(identification)'").first {
+            
+            let translate = Clue()
+            
+            for lc in localClue {
+                
+                if original.id == lc.clue {
+                    translate.translate(id: lc.clue, identification: original.identification!, desc: lc.desc!, type: original.type!)
+                }
+                
+            }
+            return translate
+            
+            
+        }else{
+            return nil
+        }
+        
+        
+        
+    }
+    
+//    func getClueAsIdentifcation() -> Clue? {
+//
+//    }
+    
     func getLocalClue(id:Int, language:Language) -> Clue? {
         
         var lanInt = 0
