@@ -77,6 +77,7 @@ class ClueSelectViewController: UIViewController {
             if let aa = RealmClue.shared.getLocalClue(id: v.clue, language: Standard.shared.getLocalized()) {
                 view.setData(five: v, clue: aa)
                 view.tag = v.clue
+                print(view.tag, "TAG")
                 stackView.addRow(view)
             }
             
@@ -104,17 +105,51 @@ class ClueSelectViewController: UIViewController {
 }
 
 extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, CluePopUpViewDelegate {
-    func touchButton(sender: Clue) {
+    func inputCode(_ code: String?, tag: Int) {
+        guard let code = code else {return}
         
-        if let clueType = sender.type {
-            PopUp.callCluePopUp(clueType: clueType, vc: self)
+        if code == "" {
+            return
         }
-
+        
+        if let selectedClue = RealmClue.shared.getLocalClue(id: Int(code)!, language: Standard.shared.getLocalized()) {
+            print(selectedClue)
+            print(tag, "CLUESELECTEVIEWTAG")
+            
+            if let selectedClueView = findClueView(tag: tag) {
+                
+                selectedClueView.clueLb.text = selectedClue.desc!
+                
+            }
+            
+            
+        }else{
+            PopUp.callAlert(time: "The Codx", desc: "xx", vc: self, tag: 9)
+            print("NONO")
+        }
     }
     
-    func inputCode(_ code: String?) {
-        print(code)
+    func touchButton(sender: Clue, tag: Int) {
+        if let clueType = sender.type {
+            PopUp.callCluePopUp(clueType: clueType, tag: tag, vc: self)
+        }
     }
+    
+    func findClueView(tag:Int) -> ClueSelectView? {
+        
+        if let clueView = stackView.getAllRows().filter({
+            
+            $0.tag == tag
+        }).first as? ClueSelectView {
+            
+            return clueView
+        }else{
+            return nil
+        }
+        
+    }
+    
+
     
 
     
@@ -130,6 +165,18 @@ extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, Clu
             
             print("1minute!")
             
+        }
+    }
+    
+    
+}
+
+extension ClueSelectViewController:AlerPopupViewDelegate {
+    func tapBottomButton(sender: AlertPopUpView) {
+        if sender.tag == 9 {
+            sender.removeFromSuperview()
+        }else{
+            sender.removeFromSuperview()
         }
     }
     
@@ -241,10 +288,10 @@ final class ClueSelectView:UIView {
         
     }
     
-    @objc func callCodePopUp(sender:Clue) {
+    @objc func callCodePopUp(sender:Clue, tag:Int) {
         
 //        print(sender.clueButton.currentTitle)
-        delegate?.touchButton(sender: clue!)
+        delegate?.touchButton(sender: clue!, tag:self.tag)
         
     }
     
@@ -276,7 +323,7 @@ final class ClueSelectView:UIView {
             make.top.equalTo(clueButton.snp.bottom).offset(10)
             make.bottom.equalTo(-10)
         }
-        clueButton.addTarget(self, action: #selector(callCodePopUp(sender:)), for: .touchUpInside)
+        clueButton.addTarget(self, action: #selector(callCodePopUp(sender:tag:)), for: .touchUpInside)
         clueLb.numberOfLines = 0
         
     }
@@ -288,7 +335,7 @@ final class ClueSelectView:UIView {
 }
 
 protocol ClueSelectDelegate {
-    func touchButton(sender:Clue)
+    func touchButton(sender:Clue, tag:Int)
 }
 
 final class CluePopUpView:UIView {
@@ -368,7 +415,7 @@ final class CluePopUpView:UIView {
     
     @objc func okButtonTouched(sender:UIButton) {
         
-        delegate?.inputCode(codeTf.text)
+        delegate?.inputCode(codeTf.text, tag: self.tag)
         self.removeFromSuperview()
     }
     
@@ -376,7 +423,7 @@ final class CluePopUpView:UIView {
 
 protocol CluePopUpViewDelegate {
     
-    func inputCode(_ code:String?)
+    func inputCode(_ code:String?, tag:Int)
     
 }
 

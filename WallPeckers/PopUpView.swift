@@ -237,12 +237,14 @@ protocol AlerPopupViewDelegate {
 
 struct PopUp {
     
-    static func callCluePopUp(clueType:String, vc:UIViewController) {
+    static func callCluePopUp(clueType:String, tag:Int, vc:UIViewController) {
         
         let popupView = CluePopUpView()
         
         vc.view.addSubview(popupView)
+    
         popupView.delegate = vc as? CluePopUpViewDelegate
+        popupView.tag = tag
         popupView.titleLb.attributedText = clueType.makeAttrString(font: .NotoSans(.medium, size: 20), color: .black)
         popupView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
