@@ -28,6 +28,14 @@ class Clue:Object {
         self.title  = json["title"].stringValue
     }
     
+    func translate(id:Int, identification:String, desc:String, type:String) {
+        self.id = id
+        self.identification = identification
+        self.desc = desc
+        self.type = type
+        
+    }
+    
     
     
 }

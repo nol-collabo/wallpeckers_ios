@@ -72,11 +72,10 @@ class ClueSelectViewController: UIViewController {
             
             let view = ClueSelectView()
             view.delegate = self
-            if let clue = realm.objects(Clue.self).filter({
-                
-                $0.id == v.clue
-            }).first {
-                view.setData(five: v, clue: clue)
+            
+            
+            if let aa = RealmClue.shared.getLocalClue(id: v.clue, language: Standard.shared.getLocalized()) {
+                view.setData(five: v, clue: aa)
                 view.tag = v.clue
                 stackView.addRow(view)
             }
@@ -88,7 +87,7 @@ class ClueSelectViewController: UIViewController {
                 make.center.equalToSuperview()
             }
             stackView.addRow(backButton)
-//            article?.clues.
+
         }
         
     }

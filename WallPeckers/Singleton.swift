@@ -130,3 +130,60 @@ class RealmSection {
         
     }
 }
+
+class RealmClue {
+    
+    static var shared = RealmClue()
+    
+    private init(){}
+    
+    func getClue(id:Int) -> Clue? {
+        
+        if let clue = realm.objects(Clue.self).filter({
+            
+            $0.id == id
+        }).first {
+            return clue
+        }else{
+            return nil
+        }
+    }
+    
+    func getLocalClue(id:Int, language:Language) -> Clue? {
+        
+        var lanInt = 0
+        
+        switch language {
+        case .KOREAN:
+            return getClue(id: id)
+        case .GERMAN:
+            lanInt = 3
+        case .ENGLISH:
+            lanInt = 2
+        }
+        
+        let originalClue = getClue(id: id)
+        let localClue = Array(realm.objects(LocalClue.self).filter("language = \(lanInt)"))
+        var translate:Clue?
+
+        _ = originalClue.map({
+
+
+            for lc in localClue {
+                
+                if $0.id == lc.clue {
+                    
+                    let translateClue = Clue()
+                    translateClue.translate(id: lc.clue, identification: $0.identification!, desc: lc.desc!, type: $0.type!)
+                    translate = translateClue
+                }
+            }
+
+        })
+        
+        return translate
+        
+        
+    }
+    
+}
