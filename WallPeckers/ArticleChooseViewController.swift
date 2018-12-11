@@ -73,20 +73,10 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
     let backButton = UIButton()
     let articleTitleLb = UILabel()
     var sectionId:Int = 0
-    var articles:Results<Article>?
-    var articleLinks:Results<ArticleLink>?
+    var articles:[Article]?
+    var articleLinks:[ArticleLink]?
     var localArticleLinks:Results<LocalArticleLink>?
-    var localArticles:Results<LocalArticle>? {
-        didSet {
-            
-            _ = articles.map({
-                
-                article in
-                
-                article.filter("article = \(localArticles)")
-            })
-        }
-    }
+    var localArticles:Results<LocalArticle>?
     
     
     var articleButtons:[ArticleSelectButton] = []
@@ -101,7 +91,7 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         
     }
     
-    func setData(localData:Results<LocalArticle>?, articles:Results<Article>?, articleBtns:[ArticleSelectButton], articleLinks:Results<ArticleLink>) {
+    func setData(localData:Results<LocalArticle>?, articles:[Article], articleBtns:[ArticleSelectButton], articleLinks:[ArticleLink]) {
         
         self.localArticles = localData
         self.articles = articles

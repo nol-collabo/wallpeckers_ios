@@ -29,6 +29,15 @@ class Section:Object {
         self.image = json["image"].stringValue
     }
     
+    func translate(title:String, desc:String, id:Int, badge:String, image:String) {
+        self.title = title
+        self.desc = desc
+        self.id = id
+        self.badge = badge
+        self.image = image
+        
+    }
+    
 }
 
 

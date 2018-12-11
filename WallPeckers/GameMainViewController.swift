@@ -38,37 +38,32 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
 
         var articleButtons:[ArticleSelectButton] = []
         
-        switch selectedLanguage {
+        for article in RealmArticle.shared.get(selectedLanguage).filter({
+            $0.section == tag
+        }) {
             
-        case .ENGLISH:
-            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 2"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons, articleLinks: realm.objects(ArticleLink.self))
-
-        case .GERMAN:
-            vc.setData(localData: realm.objects(LocalArticle.self).filter("language = 3"), articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons, articleLinks: realm.objects(ArticleLink.self))
-
-        case .KOREAN:
+            let btn = ArticleSelectButton()
             
+            let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
+                
+                $0.point
+            }).reduce(0, +)
             
-            for article in  realm.objects(Article.self).filter("section = \(tag)") {
-                
-                let btn = ArticleSelectButton()
-                
-                let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
-                    
-                    $0.point
-                }).reduce(0, +)
-                
-                print(aa)
-                
-                btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
-//                btn.delegate = self
-                articleButtons.append(btn)
-                
-            }
+            print(aa)
             
-            vc.setData(localData: nil, articles: realm.objects(Article.self).filter("section = \(tag)"), articleBtns: articleButtons, articleLinks: realm.objects(ArticleLink.self))
+            btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
+            articleButtons.append(btn)
+            
         }
         
+        
+        print(articleButtons.count)
+        
+        vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
+            $0.section == tag
+        }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
+        
+
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
@@ -82,9 +77,8 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
     let sportsButton = TopicButton()
     let peopleButton = TopicButton()
     let selectedLanguage = Standard.shared.getLocalized()
-    let sections = realm.objects(Section.self)
-    var engsection = realm.objects(LocalSection.self).filter("language = 2")
-    var gersection = realm.objects(LocalSection.self).filter("language = 3")
+    var sections:[Section]?
+   
     @IBOutlet weak var containerView: UIView!
     
     func checkPlayTime(_ time: Int) {
@@ -135,6 +129,7 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
         self.view.backgroundColor = .basicBackground
         self.setCustomNavigationBar()
 
+        sections = RealmSection.shared.get(selectedLanguage)
         
         
         self.view.addSubview([topicTitleLb, politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton])
@@ -142,28 +137,12 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
         
         let buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
         
-        switch selectedLanguage {
+        guard let sections = sections else {return}
+
+        for i in 0...buttons.count - 1 {
             
-        case .ENGLISH:
-            
-            for i in 0...buttons.count - 1 {
-                
-                buttons[i].setData(title: engsection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: engsection[i].id)
-            }
-            
-        case .KOREAN:
-            for i in 0...buttons.count - 1 {
-                
-                buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: sections[i].id)
-            }
-        case .GERMAN:
-            for i in 0...buttons.count - 1 {
-                
-                buttons[i].setData(title: gersection[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: gersection[i].id)
-            }
-            
+            buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: sections[i].id)
         }
-        
       
         politicsButton.delegate = self
         economyButton.delegate = self

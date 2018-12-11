@@ -24,24 +24,20 @@ class Article:Object {
     @objc dynamic var title:String?
     @objc dynamic var region:String?
     @objc dynamic var title_sub:String?
-    let clues = List<Int>()
+    var clues = List<Int>()
 
     convenience init(_ json:JSON) {
         self.init()
         self.desc = json["desc"].stringValue
         self.result = json["result"].stringValue
         self.point = json["point"].intValue
-//        self.clues = json["clues"]
-        
-//        self.clues.append(json["clues"].array
-        
+
         _ = json["clues"].arrayValue.map({
             
             self.clues.append($0.intValue)
             
         })
         
-//        RLMArray.init(objectType: .int, optional: true)
         self.id = json["id"].intValue
         self.hashes = json["hashes"].stringValue
         self.word = json["word"].stringValue
@@ -49,6 +45,19 @@ class Article:Object {
         self.title = json["title"].stringValue
         self.region = json["region"].stringValue
         self.title_sub = json["title_sub"].stringValue
+    }
+    
+    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:List<Int>, hashes:String, section:Int) {
+        
+        self.word = word
+        self.title = title
+        self.title_sub = title_sub
+        self.result = result
+        self.id = id
+        self.clues = clues
+        self.hashes = hashes
+        self.section = section
+        
     }
     
 }

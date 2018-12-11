@@ -19,6 +19,7 @@
 		230BD47D21BA50FC00503CD5 /* ArticleChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */; };
 		230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47E21BA667100503CD5 /* ResultViewController.swift */; };
 		230BD48121BE47B600503CD5 /* ClueSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */; };
+		230BD48321BF543400503CD5 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD48221BF543400503CD5 /* Singleton.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -91,6 +92,7 @@
 		230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleChooseViewController.swift; sourceTree = "<group>"; };
 		230BD47E21BA667100503CD5 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueSelectViewController.swift; sourceTree = "<group>"; };
+		230BD48221BF543400503CD5 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				2357818B21ABF2DA00338CB9 /* Extension */,
 				2357815921ABF28F00338CB9 /* AppDelegate.swift */,
 				2357819421ABF47A00338CB9 /* PopUpView.swift */,
+				230BD48221BF543400503CD5 /* Singleton.swift */,
 				23D86F2721B1391C00CDC5B6 /* Classes */,
 				2357818721ABF2AE00338CB9 /* StartViewController.swift */,
 				23D86F0A21B11BC800CDC5B6 /* AfterRegisterViewController.swift */,
@@ -583,6 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23D86F2621B12C9E00CDC5B6 /* AlreadyRegisterViewController.swift in Sources */,
+				230BD48321BF543400503CD5 /* Singleton.swift in Sources */,
 				2357819521ABF47A00338CB9 /* PopUpView.swift in Sources */,
 				23D86F3321B157DC00CDC5B6 /* Article.swift in Sources */,
 				2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */,
