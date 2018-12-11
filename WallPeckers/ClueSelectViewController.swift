@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 import AloeStackView
+import Realm
+import RealmSwift
 
 class ClueSelectViewController: UIViewController {
 
@@ -20,6 +22,7 @@ class ClueSelectViewController: UIViewController {
     let stackView = AloeStackView()
     var sectionString:String?
     var questionPoint:String?
+    var checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +81,21 @@ class ClueSelectViewController: UIViewController {
                 view.setData(five: v, clue: aa)
                 view.tag = v.clue
                 print(view.tag, "TAG")
+                
+                _ = checkedFactList.map({
+                    
+                
+                    if view.tag == $0.correctClue {
+                        view.indicatedWhenBeforeChecked($0)
+                    }
+                    
+                })
+                
                 stackView.addRow(view)
             }
+            
+            
+    
             
             stackView.addRow(factCheckButton)
             factCheckButton.snp.makeConstraints { (make) in
@@ -90,6 +106,10 @@ class ClueSelectViewController: UIViewController {
             stackView.addRow(backButton)
 
         }
+        
+
+        print(checkedFactList)
+        print("~~~~")
         
     }
     
@@ -120,6 +140,26 @@ extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, Clu
                 
                 selectedClueView.clueLb.text = selectedClue.desc!
                 
+                let factCheck = FactCheck()
+                factCheck.selectedClue = selectedClue.id
+                factCheck.selectedArticleId = article!.id
+                factCheck.correctClue = selectedClueView.tag
+                
+                print(factCheck)
+                print("~~~~~")
+                
+                
+                if let beforeSelected = RealmUser.shared.getUserData()?.factCheckList.filter("correctClue = \(selectedClueView.tag)").first {
+                    if let idx = RealmUser.shared.getUserData()?.factCheckList.index(of: beforeSelected) {
+                        try! realm.write {
+                            RealmUser.shared.getUserData()?.factCheckList.remove(at: idx)
+                        }
+                    }
+                }
+
+                try! realm.write {
+                    RealmUser.shared.getUserData()?.factCheckList.append(factCheck)
+                }
             }
             
             
@@ -286,6 +326,11 @@ final class ClueSelectView:UIView {
         }
         
         
+    }
+    
+    func indicatedWhenBeforeChecked(_ fact:FactCheck) {
+        
+        clueLb.text = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized())?.desc
     }
     
     @objc func callCodePopUp(sender:Clue, tag:Int) {

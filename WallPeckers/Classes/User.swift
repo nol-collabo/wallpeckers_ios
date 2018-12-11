@@ -25,6 +25,8 @@ class FactCheck:Object {
     
     @objc dynamic var selectedClue:Int = 0
     @objc dynamic var selectedArticleId:Int = 0
+    @objc dynamic var isCorrect:Bool = false
+    @objc dynamic var correctClue:Int = 0
     @objc dynamic var isSubmit:Bool = false
     
 }
