@@ -159,11 +159,9 @@ extension GameViewController:GameViewTransitionDelegate {
             if let vc = toVc as? ArticleChooseViewController {
             
             var articleButtons:[ArticleSelectButton] = []
-            
-            let tag = sendData!
-            
+                
             for article in RealmArticle.shared.get(selectedLanguage).filter({
-                $0.section == tag as! Int
+                $0.section == sendData as! Int
             }) {
                 
                 let btn = ArticleSelectButton()
@@ -179,7 +177,7 @@ extension GameViewController:GameViewTransitionDelegate {
             }
             
             vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
-                $0.section == tag as! Int
+                $0.section == sendData as! Int
             }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
 
                 
@@ -200,19 +198,6 @@ extension GameViewController:GameViewTransitionDelegate {
                 print(vc)
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
-//                if let ar = articles?.filter({
-//
-//                    $0.id == sender.tag
-//                }).first {
-//
-//                    let a = Array(realm.objects(Five_W_One_Hs.self).filter("article = \(sender.tag)"))
-//
-//                    vc.setData(article: ar, five: a)
-//                    vc.questionPoint = (sender.pointTitleLb.text!)
-//
-//                }
-//
-//            }
             
         case .backward:
             fromVc.removeFromParent()
@@ -222,8 +207,6 @@ extension GameViewController:GameViewTransitionDelegate {
             }else if let _ = fromVc as? ClueSelectViewController {
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
-            
-           
 
         }
         

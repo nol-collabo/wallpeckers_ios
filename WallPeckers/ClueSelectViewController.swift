@@ -109,7 +109,6 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     
     @objc func moveToFactCheck(sender:UIButton) {
         print("MOVE To FactCheck")
-        
         var sendingData:[FactCheck] = []
         
         //        print(checkedFactList)
@@ -129,7 +128,8 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             
         })
         
-        print(sendingData)
+        print("SENDINGDATA")
+        print(sendingData.count)
         print("~~~~")
 
         
@@ -183,6 +183,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                 
                 try! realm.write {
                     RealmUser.shared.getUserData()?.factCheckList.append(factCheck)
+                    self.checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                 }
             }
             
