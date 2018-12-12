@@ -20,17 +20,16 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ClueSelectViewController") as? ClueSelectViewController else {return}
         
-
-        
         if let ar = articles?.filter({
             
             $0.id == sender.tag
+            
         }).first {
             
             let a = Array(realm.objects(Five_W_One_Hs.self).filter("article = \(sender.tag)"))
         
             let sendingData = (ar, a, sender.pointTitleLb.text!)
-            delegate?.moveTo(fromVc: self, toVc: vc, sendData: (ar, a, sender.pointTitleLb.text!), direction: .forward)
+            delegate?.moveTo(fromVc: self, toVc: vc, sendData: sendingData, direction: .forward)
 
             
         }
@@ -53,7 +52,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             sender.removeFromSuperview()
         }
     }
-    
     
     var links:[ArticleLinkLine] = []
     var timerView:NavigationCustomView?
@@ -114,7 +112,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             
             let line = ArticleLinkLine()
             let color = LineColor.init(rawValue: i.color!)
-//            line.setLine(color: color!, vc: self)
             
             if let left = articleButtons.filter({
                 $0.tag == i.articles[0]
@@ -122,7 +119,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                 $0.tag == i.articles[1]
             }).first {
                 line.setLine(color: color!, leftButton: left, rightButton: right, vc: self)
-//                line.linkButton(leftButton: left, rightButton: right, vc: self)
                 links.append(line)
             }
             
@@ -145,8 +141,9 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     }
     
 
-    func setUI() {
+    private func setUI() {
         self.view.backgroundColor = .basicBackground
+        type = GameViewType.article
         backButton.setImage(UIImage.init(named: "backButton")!, for: .normal)
         self.view.addSubview(backButton)
         self.view.addSubview(articleTitleLb)
@@ -231,10 +228,8 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         
         sender.isUserInteractionEnabled = false
         
-        guard let vc = self.parent?.children.filter({
-            
-            $0 is TopicViewController
-        }).first as? GameTransitionBaseViewController else {return}
+        guard let vc = self.findBeforeVc(type: .topic) else {return}
+
      
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
         
@@ -362,5 +357,11 @@ protocol ArticleSelectDelegate {
 enum LineColor:String {
     
     case BLUE, RED, ORANGE, GREEN
+    
+}
+
+enum GameViewType:String {
+    
+    case topic, article, clue, factCheck, newspaper
     
 }

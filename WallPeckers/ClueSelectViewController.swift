@@ -13,7 +13,7 @@ import Realm
 import RealmSwift
 
 class ClueSelectViewController: GameTransitionBaseViewController {
-    
+
     var article:Article?
     let factCheckButton = BottomButton()
     let backButton = UIButton()
@@ -37,6 +37,8 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     
     func setUI(){
         
+        type = GameViewType.clue
+
         self.view.addSubview(stackView)
         
         stackView.snp.makeConstraints { (make) in
@@ -137,12 +139,10 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     @objc func moveToBack(sender:UIButton) {
         sender.isUserInteractionEnabled = false
         
-        guard let vc = self.parent?.children.filter({
-            
-            $0 is ArticleChooseViewController
-        }).first as? GameTransitionBaseViewController else {return}
+        guard let vc = self.findBeforeVc(type: .article) else {return}
         
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+        
         sender.isUserInteractionEnabled = true
     }
     
