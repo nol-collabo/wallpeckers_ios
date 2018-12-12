@@ -51,9 +51,7 @@ class TestViewController: UIViewController {
 //        thirdVcV.backgroundColor = .red
         
         
-        fvc.view.backgroundColor = .blue
-        svc.view.backgroundColor = .red
-        tvc.view.backgroundColor = .white
+   
         addChild(fvc)
         addChild(svc)
         addChild(tvc)
@@ -77,20 +75,41 @@ class TestViewController: UIViewController {
 }
 
 extension TestViewController:TestContainerViewDelegate {
-    func moveToNext(sender: Any, idx: Int) {
-        print(sender)
-        print(idx)
+    func moveToNext(sender: Any, currentVc: UIViewController, nextVc: UIViewController) {
         
-        if idx == 0 {
-            svc.lbl.text = "\(sender)"
-            horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
-        }else{
-            fvc.button.setTitle("Welcome!", for: .normal)
-            horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
+        if currentVc is TestFirstViewController {
+            if let vc = nextVc as? TestSecondViewController {
+                
+                if !self.children.contains(vc) {
+                    addChild(vc)
+                }
+                vc.lbl.text = "\(sender)"
+                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
+            }
         }
     }
     
+    func moveToBack(sender: Any, currentVc: UIViewController, nextVc: UIViewController) {
+        if currentVc is TestSecondViewController {
+            if let vc = nextVc as? TestFirstViewController {
+//                currentVc.removeFromParent()
+                vc.button.setTitle("WEL", for: .normal)
+                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
+            }
+        }
+    }
+    
+//    func moveToNext(sender: Any, idx: Int) {
+//      
+//        if idx == 0 {
+//            addChild(svc)
+//            svc.lbl.text = "\(sender)"
+//            horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
+//        }else{
+//            svc.removeFromParent()
+//            fvc.button.setTitle("Welcome!", for: .normal)
+//            horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
+//        }
+//    }
 
-    
-    
 }

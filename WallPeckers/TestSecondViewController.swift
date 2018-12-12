@@ -39,7 +39,13 @@ class TestSecondViewController: UIViewController {
     
     @objc func moveBack() {
         
-        delegate?.moveToNext(sender: "BACK", idx: 2)
+        if let bvc = self.parent?.children.filter({
+            $0 is TestFirstViewController
+        }).first {
+            delegate?.moveToBack!(sender: "Back", currentVc: self, nextVc: bvc)
+        }
+        
+//        delegate?.moveToNext(sender: "BACK", idx: 2)
     }
     
 

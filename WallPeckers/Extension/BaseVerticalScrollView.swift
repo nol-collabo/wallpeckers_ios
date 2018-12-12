@@ -62,7 +62,8 @@ class BaseHorizontalScrollView:UIView {
         
         vc.view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
-            make.height.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(vc.view.safeArea.bottom)
             make.centerY.leading.trailing.equalToSuperview()
             
         }

@@ -1,73 +1,17 @@
 //
-//  GameMainViewController.swift
+//  TopicViewController.swift
 //  WallPeckers
 //
-//  Created by Seongchan Kang on 03/12/2018.
+//  Created by Seongchan Kang on 12/12/2018.
 //  Copyright © 2018 KimJimin and Company. All rights reserved.
 //
 
 import UIKit
-import Realm
-import RealmSwift
 
-class GameMainViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, TopicButtonDelegate, AlerPopupViewDelegate {
-    
-    
+class TopicViewController: GameTransitionBaseViewController {
+
     let iconWidth = DEVICEHEIGHT > 600 ? 90 : 80
     let iconHeight = DEVICEHEIGHT > 600 ? 160 : 120
-    
-    func tapBottomButton(sender: AlertPopUpView) {
-        if sender.tag == 1 {
-
-            print("MOVE TO NEXT")
-            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResultViewController") as? ResultViewController else {return}
-            sender.removeFromSuperview()
-
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-        }else {
-            sender.removeFromSuperview()
-        }
-    }
-
-    func tap(tag: Int) {
-        print("TAG", tag)
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ArticleChooseViewController") as? ArticleChooseViewController else {return}
-
-        vc.sectionId = tag
-
-        var articleButtons:[ArticleSelectButton] = []
-        
-        for article in RealmArticle.shared.get(selectedLanguage).filter({
-            $0.section == tag
-        }) {
-            
-            let btn = ArticleSelectButton()
-            
-            let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
-                
-                $0.point
-            }).reduce(0, +)
-            
-            print(aa)
-            
-            btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
-            articleButtons.append(btn)
-            
-        }
-        
-        
-        print(articleButtons.count)
-        
-        vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
-            $0.section == tag
-        }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
-        
-
-        self.navigationController?.pushViewController(vc, animated: false)
-    }
-    
-    
     let topicTitleLb = UILabel()
     var timerView:NavigationCustomView?
     let politicsButton = TopicButton()
@@ -78,71 +22,33 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
     let peopleButton = TopicButton()
     let selectedLanguage = Standard.shared.getLocalized()
     var sections:[Section]?
-   
-    @IBOutlet weak var containerView: UIView!
-    
-    func checkPlayTime(_ time: Int) {
 
-        timerView?.updateTime(time)
-        
-        if time == 0 { //완료 됐을떄
-
-            PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
-            print("END!")
-
-        }else if time == 60 { // 1분 남았을 때
-            PopUp.callAlert(time: "01:00", desc: "1분", vc: self, tag: 2)
-
-            print("1minute!")
-
-        }
-    }
-
-    func touchMoveToMyPage(sender: UIButton) {
-        sender.isUserInteractionEnabled = false
-        
-        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPageViewController") as? MyPageViewController else {return}
-        sender.isUserInteractionEnabled = true
-        
-        self.present(vc, animated: true, completion: nil)
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        setUI()
-        
-        
-        self.timerView = self.findTimerView()
-     
-        Standard.shared.startTimer(gameMode: .short)
 
+        setUI()
+        // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Standard.shared.delegate = self
-    }
     
     func setUI() {
         self.view.backgroundColor = .basicBackground
         self.setCustomNavigationBar()
-
+        
         sections = RealmSection.shared.get(selectedLanguage)
         
         self.view.addSubview([topicTitleLb, politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton])
-
+        
         
         let buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
         
         guard let sections = sections else {return}
-
+        
         for i in 0...buttons.count - 1 {
             
             buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: sections[i].id)
         }
-      
+        
         politicsButton.delegate = self
         economyButton.delegate = self
         generalButton.delegate = self
@@ -203,20 +109,69 @@ class GameMainViewController: UIViewController, GameNavigationBarDelegate, GameP
         
     }
     
-    func findTimerView() {
-        if let vv = self.view.subviews.filter({
-            
-            $0 is GameNavigationBar
-            
-        }).first as? GameNavigationBar {
-            if let _timerView = vv.subviews.filter({
-                
-                $0.tag == 99
-                
-            }).first as? NavigationCustomView {
-                self.timerView = _timerView
-            }
-        }
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
+    */
+
+}
+
+extension TopicViewController:TopicButtonDelegate {
+    func tap(tag: Int) {
+        print("TAG", tag)
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ArticleChooseViewController") as? ArticleChooseViewController else {return}
+        
+        vc.sectionId = tag
+        
+        var articleButtons:[ArticleSelectButton] = []
+        
+        for article in RealmArticle.shared.get(selectedLanguage).filter({
+            $0.section == tag
+        }) {
+            
+            let btn = ArticleSelectButton()
+            
+            let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
+                
+                $0.point
+            }).reduce(0, +)
+            
+//            print(aa)
+            
+            btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
+            articleButtons.append(btn)
+            
+        }
+        
+        
+//        print(articleButtons.count)
+        
+        vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
+            $0.section == tag
+        }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
+        
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: tag, direction: .forward)
+        
+        
+//        self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    
+}
+
+protocol GameViewTransitionDelegate {
+    
+    func moveTo(fromVc:GameTransitionBaseViewController, toVc:GameTransitionBaseViewController, sendData:Any?, direction:TransitionDirection)
+    
+}
+
+enum TransitionDirection:String {
+    case forward, backward
 }
 

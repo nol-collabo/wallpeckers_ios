@@ -10,6 +10,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="zWT-C9-SpX">
+            <objects>
+                <viewController storyboardIdentifier="GameViewController" id="blW-w7-bTy" customClass="GameViewController" customModule="WallPeckers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KS4-QI-XJf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="P3b-mz-iY0"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rru-Dk-0or"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xaq-xT-DXj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="798" y="-587"/>
+        </scene>
         <!--Game Main View Controller-->
         <scene sceneID="hTF-hj-GLa">
             <objects>
@@ -37,7 +53,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="4cK-CA-bE7" kind="relationship" relationship="rootViewController" id="l0K-Je-5jC"/>
+                        <segue destination="blW-w7-bTy" kind="relationship" relationship="rootViewController" id="kZb-ka-9Tq"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8w-B4-ccQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -52,6 +68,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="CoD-qj-v3a"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QNR-4A-pzh" userLabel="First Responder" sceneMemberID="firstResponder"/>

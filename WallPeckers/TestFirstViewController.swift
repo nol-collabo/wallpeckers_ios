@@ -33,10 +33,11 @@ class TestFirstViewController: UIViewController {
     }
     
     @objc func moveToNext() {
-        print(self.parent?.children)
-        if let pvc = self.parent as? TestViewController {
-            delegate?.moveToNext(sender: "hi", idx: 0)
-//            pvc.horizontalView.scrollView.scrollRectToVisible(CGRect.init(x: 375, y: 0, width: 100, height: 100), animated: true)
+        if let pvc = self.parent as? TestViewController, let nextVc = self.parent?.children.filter({
+            
+            $0 is TestSecondViewController
+        }).first {
+            delegate?.moveToNext!(sender: "hi", currentVc: self, nextVc: nextVc)
 
         }
     }
@@ -46,7 +47,7 @@ class TestFirstViewController: UIViewController {
     /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // In a storyboard-based application , you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
@@ -55,8 +56,9 @@ class TestFirstViewController: UIViewController {
 
 }
 
-protocol TestContainerViewDelegate {
+@objc protocol TestContainerViewDelegate {
     
-    func moveToNext(sender:Any, idx:Int)
+    @objc optional func moveToNext(sender:Any, currentVc:UIViewController, nextVc:UIViewController)
+    @objc optional func moveToBack(sender:Any, currentVc:UIViewController, nextVc:UIViewController)
     
 }

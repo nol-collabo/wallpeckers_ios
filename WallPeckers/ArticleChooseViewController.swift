@@ -10,15 +10,17 @@ import UIKit
 import RealmSwift
 import Realm
 
-class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, GamePlayTimeDelegate, AlerPopupViewDelegate, ArticleSelectDelegate {
+class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupViewDelegate, ArticleSelectDelegate {
     
     let iconWidth = DEVICEHEIGHT > 600 ? 93 : 83
 
     
     func tapArticle(sender: ArticleSelectButton) {
-        print(sender.tag)
+        
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ClueSelectViewController") as? ClueSelectViewController else {return}
+        
+
         
         if let ar = articles?.filter({
             
@@ -26,15 +28,11 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         }).first {
             
             let a = Array(realm.objects(Five_W_One_Hs.self).filter("article = \(sender.tag)"))
-            
-            vc.setData(article: ar, five: a)
-            vc.questionPoint = (sender.pointTitleLb.text!)
-            
-//            vc.questionPoint =
-            print(a)
-            print("~~")
-            self.navigationController?.pushViewController(vc, animated: true)
+        
+            let sendingData = (ar, a, sender.pointTitleLb.text!)
+            delegate?.moveTo(fromVc: self, toVc: vc, sendData: (ar, a, sender.pointTitleLb.text!), direction: .forward)
 
+            
         }
         
         
@@ -56,21 +54,6 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         }
     }
     
-    func checkPlayTime(_ time: Int) {
-        timerView?.updateTime(time)
-        if time == 0 { //완료 됐을떄
-            
-            PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
-            print("END!")
-            
-        }else if time == 60 { // 1분 남았을 때
-            PopUp.callAlert(time: "01:00", desc: "1분", vc: self, tag: 2)
-            
-            print("1minute!")
-            
-        }
-    }
-    
     
     var links:[ArticleLinkLine] = []
     var timerView:NavigationCustomView?
@@ -81,7 +64,6 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
     var articleLinks:[ArticleLink]?
     var localArticleLinks:Results<LocalArticleLink>?
     var localArticles:Results<LocalArticle>?
-    
     
     var articleButtons:[ArticleSelectButton] = []
     
@@ -160,18 +142,10 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         super.viewDidLoad()
         setUI()
 
-        // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Standard.shared.delegate = self
 
-    }
-    
     func setUI() {
-        self.setCustomNavigationBar()
-        self.timerView = self.findTimerView()
         self.view.backgroundColor = .basicBackground
         backButton.setImage(UIImage.init(named: "backButton")!, for: .normal)
         self.view.addSubview(backButton)
@@ -179,14 +153,12 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         backButton.snp.makeConstraints { (make) in
             make.width.height.equalTo(40)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeArea.bottom).offset(-40)
+            make.bottom.equalTo(-60)
         }
         
         
         articleTitleLb.setNotoText("CHOOSE A ARTICLE", color: .black, size: 24, textAlignment: .center, font: .medium)
-        
-        print(articleButtons.count)
-        
+                
         articleTitleLb.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(70)
             make.height.equalTo(35)
@@ -195,9 +167,7 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         
         for i in articleButtons {
             self.view.addSubview(i)
-            //            print(i.)
-            
-            print(i.tag)
+
             i.delegate = self
         }
         
@@ -261,13 +231,17 @@ class ArticleChooseViewController: UIViewController, GameNavigationBarDelegate, 
         
         sender.isUserInteractionEnabled = false
         
-        self.navigationController?.popViewController(animated: false)
+        guard let vc = self.parent?.children.filter({
+            
+            $0 is TopicViewController
+        }).first as? GameTransitionBaseViewController else {return}
+     
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+        
         
         sender.isUserInteractionEnabled = true
         
     }
-
-
 }
 
 class ArticleSelectButton:UIView {

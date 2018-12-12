@@ -12,10 +12,9 @@ import AloeStackView
 import Realm
 import RealmSwift
 
-class ClueSelectViewController: UIViewController {
+class ClueSelectViewController: GameTransitionBaseViewController {
     
     var article:Article?
-    var timerView:NavigationCustomView?
     let factCheckButton = BottomButton()
     let backButton = UIButton()
     var five_W_One_Hs:[Five_W_One_Hs]?
@@ -35,19 +34,14 @@ class ClueSelectViewController: UIViewController {
         self.five_W_One_Hs = five
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Standard.shared.delegate = self
-    }
     
     func setUI(){
-        Standard.shared.delegate = self
-        self.setCustomNavigationBar()
-        self.timerView = self.findTimerView()
+        
         self.view.addSubview(stackView)
+        
         stackView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(60)
-            make.bottom.equalTo(view.safeArea.bottom)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-30)
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
             
@@ -137,24 +131,24 @@ class ClueSelectViewController: UIViewController {
         
         print(sendingData)
         print("~~~~")
-        
-        //
-        //        checkedFactList.map({
-        //
-        //            $0.sel
-        //
-        //        })
+
         
     }
     @objc func moveToBack(sender:UIButton) {
         sender.isUserInteractionEnabled = false
-        self.navigationController?.popViewController(animated: true)
+        
+        guard let vc = self.parent?.children.filter({
+            
+            $0 is ArticleChooseViewController
+        }).first as? GameTransitionBaseViewController else {return}
+        
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
         sender.isUserInteractionEnabled = true
     }
     
 }
 
-extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, CluePopUpViewDelegate {
+extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
     func inputCode(_ code: String?, tag: Int) {
         guard let code = code else {return}
         
@@ -218,27 +212,7 @@ extension ClueSelectViewController:GamePlayTimeDelegate, ClueSelectDelegate, Clu
         }
         
     }
-    
-    
-    
-    
-    
-    func checkPlayTime(_ time: Int) {
-        timerView?.updateTime(time)
-        if time == 0 { //완료 됐을떄
-            
-            PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
-            print("END!")
-            
-        }else if time == 60 { // 1분 남았을 때
-            PopUp.callAlert(time: "01:00", desc: "1분", vc: self, tag: 2)
-            
-            print("1minute!")
-            
-        }
-    }
-    
-    
+
 }
 
 extension ClueSelectViewController:AlerPopupViewDelegate {
@@ -301,9 +275,7 @@ final class ArticleView:UIView {
         descLb.snp.makeConstraints { (make) in
             make.top.equalTo(titleLb.snp.bottom).offset(5)
             make.leading.equalTo(titleLb.snp.leading)
-            //            make.height.equalTo(50)
             make.trailing.equalTo(-5)
-            //            make.bottom.equalToSuperview()
         }
         descLb.numberOfLines = 0
         
