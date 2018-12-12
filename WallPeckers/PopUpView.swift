@@ -205,14 +205,17 @@ class AlertPopUpView:UIView {
             make.width.equalToSuperview()
         }
         descLb.snp.makeConstraints { (make) in
-            make.top.equalTo(timeLb.snp.bottom).offset(20)
+//            make.top.equalTo(timeLb.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-10)
+            make.leading.equalTo(32)
         }
         bottomButton.snp.makeConstraints { (make) in
-            make.top.equalTo(descLb.snp.bottom).offset(10)
+//            make.top.equalTo(descLb.snp.bottom).offset(10)
             make.width.equalTo(200)
-            make.height.equalTo(50)
+            make.height.equalTo(43)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(-24)
         }
         bottomButton.addTarget(self, action: #selector(tapButton(sender:)), for: .touchUpInside)
     }

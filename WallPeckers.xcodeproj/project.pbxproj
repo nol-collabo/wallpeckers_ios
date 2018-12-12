@@ -20,6 +20,11 @@
 		230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD47E21BA667100503CD5 /* ResultViewController.swift */; };
 		230BD48121BE47B600503CD5 /* ClueSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */; };
 		230BD48321BF543400503CD5 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD48221BF543400503CD5 /* Singleton.swift */; };
+		230BD4BF21C0A7DB00503CD5 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230BD4BE21C0A7DB00503CD5 /* Test.storyboard */; };
+		230BD4C121C0A80600503CD5 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4C021C0A80600503CD5 /* TestViewController.swift */; };
+		230BD4C321C0A8E200503CD5 /* TestFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4C221C0A8E200503CD5 /* TestFirstViewController.swift */; };
+		230BD4C521C0AAC700503CD5 /* TestSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4C421C0AAC700503CD5 /* TestSecondViewController.swift */; };
+		230BD4C721C0AACE00503CD5 /* TestThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4C621C0AACE00503CD5 /* TestThirdViewController.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -93,6 +98,11 @@
 		230BD47E21BA667100503CD5 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClueSelectViewController.swift; sourceTree = "<group>"; };
 		230BD48221BF543400503CD5 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		230BD4BE21C0A7DB00503CD5 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
+		230BD4C021C0A80600503CD5 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		230BD4C221C0A8E200503CD5 /* TestFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFirstViewController.swift; sourceTree = "<group>"; };
+		230BD4C421C0AAC700503CD5 /* TestSecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSecondViewController.swift; sourceTree = "<group>"; };
+		230BD4C621C0AACE00503CD5 /* TestThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestThirdViewController.swift; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -221,6 +231,11 @@
 				23D86F3C21B50DE700CDC5B6 /* Game.storyboard */,
 				230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */,
 				230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */,
+				230BD4BE21C0A7DB00503CD5 /* Test.storyboard */,
+				230BD4C021C0A80600503CD5 /* TestViewController.swift */,
+				230BD4C421C0AAC700503CD5 /* TestSecondViewController.swift */,
+				230BD4C621C0AACE00503CD5 /* TestThirdViewController.swift */,
+				230BD4C221C0A8E200503CD5 /* TestFirstViewController.swift */,
 				230BD47E21BA667100503CD5 /* ResultViewController.swift */,
 				23D86F3E21B50E7000CDC5B6 /* GameMainViewController.swift */,
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
@@ -447,6 +462,7 @@
 				23D86F1521B125C700CDC5B6 /* notokr_regular.ttf in Resources */,
 				2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */,
 				23D86F1C21B125C700CDC5B6 /* notokr_demilight.ttf in Resources */,
+				230BD4BF21C0A7DB00503CD5 /* Test.storyboard in Resources */,
 				23D86F1921B125C700CDC5B6 /* notokr_thin.ttf in Resources */,
 				23D86F1821B125C700CDC5B6 /* american_typewriter_bold.ttf in Resources */,
 				230BD47321BA102800503CD5 /* NotoSans-Medium.otf in Resources */,
@@ -588,7 +604,9 @@
 				23D86F2621B12C9E00CDC5B6 /* AlreadyRegisterViewController.swift in Sources */,
 				230BD48321BF543400503CD5 /* Singleton.swift in Sources */,
 				2357819521ABF47A00338CB9 /* PopUpView.swift in Sources */,
+				230BD4C321C0A8E200503CD5 /* TestFirstViewController.swift in Sources */,
 				23D86F3321B157DC00CDC5B6 /* Article.swift in Sources */,
+				230BD4C521C0AAC700503CD5 /* TestSecondViewController.swift in Sources */,
 				2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */,
 				230BD47D21BA50FC00503CD5 /* ArticleChooseViewController.swift in Sources */,
 				23D86F2D21B150DE00CDC5B6 /* Level.swift in Sources */,
@@ -601,6 +619,7 @@
 				2357819121ABF2DA00338CB9 /* Standard.swift in Sources */,
 				2357819021ABF2DA00338CB9 /* LeftPaddedTextField.swift in Sources */,
 				230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */,
+				230BD4C721C0AACE00503CD5 /* TestThirdViewController.swift in Sources */,
 				23D86F3521B1594700CDC5B6 /* ArticleLink.swift in Sources */,
 				23D86F3721B15DFE00CDC5B6 /* FIVE_W_ONE_HS.swift in Sources */,
 				23D86F2B21B1496F00CDC5B6 /* LocalLanguage.swift in Sources */,
@@ -610,6 +629,7 @@
 				23D86F3F21B50E7000CDC5B6 /* GameMainViewController.swift in Sources */,
 				23D86F2921B1494100CDC5B6 /* Clue.swift in Sources */,
 				23D86F2F21B1518B00CDC5B6 /* Section.swift in Sources */,
+				230BD4C121C0A80600503CD5 /* TestViewController.swift in Sources */,
 				2357819221ABF2DA00338CB9 /* BaseVerticalScrollView.swift in Sources */,
 				23D86F3B21B4FA0900CDC5B6 /* TutorialViewController.swift in Sources */,
 				23D86F2421B1280200CDC5B6 /* User.swift in Sources */,

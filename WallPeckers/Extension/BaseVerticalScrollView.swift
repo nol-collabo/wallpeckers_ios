@@ -46,7 +46,7 @@ class BaseVerticalScrollView:UIView {
 
 class BaseHorizontalScrollView:UIView {
     
-    private let scrollView = UIScrollView()
+    let scrollView = UIScrollView()
     let contentView = UIView()
     
     
