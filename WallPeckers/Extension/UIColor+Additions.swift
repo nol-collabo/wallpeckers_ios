@@ -36,14 +36,20 @@ extension UIColor {
         return UIColor(red: 208.0 / 255.0, green: 2.0 / 255.0, blue: 27.0 / 255.0, alpha: 1.0)
     }
     
-}
-
-// Sample text styles
-
-extension UIFont {
+    @nonobjc class var beige: UIColor {
+        return UIColor(red: 242.0 / 255.0, green: 198.0 / 255.0, blue: 152.0 / 255.0, alpha: 1.0)
+    }
     
-    class var header: UIFont {
-        return UIFont.systemFont(ofSize: 24.0, weight: .bold)
+    @nonobjc class var softBlue: UIColor {
+        return UIColor(red: 109.0 / 255.0, green: 161.0 / 255.0, blue: 222.0 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var lightSalmon: UIColor {
+        return UIColor(red: 245.0 / 255.0, green: 154.0 / 255.0, blue: 154.0 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var boringGreen: UIColor {
+        return UIColor(red: 108.0 / 255.0, green: 184.0 / 255.0, blue: 104.0 / 255.0, alpha: 1.0)
     }
     
 }

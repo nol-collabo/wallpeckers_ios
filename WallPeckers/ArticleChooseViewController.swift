@@ -121,16 +121,8 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                 line.setLine(color: color!, leftButton: left, rightButton: right, vc: self)
                 links.append(line)
             }
-            
-        
-            
+
         }
-    
-    
-    
-        
-//        links = removeDuplicated
-        print(removeDuplicated)
 
     }
 
@@ -282,6 +274,12 @@ class ArticleSelectButton:UIView {
         self.setBorder(color: borderColor, width: 4.5)
     }
     
+    func changeBackground(status:ArticleCompleteStatus) {
+        
+        
+        
+    }
+    
     @objc func tap(sender:UITapGestureRecognizer) {
         delegate?.tapArticle(sender: self)
     }
@@ -289,6 +287,12 @@ class ArticleSelectButton:UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+}
+
+enum ArticleCompleteStatus:String {
+    
+    case submit, justcheck, normal
     
 }
 
