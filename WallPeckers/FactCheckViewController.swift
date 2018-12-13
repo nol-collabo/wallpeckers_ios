@@ -27,10 +27,8 @@ class FactCheckViewController: GameTransitionBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let _data = checkData {
-            print(_data)
-            setStack()
-        }
+
+        setStack()
     }
     
     func setUI() {
@@ -56,6 +54,40 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     func setStack() {
+
+        guard let _data = checkData, let _article = article else {return}
+            print("SENDEDDATA")
+            print(_article)
+            print("FACT")
+            print(_data)
+        
+        let clues:[Clue] = Array(_article.clues).map({
+            
+            return RealmClue.shared.getLocalClue(id: $0, language: Standard.shared.getLocalized())!
+            
+        })
+        
+
+        print("CLUES~~~")
+        print(clues)
+        print("~~~~~~")
+        
+        if let whoC = clues.filter({
+            $0.type == "WHO"
+        }).first, let whenC = clues.filter({
+            $0.type == "WHEN"
+        }).first, let whereC = clues.filter({
+            $0.type == "WHERE"
+        }).first, let whatC = clues.filter({
+            $0.type == "WHAT"
+        }).first, let howC = clues.filter({
+            $0.type == "HOW"
+        }).first, let whyC = clues.filter({
+            $0.type == "WHY"
+        }).first {
+            
+        
+        
         aStackView.backgroundColor = .basicBackground
         
         let articleView = ArticleView()
@@ -65,6 +97,26 @@ class FactCheckViewController: GameTransitionBaseViewController {
         
         aStackView.addRow(articleView)
         
+        let whoV = BasicBubbleView()
+        let whenV = BasicBubbleView()
+        let whereV = BasicBubbleView()
+        let whatV = BasicBubbleView()
+        let howV = BasicBubbleView()
+        let whyV = BasicBubbleView()
+        
+            whoV.setData(clue: whoC, type: .normal)
+            whenV.setData(clue: whenC, type: .normal)
+            whereV.setData(clue: whereC, type: .normal)
+            whatV.setData(clue: whatC, type: .normal)
+            howV.setData(clue: howC, type: .normal)
+            whyV.setData(clue: whyC, type: .normal)
+    
+        let bubbles = [whoV, whenV, whereV, whatV, howV, whyV]
+    
+
+        aStackView.addRows(bubbles)
+        
+        
         aStackView.addRow(submitButton)
         submitButton.snp.makeConstraints { (make) in
             make.width.equalTo(200)
@@ -73,6 +125,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
         }
         aStackView.addRow(backButton)
         
+        }
     }
     
     @objc func touchSubmitButton(sender:UIButton) {
@@ -97,7 +150,92 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
 }
 
-class BubbleView:UIView {
+final class BasicBubbleView:UIView {
     
+    let bubbleBaseView = UIImageView()
+    let clueTypeLb = UILabel()
+    let clueDescLb = UILabel()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    private func setUI() {
+        self.addSubview([bubbleBaseView])
+        
+        bubbleBaseView.snp.makeConstraints { (make) in
+            make.trailing.equalTo(-20)
+            make.height.equalTo(75)
+            make.leading.equalTo(66)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        bubbleBaseView.image = UIImage.init(named: "balloon_white")
+        bubbleBaseView.contentMode = .scaleAspectFit
+        bubbleBaseView.addSubview([clueTypeLb, clueDescLb])
+        
+        clueTypeLb.snp.makeConstraints { (make) in
+            make.leading.equalTo(13)
+            make.top.equalTo(5)
+            make.height.equalTo(20)
+        }
+        clueDescLb.snp.makeConstraints { (make) in
+            make.height.equalTo(30)
+            make.leading.equalTo(13)
+            make.bottom.equalTo(-10)
+            make.trailing.equalTo(-10)
+        }
+        clueDescLb.numberOfLines = 1
+        
+    }
+    
+    func setData(clue:Clue, type:FactCorrect) {
+        
+        clueTypeLb.text = clue.type
+        clueDescLb.text = clue.desc
+        self.tag = clue.id
+        
+        switch type {
+            
+        case .normal:
+            bubbleBaseView.image = UIImage.init(named: "balloon_white")
+
+        case .correct:
+            bubbleBaseView.image = UIImage.init(named: "balloon_correct")
+
+        case .wrong:
+            
+            bubbleBaseView.image = UIImage.init(named: "balloon_fail")
+
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+final class DeskBubbleView:UIView {
+    
+    let bubbleBaseView = UIImageView()
+    let clueDescLb = UILabel()
+    let profileView = UIView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+enum FactCorrect:String {
+    
+    case wrong, correct, normal
 }

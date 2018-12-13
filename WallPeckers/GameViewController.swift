@@ -158,8 +158,6 @@ extension GameViewController:GameViewTransitionDelegate {
             
             if let vc = toVc as? FactCheckViewController {
                 
-//                vc.view.backgroundColor = .red
-                
                 guard let _sendData = sendData as? ([FactCheck], Article) else {return}
                 vc.setData(_sendData.0, article: _sendData.1)
                 self.setChildVc(rootView: factCheckView, vc)
@@ -220,11 +218,7 @@ extension GameViewController:GameViewTransitionDelegate {
             }else if let _ = fromVc as? FactCheckViewController {
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
-
         }
-        
-
-        
     }
     
     func setChildVc(rootView:UIView, _ vc:GameTransitionBaseViewController) {

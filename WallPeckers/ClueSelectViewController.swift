@@ -90,10 +90,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                 
                 stackView.addRow(view)
             }
-            
-            
-            
-            
+  
             stackView.addRow(factCheckButton)
             factCheckButton.snp.makeConstraints { (make) in
                 make.width.equalTo(200)
@@ -103,11 +100,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             stackView.addRow(backButton)
             
         }
-        
-        
-        print(checkedFactList)
-        print("~~~~")
-        
+
     }
     
     @objc func moveToFactCheck(sender:UIButton) {
@@ -160,9 +153,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
         }
         
         if let selectedClue = RealmClue.shared.getClueAsIdentification(code, language: Standard.shared.getLocalized()) {
-            print(selectedClue)
-            print(tag, "CLUESELECTEVIEWTAG")
-            
+      
             if let selectedClueView = findClueView(tag: tag) {
                 
                 selectedClueView.clueLb.text = selectedClue.desc!
@@ -171,10 +162,6 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                 factCheck.selectedClue = selectedClue.id
                 factCheck.selectedArticleId = article!.id
                 factCheck.correctClue = selectedClueView.tag
-                
-                print(factCheck)
-                print("~~~~~")
-                
                 
                 if let beforeSelected = RealmUser.shared.getUserData()?.factCheckList.filter("correctClue = \(selectedClueView.tag)").first {
                     if let idx = RealmUser.shared.getUserData()?.factCheckList.index(of: beforeSelected) {
@@ -193,7 +180,6 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
             
         }else{
             PopUp.callAlert(time: "The Codx", desc: "xx", vc: self, tag: 9)
-            print("NONO")
         }
     }
     
