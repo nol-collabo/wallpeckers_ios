@@ -58,15 +58,12 @@ class FactCheckViewController: GameTransitionBaseViewController {
 
         guard let _data = checkData, let _article = article, let _five = five else {return}
         
-        print(_five)
-        
         let clues:[Clue] = Array(_article.clues).map({
             
             return RealmClue.shared.getLocalClue(id: $0, language: Standard.shared.getLocalized())!
             
         })
 
-        
         if let whoC = clues.filter({
             $0.type == "WHO"
         }).first, let whenC = clues.filter({
@@ -220,9 +217,12 @@ final class BasicBubbleView:UIView {
 
         case .correct:
             bubbleBaseView.image = UIImage.init(named: "balloon_correct")
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
 
         case .wrong:
-            
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
             bubbleBaseView.image = UIImage.init(named: "balloon_fail")
 
         }
