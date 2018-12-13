@@ -186,7 +186,7 @@ class RegisterViewController: UIViewController {
         }
         
 //        profileImv.backgroundColor = .blue
-        cameraBtn.backgroundColor = .red
+        cameraBtn.setImage(UIImage.init(named: "profile_btn")!, for: .normal)
         
         nameLb.setNotoText("필명", color: .black, size: 16, textAlignment: .right)
         ageLb.setNotoText("연령대", size: 16, textAlignment: .right)
@@ -240,7 +240,7 @@ class RegisterViewController: UIViewController {
             make.height.equalTo(DEVICEHEIGHT > 600 ? 100 : 70)
         }
         
-        profileImv.image = UIImage.init(named: "basicProfileImage")!
+        profileImv.image = UIImage.init(named: "basic_profile")!
         
         ageSelectPickerView.addUnderBar()
         ageSelectIndicatedLb.addUnderBar()
