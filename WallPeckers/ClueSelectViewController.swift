@@ -127,7 +127,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "FactCheckViewController") as? FactCheckViewController else {return}
         
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (sendingData, article), direction: .forward)
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (sendingData, article, five_W_One_Hs), direction: .forward)
        
 
         

@@ -16,6 +16,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     let aStackView = AloeStackView()
     var checkData:[FactCheck]?
     var article:Article?
+    var five:[Five_W_One_Hs]?
     let submitButton = BottomButton()
     let backButton = UIButton()
     
@@ -55,22 +56,16 @@ class FactCheckViewController: GameTransitionBaseViewController {
     
     func setStack() {
 
-        guard let _data = checkData, let _article = article else {return}
-            print("SENDEDDATA")
-            print(_article)
-            print("FACT")
-            print(_data)
+        guard let _data = checkData, let _article = article, let _five = five else {return}
+        
+        print(_five)
         
         let clues:[Clue] = Array(_article.clues).map({
             
             return RealmClue.shared.getLocalClue(id: $0, language: Standard.shared.getLocalized())!
             
         })
-        
 
-        print("CLUES~~~")
-        print(clues)
-        print("~~~~~~")
         
         if let whoC = clues.filter({
             $0.type == "WHO"
@@ -85,9 +80,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
         }).first, let whyC = clues.filter({
             $0.type == "WHY"
         }).first {
-            
-        
-        
+
         aStackView.backgroundColor = .basicBackground
         
         let articleView = ArticleView()
@@ -112,7 +105,29 @@ class FactCheckViewController: GameTransitionBaseViewController {
             whyV.setData(clue: whyC, type: .normal)
     
         let bubbles = [whoV, whenV, whereV, whatV, howV, whyV]
-    
+        
+            for b in bubbles {
+                
+                for f in _five {
+                    if f.id == b.tag {
+                        if !f.given {
+                            b.clueDescLb.text = ""
+                        }
+                    }
+                }
+                
+                for data in _data {
+                    
+                    if b.tag == data.correctClue { // 정답 검증 구간
+                        
+                        if let selectedClue = RealmClue.shared.getLocalClue(id: data.selectedClue, language: Standard.shared.getLocalized()) {
+                            b.setData(clue: selectedClue, type: data.selectedClue == data.correctClue ? .correct : .wrong)
+                        }
+                    }
+                }
+                
+ 
+            }
 
         aStackView.addRows(bubbles)
         
@@ -129,7 +144,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     @objc func touchSubmitButton(sender:UIButton) {
-        
+        print("Article Submit!")
     }
     
     @objc func touchBackButton(sender:UIButton) {
@@ -143,10 +158,11 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
 
-    func setData(_ data:[FactCheck], article:Article) {
+    func setData(_ data:[FactCheck], article:Article, five:[Five_W_One_Hs]) {
         
         self.checkData = data
         self.article = article
+        self.five = five
     }
 }
 

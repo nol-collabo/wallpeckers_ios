@@ -158,8 +158,8 @@ extension GameViewController:GameViewTransitionDelegate {
             
             if let vc = toVc as? FactCheckViewController {
                 
-                guard let _sendData = sendData as? ([FactCheck], Article) else {return}
-                vc.setData(_sendData.0, article: _sendData.1)
+                guard let _sendData = sendData as? ([FactCheck], Article, [Five_W_One_Hs]) else {return}
+                vc.setData(_sendData.0, article: _sendData.1, five: _sendData.2)
                 self.setChildVc(rootView: factCheckView, vc)
                 
                  horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 3, y: horizontalView.scrollView.contentOffset.y), animated: true)
