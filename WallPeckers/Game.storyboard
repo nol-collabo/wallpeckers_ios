@@ -105,6 +105,21 @@
             </objects>
             <point key="canvasLocation" x="3282" y="-409"/>
         </scene>
+        <!--Fact Check View Controller-->
+        <scene sceneID="I5u-Mc-ovV">
+            <objects>
+                <viewController storyboardIdentifier="FactCheckViewController" id="6Md-S6-Hpe" customClass="FactCheckViewController" customModule="WallPeckers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nx7-Pn-7ZT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qll-X7-DPx"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R3O-6q-tFb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3943" y="-410"/>
+        </scene>
         <!--Article Choose View Controller-->
         <scene sceneID="Isx-zR-9l3">
             <objects>

@@ -48,6 +48,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             make.centerX.equalToSuperview()
             
         }
+        
         self.view.backgroundColor = .basicBackground
         backButton.setImage(UIImage.init(named: "backButton"), for: .normal)
         factCheckButton.setTitle("FACT CHECK", for: .normal)
@@ -130,9 +131,11 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             
         })
         
-        print("SENDINGDATA")
-        print(sendingData.count)
-        print("~~~~")
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "FactCheckViewController") as? FactCheckViewController else {return}
+        
+        
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (sendingData, article), direction: .forward)
+       
 
         
     }
@@ -249,6 +252,16 @@ final class ArticleView:UIView {
         descLb.attributedText = article.title_sub?.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
         articleImageView.image = UIImage()
         articleImageView.backgroundColor = .blue
+    }
+    
+    func forFactCheck() {
+        articleImageView.isHidden = true
+        descLb.snp.remakeConstraints { (make) in
+            make.top.equalTo(titleLb.snp.bottom).offset(5)
+            make.leading.equalTo(titleLb.snp.leading)
+            make.trailing.equalTo(-5)
+            make.bottom.equalToSuperview()
+        }
     }
     
     private func setUI() {

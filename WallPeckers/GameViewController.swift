@@ -156,6 +156,17 @@ extension GameViewController:GameViewTransitionDelegate {
             
         case .forward:
             
+            if let vc = toVc as? FactCheckViewController {
+                
+//                vc.view.backgroundColor = .red
+                
+                guard let _sendData = sendData as? ([FactCheck], Article) else {return}
+                vc.setData(_sendData.0, article: _sendData.1)
+                self.setChildVc(rootView: factCheckView, vc)
+                
+                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 3, y: horizontalView.scrollView.contentOffset.y), animated: true)
+            }
+            
             if let vc = toVc as? ArticleChooseViewController {
             
             var articleButtons:[ArticleSelectButton] = []
@@ -206,6 +217,8 @@ extension GameViewController:GameViewTransitionDelegate {
                  horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }else if let _ = fromVc as? ClueSelectViewController {
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
+            }else if let _ = fromVc as? FactCheckViewController {
+                horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
 
         }
