@@ -100,7 +100,7 @@ class MyPageSectionView:UIView {
     func setData(content:ContentType) {
         
         titleLb.setNotoText(content.rawValue, color: .black, size: 20, textAlignment: .center)
-//        titleLb.setText(title, color: .black, size: 20, textAlignment: .center)
+
         switch content {
         case .Badge:
             
@@ -156,8 +156,30 @@ class MyPageSectionView:UIView {
             
             print(content.rawValue)
         case .Level:
+            
+           
             print(content.rawValue)
         case .Score:
+            
+            let starImv = UIImageView.init(image: UIImage.init(named: "ArticleStar")!)
+            let pointLb = UILabel()
+            
+            self.contentView.addSubview([starImv, pointLb])
+            
+            starImv.snp.makeConstraints { (make) in
+                make.centerX.equalToSuperview().offset(-60)
+                make.width.height.equalTo(45)
+                make.top.equalTo(10)
+                make.bottom.equalTo(-26)
+            }
+            pointLb.snp.makeConstraints { (make) in
+                make.leading.equalTo(starImv.snp.trailing).offset(20)
+                make.centerY.equalTo(starImv.snp.centerY)
+//                make.height.equalTo(45)
+            }
+            pointLb.attributedText = "3000 P".makeAttrString(font: .NotoSans(.bold, size: 28), color: .black)
+            
+            
             print(content.rawValue)
         }
         
