@@ -30,13 +30,15 @@ class MyPageViewController: UIViewController {
     func setUI() {
         view.addSubview(aStackView)
         view.addSubview(dismissBtn)
+        view.backgroundColor = .basicBackground
         
         dismissBtn.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top)
             make.trailing.equalToSuperview()
             make.width.height.equalTo(40)
         }
-        dismissBtn.backgroundColor = .blue
+        dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
+//        dismissBtn.backgroundColor = .blue
         aStackView.snp.makeConstraints { (make) in
            make.top.equalTo(dismissBtn.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
@@ -88,7 +90,7 @@ class MyPageSectionView:UIView {
             make.height.equalTo(40)
         }
         titleLb.addUnderBar()
-        
+        self.setBorder(color: .black, width: 1.5)
         contentView.snp.makeConstraints { (make) in
             make.top.equalTo(titleLb.snp.bottom).offset(10)
             make.leading.trailing.bottom.equalToSuperview()
@@ -101,6 +103,12 @@ class MyPageSectionView:UIView {
 //        titleLb.setText(title, color: .black, size: 20, textAlignment: .center)
         switch content {
         case .Badge:
+            
+            let firstRowStackView = UIStackView()
+            let secondRowStackView = UIStackView()
+            
+            self.contentView.addSubview([firstRowStackView, secondRowStackView])
+            
             print(content.rawValue)
         case .Level:
             print(content.rawValue)
@@ -123,4 +131,46 @@ enum ContentType:String {
     case Level = "내 레벨"
     case Badge = "내 뱃지"
 //    , Level, Badge
+}
+
+final class BadgeView:UIView {
+    
+    let badgeImageView = UIImageView()
+    let badgeTitleLb = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func setData(badgeImage:String, badgeTitle:String, isCompleted:Bool) {
+        
+        self.badgeImageView.image = UIImage.init(named: !isCompleted ? badgeImage : "\(badgeImage)C")
+        self.badgeTitleLb.attributedText = badgeTitle.makeAttrString(font: .NotoSans(.bold, size: 12), color: .black)
+    }
+    
+    private func setUI() {
+        self.addSubview([badgeImageView, badgeTitleLb])
+        
+        badgeImageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.width.equalTo(badgeImageView.snp.height)
+        }
+        badgeTitleLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(badgeImageView.snp.bottom).offset(5)
+            make.height.equalTo(30)
+            make.leading.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
 }
