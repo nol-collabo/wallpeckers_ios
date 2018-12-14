@@ -54,6 +54,9 @@ class MyPageViewController: UIViewController {
             make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(200)
         }
+        
+
+        setPoint(60000)
         dismissBtn.addTarget(self, action: #selector(dismissTouched(sender:)), for: .touchUpInside)
 
     }
@@ -62,6 +65,19 @@ class MyPageViewController: UIViewController {
         sender.isUserInteractionEnabled = false
         self.dismiss(animated: true) {
             sender.isUserInteractionEnabled = true
+        }
+    }
+    
+    func setPoint(_ point:Int) {
+        
+        if let pointLb = scoreView.subviews.filter({
+            
+            $0.accessibilityIdentifier == "ContentView"
+        }).first!.subviews.filter({
+            
+            $0.accessibilityIdentifier == "point"
+        }).first as? UILabel {
+            pointLb.attributedText = "\(point) P".makeAttrString(font: .NotoSans(.bold, size: 28), color: .black)
         }
     }
     
@@ -80,7 +96,7 @@ class MyPageSectionView:UIView {
     }
     
     func setUI() {
-        
+        contentView.accessibilityIdentifier = "ContentView"
         self.addSubview([titleLb, contentView])
         
         titleLb.snp.makeConstraints { (make) in
@@ -173,18 +189,19 @@ class MyPageSectionView:UIView {
                 make.bottom.equalTo(-26)
             }
             pointLb.snp.makeConstraints { (make) in
-                make.leading.equalTo(starImv.snp.trailing).offset(20)
+                make.leading.equalTo(starImv.snp.trailing).offset(10)
                 make.centerY.equalTo(starImv.snp.centerY)
-//                make.height.equalTo(45)
             }
+        
+            pointLb.accessibilityIdentifier = "point"
             pointLb.attributedText = "3000 P".makeAttrString(font: .NotoSans(.bold, size: 28), color: .black)
             
-            
-            print(content.rawValue)
+        case .CREDIBILITY:
+            print("XX")
+        case .COMPLETEDARTICLE:
+            print("CCCC")
         }
-        
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -192,11 +209,14 @@ class MyPageSectionView:UIView {
     
 }
 
+
 enum ContentType:String {
     
     case Score = "내 점수"
     case Level = "내 레벨"
     case Badge = "내 뱃지"
+    case CREDIBILITY = "신뢰도"
+    case COMPLETEDARTICLE = "완성된 기사"
 //    , Level, Badge
 }
 
