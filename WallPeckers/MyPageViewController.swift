@@ -49,7 +49,7 @@ class MyPageViewController: UIViewController {
         badgeView.setData(content: .Badge)
         profileView.backgroundColor = .red
         aStackView.addRows([profileView, scoreView, levelView, badgeView])
-        
+        aStackView.backgroundColor = .basicBackground
         profileView.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(200)
@@ -106,8 +106,53 @@ class MyPageSectionView:UIView {
             
             let firstRowStackView = UIStackView()
             let secondRowStackView = UIStackView()
+            let politicBadgeV = BadgeView()
+            let economyBadgeV = BadgeView()
+            let generalBadgeV = BadgeView()
+            let artBadgeV = BadgeView()
+            let sportsBadgeV = BadgeView()
+            let peopleBadgeV = BadgeView()
+            
+            for v in [politicBadgeV, economyBadgeV, generalBadgeV] {
+                
+                firstRowStackView.addArrangedSubview(v)
+                
+            }
+            
+            for v in [artBadgeV, sportsBadgeV, peopleBadgeV] {
+                
+                secondRowStackView.addArrangedSubview(v)
+                
+            }
             
             self.contentView.addSubview([firstRowStackView, secondRowStackView])
+            
+            firstRowStackView.snp.makeConstraints { (make) in
+                make.top.equalToSuperview()
+                make.leading.equalTo(10)
+                make.trailing.equalTo(-10)
+                make.height.equalTo(100)
+            }
+            secondRowStackView.snp.makeConstraints { (make) in
+                make.leading.equalTo(10)
+                make.trailing.equalTo(-10)
+                make.bottom.equalTo(-10)
+                make.height.equalTo(100)
+                make.top.equalTo(firstRowStackView.snp.bottom).offset(15)
+            }
+            firstRowStackView.axis = .horizontal
+            secondRowStackView.axis = .horizontal
+            firstRowStackView.distribution = .fillEqually
+            secondRowStackView.distribution = .fillEqually
+            firstRowStackView.spacing = 15
+            secondRowStackView.spacing = 15
+            
+            politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "politic", tag: 1)
+            economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "ecomony", tag: 2)
+            generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "general", tag: 3)
+            artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4)
+            sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5)
+            peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6)
             
             print(content.rawValue)
         case .Level:
@@ -143,10 +188,10 @@ final class BadgeView:UIView {
         setUI()
     }
     
-    func setData(badgeImage:String, badgeTitle:String, isCompleted:Bool) {
-        
+    func setData(badgeImage:String, badgeTitle:String, tag:Int, isCompleted:Bool = false) {
+        self.tag = tag
         self.badgeImageView.image = UIImage.init(named: !isCompleted ? badgeImage : "\(badgeImage)C")
-        self.badgeTitleLb.attributedText = badgeTitle.makeAttrString(font: .NotoSans(.bold, size: 12), color: .black)
+        self.badgeTitleLb.attributedText = badgeTitle.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
     }
     
     private func setUI() {
@@ -165,6 +210,7 @@ final class BadgeView:UIView {
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        badgeTitleLb.textAlignment = .center
         
     }
     
