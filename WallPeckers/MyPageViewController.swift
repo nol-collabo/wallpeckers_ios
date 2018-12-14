@@ -13,12 +13,14 @@ import AloeStackView
 class MyPageViewController: UIViewController {
 
     let dismissBtn = UIButton()
-    let profileView = UIView()
+    let profileView = MyProfileView()
     let scoreView = MyPageSectionView()
     let levelView = MyPageSectionView()
     let badgeView = MyPageSectionView()
+    let credView = MyPageSectionView()
+    let completedArticleView = MyPageSectionView()
     let aStackView = AloeStackView()
-    
+    var fromResult:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,14 +49,32 @@ class MyPageViewController: UIViewController {
         scoreView.setData(content: .Score)
         levelView.setData(content: .Level)
         badgeView.setData(content: .Badge)
-        profileView.backgroundColor = .red
-        aStackView.addRows([profileView, scoreView, levelView, badgeView])
-        aStackView.backgroundColor = .basicBackground
-        profileView.snp.makeConstraints { (make) in
-            make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(200)
+        
+        
+        aStackView.addRows([profileView, scoreView])
+        
+        profileView.setData(userData: RealmUser.shared.getUserData()!, level: "intern", camera: true, nameEdit: true, myPage: false)
+        
+        if fromResult { // 결과창에서 볼때 보이는 두개
+            credView.setData(content: .CREDIBILITY)
+            completedArticleView.setData(content: .COMPLETEDARTICLE)
+            aStackView.addRows([credView, completedArticleView])
         }
         
+        aStackView.addRows([levelView, badgeView])
+        
+        
+        
+        aStackView.backgroundColor = .basicBackground
+        profileView.snp.makeConstraints { (make) in
+
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalTo(DeviceSize.width * 0.5)
+//            make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
+            
+        }
 
         setPoint(60000)
         dismissBtn.addTarget(self, action: #selector(dismissTouched(sender:)), for: .touchUpInside)
@@ -194,7 +214,6 @@ class MyPageSectionView:UIView {
             }
         
             pointLb.accessibilityIdentifier = "point"
-            pointLb.attributedText = "3000 P".makeAttrString(font: .NotoSans(.bold, size: 28), color: .black)
             
         case .CREDIBILITY:
             print("XX")
@@ -234,6 +253,11 @@ final class BadgeView:UIView {
         self.tag = tag
         self.badgeImageView.image = UIImage.init(named: !isCompleted ? badgeImage : "\(badgeImage)C")
         self.badgeTitleLb.attributedText = badgeTitle.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
+    }
+    
+    func beCompleted() {
+//        self.badgeImageView.image?.description
+//        self.badgeImageView.image.
     }
     
     private func setUI() {

@@ -12,37 +12,23 @@ class AfterRegisterViewController: UIViewController {
 
     
     
-    let mainProfileView = UIView()
-    let titleLb = UILabel()
-    let profileImageView = UIImageView()
-    let nameLb = UILabel()
-    let myPagebtn = BottomButton()
+    let mainProfileView = MyProfileView()
     let pressCodeTf = UITextField()
     let pressCodeLb = UILabel()
     let confirmBtn = BottomButton()
     let pressCodeDescLb = UILabel()
-    var userInfo:User? {
-        didSet {
-            
-            guard let _userInfo = userInfo else {return}
-            nameLb.text = _userInfo.name
-            profileImageView.image = UIImage.init(data: _userInfo.profileImage!)
-       
-        }
-    }
-    
+    var userInfo:User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUI()
-        getUserData()
         addAction()
         // Do any additional setup after loading the view.
     }
     
     func addAction() {
-        myPagebtn.addTarget(self, action: #selector(moveToMaPage(sender:)), for: .touchUpInside)
+        mainProfileView.setAction(vc: self, #selector(moveToMaPage(sender:)))
         confirmBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
@@ -57,37 +43,8 @@ class AfterRegisterViewController: UIViewController {
             make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
         
         }
-        mainProfileView.setBorder(color: .black, width: 3)
         
-        mainProfileView.addSubview([titleLb, profileImageView, nameLb, myPagebtn])
-        
-        titleLb.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(20)
-            make.height.equalTo(40)
-        }
-        titleLb.setAeericanTypeText("PRESS", size: 50, textAlignment: .center, font:.bold)
-
-        profileImageView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(titleLb.snp.bottom).offset(10)
-            make.width.equalTo(DEVICEHEIGHT > 600 ? 150 : 100)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 180 : 120)
-        }
-        mainProfileView.backgroundColor = .paleOliveGreen
-        profileImageView.setBorder(color: .black, width: 3.5)
-        nameLb.snp.makeConstraints { (make) in
-            make.top.equalTo(profileImageView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(20)
-        }
-        pressCodeTf.autocorrectionType = .no
-        myPagebtn.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(20)
-            make.height.equalTo(43)
-            make.bottom.equalTo(-20)
-        }
+        mainProfileView.setData(userData: realm.objects(User.self).last!, level: nil, camera: false, nameEdit: false, myPage: true)
         
         pressCodeTf.snp.makeConstraints { (make) in
             make.top.equalTo(mainProfileView.snp.bottom).offset(46)
@@ -95,6 +52,9 @@ class AfterRegisterViewController: UIViewController {
             make.leading.equalTo(35)
             make.height.equalTo(30)
         }
+        
+        pressCodeTf.autocorrectionType = .no
+
         pressCodeLb.snp.makeConstraints { (make) in
             make.top.equalTo(pressCodeTf.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
@@ -117,7 +77,7 @@ class AfterRegisterViewController: UIViewController {
             make.leading.equalTo(55)
         }
         confirmBtn.setTitle("확인", for: .normal)
-        myPagebtn.setTitle("마이페이지", for: .normal)
+//        myPagebtn.setTitle("마이페이지", for: .normal)
         pressCodeTf.delegate = self
         confirmBtn.backgroundColor = .gray
         confirmBtn.isUserInteractionEnabled = false
@@ -146,13 +106,6 @@ class AfterRegisterViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-
-    
-    func getUserData() {
-
-        self.userInfo = realm.objects(User.self).last
-        
-    }
 
 }
 
@@ -191,4 +144,97 @@ extension AfterRegisterViewController:UITextFieldDelegate {
         return true
         
     }
+}
+
+class MyProfileView:UIView {
+    
+    let titleLb = UILabel()
+    let profileImageView = UIImageView()
+    let nameTf = LeftPaddedTextField()
+    let nameEditBtn = UIButton()
+    let myPagebtn = BottomButton()
+    let cameraBtn = UIButton()
+    let levelDescLb = UILabel()
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func setAction(vc:UIViewController, _ action:Selector) {
+        
+        self.myPagebtn.addTarget(vc, action: action, for: .touchUpInside)
+    }
+    
+    private func setUI() {
+    
+        self.addSubview([titleLb, profileImageView, nameTf, nameEditBtn, myPagebtn, cameraBtn, levelDescLb])
+        
+        self.setBorder(color: .black, width: 3)
+        
+        titleLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(20)
+            make.height.equalTo(40)
+        }
+        titleLb.setAeericanTypeText("PRESS", size: 50, textAlignment: .center, font:.bold)
+        
+        profileImageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLb.snp.bottom).offset(10)
+            make.width.equalTo(DEVICEHEIGHT > 600 ? 150 : 100)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 180 : 120)
+        }
+        self.backgroundColor = .paleOliveGreen
+        profileImageView.setBorder(color: .black, width: 3.5)
+        nameTf.snp.makeConstraints { (make) in
+            make.top.equalTo(profileImageView.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+            
+            make.height.equalTo(20)
+        }
+        
+        nameEditBtn.snp.makeConstraints { (make) in
+            make.centerY.equalTo(nameTf.snp.centerY)
+            make.width.height.equalTo(13)
+            make.leading.equalTo(nameTf.snp.trailing).offset(5)
+        }
+        
+        myPagebtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(20)
+            make.height.equalTo(43)
+            make.bottom.equalTo(-20)
+        }
+        cameraBtn.setImage(UIImage.init(named: "cameraButton")!, for: .normal)
+        nameEditBtn.setImage(UIImage.init(named: "nameEditButton")!, for: .normal)
+        levelDescLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(20)
+            make.height.equalTo(43)
+            make.bottom.equalTo(-20)
+        }
+        myPagebtn.setTitle("My Page", for: .normal)
+        self.nameTf.isEnabled = false
+        levelDescLb.numberOfLines = 2
+        levelDescLb.textAlignment = .center
+    
+    }
+    
+    func setData(userData:User, level:String?, camera:Bool, nameEdit:Bool, myPage:Bool) {
+        
+        self.nameTf.text = userData.name
+        self.profileImageView.image = UIImage.init(data: userData.profileImage!)
+        self.levelDescLb.text = level
+        self.cameraBtn.isHidden = !camera
+        self.nameEditBtn.isHidden = !nameEdit
+        self.myPagebtn.isHidden = !myPage
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
