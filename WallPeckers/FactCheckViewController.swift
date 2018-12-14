@@ -127,7 +127,8 @@ class FactCheckViewController: GameTransitionBaseViewController {
             }
 
         aStackView.addRows(bubbles)
-        
+            print(DeviceSize.width, "DEVICEWIDTH")
+
         
         aStackView.addRow(submitButton)
         submitButton.snp.makeConstraints { (make) in
@@ -175,30 +176,31 @@ final class BasicBubbleView:UIView {
     }
     
     private func setUI() {
+        
         self.addSubview([bubbleBaseView])
         
         bubbleBaseView.snp.makeConstraints { (make) in
             make.trailing.equalTo(-20)
             make.height.equalTo(75)
-            make.leading.equalTo(66)
+            make.leading.equalTo(DeviceSize.width > 320 ? 66 : 44)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        bubbleBaseView.image = UIImage.init(named: "balloon_white")
+        bubbleBaseView.image = UIImage.init(named: "balloon4")
         bubbleBaseView.contentMode = .scaleAspectFit
         bubbleBaseView.addSubview([clueTypeLb, clueDescLb])
         
         clueTypeLb.snp.makeConstraints { (make) in
             make.leading.equalTo(13)
-            make.top.equalTo(5)
+            make.top.equalTo(DeviceSize.width > 320 ? 5 : 10)
             make.height.equalTo(20)
         }
         clueDescLb.snp.makeConstraints { (make) in
             make.height.equalTo(30)
             make.leading.equalTo(13)
             make.bottom.equalTo(-10)
-            make.trailing.equalTo(-10)
+            make.trailing.equalTo(-20)
         }
         clueDescLb.numberOfLines = 1
         
@@ -207,23 +209,25 @@ final class BasicBubbleView:UIView {
     func setData(clue:Clue, type:FactCorrect) {
         
         clueTypeLb.text = clue.type
+        clueTypeLb.font = UIFont.NotoSans(.bold, size: 16)
+        clueDescLb.font = UIFont.NotoSans(.medium, size: 16)
         clueDescLb.text = clue.desc
         self.tag = clue.id
         
         switch type {
             
         case .normal:
-            bubbleBaseView.image = UIImage.init(named: "balloon_white")
+            bubbleBaseView.image = UIImage.init(named: "balloon4")
 
         case .correct:
-            bubbleBaseView.image = UIImage.init(named: "balloon_correct")
+            bubbleBaseView.image = UIImage.init(named: "balloonCorrect")
             clueTypeLb.textColor = .white
             clueDescLb.textColor = .white
 
         case .wrong:
             clueTypeLb.textColor = .white
             clueDescLb.textColor = .white
-            bubbleBaseView.image = UIImage.init(named: "balloon_fail")
+            bubbleBaseView.image = UIImage.init(named: "balloonFail")
 
         }
         
