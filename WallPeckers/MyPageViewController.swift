@@ -10,8 +10,9 @@ import UIKit
 import SnapKit
 import AloeStackView
 
-class MyPageViewController: UIViewController {
-
+class MyPageViewController: UIViewController, SectionViewDelegate {
+    var completedBadges: [Int] = []
+    var currentPoint: Int? // 내 점수
     let profileBaseView = UIView()
     let dismissBtn = UIButton()
     let profileView = MyProfileView()
@@ -25,8 +26,17 @@ class MyPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        scoreView.delegate = self
+        badgeView.delegate = self
+        //내 점수
+        currentPoint = 100
+        //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
+        completedBadges.append(1)
+        completedBadges.append(2)
+        print(completedBadges)
         
+        setUI()
+
         // Do any additional setup after loading the view.
     }
     
@@ -73,20 +83,16 @@ class MyPageViewController: UIViewController {
         
         aStackView.addRows([levelView, badgeView])
         
-        
-        
         aStackView.backgroundColor = .basicBackground
         profileView.snp.makeConstraints { (make) in
 
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.width.equalTo(DeviceSize.width * 0.5)
-//            make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
             make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
             
         }
 
-        setPoint(60000)
         dismissBtn.addTarget(self, action: #selector(dismissTouched(sender:)), for: .touchUpInside)
 
     }
@@ -97,20 +103,6 @@ class MyPageViewController: UIViewController {
             sender.isUserInteractionEnabled = true
         }
     }
-    
-    func setPoint(_ point:Int) {
-        
-        if let pointLb = scoreView.subviews.filter({
-            
-            $0.accessibilityIdentifier == "ContentView"
-        }).first!.subviews.filter({
-            
-            $0.accessibilityIdentifier == "point"
-        }).first as? UILabel {
-            pointLb.attributedText = "\(point) P".makeAttrString(font: .NotoSans(.bold, size: 28), color: .black)
-        }
-    }
-    
 }
 
 
@@ -119,7 +111,8 @@ class MyPageSectionView:UIView {
     
     private let titleLb = UILabel()
     private let contentView = UIView()
-
+    var delegate:SectionViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
@@ -193,12 +186,54 @@ class MyPageSectionView:UIView {
             firstRowStackView.spacing = 15
             secondRowStackView.spacing = 15
             
-            politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "politic", tag: 1)
-            economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "ecomony", tag: 2)
-            generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "general", tag: 3)
-            artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4)
-            sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5)
-            peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6)
+
+            if let _ = delegate?.completedBadges.filter({$0 == 1}).first {
+                politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "politic", tag: 1, isCompleted: true)
+
+            }else{
+                politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "politic", tag: 1)
+            }
+            
+            if let _ = delegate?.completedBadges.filter({$0 == 2}).first {
+                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "ecomony", tag: 2, isCompleted: true)
+
+            }else{
+                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "ecomony", tag: 2)
+            }
+            
+            if let _ = delegate?.completedBadges.filter({$0 == 3}).first {
+                generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "general", tag: 3, isCompleted: true)
+
+            }else{
+                generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "general", tag: 3)
+
+            }
+            
+            if let _ = delegate?.completedBadges.filter({$0 == 4}).first {
+                artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4, isCompleted: true)
+
+            }else{
+                artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4)
+
+            }
+            if let _ = delegate?.completedBadges.filter({$0 == 5}).first {
+                sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5, isCompleted: true)
+            }else{
+                sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5)
+
+            }
+
+            if let _ = delegate?.completedBadges.filter({$0 == 6}).first {
+                peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6, isCompleted: true)
+
+            }else{
+                peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6)
+
+            }
+
+            
+            
+            
             
             print(content.rawValue)
         case .Level:
@@ -210,6 +245,7 @@ class MyPageSectionView:UIView {
             let starImv = UIImageView.init(image: UIImage.init(named: "ArticleStar")!)
             let pointLb = UILabel()
             
+//            delegate?.currentPoint = 600000
             self.contentView.addSubview([starImv, pointLb])
             
             starImv.snp.makeConstraints { (make) in
@@ -223,6 +259,8 @@ class MyPageSectionView:UIView {
                 make.centerY.equalTo(starImv.snp.centerY)
             }
         
+            guard let point = delegate?.currentPoint else {return}
+            pointLb.text = "\(point) P"
             pointLb.accessibilityIdentifier = "point"
             
         case .CREDIBILITY:
@@ -236,6 +274,14 @@ class MyPageSectionView:UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+protocol SectionViewDelegate {
+    
+    var currentPoint:Int? { get set }
+    var completedBadges:[Int] { get set }
+//    var completedArticle
+
 }
 
 
