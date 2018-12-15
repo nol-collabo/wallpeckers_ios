@@ -193,7 +193,7 @@ final class BasicBubbleView:UIView {
         
         clueTypeLb.snp.makeConstraints { (make) in
             make.leading.equalTo(13)
-            make.top.equalTo(DeviceSize.width > 320 ? 5 : 10)
+            make.top.equalTo(DeviceSize.width > 320 ? 10 : 15)
             make.height.equalTo(20)
         }
         clueDescLb.snp.makeConstraints { (make) in

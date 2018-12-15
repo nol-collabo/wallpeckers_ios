@@ -40,7 +40,7 @@ class AfterRegisterViewController: UIViewController {
             make.top.equalTo(view.safeArea.top).offset(20)
             make.centerX.equalToSuperview()
             make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 300)
         
         }
         
@@ -197,7 +197,7 @@ class MyProfileView:UIView {
         nameTf.snp.makeConstraints { (make) in
             make.top.equalTo(profileImageView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.height.equalTo(20)
+            make.height.equalTo(30)
         }
         nameTf.textAlignment = .center
         
@@ -211,7 +211,7 @@ class MyProfileView:UIView {
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
             make.height.equalTo(43)
-            make.bottom.equalTo(-20)
+            make.bottom.equalTo(-15)
         }
         cameraBtn.setImage(UIImage.init(named: "cameraButton")!, for: .normal)
         nameEditBtn.setImage(UIImage.init(named: "nameEditButton")!, for: .normal)
