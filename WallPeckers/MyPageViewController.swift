@@ -11,6 +11,10 @@ import SnapKit
 import AloeStackView
 
 class MyPageViewController: UIViewController, SectionViewDelegate {
+    
+    var completedArticle: [Article]?
+    var credibility: Int?
+    var myLevel: Int?
     var completedBadges: [Int] = []
     var currentPoint: Int? // 내 점수
     let profileBaseView = UIView()
@@ -28,8 +32,19 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         super.viewDidLoad()
         scoreView.delegate = self
         badgeView.delegate = self
+        levelView.delegate = self
         //내 점수
         currentPoint = 100
+        myLevel = 10
+        
+        if let _currentPoint = currentPoint {
+            if _currentPoint > 0 {
+                credView.delegate = self
+                completedArticleView.delegate = self
+            }
+        }
+
+        
         //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
         completedBadges.append(1)
         completedBadges.append(2)
@@ -238,6 +253,7 @@ class MyPageSectionView:UIView {
             print(content.rawValue)
         case .Level:
             
+            print(delegate?.myLevel, "MYLEVEL")
            
             print(content.rawValue)
         case .Score:
@@ -265,8 +281,12 @@ class MyPageSectionView:UIView {
             
         case .CREDIBILITY:
             print("XX")
+            
+            print(delegate?.credibility)
+            
         case .COMPLETEDARTICLE:
             print("CCCC")
+            print(delegate?.completedArticle)
         }
     }
     
@@ -280,7 +300,9 @@ protocol SectionViewDelegate {
     
     var currentPoint:Int? { get set }
     var completedBadges:[Int] { get set }
-//    var completedArticle
+    var myLevel:Int? {get set}
+    var credibility:Int? {get set}
+    var completedArticle:[Article]? {get set}
 
 }
 
