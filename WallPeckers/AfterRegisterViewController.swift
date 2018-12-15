@@ -148,9 +148,10 @@ extension AfterRegisterViewController:UITextFieldDelegate {
 
 class MyProfileView:UIView {
     
+//    let baseView = UIView()
     let titleLb = UILabel()
     let profileImageView = UIImageView()
-    let nameTf = LeftPaddedTextField()
+    let nameTf = UITextField()
     let nameEditBtn = UIButton()
     let myPagebtn = BottomButton()
     let cameraBtn = UIButton()
@@ -169,6 +170,11 @@ class MyProfileView:UIView {
     
     private func setUI() {
     
+//        self.addSubview(baseView)
+//        baseView.snp.makeConstraints { (make) in
+//           make.top.bottom.equalToSuperview()
+//            make.width.equalTo(DeviceSize.width * 0.8)
+//        }
         self.addSubview([titleLb, profileImageView, nameTf, nameEditBtn, myPagebtn, cameraBtn, levelDescLb])
         
         self.setBorder(color: .black, width: 3)
@@ -191,9 +197,9 @@ class MyProfileView:UIView {
         nameTf.snp.makeConstraints { (make) in
             make.top.equalTo(profileImageView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            
             make.height.equalTo(20)
         }
+        nameTf.textAlignment = .center
         
         nameEditBtn.snp.makeConstraints { (make) in
             make.centerY.equalTo(nameTf.snp.centerY)

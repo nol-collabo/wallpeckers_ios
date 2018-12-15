@@ -12,6 +12,7 @@ import AloeStackView
 
 class MyPageViewController: UIViewController {
 
+    let profileBaseView = UIView()
     let dismissBtn = UIButton()
     let profileView = MyProfileView()
     let scoreView = MyPageSectionView()
@@ -51,7 +52,16 @@ class MyPageViewController: UIViewController {
         badgeView.setData(content: .Badge)
         
         
-        aStackView.addRows([profileView, scoreView])
+        aStackView.addRows([profileBaseView, scoreView])
+        
+        profileBaseView.addSubview(profileView)
+        profileView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
+            
+        }
         
         profileView.setData(userData: RealmUser.shared.getUserData()!, level: "intern", camera: true, nameEdit: true, myPage: false)
         
