@@ -20,6 +20,8 @@ class FactCheckViewController: GameTransitionBaseViewController {
     let submitButton = BottomButton()
     let backButton = UIButton()
     let deskView = DeskBubbleView()
+    var questionCount:Int = 0
+    var correctCount:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,10 +60,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     func setStack() {
         
         guard let _data = checkData, let _article = article, let _five = five else {return}
-        
-        
-        
-        
+
         let clues:[Clue] = Array(_article.clues).map({
             
             return RealmClue.shared.getLocalClue(id: $0, language: Standard.shared.getLocalized())!
@@ -114,7 +113,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
                     if f.id == b.tag {
                         if !f.given {
                             b.clueDescLb.text = ""
-                            print("Empty", b.tag)
+                            questionCount += 1
                         }
                     }
                 }
@@ -126,11 +125,10 @@ class FactCheckViewController: GameTransitionBaseViewController {
                         if let selectedClue = RealmClue.shared.getLocalClue(id: data.selectedClue, language: Standard.shared.getLocalized()) {
                             
                             if data.selectedClue != data.correctClue {
-//
-//                                try! realm.write {
-//                                    data.type = b.clue!.type!
-//                                }
+
                                 wrongs.append(b.clue!.type!)
+                            }else{
+                                correctCount += 1
                             }
                             print(selectedClue)
                             print(data)
@@ -142,15 +140,10 @@ class FactCheckViewController: GameTransitionBaseViewController {
                 }
                 
                 if b.clueDescLb.text == "" {
-                    
-                    print(b.clue)
-                    
-//                    let emptyFact = FactCheck.init()
+
                     
                     wrongs.append(b.clue!.type!)
-                    
-//                    emptyFact
-//                    print(data)
+
                     b.bubbleBaseView.image = UIImage.init(named: "balloonFail")
                     
 //                   wrongs.append(<#T##newElement: FactCheck##FactCheck#>)
@@ -175,8 +168,10 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     @objc func touchSubmitButton(sender:UIButton) {
-        print("Article Submit!")
-        PopUp.callSubmitView(tag: 1, vc: self)
+    
+        if correctCount > 0 {
+            PopUp.callSubmitView(tag: 1, vc: self)
+        }
     }
     
     @objc func touchBackButton(sender:UIButton) {
@@ -290,11 +285,7 @@ final class BasicBubbleView:UIView {
     }
     
     func setDataCheck(clue:Clue, type:FactCorrect) {
-        
-//        self.clue = clue
-//        clueTypeLb.text = self.clue?.type
-//        clueTypeLb.font = UIFont.NotoSans(.bold, size: 16)
-//        clueDescLb.font = UIFont.NotoSans(.medium, size: 16)
+
         clueDescLb.text = clue.desc
         self.tag = clue.id
         
