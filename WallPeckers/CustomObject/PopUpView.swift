@@ -56,6 +56,16 @@ class BasePopUpView:UIView {
 
 class ArticleSubmitView:BasePopUpView {
     
+
+    let hashTags = ["happy", "hopeful", "don't care", "sad", "frustrated"]
+    let topStarView = UILabel()
+    let centerInfoView = UIStackView()
+    let descLb = UILabel()
+    let hashTagBtnView = UIView()
+    let publishButton = BottomButton()
+    var hashBtns:[HashTagBtn] = []
+    var delegate:ArticleSubmitDelegate?
+    private var selectedHashTag:Int?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,6 +81,130 @@ class ArticleSubmitView:BasePopUpView {
             make.height.equalTo(450)
             make.centerX.equalToSuperview()
         }
+        popupView.addSubview([topStarView, centerInfoView, descLb, hashTagBtnView, publishButton])
+        
+        topStarView.attributedText = "★  ☆  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+        topStarView.textAlignment = .center
+        
+        topStarView.snp.makeConstraints { (make) in
+            make.top.equalTo(10)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(45)
+        }
+        
+        centerInfoView.snp.makeConstraints { (make) in
+            make.top.equalTo(topStarView.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(140)
+        }
+        centerInfoView.axis = .horizontal
+        
+        let leftWingImv = UIImageView.init(image: UIImage.init(named: "leftWing"))
+        let centerLabel = UILabel()
+        let rightWingImv = UIImageView.init(image: UIImage.init(named: "rightWing"))
+        
+        
+        for v in [leftWingImv, centerLabel, rightWingImv] {
+            
+            centerInfoView.addArrangedSubview(v)
+            
+        }
+        
+        for i in 0...hashTags.count - 1 {
+            
+            let hashbtn = HashTagBtn()
+            hashbtn.setTitle("# \(hashTags[i])", for: .normal)
+            hashbtn.tag = i
+            hashbtn.addTarget(self, action: #selector(touchHashtag(sender:)), for: .touchUpInside)
+            hashBtns.append(hashbtn)
+            hashTagBtnView.addSubview(hashbtn)
+        }
+        
+        leftWingImv.snp.makeConstraints { (make) in
+            make.width.equalTo(50)
+            make.top.equalToSuperview()
+        }
+        rightWingImv.snp.makeConstraints { (make) in
+            make.width.equalTo(50)
+            make.top.equalToSuperview()
+        }
+        centerLabel.text = "a\n b\n c"
+        centerLabel.numberOfLines = 0
+        centerLabel.textAlignment = .center
+    
+        leftWingImv.contentMode = .top
+        rightWingImv.contentMode = .top
+        
+        descLb.snp.makeConstraints { (make) in
+            make.top.equalTo(centerInfoView.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.7)
+        }
+//        descLb.setBorder(color: .black, width: 1)
+        descLb.text = "Pick your #hashtag for \nyour article."
+        descLb.textAlignment = .center
+        descLb.numberOfLines = 2
+        
+        hashTagBtnView.snp.makeConstraints { (make) in
+            make.top.equalTo(descLb.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(100)
+        }
+        
+//        for i in hashb
+        
+        hashBtns[0].snp.makeConstraints { (make) in
+            make.leading.equalTo(10)
+            make.top.equalToSuperview()
+            make.width.equalTo(82)
+            make.height.equalTo(42)
+        }
+        
+        hashBtns[2].snp.makeConstraints { (make) in
+            make.trailing.equalTo(-10)
+            make.height.equalTo(42)
+            make.top.equalToSuperview()
+            make.width.equalTo(115)
+        }
+        
+        
+        hashBtns[1].snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.height.equalTo(42)
+            make.leading.equalTo(hashBtns[0].snp.trailing).offset(10)
+            make.trailing.equalTo(hashBtns[2].snp.leading).offset(-10)
+        }
+        
+        hashBtns[3].snp.makeConstraints { (make) in
+            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
+            make.width.equalTo(80)
+            make.height.equalTo(42)
+            make.leading.equalTo(60)
+        }
+        hashBtns[4].snp.makeConstraints { (make) in
+            make.trailing.equalTo(-60)
+            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
+            make.leading.equalTo(hashBtns[3].snp.trailing).offset(10)
+            make.height.equalTo(42)
+        }
+        
+        publishButton.snp.makeConstraints { (make) in
+            make.top.equalTo(hashTagBtnView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(-20)
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalTo(43)
+        }
+        
+        publishButton.setTitle("PUBLISH THE ARTICLE", for: .normal)
+
+        
+        
+//        centerInfoView.adda
+        publishButton.addTarget(self, action: #selector(removeView), for: .touchUpInside)
+        
+        
+        hashTagBtnView.backgroundColor = .sunnyYellow
         popupView.backgroundColor = .sunnyYellow
         
     }
@@ -79,8 +213,67 @@ class ArticleSubmitView:BasePopUpView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func removeView() {
+        
+        guard let ht = selectedHashTag else {return}
+        delegate?.publishArticlewith(hashtag: ht)
+        self.removeFromSuperview()
+    }
+    
+    @objc func touchHashtag(sender:HashTagBtn) {
+        
+        for i in hashBtns {
+            
+            i.isSelected = false
+        }
+    
+        sender.isSelected = !(sender.isSelected)
+    
+        selectedHashTag = sender.tag
+        print(sender.tag)
+        
+    }
     
 }
+
+protocol ArticleSubmitDelegate {
+    
+    func publishArticlewith(hashtag:Int)
+    
+}
+
+final class HashTagBtn:UIButton {
+    
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.backgroundColor = .black
+            }else{
+                self.backgroundColor = UIColor.init(white: 216/255, alpha: 1)
+            }
+        }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func setUI() {
+        self.backgroundColor = UIColor.init(white: 216/255, alpha: 1)
+        self.setBorder(color: .black, width: 1.5, cornerRadius: 8)
+        self.titleLabel?.font = UIFont.AmericanTypeWriter(.regular, size: 19)
+        self.titleLabel?.adjustsFontSizeToFitWidth = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+
 
 class SelectPopUpView:BasePopUpView {
     
@@ -280,6 +473,23 @@ protocol AlerPopupViewDelegate {
 
 
 struct PopUp {
+    
+    static func callSubmitView(tag:Int, vc:UIViewController) {
+        
+        let popupView = ArticleSubmitView()
+        popupView.delegate = vc as? ArticleSubmitDelegate
+        
+        if let _parent = vc.parent {
+            _parent.view.addSubview(popupView)
+        }else{
+            vc.view.addSubview(popupView)
+        }
+        
+        popupView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+    }
     
     static func callCluePopUp(clueType:String, tag:Int, vc:UIViewController) {
         

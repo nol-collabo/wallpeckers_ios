@@ -148,8 +148,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     }
     
     func changeColor() {
-        
-
 
         _ = articles?.map({
             
@@ -158,7 +156,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             factCheckList.map({
                 
                 if $0.selectedArticleId == ar.id {
-//                    print(ar)
+                    
                     _ = articleButtons.map({
                     
                         btn in
@@ -168,26 +166,13 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                                 
                                 if btn.tag == $0.leftTag || btn.tag == $0.rightTag {
                                     btn.backgroundColor = $0.backgroundColor?.withAlphaComponent(0.5)
-
                                 }
-                                
-                                print($0.tag)
-                                print($0.backgroundColor)
-                                print("~~~")
                             })
-                            print(btn.borderColor?.cgColor)
-//                            btn.c
                         }
-                        
                     })
                 }
             })
-            
         })
-        
-
-        
-        
     }
     
 

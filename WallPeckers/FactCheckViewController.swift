@@ -12,6 +12,7 @@ import RealmSwift
 import AloeStackView
 
 class FactCheckViewController: GameTransitionBaseViewController {
+    
     let aStackView = AloeStackView()
     var checkData:[FactCheck]?
     var article:Article?
@@ -175,6 +176,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     
     @objc func touchSubmitButton(sender:UIButton) {
         print("Article Submit!")
+        PopUp.callSubmitView(tag: 1, vc: self)
     }
     
     @objc func touchBackButton(sender:UIButton) {
@@ -196,6 +198,21 @@ class FactCheckViewController: GameTransitionBaseViewController {
         self.article = article
         self.five = five
     }
+}
+
+extension FactCheckViewController:ArticleSubmitDelegate {
+    func publishArticlewith(hashtag: Int) {
+        print(hashtag)
+        
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
+        
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag), direction: .forward)
+//        delegate.move
+        // Move To ComleteArticle
+//        print("DLDKDKDK")
+    }
+    
+    
 }
 
 final class BasicBubbleView:UIView {

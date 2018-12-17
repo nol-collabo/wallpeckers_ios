@@ -42,7 +42,7 @@ class Standard {
         case .long:
             gamePlayTime = 1000
         case .short:
-            gamePlayTime = 100
+            gamePlayTime = 100000
         }
         
         sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in

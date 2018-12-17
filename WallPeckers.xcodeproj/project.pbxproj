@@ -25,6 +25,7 @@
 		230BD4CE21C0BC2800503CD5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4CD21C0BC2800503CD5 /* GameViewController.swift */; };
 		230BD4D021C0C21B00503CD5 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4CF21C0C21B00503CD5 /* TopicViewController.swift */; };
 		230BD4D221C0CF4F00503CD5 /* GameTransitionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4D121C0CF4F00503CD5 /* GameTransitionBaseViewController.swift */; };
+		230BD4F921C7981000503CD5 /* CompleteArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -103,6 +104,7 @@
 		230BD4CD21C0BC2800503CD5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		230BD4CF21C0C21B00503CD5 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 		230BD4D121C0CF4F00503CD5 /* GameTransitionBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTransitionBaseViewController.swift; sourceTree = "<group>"; };
+		230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteArticleViewController.swift; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			children = (
 				230BD4C821C0B47300503CD5 /* NavigationCustomView.swift */,
 				230BD4CB21C0B4AB00503CD5 /* TopicButton.swift */,
+				2357819421ABF47A00338CB9 /* PopUpView.swift */,
 			);
 			path = CustomObject;
 			sourceTree = "<group>";
@@ -228,7 +231,6 @@
 				2357818B21ABF2DA00338CB9 /* Extension */,
 				2357815921ABF28F00338CB9 /* AppDelegate.swift */,
 				230BD4CA21C0B47D00503CD5 /* CustomObject */,
-				2357819421ABF47A00338CB9 /* PopUpView.swift */,
 				230BD48221BF543400503CD5 /* Singleton.swift */,
 				23D86F2721B1391C00CDC5B6 /* Classes */,
 				2357818721ABF2AE00338CB9 /* StartViewController.swift */,
@@ -242,6 +244,7 @@
 				23D86F3C21B50DE700CDC5B6 /* Game.storyboard */,
 				230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */,
 				75FF39E421C2560300136D03 /* FactCheckViewController.swift */,
+				230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */,
 				230BD4D121C0CF4F00503CD5 /* GameTransitionBaseViewController.swift */,
 				230BD4CD21C0BC2800503CD5 /* GameViewController.swift */,
 				230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */,
@@ -628,6 +631,7 @@
 				230BD4C921C0B47300503CD5 /* NavigationCustomView.swift in Sources */,
 				75FF39E521C2560300136D03 /* FactCheckViewController.swift in Sources */,
 				230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */,
+				230BD4F921C7981000503CD5 /* CompleteArticleViewController.swift in Sources */,
 				23D86F3521B1594700CDC5B6 /* ArticleLink.swift in Sources */,
 				23D86F3721B15DFE00CDC5B6 /* FIVE_W_ONE_HS.swift in Sources */,
 				23D86F2B21B1496F00CDC5B6 /* LocalLanguage.swift in Sources */,

@@ -158,6 +158,17 @@ extension GameViewController:GameViewTransitionDelegate {
             
         case .forward:
             
+            if let vc = toVc as? CompleteArticleViewController {
+                
+                guard let _sendData = sendData as? (Article, Int) else {return}
+                
+                vc.setData(article: _sendData.0, hashTag: _sendData.1)
+                self.setChildVc(rootView: articleResultView, vc)
+                
+                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 4, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                
+            }
+            
             if let vc = toVc as? FactCheckViewController {
                 
                 guard let _sendData = sendData as? ([FactCheck], Article, [Five_W_One_Hs]) else {return}
@@ -213,6 +224,14 @@ extension GameViewController:GameViewTransitionDelegate {
             
         case .backward:
             fromVc.removeFromParent()
+            
+            if let _ = fromVc as? CompleteArticleViewController {
+                
+//                if let
+                
+//                self.setChildVc(rootView: <#T##UIView#>, <#T##vc: GameTransitionBaseViewController##GameTransitionBaseViewController#>)
+                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: false)
+            }
 
             if let _ = fromVc as? ArticleChooseViewController {
                 
