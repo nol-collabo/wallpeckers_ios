@@ -12,10 +12,79 @@ import AloeStackView
 
 var TIMERTIME:Int?
 
-class SelectPopUpView:UIView {
+
+class BasePopUpView:UIView {
     
     let baseView = UIView()
     let popupView = UIView()
+    var popUpViewHeight:CGFloat = 340
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.addSubview([baseView, popupView])
+        
+        baseView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        baseView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        popupView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.leading.equalTo(40)
+            make.height.equalTo(popUpViewHeight)
+        }
+        popupView.backgroundColor = .white
+
+    }
+    
+    func setPopUpViewHeight(_ height:CGFloat) {
+        popUpViewHeight = height
+        popupView.snp.remakeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.leading.equalTo(40)
+            make.height.equalTo(popUpViewHeight)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+
+
+class ArticleSubmitView:BasePopUpView {
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+        
+    }
+    
+    private func setUI() {
+        
+        popupView.snp.remakeConstraints { (make) in
+            make.top.equalTo(60)
+            make.leading.equalTo(30)
+            make.height.equalTo(450)
+            make.centerX.equalToSuperview()
+        }
+        popupView.backgroundColor = .sunnyYellow
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+
+class SelectPopUpView:BasePopUpView {
+    
+
     let titleView = UIView()
     let titleLb = UILabel()
     let buttonView = AloeStackView()
@@ -31,18 +100,6 @@ class SelectPopUpView:UIView {
     
     private func setUI() {
         
-        self.addSubview([baseView, popupView])
-        
-        baseView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        baseView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        popupView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.leading.equalTo(40)
-            make.height.equalTo(340)
-//            make.bottom.equalToSuperview().offset(-50)
-        }
         popupView.addSubview([titleView, buttonView, bottomView])
         
         titleView.snp.makeConstraints { (make) in
@@ -52,7 +109,6 @@ class SelectPopUpView:UIView {
             make.height.equalTo(70)
         }
         titleView.backgroundColor = .white
-        popupView.backgroundColor = .white
         
         titleView.addSubview(titleLb)
         
@@ -69,7 +125,6 @@ class SelectPopUpView:UIView {
             make.bottom.leading.trailing.equalToSuperview()
             make.height.equalTo(80)
         }
-//        bottomView.backgroundColor = .red
         
         bottomView.addSubview(confirmBtn)
         
@@ -168,10 +223,8 @@ protocol SelectPopupDelegate {
     
 }
 
-class AlertPopUpView:UIView {
-    
-    let baseView = UIView()
-    let popupView = UIView()
+class AlertPopUpView:BasePopUpView {
+ 
     let timeLb = UILabel()
     let descLb = UILabel()
     let bottomButton = BottomButton()
@@ -183,20 +236,8 @@ class AlertPopUpView:UIView {
     }
     
     func setUI() {
-        self.addSubview([baseView, popupView])
         
-        baseView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        popupView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.leading.equalTo(20)
-            make.height.equalTo(250)
-        }
-        
-        baseView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        popupView.backgroundColor = .white
-        
+        self.setPopUpViewHeight(250)
         popupView.addSubview([timeLb, descLb, bottomButton])
         
         timeLb.snp.makeConstraints { (make) in
@@ -244,7 +285,17 @@ struct PopUp {
         
         let popupView = CluePopUpView()
         
-        vc.view.addSubview(popupView)
+//        UIWindow().window?.addSubview(popupView)
+        
+        
+        if let _parent = vc.parent {
+            _parent.view.addSubview(popupView)
+        }else{
+            vc.view.addSubview(popupView)
+
+        }
+        
+//        if let vc.parent?.view.addSubview(popupView)
     
         popupView.delegate = vc as? CluePopUpViewDelegate
         popupView.tag = tag

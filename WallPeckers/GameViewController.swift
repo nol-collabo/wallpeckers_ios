@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class GameViewController: UIViewController {
 
@@ -180,6 +182,7 @@ extension GameViewController:GameViewTransitionDelegate {
                     $0.point
                 }).reduce(0, +)
                 
+                
                 btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
                 articleButtons.append(btn)
                 
@@ -212,8 +215,18 @@ extension GameViewController:GameViewTransitionDelegate {
             fromVc.removeFromParent()
 
             if let _ = fromVc as? ArticleChooseViewController {
+                
+//                toVc a
                  horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }else if let _ = fromVc as? ClueSelectViewController {
+                
+                
+                if let _ac = toVc as? ArticleChooseViewController {
+                    
+                    _ac.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+
+                }
+                
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }else if let _ = fromVc as? FactCheckViewController {
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)

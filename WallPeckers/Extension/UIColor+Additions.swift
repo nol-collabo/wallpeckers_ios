@@ -51,5 +51,8 @@ extension UIColor {
     @nonobjc class var boringGreen: UIColor {
         return UIColor(red: 108.0 / 255.0, green: 184.0 / 255.0, blue: 104.0 / 255.0, alpha: 1.0)
     }
+    @nonobjc class var sunnyYellow: UIColor {
+        return UIColor(red: 248.0 / 255.0, green: 231.0 / 255.0, blue: 28.0 / 255.0, alpha: 1.0)
+    }
     
 }

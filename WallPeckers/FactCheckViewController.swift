@@ -182,8 +182,10 @@ class FactCheckViewController: GameTransitionBaseViewController {
         
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
         
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+//        vc.viewWillAppear(true)
+
         sender.isUserInteractionEnabled = true
     }
     
@@ -342,14 +344,6 @@ final class DeskBubbleView:UIView {
     }
     
     func setData(region:String, wrongParts:[String]) {
-        //        guard let region = delegate?.region else {return}
-        //
-//        let wrongType = wrongParts.map({
-//
-//            $0.type
-//
-//        })
-//        print(wrongType)
 
         var sss = ""
         

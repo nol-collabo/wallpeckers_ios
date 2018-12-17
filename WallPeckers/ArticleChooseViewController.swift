@@ -46,13 +46,18 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
 
             self.navigationController?.pushViewController(vc, animated: true)
             
-                
-            print("MOVE TO NEXT")
-        }else {
+                        }else {
             sender.removeFromSuperview()
         }
     }
     
+    var factCheckList:[FactCheck] = [] {
+        didSet {
+            print(factCheckList)
+            self.changeColor()
+            print("~FHKJFHJKF")
+        }
+    }
     var links:[ArticleLinkLine] = []
     var timerView:NavigationCustomView?
     let backButton = UIButton()
@@ -119,6 +124,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                 $0.tag == i.articles[1]
             }).first {
                 line.setLine(color: color!, leftButton: left, rightButton: right, vc: self)
+
                 links.append(line)
             }
 
@@ -130,6 +136,58 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         super.viewDidLoad()
         setUI()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+        
+        
+        factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+
+    }
+    
+    func changeColor() {
+        
+
+
+        _ = articles?.map({
+            
+            ar in
+            
+            factCheckList.map({
+                
+                if $0.selectedArticleId == ar.id {
+//                    print(ar)
+                    _ = articleButtons.map({
+                    
+                        btn in
+                        
+                        if btn.tag == ar.id {
+                            _ = links.map({
+                                
+                                if btn.tag == $0.leftTag || btn.tag == $0.rightTag {
+                                    btn.backgroundColor = $0.backgroundColor?.withAlphaComponent(0.5)
+
+                                }
+                                
+                                print($0.tag)
+                                print($0.backgroundColor)
+                                print("~~~")
+                            })
+                            print(btn.borderColor?.cgColor)
+//                            btn.c
+                        }
+                        
+                    })
+                }
+            })
+            
+        })
+        
+
+        
+        
     }
     
 
@@ -238,6 +296,7 @@ class ArticleSelectButton:UIView {
     let titleLb = UILabel()
     let tapGesture = UITapGestureRecognizer()
     var delegate:ArticleSelectDelegate?
+    var borderColor:UIColor?
     
     
     override init(frame: CGRect) {
@@ -266,6 +325,7 @@ class ArticleSelectButton:UIView {
     }
     
     func setData(point:String, textColor:UIColor, title:String, isStar:Bool, tag:Int, backgroundColor:UIColor = .white, borderColor:UIColor = .black) {
+        self.borderColor = borderColor
         self.pointTitleLb.setNotoText(point, color: textColor, size: 26, textAlignment: .center, font: .bold)
         self.titleLb.setNotoText(title, color: textColor, size: 12, textAlignment: .center, font: .bold)
         self.starImageView.isHidden = !isStar
@@ -306,11 +366,19 @@ class ArticleLinkLine:UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var leftTag:Int = 0
+    var rightTag:Int = 0
+    
     
     func setLine(color:LineColor, leftButton:ArticleSelectButton, rightButton:ArticleSelectButton, vc:UIViewController) {
 
         vc.view.addSubview(self)
 
+        leftTag = leftButton.tag
+        rightTag = rightButton.tag
+        
+        self.tag = tag
+        
         switch color {
         
         case .BLUE:
