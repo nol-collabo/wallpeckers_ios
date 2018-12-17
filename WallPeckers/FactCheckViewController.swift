@@ -12,23 +12,23 @@ import RealmSwift
 import AloeStackView
 
 class FactCheckViewController: GameTransitionBaseViewController {
-
     let aStackView = AloeStackView()
     var checkData:[FactCheck]?
     var article:Article?
     var five:[Five_W_One_Hs]?
     let submitButton = BottomButton()
     let backButton = UIButton()
+    let deskView = DeskBubbleView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         setStack()
     }
     
@@ -55,15 +55,18 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     func setStack() {
-
+        
         guard let _data = checkData, let _article = article, let _five = five else {return}
+        
+        
+        
         
         let clues:[Clue] = Array(_article.clues).map({
             
             return RealmClue.shared.getLocalClue(id: $0, language: Standard.shared.getLocalized())!
             
         })
-
+        
         if let whoC = clues.filter({
             $0.type == "WHO"
         }).first, let whenC = clues.filter({
@@ -77,67 +80,96 @@ class FactCheckViewController: GameTransitionBaseViewController {
         }).first, let whyC = clues.filter({
             $0.type == "WHY"
         }).first {
+            
+            aStackView.backgroundColor = .basicBackground
+            
+            let articleView = ArticleView()
+            articleView.forFactCheck()
+            
+            articleView.setData(article: article!, point: "300")
 
-        aStackView.backgroundColor = .basicBackground
-        
-        let articleView = ArticleView()
-        articleView.forFactCheck()
-        
-        articleView.setData(article: article!, point: "300")
-        
-        aStackView.addRow(articleView)
-        
-        let whoV = BasicBubbleView()
-        let whenV = BasicBubbleView()
-        let whereV = BasicBubbleView()
-        let whatV = BasicBubbleView()
-        let howV = BasicBubbleView()
-        let whyV = BasicBubbleView()
-        
+            aStackView.addRow(articleView)
+            
+            let whoV = BasicBubbleView()
+            let whenV = BasicBubbleView()
+            let whereV = BasicBubbleView()
+            let whatV = BasicBubbleView()
+            let howV = BasicBubbleView()
+            let whyV = BasicBubbleView()
+            
             whoV.setData(clue: whoC, type: .normal)
             whenV.setData(clue: whenC, type: .normal)
             whereV.setData(clue: whereC, type: .normal)
             whatV.setData(clue: whatC, type: .normal)
             howV.setData(clue: howC, type: .normal)
             whyV.setData(clue: whyC, type: .normal)
-    
-        let bubbles = [whoV, whenV, whereV, whatV, howV, whyV]
-        
+            
+            let bubbles = [whoV, whenV, whereV, whatV, howV, whyV]
+            var wrongs:[String] = []
+            
             for b in bubbles {
                 
                 for f in _five {
                     if f.id == b.tag {
                         if !f.given {
                             b.clueDescLb.text = ""
+                            print("Empty", b.tag)
                         }
                     }
                 }
                 
                 for data in _data {
                     
-                    if b.tag == data.correctClue { // 정답 검증 구간
+                    if b.tag == data.correctClue { // 정답 검증 구간, b.tag 가 correctClue 임
                         
                         if let selectedClue = RealmClue.shared.getLocalClue(id: data.selectedClue, language: Standard.shared.getLocalized()) {
-                            b.setData(clue: selectedClue, type: data.selectedClue == data.correctClue ? .correct : .wrong)
+                            
+                            if data.selectedClue != data.correctClue {
+//
+//                                try! realm.write {
+//                                    data.type = b.clue!.type!
+//                                }
+                                wrongs.append(b.clue!.type!)
+                            }
+                            print(selectedClue)
+                            print(data)
+                            print("~CLUE~~")
+                            b.setDataCheck(clue: selectedClue, type: data.selectedClue == data.correctClue ? .correct : .wrong)
+                            
                         }
                     }
                 }
                 
- 
+                if b.clueDescLb.text == "" {
+                    
+                    print(b.clue)
+                    
+//                    let emptyFact = FactCheck.init()
+                    
+                    wrongs.append(b.clue!.type!)
+                    
+//                    emptyFact
+//                    print(data)
+                    b.bubbleBaseView.image = UIImage.init(named: "balloonFail")
+                    
+//                   wrongs.append(<#T##newElement: FactCheck##FactCheck#>)
+                }
+                
             }
-
-        aStackView.addRows(bubbles)
-            print(DeviceSize.width, "DEVICEWIDTH")
-
-        
-        aStackView.addRow(submitButton)
-        submitButton.snp.makeConstraints { (make) in
-            make.width.equalTo(200)
-            make.height.equalTo(50)
-            make.center.equalToSuperview()
-        }
-        aStackView.addRow(backButton)
-        
+            
+            deskView.setData(region: _article.region!, wrongParts: wrongs)
+            
+            aStackView.addRows(bubbles)
+            aStackView.addRow(deskView)
+            
+            aStackView.addRow(submitButton)
+            submitButton.snp.makeConstraints { (make) in
+                make.width.equalTo(200)
+                make.height.equalTo(50)
+                make.center.equalToSuperview()
+            }
+            aStackView.addRow(backButton)
+            
         }
     }
     
@@ -155,7 +187,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
         sender.isUserInteractionEnabled = true
     }
     
-
+    
     func setData(_ data:[FactCheck], article:Article, five:[Five_W_One_Hs]) {
         
         self.checkData = data
@@ -169,6 +201,7 @@ final class BasicBubbleView:UIView {
     let bubbleBaseView = UIImageView()
     let clueTypeLb = UILabel()
     let clueDescLb = UILabel()
+    var clue:Clue?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -208,7 +241,8 @@ final class BasicBubbleView:UIView {
     
     func setData(clue:Clue, type:FactCorrect) {
         
-        clueTypeLb.text = clue.type
+        self.clue = clue
+        clueTypeLb.text = self.clue?.type
         clueTypeLb.font = UIFont.NotoSans(.bold, size: 16)
         clueDescLb.font = UIFont.NotoSans(.medium, size: 16)
         clueDescLb.text = clue.desc
@@ -218,17 +252,51 @@ final class BasicBubbleView:UIView {
             
         case .normal:
             bubbleBaseView.image = UIImage.init(named: "balloon4")
-
+            
         case .correct:
             bubbleBaseView.image = UIImage.init(named: "balloonCorrect")
             clueTypeLb.textColor = .white
             clueDescLb.textColor = .white
-
+            
         case .wrong:
             clueTypeLb.textColor = .white
             clueDescLb.textColor = .white
             bubbleBaseView.image = UIImage.init(named: "balloonFail")
-
+            
+        case .empty:
+            bubbleBaseView.image = UIImage.init(named: "balloon4")
+        
+        }
+        
+    }
+    
+    func setDataCheck(clue:Clue, type:FactCorrect) {
+        
+//        self.clue = clue
+//        clueTypeLb.text = self.clue?.type
+//        clueTypeLb.font = UIFont.NotoSans(.bold, size: 16)
+//        clueDescLb.font = UIFont.NotoSans(.medium, size: 16)
+        clueDescLb.text = clue.desc
+        self.tag = clue.id
+        
+        switch type {
+            
+        case .normal:
+            bubbleBaseView.image = UIImage.init(named: "balloon4")
+            
+        case .correct:
+            bubbleBaseView.image = UIImage.init(named: "balloonCorrect")
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
+            
+        case .wrong:
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
+            bubbleBaseView.image = UIImage.init(named: "balloonFail")
+            
+        case .empty:
+            bubbleBaseView.image = UIImage.init(named: "balloon4")
+            
         }
         
     }
@@ -243,10 +311,65 @@ final class DeskBubbleView:UIView {
     
     let bubbleBaseView = UIImageView()
     let clueDescLb = UILabel()
-    let profileView = UIView()
+    let profileView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUI()
+    }
+    
+    private func setUI() {
+        self.addSubview([profileView, bubbleBaseView, clueDescLb])
+        bubbleBaseView.image = UIImage.init(named: "balloon")
+        profileView.snp.makeConstraints { (make) in
+            make.top.leading.bottom.equalToSuperview()
+            make.width.equalTo(63)
+            make.height.equalTo(87)
+        }
+        bubbleBaseView.snp.makeConstraints { (make) in
+            make.leading.equalTo(profileView.snp.trailing)
+            make.top.equalTo(3)
+            make.bottom.equalTo(-3)
+            make.trailing.equalTo(-10)
+        }
+        clueDescLb.snp.makeConstraints { (make) in
+            make.leading.equalTo(profileView.snp.trailing).offset(30)
+            make.top.equalTo(bubbleBaseView.snp.top).offset(3)
+            make.trailing.equalTo(bubbleBaseView.snp.trailing).offset(-10)
+            make.bottom.equalTo(-10)
+        }
+        
+    }
+    
+    func setData(region:String, wrongParts:[String]) {
+        //        guard let region = delegate?.region else {return}
+        //
+//        let wrongType = wrongParts.map({
+//
+//            $0.type
+//
+//        })
+//        print(wrongType)
+
+        var sss = ""
+        
+        for i in 0...wrongParts.count - 1 {
+            
+            if i == wrongParts.count - 1 {
+            
+                sss.append("\(wrongParts[i])")
+                
+            }else{
+                sss.append("\(wrongParts[i]), ")
+            }
+            
+        }
+        
+        clueDescLb.attributedText = sss.makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
+        
+        print(wrongParts)
+        print("~~~###")
+        profileView.image = UIImage.init(named: region == "GERMANY" ? "germanDeskProfile" : "koreanDeskProfile")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -255,7 +378,9 @@ final class DeskBubbleView:UIView {
     
 }
 
+
+
 enum FactCorrect:String {
     
-    case wrong, correct, normal
+    case wrong, correct, normal, empty
 }
