@@ -255,6 +255,13 @@ extension GameViewController:GameViewTransitionDelegate {
     
     func setChildVc(rootView:UIView, _ vc:GameTransitionBaseViewController) {
         
+        if rootView.subviews.count > 0 {
+            
+            for i in rootView.subviews {
+                i.removeFromSuperview()
+            }
+            
+        }
         self.addChild(vc)
         rootView.addSubview(vc.view)
         vc.view.snp.makeConstraints { (make) in
