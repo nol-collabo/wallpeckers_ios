@@ -53,6 +53,89 @@ class BasePopUpView:UIView {
     
 }
 
+enum PopUpType:String {
+    
+    case level, badge
+    
+}
+
+class LevelBadgePopUpView:BasePopUpView {
+    
+    let bgImageView = UIImageView()
+    let mainImageView = UIImageView()
+    let descLb = UILabel()
+    let bottomButton = BottomButton()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    
+    func setData(type:PopUpType, mainImage:UIImage, desc:String) {
+        
+        switch type {
+        
+        case .badge:
+            bgImageView.image = UIImage.init(named: "badgeBackground")
+            mainImageView.snp.remakeConstraints { (make) in
+                make.centerX.equalToSuperview()
+                make.top.equalTo(100)
+                make.width.equalTo(130)
+                make.height.equalTo(190)
+            }
+        case .level:
+            bgImageView.image = UIImage.init(named: "levelBackground")
+            mainImageView.snp.remakeConstraints { (make) in
+                make.centerX.equalToSuperview()
+                make.top.equalTo(170)
+                make.width.equalTo(88)
+                make.height.equalTo(88)
+            }
+        }
+        
+        mainImageView.image = mainImage
+        descLb.text = desc
+        
+    }
+    
+    private func setUI() {
+        
+        self.popupView.addSubview([bgImageView, mainImageView, descLb, bottomButton])
+        self.setPopUpViewHeight(450)
+        
+        bgImageView.snp.makeConstraints { (make) in
+            make.leading.equalTo(15)
+            make.top.equalTo(10)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(310)
+        }
+        mainImageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(100)
+            make.width.equalTo(130)
+            make.height.equalTo(190)
+        }
+        
+        bottomButton.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(-20)
+            make.width.equalTo(200)
+            make.height.equalTo(44)
+        }
+        bottomButton.addTarget(self, action: #selector(removePopup), for: .touchUpInside)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func removePopup() {
+        
+        self.removeFromSuperview()
+        
+    }
+}
 
 class ArticleSubmitView:BasePopUpView {
     
@@ -474,6 +557,22 @@ protocol AlerPopupViewDelegate {
 
 struct PopUp {
     
+    static func levelBadgePopup(vc:UIViewController) {
+        
+        let popupView = LevelBadgePopUpView()
+
+        if let _parent = vc.parent {
+            _parent.view.addSubview(popupView)
+        }else{
+            vc.view.addSubview(popupView)
+        }
+        
+        popupView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+    }
+    
     static func callSubmitView(tag:Int, vc:UIViewController) {
         
         let popupView = ArticleSubmitView()
@@ -495,8 +594,6 @@ struct PopUp {
         
         let popupView = CluePopUpView()
         
-//        UIWindow().window?.addSubview(popupView)
-        
         
         if let _parent = vc.parent {
             _parent.view.addSubview(popupView)
@@ -504,9 +601,7 @@ struct PopUp {
             vc.view.addSubview(popupView)
 
         }
-        
-//        if let vc.parent?.view.addSubview(popupView)
-    
+            
         popupView.delegate = vc as? CluePopUpViewDelegate
         popupView.tag = tag
         popupView.titleLb.attributedText = clueType.makeAttrString(font: .NotoSans(.medium, size: 20), color: .black)
