@@ -156,6 +156,77 @@ class ArticleSubmitView:BasePopUpView {
         
     }
     
+    func setData(correctCount:Int, questionCount:Int) {
+        
+        switch questionCount {
+            
+            
+        case 1:
+            topStarView.attributedText = "★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+        case 2:
+            if correctCount == 1{
+                topStarView.attributedText = "★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+            }else{
+                topStarView.attributedText = "★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }
+
+        case 3:
+            
+            if correctCount == 1 {
+                topStarView.attributedText = "☆  ★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else if correctCount == 2 {
+                topStarView.attributedText = "★  ☆  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else {
+                topStarView.attributedText = "★  ★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }
+
+        case 4:
+            
+            if correctCount == 1 {
+                topStarView.attributedText = "★  ☆  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else if correctCount == 2 {
+                topStarView.attributedText = "★  ★  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else if correctCount == 3 {
+                topStarView.attributedText = "★  ★  ★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else {
+                topStarView.attributedText = "★  ★  ★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }
+
+        case 5:
+            
+            if correctCount == 1 {
+                topStarView.attributedText = "☆  ☆  ★  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else if correctCount == 2 {
+                topStarView.attributedText = "★  ★  ☆  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else if correctCount == 3 {
+                topStarView.attributedText = "★  ★  ★  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else if correctCount == 4 {
+                topStarView.attributedText = "★  ★  ★  ★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }else {
+                topStarView.attributedText = "★  ★  ★  ★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+
+            }
+
+        default:
+            break
+            
+        }
+        
+    }
+    
     private func setUI() {
         
         popupView.snp.remakeConstraints { (make) in
@@ -573,7 +644,7 @@ struct PopUp {
         
     }
     
-    static func callSubmitView(tag:Int, vc:UIViewController) {
+    static func callSubmitView(tag:Int, correctCount:Int, questionCount:Int, vc:UIViewController) {
         
         let popupView = ArticleSubmitView()
         popupView.delegate = vc as? ArticleSubmitDelegate

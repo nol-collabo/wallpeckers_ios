@@ -196,14 +196,11 @@ class FactCheckViewController: GameTransitionBaseViewController {
 
 extension FactCheckViewController:ArticleSubmitDelegate {
     func publishArticlewith(hashtag: Int) {
-        print(hashtag)
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
         
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
-//        delegate.move
-        // Move To ComleteArticle
-//        print("DLDKDKDK")
+
     }
     
     

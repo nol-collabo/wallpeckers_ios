@@ -485,7 +485,7 @@ class GraphView:UIView {
         }
     }
     
-    func setUI() {
+    private func setUI() {
         self.addSubview([titleLb, percentLb, graphV])
         
         graphV.snp.makeConstraints { (make) in
