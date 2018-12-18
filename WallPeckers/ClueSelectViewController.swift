@@ -412,7 +412,10 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
                 make.centerY.equalToSuperview().offset(-50)
                 
             }
+            self.layoutIfNeeded()
+
         }
+
 
     }
     
@@ -421,6 +424,8 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
             self.popupView.snp.updateConstraints { (make) in
                 make.centerY.equalToSuperview()
             }
+            self.layoutIfNeeded()
+
         }
 
     }

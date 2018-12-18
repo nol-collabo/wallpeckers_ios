@@ -9,7 +9,7 @@
 import UIKit
 import AloeStackView
 
-class CompleteArticleViewController: GameTransitionBaseViewController {
+class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollViewDelegate {
     
     var article:Article?
     var hashTag:Int?
@@ -20,6 +20,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController {
     
     let completeArticleView = CompletedArticleView()
     let deskView = DeskBubbleView()
+    let hashView = HashTagGraphView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,18 +31,52 @@ class CompleteArticleViewController: GameTransitionBaseViewController {
             print(_hash, "_HASH")
             
             
+            if let a = article?.hashes?.components(separatedBy: "/") {
+
+                let ints = a.map({
+                    
+                    Int($0)!
+                })
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                    self.hashView.startAnimation(heights: ints)
+                }
+                
+                for i in 0...ints.count - 1 {
+                    
+                    if let gps = self.hashView.subviews.filter({
+                        
+                        $0 is GraphView
+                    }) as? [GraphView] {
+                        
+
+                        _ = gps.map({
+                            if $0.tag == i {
+                                $0.initData(percent: ints[i], myTag: _hash)
+                            }
+                            
+                        })
+                    }
+                
+                }
+                
+            }
+
+            
             completeArticleView.setData(article: _article, wrongClue: wrongIds, region: _article.region!)
             
             aStackView.addRow(titleLb)
             aStackView.addRow(completeArticleView)
-            
+            aStackView.delegate = self
             
             if wrongIds.count > 0 {
                 aStackView.addRow(deskView)
                 deskView.setDataForCompleteArticle(region: _article.region!, desc: "some of the articles")
             }
-            
+//            aStackView.
+            aStackView.addRow(hashView)
             aStackView.addRow(okButton)
+
             
         }
         
@@ -88,6 +123,10 @@ class CompleteArticleViewController: GameTransitionBaseViewController {
    
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView.con
+    }
+    
 }
 
 final class CompletedArticleView:UIView {
@@ -127,8 +166,6 @@ final class CompletedArticleView:UIView {
         infoAString.append("\n\(userNameString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
         
         infoLb.attributedText = infoAString
-        
-//        infoLb.attributedText =
         
         let articleString:NSMutableAttributedString = "".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
 
@@ -268,5 +305,215 @@ final class CompletedArticleView:UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+}
+
+class HashTagGraphView:UIView {
+    
+    let titleLb = UILabel()
+    let underLine1 = UIView()
+    let firstView = GraphView()
+    let secondView = GraphView()
+    let thirdView = GraphView()
+    let fourthView = GraphView()
+    let fifthView = GraphView()
+    let underLine2 = UIView()
+    let hashTitleLb1 = UILabel()
+    let hashTitleLb2 = UILabel()
+    let hashTitleLb3 = UILabel()
+    let hashTitleLb4 = UILabel()
+    let hashTitleLb5 = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func setUI() {
+        
+        firstView.tag = 0
+        secondView.tag = 1
+        thirdView.tag = 2
+        fourthView.tag = 3
+        fifthView.tag = 4
+        
+        self.setBorder(color: .black, width: 1.5)
+        self.addSubview([titleLb, underLine1, underLine2, firstView, secondView, thirdView, fourthView, fifthView])
+        
+        titleLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(20)
+        }
+        titleLb.attributedText = "HASHTAG".makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
+        
+        underLine1.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(5)
+            make.top.equalTo(titleLb.snp.bottom).offset(10)
+            make.height.equalTo(1.5)
+        }
+        
+        underLine2.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.height.equalTo(2)
+            make.bottom.equalTo(-40)
+        }
+        underLine2.backgroundColor = .black
+        underLine1.backgroundColor = .black
+        
+        firstView.snp.makeConstraints { (make) in
+
+            make.leading.equalTo(underLine2.snp.leading)
+            make.bottom.equalTo(underLine2.snp.top).offset(1)
+            make.width.equalTo(underLine2.snp.width).multipliedBy(0.2)
+            make.height.equalTo(180)
+            make.top.equalTo(underLine1.snp.bottom).offset(20)
+//            make.top.equalToSuperview()
+        }
+        secondView.snp.makeConstraints { (make) in
+            make.leading.equalTo(firstView.snp.trailing)
+            make.bottom.equalTo(underLine2.snp.top).offset(1)
+            make.width.equalTo(underLine2.snp.width).multipliedBy(0.2)
+            make.height.equalTo(180)
+            make.top.equalTo(underLine1.snp.bottom).offset(20)
+
+        }
+        thirdView.snp.makeConstraints { (make) in
+            make.leading.equalTo(secondView.snp.trailing)
+            make.bottom.equalTo(underLine2.snp.top).offset(1)
+            make.width.equalTo(underLine2.snp.width).multipliedBy(0.2)
+            make.height.equalTo(180)
+            make.top.equalTo(underLine1.snp.bottom).offset(20)
+
+        }
+        fourthView.snp.makeConstraints { (make) in
+            make.leading.equalTo(thirdView.snp.trailing)
+            make.bottom.equalTo(underLine2.snp.top).offset(1)
+            make.width.equalTo(underLine2.snp.width).multipliedBy(0.2)
+            make.height.equalTo(180)
+            make.top.equalTo(underLine1.snp.bottom).offset(20)
+
+        }
+        fifthView.snp.makeConstraints { (make) in
+            make.top.equalTo(underLine1.snp.bottom).offset(20)
+            make.leading.equalTo(fourthView.snp.trailing)
+            make.bottom.equalTo(underLine2.snp.top).offset(1)
+            make.width.equalTo(underLine2.snp.width).multipliedBy(0.2)
+            make.height.equalTo(180)
+        }
+
+    }
+    
+    func startAnimation(heights:[Int]) {
+        
+        for i in [firstView, secondView, thirdView, fourthView, fifthView] {
+            
+            i.graphV.snp.updateConstraints { (make) in
+                make.height.equalTo(0)
+            }
+        }
+    
+        UIView.animate(withDuration: 5) {
+            self.firstView.graphV.snp.updateConstraints { (make) in
+                make.height.equalTo(heights[0])
+            }
+            
+            self.secondView.graphV.snp.updateConstraints { (make) in
+                make.height.equalTo(heights[1])
+            }
+            
+            self.thirdView.graphV.snp.updateConstraints { (make) in
+                make.height.equalTo(heights[2])
+            }
+            
+            self.fourthView.graphV.snp.updateConstraints { (make) in
+                make.height.equalTo(heights[3])
+            }
+            
+            self.fifthView.graphV.snp.updateConstraints { (make) in
+                make.height.equalTo(heights[4])
+            }
+            
+ 
+            self.layoutIfNeeded()
+        }
+
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+class GraphView:UIView {
+    
+    let titleLb = UILabel()
+    let percentLb = UILabel()
+    let graphV = UIView()
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func initData(percent:Int, myTag:Int) {
+        
+        self.percentLb.text = "\(percent)"
+        self.titleLb.text = ""
+        self.titleLb.adjustsFontSizeToFitWidth = true
+        self.titleLb.numberOfLines = 0
+        self.titleLb.textAlignment = .center
+        
+        if self.tag == myTag {
+            self.graphV.backgroundColor = .sunnyYellow
+            self.titleLb.text = "My Tag"
+        }else{
+            self.graphV.backgroundColor = .white
+        }
+        
+        if percent == 100 {
+            if self.titleLb.text != "" {
+                self.titleLb.text?.append("\nMostWanted")
+
+            }else{
+                self.titleLb.text?.append("MostWanted")
+
+            }
+        }
+    }
+    
+    func setUI() {
+        self.addSubview([titleLb, percentLb, graphV])
+        
+        graphV.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(0)
+        }
+        graphV.setBorder(color: .black, width: 1.5)
+        graphV.backgroundColor = .white
+        
+        percentLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(20)
+            make.bottom.equalTo(graphV.snp.top).offset(-5)
+        }
+        titleLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(20)
+            make.bottom.equalTo(percentLb.snp.top).offset(-5)
+        }
+
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     
 }

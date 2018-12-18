@@ -129,28 +129,24 @@ class FactCheckViewController: GameTransitionBaseViewController {
 
                                 wrongQuestionId.append((b.clue?.id)!)
                                 wrongs.append(b.clue!.type!)
-                                print(b.clue?.id)
-                                print("JFJFJFJF")
+
                             }else{
                                 correctCount += 1
                             }
-                            print(selectedClue)
-                            print(data)
-                            print("~CLUE~~")
+                        
                             b.setDataCheck(clue: selectedClue, type: data.selectedClue == data.correctClue ? .correct : .wrong)
                             
                         }
                     }
                 }
                 
-                if b.clueDescLb.text == "" {
+                if b.clueDescLb.text == "" { // 선택을 안했을때도 오류처리
 
-                    
                     wrongs.append(b.clue!.type!)
+                    wrongQuestionId.append((b.clue?.id)!)
 
                     b.bubbleBaseView.image = UIImage.init(named: "balloonFail")
                     
-//                   wrongs.append(<#T##newElement: FactCheck##FactCheck#>)
                 }
                 
             }
