@@ -30,7 +30,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController {
             print(_hash, "_HASH")
             
             
-            completeArticleView.setData(article: _article, wrongClue: wrongIds)
+            completeArticleView.setData(article: _article, wrongClue: wrongIds, region: _article.region!)
             
             aStackView.addRow(titleLb)
             aStackView.addRow(completeArticleView)
@@ -47,6 +47,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController {
         
     }
     
+//    func
+    
     func setUI() {
         
         self.view.backgroundColor = .basicBackground
@@ -61,7 +63,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController {
             
         }
         
-        titleLb.text = "COMPLETED ARTICLE"
+        titleLb.attributedText = "COMPLETED ARTICLE".makeAttrString(font: .NotoSans(.medium, size: 25), color: .black)
+        titleLb.textAlignment = .center
         
         okButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)
         
@@ -82,8 +85,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController {
         self.article = article
         self.hashTag = hashTag
         self.wrongIds = wrongIds
-        print(wrongIds)
-        print("~~~~")
+   
     }
     
 }
@@ -103,13 +105,30 @@ final class CompletedArticleView:UIView {
     let thumbImgView = UIImageView()
     let commentProfileImv = UIImageView()
     let commentTv = UITextView()
+    let dFormatter = DateFormatter()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
     }
     
-    func setData(article:Article, wrongClue:[Int]) {
+    func setData(article:Article, wrongClue:[Int], region:String) {
+        
+        
+        dFormatter.dateFormat = "mm.dd.yyyy"
+        
+        let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
+        
+        let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
+        let regionString = region == "GERMANY" ? "at the Berlin Wall" : "at the DMZ"
+        let userNameString = "Reporter \(RealmUser.shared.getUserData()?.name! ?? "User")"
+        infoAString.append(dString)
+        infoAString.append("\n\(regionString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
+        infoAString.append("\n\(userNameString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
+        
+        infoLb.attributedText = infoAString
+        
+//        infoLb.attributedText =
         
         let articleString:NSMutableAttributedString = "".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
 
@@ -138,7 +157,12 @@ final class CompletedArticleView:UIView {
             }
         }
         
+        let titleAstring = "".makeAttrString(font: .NotoSans(.regular, size: 13), color: .black)
         
+        titleAstring.append(article.title!.makeAttrString(font: .NotoSans(.bold, size: 20), color: .black))
+        titleAstring.append("\n\(article.title_sub!)".makeAttrString(font: .NotoSans(.medium, size: 14), color: .black))
+        
+        self.titleLb.attributedText = titleAstring
         self.articleTv.attributedText = articleString
         self.commentTv.attributedText = article.result!.makeAttrString(font: .NotoSans(.regular, size: 15), color: .black)
         
@@ -161,20 +185,28 @@ final class CompletedArticleView:UIView {
             make.centerX.equalToSuperview()
             make.leading.equalTo(15)
         }
+        
+        titleLb.snp.makeConstraints { (make) in
+            make.top.equalTo(underLine1.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(15)
+            make.height.equalTo(80)
+        }
+        titleLb.numberOfLines = 0
         underLine1.backgroundColor = .black
         underLine2.backgroundColor = .black
         
         imageContainerView.snp.makeConstraints { (make) in
             make.leading.equalTo(15)
+            make.top.equalTo(titleLb.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.top.equalTo(underLine1.snp.bottom).offset(20)
             make.height.equalTo(190)
         }
         infoLb.snp.makeConstraints { (make) in
             make.trailing.equalTo(-15)
             make.top.equalTo(imageContainerView.snp.bottom).offset(10)
             make.leading.equalTo(15)
-            make.height.equalTo(60)
+            make.height.equalTo(90)
         }
         
         infoLb.numberOfLines = 3
