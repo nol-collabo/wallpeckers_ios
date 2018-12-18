@@ -22,6 +22,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     let deskView = DeskBubbleView()
     var questionCount:Int = 0
     var correctCount:Int = 0
+    var wrongQuestionId:[Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +127,10 @@ class FactCheckViewController: GameTransitionBaseViewController {
                             
                             if data.selectedClue != data.correctClue {
 
+                                wrongQuestionId.append((b.clue?.id)!)
                                 wrongs.append(b.clue!.type!)
+                                print(b.clue?.id)
+                                print("JFJFJFJF")
                             }else{
                                 correctCount += 1
                             }
@@ -175,13 +179,12 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     @objc func touchBackButton(sender:UIButton) {
+        
         sender.isUserInteractionEnabled = false
         
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
-        
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
-//        vc.viewWillAppear(true)
 
         sender.isUserInteractionEnabled = true
     }
@@ -201,7 +204,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag), direction: .forward)
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
 //        delegate.move
         // Move To ComleteArticle
 //        print("DLDKDKDK")
@@ -372,6 +375,12 @@ final class DeskBubbleView:UIView {
         print(wrongParts)
         print("~~~###")
         profileView.image = UIImage.init(named: region == "GERMANY" ? "germanDeskProfile" : "koreanDeskProfile")
+    }
+    
+    func setDataForCompleteArticle(region:String, desc:String) {
+        profileView.image = UIImage.init(named: region == "GERMANY" ? "germanDeskProfile" : "koreanDeskProfile")
+        bubbleBaseView.image = UIImage.init(named: "blueLeftBallon")
+        clueDescLb.attributedText = desc.makeAttrString(font: .NotoSans(.medium, size: 12), color: .white)
     }
     
     required init?(coder aDecoder: NSCoder) {
