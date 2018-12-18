@@ -147,6 +147,7 @@ class ArticleSubmitView:BasePopUpView {
     let hashTagBtnView = UIView()
     let publishButton = BottomButton()
     var hashBtns:[HashTagBtn] = []
+    let centerLabel = UILabel()
     var delegate:ArticleSubmitDelegate?
     private var selectedHashTag:Int?
     
@@ -158,17 +159,29 @@ class ArticleSubmitView:BasePopUpView {
     
     func setData(correctCount:Int, questionCount:Int) {
         
+        var point = 0
+        
+        
+        
+        
+        
+        
         switch questionCount {
+            
             
             
         case 1:
             topStarView.attributedText = "★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+            point = 100
 
         case 2:
             if correctCount == 1{
                 topStarView.attributedText = "★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 150
+//
             }else{
                 topStarView.attributedText = "★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 300
 
             }
 
@@ -176,12 +189,15 @@ class ArticleSubmitView:BasePopUpView {
             
             if correctCount == 1 {
                 topStarView.attributedText = "☆  ★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 200
 
             }else if correctCount == 2 {
                 topStarView.attributedText = "★  ☆  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 400
 
             }else {
                 topStarView.attributedText = "★  ★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 600
 
             }
 
@@ -189,15 +205,19 @@ class ArticleSubmitView:BasePopUpView {
             
             if correctCount == 1 {
                 topStarView.attributedText = "★  ☆  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 200
 
             }else if correctCount == 2 {
                 topStarView.attributedText = "★  ★  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 400
 
             }else if correctCount == 3 {
                 topStarView.attributedText = "★  ★  ★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 600
 
             }else {
                 topStarView.attributedText = "★  ★  ★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 800
 
             }
 
@@ -205,18 +225,23 @@ class ArticleSubmitView:BasePopUpView {
             
             if correctCount == 1 {
                 topStarView.attributedText = "☆  ☆  ★  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 200
 
             }else if correctCount == 2 {
                 topStarView.attributedText = "★  ★  ☆  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 400
 
             }else if correctCount == 3 {
                 topStarView.attributedText = "★  ★  ★  ☆  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 600
 
             }else if correctCount == 4 {
                 topStarView.attributedText = "★  ★  ★  ★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 800
 
             }else {
                 topStarView.attributedText = "★  ★  ★  ★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
+                point = 1000
 
             }
 
@@ -224,6 +249,14 @@ class ArticleSubmitView:BasePopUpView {
             break
             
         }
+        
+        let pointString = "\n\(point) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 49), color: .black)
+        let articleString = correctCount != questionCount ? "GOOD ARTICLE".makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black) : "PERFECT ARTICLE".makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black)
+        let aString = "".makeAttrString(font: .AmericanTypeWriter(.bold, size: 36), color: .black)
+        aString.append(articleString)
+        aString.append(pointString)
+        
+        self.centerLabel.attributedText = aString
         
     }
     
@@ -254,7 +287,6 @@ class ArticleSubmitView:BasePopUpView {
         centerInfoView.axis = .horizontal
         
         let leftWingImv = UIImageView.init(image: UIImage.init(named: "leftWing"))
-        let centerLabel = UILabel()
         let rightWingImv = UIImageView.init(image: UIImage.init(named: "rightWing"))
         
         
@@ -648,7 +680,7 @@ struct PopUp {
         
         let popupView = ArticleSubmitView()
         popupView.delegate = vc as? ArticleSubmitDelegate
-        
+        popupView.setData(correctCount: correctCount, questionCount: questionCount)
         if let _parent = vc.parent {
             _parent.view.addSubview(popupView)
         }else{

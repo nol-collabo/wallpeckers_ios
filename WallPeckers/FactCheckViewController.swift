@@ -170,7 +170,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     @objc func touchSubmitButton(sender:UIButton) {
     
         if correctCount > 0 {
-            PopUp.callSubmitView(tag: 1, vc: self)
+            PopUp.callSubmitView(tag: 1, correctCount: correctCount, questionCount: questionCount, vc: self)
         }
     }
     
@@ -351,17 +351,22 @@ final class DeskBubbleView:UIView {
 
         var sss = ""
         
-        for i in 0...wrongParts.count - 1 {
+        if wrongParts.count == 0 {
             
-            if i == wrongParts.count - 1 {
-            
-                sss.append("\(wrongParts[i])")
+        }else {
+            for i in 0...wrongParts.count - 1 {
                 
-            }else{
-                sss.append("\(wrongParts[i]), ")
+                if i == wrongParts.count - 1 {
+                    
+                    sss.append("\(wrongParts[i])")
+                    
+                }else{
+                    sss.append("\(wrongParts[i]), ")
+                }
+                
             }
-            
         }
+
         
         clueDescLb.attributedText = sss.makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
         
