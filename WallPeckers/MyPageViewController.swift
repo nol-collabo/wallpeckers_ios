@@ -27,6 +27,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
     let completedArticleView = MyPageSectionView()
     let aStackView = AloeStackView()
     var fromResult:Bool = false
+    var titleLb = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +35,8 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         badgeView.delegate = self
         levelView.delegate = self
         //내 점수
-        currentPoint = 100
-        myLevel = 10
+//        currentPoint = 100
+//        myLevel = 10
         
         if let _currentPoint = currentPoint {
             if _currentPoint > 0 {
@@ -58,6 +59,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
     func setUI() {
         view.addSubview(aStackView)
         view.addSubview(dismissBtn)
+        view.addSubview(titleLb)
         view.backgroundColor = .basicBackground
         
         dismissBtn.snp.makeConstraints { (make) in
@@ -65,6 +67,13 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
             make.trailing.equalToSuperview()
             make.width.height.equalTo(40)
         }
+        
+        titleLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(dismissBtn.snp.centerY).offset(-10)
+        }
+        
+        titleLb.attributedText = "MY PAGE".makeAttrString(font: .NotoSans(NotoSansFontSize.medium, size: 25), color: .black)
         dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
 //        dismissBtn.backgroundColor = .blue
         aStackView.snp.makeConstraints { (make) in

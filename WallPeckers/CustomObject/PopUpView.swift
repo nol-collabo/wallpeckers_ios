@@ -250,6 +250,10 @@ class ArticleSubmitView:BasePopUpView {
             
         }
         
+        try! realm.write {
+            RealmUser.shared.getUserData()?.score += point
+        }
+        
         let pointString = "\n\(point) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 49), color: .black)
         let articleString = correctCount != questionCount ? "GOOD ARTICLE".makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black) : "PERFECT ARTICLE".makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black)
         let aString = "".makeAttrString(font: .AmericanTypeWriter(.bold, size: 36), color: .black)

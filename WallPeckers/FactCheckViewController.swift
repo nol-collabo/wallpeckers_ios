@@ -169,6 +169,32 @@ class FactCheckViewController: GameTransitionBaseViewController {
     
     @objc func touchSubmitButton(sender:UIButton) {
     
+        
+        let myList = Array((RealmUser.shared.getUserData()?.factCheckList)!)
+        
+        _ = myList.map({
+            
+            fc in
+            
+            if let _checkdata = checkData {
+                
+                _ = _checkdata.map({
+                    
+                    if fc.selectedClue == $0.selectedClue && fc.selectedArticleId == $0.selectedArticleId {
+                        print("HERE")
+                        try! realm.write {
+                            fc.isSubmit = true
+                        }
+                    }
+                })
+                
+            }
+            
+        })
+
+//
+        
+        
         if correctCount > 0 {
             PopUp.callSubmitView(tag: 1, correctCount: correctCount, questionCount: questionCount, vc: self)
         }

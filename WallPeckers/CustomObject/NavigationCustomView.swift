@@ -64,7 +64,11 @@ class GameNavigationBar:UIView {
     let myPageBtn = BottomButton()
     let scoreView = NavigationCustomView()
     var delegate:GameNavigationBarDelegate?
-    
+    var score:Int?{
+        didSet {
+            score = RealmUser.shared.getUserData()?.score
+        }
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         //        self.backgroundColor = .red

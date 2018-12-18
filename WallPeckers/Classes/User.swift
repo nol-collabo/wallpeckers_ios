@@ -18,6 +18,7 @@ class User:Object {
     @objc dynamic var score:Int = 0
     @objc dynamic var playTime:Int = 0
     var factCheckList = List<FactCheck>()
+    var stars:Int = 0
     
 }
 
