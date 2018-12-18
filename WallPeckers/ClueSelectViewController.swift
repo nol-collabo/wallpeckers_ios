@@ -385,7 +385,7 @@ protocol ClueSelectDelegate {
     func touchButton(sender:Clue, tag:Int)
 }
 
-final class CluePopUpView:UIView {
+final class CluePopUpView:UIView, UITextFieldDelegate {
     
     let baseView = UIView()
     let popupView = UIView()
@@ -397,11 +397,32 @@ final class CluePopUpView:UIView {
     let keyboardResigner = UITapGestureRecognizer()
     override init(frame: CGRect) {
         super.init(frame: frame)
+        codeTf.delegate = self
         setUI()
     }
     
     @objc func keyboardRemove(){
         codeTf.resignFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.popupView.snp.updateConstraints { (make) in
+                make.centerY.equalToSuperview().offset(-50)
+                
+            }
+        }
+
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.5) {
+            self.popupView.snp.updateConstraints { (make) in
+                make.centerY.equalToSuperview()
+            }
+        }
+
     }
     
     private func setUI(){
@@ -415,7 +436,9 @@ final class CluePopUpView:UIView {
         baseView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         
         popupView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
+
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.leading.equalTo(30)
             make.height.equalTo(330)
         }
