@@ -88,7 +88,7 @@ class AfterRegisterViewController: UIViewController {
         
         sender.isUserInteractionEnabled = false
         
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyPageViewController") as? MyPageViewController else {return}
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
 
         self.present(vc, animated: true, completion: nil)

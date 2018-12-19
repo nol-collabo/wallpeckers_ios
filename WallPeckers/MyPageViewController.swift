@@ -11,6 +11,25 @@ import SnapKit
 import AloeStackView
 
 class MyPageViewController: UIViewController, SectionViewDelegate {
+    func moveToCompleteArticle(id: Int) {
+        print("DELEGATE FFOFOFOFOFO", id)
+        
+        guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
+        
+        if let ar = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
+            
+            $0.id == id
+        }).first {
+            vc.setData(article: ar, hashTag: ar.selectedHashtag, wrongIds: Array(ar.wrongQuestionsId))
+            vc.fromMyPage = true
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+   
+        // id 로 완료기사로 ㄱㄱ하심
+    }
+    
     
     var completedArticle: [Article]?
     var credibility: Int?
@@ -69,6 +88,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
     }
     
     func setUI() {
+        self.navigationController?.isNavigationBarHidden = true
         view.addSubview(aStackView)
         view.addSubview(dismissBtn)
         view.addSubview(titleLb)
@@ -151,7 +171,12 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
 
 
 
-class MyPageSectionView:UIView {
+class MyPageSectionView:UIView, ThumnailDelegate {
+    func moveToNext(id: Int) {
+        delegate?.moveToCompleteArticle(id: id)
+//        delegate.
+    }
+    
     
     private let titleLb = UILabel()
     private let contentView = UIView()
@@ -331,6 +356,7 @@ class MyPageSectionView:UIView {
                 make.width.equalTo(240 * Double(Double(percent) / 100))
             }
             emptyView.setBorder(color: .black, width: 1.5)
+            emptyView.backgroundColor = .white
             fulfillView.setBorder(color: .black, width: 1.5)
             
             fulfillView.backgroundColor = .sunnyYellow
@@ -343,9 +369,31 @@ class MyPageSectionView:UIView {
 
             
         case .COMPLETEDARTICLE:
-            print("CCCC")
-            print(delegate?.completedArticle)
-            print("HEHEHEHEHE")
+            
+            
+            let articleStackView = AloeStackView()
+            articleStackView.backgroundColor = .basicBackground
+            articleStackView.separatorHeight = 0
+            self.contentView.addSubview(articleStackView)
+           
+            
+            guard let completedArticle = delegate?.completedArticle else {return}
+            
+            for i in 0...completedArticle.count - 1 {
+                
+                let vv = CompleteArticleThumnailView()
+                vv.delegate = self
+//                vv.delegate =
+                vv.setData(article: completedArticle[i])
+                articleStackView.addRow(vv)
+                self.layoutIfNeeded()
+            }
+            articleStackView.snp.makeConstraints { (make) in
+                make.edges.equalToSuperview()
+                make.height.equalTo(135 * completedArticle.count)
+            }
+            
+            print(completedArticle)
         }
     }
     
@@ -362,9 +410,72 @@ protocol SectionViewDelegate {
     var myLevel:Int? {get set}
     var credibility:Int? {get set}
     var completedArticle:[Article]? {get set}
+    func moveToCompleteArticle(id:Int)
 
 }
 
+final class CompleteArticleThumnailView:UIView, Tappable {
+    func didTapView() {
+        delegate?.moveToNext(id: self.tag)
+    }
+    
+    
+    let titleLb = UILabel()
+    var delegate:ThumnailDelegate?
+    let hashView = UIView()
+    let underLine = UIView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func setData(article:Article) {
+        
+        self.titleLb.attributedText = article.title!.makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
+        self.tag = article.id
+        
+    }
+    
+    private func setUI() {
+        
+        self.backgroundColor = .basicBackground
+        self.addSubview([titleLb, hashView, underLine])
+        
+        titleLb.snp.makeConstraints { (make) in
+            make.top.equalTo(10)
+            make.leading.equalTo(10)
+            make.trailing.equalTo(-30)
+        }
+        titleLb.numberOfLines = 0
+        hashView.snp.makeConstraints { (make) in
+            make.leading.equalTo(10)
+            make.top.equalTo(titleLb.snp.bottom).offset(10)
+            make.height.equalTo(50)
+            make.bottom.equalTo(-5)
+            make.trailing.equalTo(-10)
+        }
+        hashView.backgroundColor = .red
+        
+        underLine.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview()
+            make.height.equalTo(1.5)
+            make.leading.equalTo(7)
+            make.centerX.equalToSuperview()
+        }
+        underLine.backgroundColor = .black
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+protocol ThumnailDelegate {
+    func moveToNext(id:Int)
+}
 
 enum ContentType:String {
     
@@ -390,11 +501,6 @@ final class BadgeView:UIView {
         self.tag = tag
         self.badgeImageView.image = UIImage.init(named: !isCompleted ? badgeImage : "\(badgeImage)C")
         self.badgeTitleLb.attributedText = badgeTitle.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
-    }
-    
-    func beCompleted() {
-//        self.badgeImageView.image?.description
-//        self.badgeImageView.image.
     }
     
     private func setUI() {

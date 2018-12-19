@@ -99,7 +99,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     func touchMoveToMyPage(sender: UIButton) {
         sender.isUserInteractionEnabled = false
         
-        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPageViewController") as? MyPageViewController else {return}
+        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
         
         self.present(vc, animated: true, completion: nil)

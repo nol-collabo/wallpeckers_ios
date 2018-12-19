@@ -66,7 +66,7 @@ class ResultViewController: UIViewController {
     }
     
     @objc func moveToMyPage(sender:UIButton) {
-        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPageViewController") as? MyPageViewController else {return}
+        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
         
         self.present(vc, animated: true, completion: nil)

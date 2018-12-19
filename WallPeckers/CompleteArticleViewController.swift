@@ -17,7 +17,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     let aStackView = AloeStackView()
     let okButton = BottomButton()
     let titleLb = UILabel()
-    
+    var fromMyPage:Bool?
     let completeArticleView = CompletedArticleView()
     let deskView = DeskBubbleView()
     let hashView = HashTagGraphView()
@@ -91,7 +91,13 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         aStackView.backgroundColor = .basicBackground
         
         aStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeArea.top).offset(60)
+        
+            if let _ = fromMyPage {
+                make.top.equalTo(view.safeArea.top).offset(10)
+            }else{
+                make.top.equalTo(view.safeArea.top).offset(60)
+            }
+            
             make.bottom.equalTo(view.safeArea.bottom).offset(-40)
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
@@ -107,10 +113,15 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     
     @objc func moveToBack(sender:UIButton) {
         
+        if let _ = fromMyPage {
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            guard let vc = self.findBeforeVc(type: .topic) else {return}
+            
+            delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+        }
         
-        guard let vc = self.findBeforeVc(type: .topic) else {return}
-        
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+      
     }
     
     
