@@ -14,10 +14,12 @@ class RealmUser {
     
     static var shared = RealmUser()
     private var user:User?
+    var delegate:LevelUpDelegate?
+    
     private var score:Int = 0 {
         didSet {
             if oldValue != score { // 변경될때만
-                print("SCORE CHANGE", score)
+                delegate?.levelupPopUp(score: score)
 //                UIWindow().
             }
         }
@@ -52,6 +54,10 @@ class RealmUser {
         }
     }
     
+}
+
+protocol LevelUpDelegate {
+    func levelupPopUp(score:Int)
 }
 
 class RealmArticle {

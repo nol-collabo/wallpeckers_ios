@@ -45,6 +45,18 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
             }
         }
 
+       completedArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
+            
+            $0.isCompleted
+        })
+        
+
+        if let corec = completedArticle?.map({Double($0.correctQuestionCount)}), let total = completedArticle?.map({Double($0.totalQuestionCount)}) {
+            credibility = Int((corec.reduce(0, +) / total.reduce(0, +)) * 100)
+            print("HEHEHEHEH")
+        }
+        
+        
         
         //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
         completedBadges.append(1)
@@ -99,11 +111,19 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         
         profileView.setData(userData: RealmUser.shared.getUserData()!, level: "intern", camera: true, nameEdit: true, myPage: false)
         
-        if fromResult { // 결과창에서 볼때 보이는 두개
+        
+        //완료된 거 없으면 히든처리할 놈들
+        
+        if let _ = completedArticle {
             credView.setData(content: .CREDIBILITY)
             completedArticleView.setData(content: .COMPLETEDARTICLE)
             aStackView.addRows([credView, completedArticleView])
+//            credView.backgroundColor = .red
         }
+       
+        
+        //엔딩페이지에서만 보이는 신문
+        
         
         aStackView.addRows([levelView, badgeView])
         
@@ -290,12 +310,42 @@ class MyPageSectionView:UIView {
             
         case .CREDIBILITY:
             print("XX")
+            let emptyView = UIView()
+            let fulfillView = UIView()
+            let percentLb = UILabel()
+            guard let percent = delegate?.credibility else {return}
             
-            print(delegate?.credibility)
+            self.contentView.addSubview([emptyView, fulfillView, percentLb])
+
+            emptyView.snp.makeConstraints { (make) in
+
+                make.top.equalTo(10)
+                make.height.equalTo(34)
+                make.width.equalTo(240)
+                make.bottom.equalTo(-20)
+                make.centerX.equalToSuperview()
+            }
+            
+            fulfillView.snp.makeConstraints { (make) in
+                make.leading.bottom.top.equalTo(emptyView)
+                make.width.equalTo(240 * Double(Double(percent) / 100))
+            }
+            emptyView.setBorder(color: .black, width: 1.5)
+            fulfillView.setBorder(color: .black, width: 1.5)
+            
+            fulfillView.backgroundColor = .sunnyYellow
+            
+            percentLb.snp.makeConstraints { (make) in
+                make.center.equalTo(emptyView.snp.center)
+            }
+            percentLb.attributedText = "\(percent)%".makeAttrString(font: UIFont.NotoSans(.bold, size: 16), color: .black)
+            
+
             
         case .COMPLETEDARTICLE:
             print("CCCC")
             print(delegate?.completedArticle)
+            print("HEHEHEHEHE")
         }
     }
     
@@ -372,4 +422,60 @@ final class BadgeView:UIView {
     }
     
     
+}
+
+class NewspaperPublishedView:UIView {
+    
+    let newspaperImageView = UIImageView()
+    let publishButton = BottomButton()
+    var delegate:PublishDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    func setUI() {
+        
+        self.addSubview([newspaperImageView, publishButton])
+        
+        newspaperImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(10)
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(newspaperImageView.bounds.width * 2/3)
+        }
+        
+        publishButton.snp.makeConstraints { (make) in
+            make.top.equalTo(newspaperImageView.snp.bottom).offset(25)
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalTo(55)
+        }
+        
+        switch Standard.shared.getLocalized() {
+            
+        case .ENGLISH:
+            newspaperImageView.image = UIImage.init(named: "engNewsPaper")
+        case .KOREAN:
+            newspaperImageView.image = UIImage.init(named: "koreanNewsPaper")
+        case .GERMAN:
+            newspaperImageView.image = UIImage.init(named: "germanNewsPaper")
+        }
+    }
+    
+//    func setData() {
+    
+    @objc func moveToNext(sender:UIButton) {
+        
+        delegate?.moveToNext(sender: sender)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+protocol PublishDelegate {
+    func moveToNext(sender:UIButton)
 }

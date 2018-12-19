@@ -15,8 +15,8 @@ class ResultViewController: UIViewController {
     let buttonView = UIView()
     let myPageButton = BottomButton()
     let startButton = BottomButton()
-    let profileView = UIView()
-    let resultView = UIView()
+    let profileView = MyProfileView()
+    let resultView = UIImageView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +32,12 @@ class ResultViewController: UIViewController {
         resultView.snp.makeConstraints { (make) in
             make.height.equalTo(400)
         }
-        resultView.backgroundColor = .red
+        resultView.image = UIImage.init(named: "finalTrophy")
         profileView.snp.makeConstraints { (make) in
             make.height.equalTo(300)
         }
+        
+        profileView.setData(userData: RealmUser.shared.getUserData()!, level: "dd", camera: false, nameEdit: false, myPage: false)
         buttonView.snp.makeConstraints { (make) in
             make.height.equalTo(130)
         }
