@@ -46,7 +46,7 @@ class GameViewController: UIViewController {
     }
     
     func setScore() {
-        scoreView?.textLb.attributedText = "\(RealmUser.shared.getUserData()!.score) P".makeAttrString(font: .NotoSans(.regular, size: 10), color: .black)
+        scoreView?.textLb.attributedText = "\(RealmUser.shared.getUserData()!.score) P".makeAttrString(font: .NotoSans(.bold, size: 14), color: .black)
 
     }
     

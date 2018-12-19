@@ -72,6 +72,8 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
 
         if let corec = completedArticle?.map({Double($0.correctQuestionCount)}), let total = completedArticle?.map({Double($0.totalQuestionCount)}) {
             credibility = Int((corec.reduce(0, +) / total.reduce(0, +)) * 100)
+            print(corec.reduce(0, +))
+            print(total.reduce(0, +))
             print("HEHEHEHEH")
         }
         
@@ -330,7 +332,7 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             }
         
             guard let point = delegate?.currentPoint else {return}
-            pointLb.text = "\(point) P"
+            pointLb.attributedText = "\(point)P".makeAttrString(font: .NotoSans(.bold, size: 28), color: .black)
             pointLb.accessibilityIdentifier = "point"
             
         case .CREDIBILITY:
