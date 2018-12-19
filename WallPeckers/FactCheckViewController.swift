@@ -206,6 +206,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
         
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
+//        if let vc as? 
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
 
         sender.isUserInteractionEnabled = true

@@ -194,7 +194,7 @@ extension GameViewController:GameViewTransitionDelegate {
                 }).reduce(0, +)
                 
                 
-                btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
+                btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
                 articleButtons.append(btn)
                 
             }

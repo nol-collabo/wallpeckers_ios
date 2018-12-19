@@ -191,8 +191,18 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                             _ = links.map({
                                 
                                 if btn.tag == $0.leftTag || btn.tag == $0.rightTag {
-                                    btn.backgroundColor = $0.backgroundColor?.withAlphaComponent(0.5)
+                                    if ar.isCompleted {
+                                        btn.backgroundColor = $0.backgroundColor
+                                        btn.pointTitleLb.textColor = UIColor.white
+                                        btn.titleLb.textColor = UIColor.white
+
+                                    }else{
+                                        btn.backgroundColor = $0.backgroundColor?.withAlphaComponent(0.5)
+
+                                    }
                                 }
+                                
+                                
                             })
                         }
                     })
@@ -332,6 +342,7 @@ class ArticleSelectButton:UIView {
             make.leading.bottom.trailing.equalToSuperview()
             make.height.equalTo(30)
         }
+        starImageView.image = UIImage.init(named: "YellowStar")
         
     }
     

@@ -137,7 +137,15 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         
         guard let vc = self.findBeforeVc(type: .article) else {return}
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+        
+        if let _vc = vc as? ArticleChooseViewController {
+            
+            _vc.changeColor()
+            
+            delegate?.moveTo(fromVc: self, toVc: _vc, sendData: nil, direction: .backward)
+
+        }
+        
         
         sender.isUserInteractionEnabled = true
     }
