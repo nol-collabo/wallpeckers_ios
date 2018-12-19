@@ -71,10 +71,10 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         
 
         if let corec = completedArticle?.map({Double($0.correctQuestionCount)}), let total = completedArticle?.map({Double($0.totalQuestionCount)}) {
-            credibility = Int((corec.reduce(0, +) / total.reduce(0, +)) * 100)
-            print(corec.reduce(0, +))
-            print(total.reduce(0, +))
-            print("HEHEHEHEH")
+            
+            if corec.count > 0 {
+                credibility = Int((corec.reduce(0, +) / total.reduce(0, +)) * 100)
+            }
         }
         
         
