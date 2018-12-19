@@ -25,6 +25,12 @@ class Article:Object {
     @objc dynamic var region:String?
     @objc dynamic var title_sub:String?
     var clues = List<Int>()
+    // 완료된 글에 대한 추가 변수
+    @objc dynamic var isCompleted:Bool = false
+    @objc dynamic var selectedHashtag = 0
+    @objc dynamic var totalQuestionCount = 0
+    @objc dynamic var correctQuestionCount = 0
+    var wrongQuestionsId = List<Int>()
 
     convenience init(_ json:JSON) {
         self.init()
@@ -45,6 +51,7 @@ class Article:Object {
         self.title = json["title"].stringValue
         self.region = json["region"].stringValue
         self.title_sub = json["title_sub"].stringValue
+    
     }
     
     func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:List<Int>, hashes:String, section:Int) {

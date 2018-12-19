@@ -134,7 +134,9 @@ extension StartViewController:SelectPopupDelegate {
                         
                         self.navigationController?.pushViewController(vc, animated: true)
                     }else{ // 한문제 이상 풀어서 이어하기 선택 가능할 때
-                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AlreadyRegisterViewController") as? AlreadyRegisterViewController else {return}
+                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+
+//                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AlreadyRegisterViewController") as? AlreadyRegisterViewController else {return}
                         
                         
                         self.navigationController?.pushViewController(vc, animated: true)

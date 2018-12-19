@@ -17,36 +17,49 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     
     func tapArticle(sender: ArticleSelectButton) {
         
+        func moveToArticlePage() {
+            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ClueSelectViewController") as? ClueSelectViewController else {return}
+            
+            if let ar = articles?.filter({
+                
+                $0.id == sender.tag
+                
+            }).first {
+                
+                let a = Array(realm.objects(Five_W_One_Hs.self).filter("article = \(sender.tag)"))
+                
+                let sendingData = (ar, a, sender.pointTitleLb.text!)
+                delegate?.moveTo(fromVc: self, toVc: vc, sendData: sendingData, direction: .forward)
+                
+                
+            }
+        }
+        
         
         let myList = Array((RealmUser.shared.getUserData()?.factCheckList)!)
         
-        _ = myList.map({
+        
+        if myList.count == 0 {
+            moveToArticlePage()
+        }
+        
+        if let ar = articles?.filter({$0.id == sender.tag}).first {
             
-            if $0.selectedArticleId == sender.tag {
+            if ar.isCompleted {
+                print("move To CompletedArticle")
                 
-                if $0.isSubmit {
-                    print("ISSUBMIT!!!!!!")
-                    //TODO: 여기서 제출이 완료된 놈들은 기사로 보내버려야함
-                    
-                }else{
-                    guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ClueSelectViewController") as? ClueSelectViewController else {return}
-                    
-                    if let ar = articles?.filter({
-                        
-                        $0.id == sender.tag
-                        
-                    }).first {
-                        
-                        let a = Array(realm.objects(Five_W_One_Hs.self).filter("article = \(sender.tag)"))
-                        
-                        let sendingData = (ar, a, sender.pointTitleLb.text!)
-                        delegate?.moveTo(fromVc: self, toVc: vc, sendData: sendingData, direction: .forward)
-                        
-                        
-                    }
-                }
+                let sendingData = (ar, ar.selectedHashtag, Array(ar.wrongQuestionsId))
+                
+                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
+                
+                delegate?.moveTo(fromVc: self, toVc: vc, sendData: sendingData, direction: .forward)
+                
+            }else{
+                moveToArticlePage()
+
             }
-        })
+            
+        }
 
     }
     

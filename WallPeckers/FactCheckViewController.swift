@@ -225,6 +225,23 @@ extension FactCheckViewController:ArticleSubmitDelegate {
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
         
+        
+        try! realm.write {
+            
+    
+            _ = wrongQuestionId.map({
+                
+                article?.wrongQuestionsId.append($0)
+            })
+            
+            article?.isCompleted = true
+            article?.selectedHashtag = hashtag
+            article?.totalQuestionCount = questionCount
+            article?.correctQuestionCount = correctCount
+            
+
+        }
+        
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
 
     }
