@@ -168,7 +168,6 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     @objc func touchSubmitButton(sender:UIButton) {
-    
         
         let myList = Array((RealmUser.shared.getUserData()?.factCheckList)!)
         
@@ -239,6 +238,11 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             article?.selectedHashtag = hashtag
             article?.totalQuestionCount = questionCount
             article?.correctQuestionCount = correctCount
+            
+            if let _a = self.parent as? GameViewController {
+                
+                _a.setScore()
+            }
             
             delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
 

@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
 
     let selectedLanguage = Standard.shared.getLocalized()
     var timerView:NavigationCustomView?
+    var scoreView:NavigationCustomView?
     let horizontalView = BaseHorizontalScrollView()
     let topicView = UIView()
     let articleView = UIView()
@@ -31,10 +32,22 @@ class GameViewController: UIViewController {
         setUI()
         addChildVc()
         self.timerView = self.findTimerView()
+        self.scoreView = self.findScoreView()
+//        self.
         Standard.shared.delegate = self
         Standard.shared.startTimer(gameMode: .short)
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setScore()
+    }
+    
+    func setScore() {
+        scoreView?.textLb.attributedText = "\(RealmUser.shared.getUserData()!.score) P".makeAttrString(font: .NotoSans(.regular, size: 10), color: .black)
+
     }
     
     private func setUI() {
@@ -75,6 +88,8 @@ class GameViewController: UIViewController {
         topicViewController.view.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
+        
 
 //        clueSelectViewContoller.view.snp.makeConstraints { (make) in
 //            make.edges.equalToSuperview()
@@ -87,22 +102,11 @@ class GameViewController: UIViewController {
             addChild(v)
         }
     }
+
     
-    func findTimerView() {
-        if let vv = self.view.subviews.filter({
-            
-            $0 is GameNavigationBar
-            
-        }).first as? GameNavigationBar {
-            if let _timerView = vv.subviews.filter({
-                
-                $0.tag == 99
-                
-            }).first as? NavigationCustomView {
-                self.timerView = _timerView
-            }
-        }
-    }
+//    func find
+    
+
 }
 
 extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, AlerPopupViewDelegate {

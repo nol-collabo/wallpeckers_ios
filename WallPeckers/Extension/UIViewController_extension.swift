@@ -34,6 +34,30 @@ extension UIViewController {
 
     }
     
+    
+    func  findScoreView() -> NavigationCustomView {
+        
+        if let vv = self.view.subviews.filter({
+            
+            $0 is GameNavigationBar
+            
+        }).first as? GameNavigationBar {
+            if let _timerView = vv.subviews.filter({
+                
+                $0.tag == 77
+                
+            }).first as? NavigationCustomView {
+                //                self.timerView = _timerView
+                
+                return _timerView
+            }
+        }else{
+            return NavigationCustomView()
+        }
+        return NavigationCustomView()
+        
+    }
+    
     func setCustomNavigationBar() {
         
         let navBar = GameNavigationBar()

@@ -103,6 +103,7 @@ class GameNavigationBar:UIView {
         }
         
         timerView.tag = 99
+        scoreView.tag = 77
         timerView.setData(text: "", backgroundimage: UIImage.init(named: "timeSectionView")!)
         scoreView.setData(text: "", backgroundimage: UIImage.init(named: "scoreSectionView")!)
         
