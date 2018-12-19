@@ -136,10 +136,14 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         
         //완료된 거 없으면 히든처리할 놈들
         
-        if let _ = completedArticle {
-            credView.setData(content: .CREDIBILITY)
-            completedArticleView.setData(content: .COMPLETEDARTICLE)
-            aStackView.addRows([credView, completedArticleView])
+        if let _completedArticle = completedArticle {
+            
+            if _completedArticle.count > 0 {
+                credView.setData(content: .CREDIBILITY)
+                completedArticleView.setData(content: .COMPLETEDARTICLE)
+                aStackView.addRows([credView, completedArticleView])
+            }
+        
 //            credView.backgroundColor = .red
         }
        
