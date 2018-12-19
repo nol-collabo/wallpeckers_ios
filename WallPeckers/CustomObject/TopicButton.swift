@@ -34,18 +34,19 @@ class TopicButton:UIView {
         
         titleImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-10)
+            make.centerY.equalToSuperview().offset(10)
         }
         titleLb.snp.makeConstraints { (make) in
             make.leading.equalTo(3)
             make.trailing.equalTo(-3)
-            make.height.equalTo(50)
+            make.top.equalTo(titleImageView.snp.bottom).offset(10)
+//            make.height.equalTo(50)
             make.bottom.equalTo(-3)
             
         }
         
         starImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(5)
+            make.top.equalTo(10)
             make.leading.equalTo(15)
             make.width.height.equalTo(20)
         }

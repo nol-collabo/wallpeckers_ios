@@ -11,7 +11,7 @@ import UIKit
 class TopicViewController: GameTransitionBaseViewController {
 
     let iconWidth = DEVICEHEIGHT > 600 ? 90 : 80
-    let iconHeight = DEVICEHEIGHT > 600 ? 160 : 120
+    let iconHeight = DEVICEHEIGHT > 600 ? 180 : 150
     let topicTitleLb = UILabel()
     var timerView:NavigationCustomView?
     let politicsButton = TopicButton()

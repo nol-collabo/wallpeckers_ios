@@ -346,7 +346,7 @@ class ArticleSubmitView:BasePopUpView {
         hashBtns[0].snp.makeConstraints { (make) in
             make.leading.equalTo(10)
             make.top.equalToSuperview()
-            make.width.equalTo(82)
+            make.width.equalTo(DeviceSize.width > 320 ? 82 : 62)
             make.height.equalTo(42)
         }
         
@@ -354,7 +354,7 @@ class ArticleSubmitView:BasePopUpView {
             make.trailing.equalTo(-10)
             make.height.equalTo(42)
             make.top.equalToSuperview()
-            make.width.equalTo(115)
+            make.width.equalTo(DeviceSize.width > 320 ? 115 : 80)
         }
         
         
@@ -369,10 +369,10 @@ class ArticleSubmitView:BasePopUpView {
             make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
             make.width.equalTo(80)
             make.height.equalTo(42)
-            make.leading.equalTo(60)
+            make.leading.equalTo(DeviceSize.width > 320 ? 60 : 30)
         }
         hashBtns[4].snp.makeConstraints { (make) in
-            make.trailing.equalTo(-60)
+            make.trailing.equalTo(DeviceSize.width > 320 ? -60 : -20)
             make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
             make.leading.equalTo(hashBtns[3].snp.trailing).offset(10)
             make.height.equalTo(42)
@@ -382,11 +382,12 @@ class ArticleSubmitView:BasePopUpView {
             make.top.equalTo(hashTagBtnView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-20)
-            make.width.equalToSuperview().multipliedBy(0.7)
+            make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(43)
         }
         
-        publishButton.setTitle("PUBLISH THE ARTICLE", for: .normal)
+//        publishButton.setTitle("PUBLISH THE ARTICLE", for: .normal)
+        publishButton.setAttributedTitle("PUBLISH THE ARTICLE".makeAttrString(font: UIFont.AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .white), for: .normal)
 
         
         
@@ -453,7 +454,8 @@ final class HashTagBtn:UIButton {
     func setUI() {
         self.backgroundColor = UIColor.init(white: 216/255, alpha: 1)
         self.setBorder(color: .black, width: 1.5, cornerRadius: 8)
-        self.titleLabel?.font = UIFont.AmericanTypeWriter(.regular, size: 19)
+        self.titleLabel?.font = UIFont.AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 19 : 15)
+//        self.titleLabel?.adjustsFontSizeToFitWidth
         self.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     

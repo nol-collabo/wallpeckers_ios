@@ -28,6 +28,8 @@ class StartViewController: UIViewController {
 
         setUI()
         
+        print(DeviceSize.width)
+        print("~~~~")
     }
     
     private func setUI() {
