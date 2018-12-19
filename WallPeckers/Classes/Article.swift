@@ -54,7 +54,7 @@ class Article:Object {
     
     }
     
-    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:List<Int>, hashes:String, section:Int) {
+    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:List<Int>, hashes:String, section:Int, region:String) {
         
         self.word = word
         self.title = title
@@ -64,6 +64,7 @@ class Article:Object {
         self.clues = clues
         self.hashes = hashes
         self.section = section
+        self.region = region
         
     }
     

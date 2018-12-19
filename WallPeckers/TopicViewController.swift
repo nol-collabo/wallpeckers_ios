@@ -22,12 +22,51 @@ class TopicViewController: GameTransitionBaseViewController {
     let peopleButton = TopicButton()
     let selectedLanguage = Standard.shared.getLocalized()
     var sections:[Section]?
+    var sectionStars:[Int] = []
+    lazy var buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUI()
-        // Do any additional setup after loading the view.
+//        setStars()
+
+ 
+    }
+    
+    
+    func setStars() {
+        
+        sectionStars = []
+        
+        guard let sections = sections else {return}
+
+        for i in 1...sections.count {
+            
+            let a = RealmArticle.shared.get(selectedLanguage).filter({
+                
+                $0.section == i
+                
+            })
+            
+            let starCount = a.map({
+                
+                $0.correctQuestionCount
+            }).reduce(0, +)
+            
+            self.sectionStars.append(starCount)
+            
+        }
+        
+        for i in 0...buttons.count - 1 {
+            
+            buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: sections[i].id)
+            buttons[i].setStar(count: sectionStars[i])
+        }
+        
+        
+        
+        print(sectionStars)
     }
     
     
@@ -40,14 +79,11 @@ class TopicViewController: GameTransitionBaseViewController {
         self.view.addSubview([topicTitleLb, politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton])
         
         
-        let buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
         
-        guard let sections = sections else {return}
         
-        for i in 0...buttons.count - 1 {
-            
-            buttons[i].setData(title: sections[i].title!, image: UIImage.init(named: "topic\(i + 1)")!, tag: sections[i].id)
-        }
+        setStars()
+        
+
         
         politicsButton.delegate = self
         economyButton.delegate = self

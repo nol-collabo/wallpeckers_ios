@@ -151,7 +151,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
                 
             }
             
-            deskView.setData(region: _article.region!, wrongParts: wrongs)
+            deskView.setData(region: _article.region ?? "GERMANY", wrongParts: wrongs)
             
             aStackView.addRows(bubbles)
             aStackView.addRow(deskView)
@@ -240,10 +240,10 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             article?.totalQuestionCount = questionCount
             article?.correctQuestionCount = correctCount
             
+            delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
 
         }
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
 
     }
     

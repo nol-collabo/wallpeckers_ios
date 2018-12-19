@@ -86,7 +86,7 @@ class RealmArticle {
                     
                     let translate = Article()
                     
-                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: $0.clues, hashes: $0.hashes!, section: $0.section)
+                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: $0.clues, hashes: $0.hashes!, section: $0.section, region: $0.region!)
                     
                     translateArticles.append(translate)
                 }

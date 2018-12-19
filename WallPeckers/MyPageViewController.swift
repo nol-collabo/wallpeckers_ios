@@ -35,7 +35,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         badgeView.delegate = self
         levelView.delegate = self
         //내 점수
-//        currentPoint = 100
+        currentPoint = RealmUser.shared.getUserData()?.score
 //        myLevel = 10
         
         if let _currentPoint = currentPoint {
@@ -70,7 +70,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         
         titleLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.centerY.equalTo(dismissBtn.snp.centerY).offset(-10)
+            make.centerY.equalTo(dismissBtn.snp.centerY).offset(10)
         }
         
         titleLb.attributedText = "MY PAGE".makeAttrString(font: .NotoSans(NotoSansFontSize.medium, size: 25), color: .black)

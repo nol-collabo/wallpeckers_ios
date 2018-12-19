@@ -227,15 +227,20 @@ extension GameViewController:GameViewTransitionDelegate {
             
             if let _ = fromVc as? CompleteArticleViewController {
                 
-//                if let
                 
-//                self.setChildVc(rootView: <#T##UIView#>, <#T##vc: GameTransitionBaseViewController##GameTransitionBaseViewController#>)
-                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: false)
+                if let vc = toVc as? TopicViewController {
+                    
+                    vc.setStars()
+                    vc.view.layoutIfNeeded()
+                    vc.view.layoutSubviews()
+                    horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: false)
+                    
+                }
+                
             }
 
             if let _ = fromVc as? ArticleChooseViewController {
                 
-//                toVc a
                  horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }else if let _ = fromVc as? ClueSelectViewController {
                 
