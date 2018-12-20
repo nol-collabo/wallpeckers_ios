@@ -27,11 +27,7 @@ class TopicViewController: GameTransitionBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUI()
-//        setStars()
-
- 
     }
     
     

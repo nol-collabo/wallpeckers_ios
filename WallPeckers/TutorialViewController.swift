@@ -14,11 +14,11 @@ let DeviceSize = UIWindow().bounds.size
 
 class TutorialViewController: UIViewController, TutorialViewDelegate {
 
-    let horizontalScrollView = BaseHorizontalScrollView()
-    let t1View = TutorialView()
-    let t2View = TutorialView()
-    let t3View = TutorialView()
-    let t4View = TutorialView()
+    private let horizontalScrollView = BaseHorizontalScrollView()
+    private let t1View = TutorialView()
+    private let t2View = TutorialView()
+    private let t3View = TutorialView()
+    private let t4View = TutorialView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +28,11 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    func setUI() {
+    private func setUI() {
+        
         horizontalScrollView.setScrollView(vc: self)
         self.view.backgroundColor = .basicBackground
-        
         horizontalScrollView.contentView.addSubview([t1View, t2View, t3View, t4View])
-        
         t1View.snp.makeConstraints { (make) in
             make.height.equalToSuperview()
             make.width.equalTo(DeviceSize.width)
@@ -58,9 +57,6 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
             make.height.equalToSuperview()
             make.top.equalToSuperview()
         }
-
-        
-//        t1View.set
         t1View.setData(title: "WHO, WHEN, WHERE,\nWHAT, HOW and WHY?", desc: "As the Wall stood strong,\nit became a part of everyday\nand you forgot WHY.\nThe WALLPECKERS\n- the journalist of the Wall -\nask WHY and find the truth.", image: UIImage.init(named: "tutorial1")!)
         t2View.setData(title: "From the DMZ to the Berlin Wall", desc: "Cover issues about\nthe Korean DMZ, still standing 65 years\nand the Berlin Wall, demolished in 1989.\nWrite as many articles as you can\nincluding PAIRED ones. ", image:  UIImage.init(named: "tutorial2")!)
         t3View.setData(title: "INTO THE PRESSROOM", desc: "Collect clues by 5W1H\naround you in the pressroom\nand enter the CODE of them.\nGet a FACT-CHECK\nby the desk of WALLPECKERS\nand publish the article.", image: UIImage.init(named: "tutorial3")!)
@@ -73,24 +69,11 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
     func touchMove(sender: UIButton) {
         sender.isUserInteractionEnabled = false
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
-//        self.navigationController?.popViewController(animated: true)
         self.present(vc, animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
-class TutorialView:UIView {
+final class TutorialView:UIView {
     
     let nextBtn = BottomButton()
     let topLb = UILabel()
@@ -140,29 +123,18 @@ class TutorialView:UIView {
         }
         descLb.textAlignment = .center
         descLb.numberOfLines = 0
-
-        
     }
     
     func setData(title:String, desc:String, image:UIImage, isLast:Bool = false) {
         
-        if !isLast {
-            nextBtn.isHidden = true
-        }
+        self.nextBtn.isHidden = !isLast
         self.topLb.setNotoText(title, size: 20, textAlignment: .center)
         self.descLb.setNotoText(desc, size: 16, textAlignment: .center)
         self.descImv.image = image
-        
-        
     }
-    
     @objc func moveToNext(sender:UIButton) {
-        
         delegate?.touchMove(sender: sender)
-        
-        
     }
-    
 }
 
 protocol TutorialViewDelegate {

@@ -180,10 +180,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
 class MyPageSectionView:UIView, ThumnailDelegate {
     func moveToNext(id: Int) {
         delegate?.moveToCompleteArticle(id: id)
-//        delegate.
     }
-    
-    
     private let titleLb = UILabel()
     private let contentView = UIView()
     var delegate:SectionViewDelegate?
@@ -193,10 +190,9 @@ class MyPageSectionView:UIView, ThumnailDelegate {
         setUI()
     }
     
-    func setUI() {
+    private func setUI() {
         contentView.accessibilityIdentifier = "ContentView"
         self.addSubview([titleLb, contentView])
-        
         titleLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.leading.equalTo(10)
@@ -226,18 +222,9 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             let artBadgeV = BadgeView()
             let sportsBadgeV = BadgeView()
             let peopleBadgeV = BadgeView()
-            
-            for v in [politicBadgeV, economyBadgeV, generalBadgeV] {
-                
-                firstRowStackView.addArrangedSubview(v)
-                
-            }
-            
-            for v in [artBadgeV, sportsBadgeV, peopleBadgeV] {
-                
-                secondRowStackView.addArrangedSubview(v)
-                
-            }
+
+            _ = [politicBadgeV, economyBadgeV, generalBadgeV].map({firstRowStackView.addArrangedSubview($0)})
+            _ = [artBadgeV, sportsBadgeV, peopleBadgeV].map({secondRowStackView.addArrangedSubview($0)})
             
             self.contentView.addSubview([firstRowStackView, secondRowStackView])
             
@@ -261,7 +248,6 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             firstRowStackView.spacing = 15
             secondRowStackView.spacing = 15
             
-
             if let _ = delegate?.completedBadges.filter({$0 == 1}).first {
                 politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "politic", tag: 1, isCompleted: true)
 
@@ -281,47 +267,37 @@ class MyPageSectionView:UIView, ThumnailDelegate {
 
             }else{
                 generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "general", tag: 3)
-
             }
             
             if let _ = delegate?.completedBadges.filter({$0 == 4}).first {
                 artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4, isCompleted: true)
-
             }else{
                 artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4)
-
             }
             if let _ = delegate?.completedBadges.filter({$0 == 5}).first {
                 sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5, isCompleted: true)
             }else{
                 sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5)
-
             }
 
             if let _ = delegate?.completedBadges.filter({$0 == 6}).first {
                 peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6, isCompleted: true)
-
             }else{
                 peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6)
 
             }
 
-            
-            
-            
-            
-            print(content.rawValue)
         case .Level:
             
-            print(delegate?.myLevel, "MYLEVEL")
-           
-            print(content.rawValue)
+            guard let myLevel = delegate?.myLevel else {return}
+
+            print(myLevel)
+            
         case .Score:
             
             let starImv = UIImageView.init(image: UIImage.init(named: "ArticleStar")!)
             let pointLb = UILabel()
             
-//            delegate?.currentPoint = 600000
             self.contentView.addSubview([starImv, pointLb])
             
             starImv.snp.makeConstraints { (make) in
@@ -525,6 +501,7 @@ final class BadgeView:UIView {
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        badgeImageView.contentMode = .scaleAspectFit
         badgeTitleLb.textAlignment = .center
         
     }

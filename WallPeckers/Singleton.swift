@@ -20,7 +20,6 @@ class RealmUser {
         didSet {
             if oldValue != score { // 변경될때만
                 delegate?.levelupPopUp(score: score)
-//                UIWindow().
             }
         }
     }

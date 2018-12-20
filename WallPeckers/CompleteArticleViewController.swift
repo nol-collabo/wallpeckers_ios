@@ -11,6 +11,8 @@ import AloeStackView
 
 class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollViewDelegate {
     
+    var bottomReached:Bool = false
+    var topReached:Bool = false
     var article:Article?
     var hashTag:Int?
     var wrongIds:[Int] = []
@@ -28,8 +30,6 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         setUI()
         
         if let _hash = hashTag, let _article = article {
-            print(_hash, "_HASH")
-            
             
             if let a = article?.hashes?.components(separatedBy: "/") {
 
@@ -37,8 +37,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                     
                     Int($0)!
                 })
-                
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
                     self.hashView.startAnimation(heights: ints)
                 }
                 
@@ -49,7 +48,6 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                         $0 is GraphView
                     }) as? [GraphView] {
                         
-
                         _ = gps.map({
                             if $0.tag == i {
                                 $0.initData(percent: ints[i], myTag: _hash)
@@ -61,10 +59,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 }
                 
             }
-
             
             completeArticleView.setData(article: _article, wrongClue: wrongIds, region: _article.region!)
-            
             aStackView.addRow(titleLb)
             aStackView.addRow(completeArticleView)
             aStackView.delegate = self
@@ -73,23 +69,17 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 aStackView.addRow(deskView)
                 deskView.setDataForCompleteArticle(region: _article.region!, desc: "some of the articles")
             }
-//            aStackView.
             aStackView.addRow(hashView)
             aStackView.addRow(okButton)
-
-            
         }
         
     }
     
-//    func
-    
-    func setUI() {
+    private func setUI() {
         
         self.view.backgroundColor = .basicBackground
         self.view.addSubview(aStackView)
         aStackView.backgroundColor = .basicBackground
-        
         aStackView.snp.makeConstraints { (make) in
         
             if let _ = fromMyPage {
@@ -106,9 +96,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         
         titleLb.attributedText = "COMPLETED ARTICLE".makeAttrString(font: .NotoSans(.medium, size: 25), color: .black)
         titleLb.textAlignment = .center
-        
         okButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)
-        
     }
     
     @objc func moveToBack(sender:UIButton) {
@@ -117,15 +105,10 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             self.navigationController?.popViewController(animated: true)
         }else{
             guard let vc = self.findBeforeVc(type: .topic) else {return}
-            
             delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
         }
-        
-      
     }
-    
-    
-    
+
     func setData(article:Article, hashTag:Int, wrongIds:[Int]) {
         
         self.article = article
@@ -134,8 +117,52 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
    
     }
     
+    func hashTagGraphAnimation() {
+        if let _hash = hashTag, let _article = article {
+            
+            if let a = _article.hashes?.components(separatedBy: "/") {
+                
+                let ints = a.map({Int($0)!})
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                    self.hashView.startAnimation(heights: ints)
+                }
+                for i in 0...ints.count - 1 {
+                    
+                    if let gps = self.hashView.subviews.filter({$0 is GraphView}) as? [GraphView] {
+                        
+                        _ = gps.map({
+                            if $0.tag == i {
+                                $0.initData(percent: ints[i], myTag: _hash)
+                            }
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.con
+        if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+            //reach bottom
+            if !bottomReached {
+                bottomReached = true
+                topReached = false
+                print("BOTOM!")
+                self.hashTagGraphAnimation()
+                
+            }
+        }
+        
+        if (scrollView.contentOffset.y <= 0){
+            if !topReached {
+                topReached = true
+                bottomReached = false
+            }
+        }
+        
+        if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < (scrollView.contentSize.height - scrollView.frame.size.height)){
+            //not top and not bottom
+        }
     }
     
 }
@@ -164,14 +191,12 @@ final class CompletedArticleView:UIView {
     
     func setData(article:Article, wrongClue:[Int], region:String) {
         
-        
         dFormatter.dateFormat = "mm.dd.yyyy"
         
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
-        
         let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let regionString = region == "GERMANY" ? "at the Berlin Wall" : "at the DMZ"
-        let userNameString = "Reporter \(RealmUser.shared.getUserData()?.name! ?? "User")"
+        let userNameString = "by \(RealmUser.shared.getUserData()?.name! ?? "User")"
         infoAString.append(dString)
         infoAString.append("\n\(regionString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
         infoAString.append("\n\(userNameString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
@@ -184,23 +209,16 @@ final class CompletedArticleView:UIView {
         for clue in article.clues {
             
             if let a = RealmClue.shared.getLocalClue(id: clue, language: Standard.shared.getLocalized()) {
-    
                 if wrongClue.count > 0 {
-                    
-                    
                     for wrong in wrongClue {
                         if a.id == wrong {
                             articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .blue)))
-                            
                         }else{
                             articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
-                            
                         }
                     }
-                    
                 }else{
                     articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
-                    
                 }
             }
         }
@@ -213,7 +231,6 @@ final class CompletedArticleView:UIView {
         self.titleLb.attributedText = titleAstring
         self.articleTv.attributedText = articleString
         self.commentTv.attributedText = article.result!.makeAttrString(font: .NotoSans(.regular, size: 15), color: .black)
-        
     }
     
     private func setUI() {
@@ -423,6 +440,7 @@ class HashTagGraphView:UIView {
             i.graphV.snp.updateConstraints { (make) in
                 make.height.equalTo(0)
             }
+            self.layoutIfNeeded()
         }
     
         UIView.animate(withDuration: 5) {
@@ -445,7 +463,6 @@ class HashTagGraphView:UIView {
             self.fifthView.graphV.snp.updateConstraints { (make) in
                 make.height.equalTo(heights[4])
             }
-            
  
             self.layoutIfNeeded()
         }
