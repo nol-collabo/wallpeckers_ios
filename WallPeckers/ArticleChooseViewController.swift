@@ -166,9 +166,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
-        
-        
+
         factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
 
     }

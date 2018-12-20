@@ -53,6 +53,26 @@ class RealmUser {
         }
     }
     
+    func initializedUserInfo() {
+        guard let user = user else {return}
+
+        try! realm.write {
+            user.factCheckList.removeAll()
+            user.score = 0
+            user.playTime = 0
+            user.stars = 0
+            
+            _ = RealmArticle.shared.get(Standard.shared.getLocalized()).map({
+                
+                $0.isCompleted = false
+                $0.correctQuestionCount = 0
+                $0.wrongQuestionsId.removeAll()
+                $0.selectedHashtag = 0
+                $0.totalQuestionCount = 0
+                
+            })
+        }
+    }
 }
 
 protocol LevelUpDelegate {

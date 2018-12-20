@@ -129,16 +129,15 @@ extension StartViewController:SelectPopupDelegate {
                 
                 if let currentUser = RealmUser.shared.getUserData() {
                     
-                    
                     if currentUser.score == 0 { // 시작했으나, 점수가 없어 새로 시작하는 것과 같은 상황
                         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
                         
                         
                         self.navigationController?.pushViewController(vc, animated: true)
                     }else{ // 한문제 이상 풀어서 이어하기 선택 가능할 때
-                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+//                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
 
-//                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AlreadyRegisterViewController") as? AlreadyRegisterViewController else {return}
+                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AlreadyRegisterViewController") as? AlreadyRegisterViewController else {return}
                         
                         
                         self.navigationController?.pushViewController(vc, animated: true)

@@ -169,12 +169,6 @@ class FactCheckViewController: GameTransitionBaseViewController {
     
     @objc func touchSubmitButton(sender:UIButton) {
         
-        
-
-
-//
-        
-        
         if correctCount > 0 {
             
             let myList = Array((RealmUser.shared.getUserData()?.factCheckList)!)
@@ -209,7 +203,6 @@ class FactCheckViewController: GameTransitionBaseViewController {
         
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
-//        if let vc as? 
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
 
         sender.isUserInteractionEnabled = true

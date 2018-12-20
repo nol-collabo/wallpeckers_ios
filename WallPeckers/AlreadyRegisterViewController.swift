@@ -74,13 +74,27 @@ class AlreadyRegisterViewController: UIViewController {
             make.height.equalTo(50)
         }
         
-        
+        newStartBtn.backgroundColor = .blue
+        continueBtn.backgroundColor = .red
+        newStartBtn.addTarget(self, action: #selector(moveToNewStart(sender:)), for: .touchUpInside)
+        continueBtn.addTarget(self, action: #selector(moveToContinue(sender:)), for: .touchUpInside)
         
         titleImageView.image = UIImage.init(named: "MainTitleImv")!
         titleImageView.contentMode = .scaleAspectFit
         goetheView.image = UIImage.init(named: "goethe")
         nolgongView.image = UIImage.init(named: "nolgong")
         
+    }
+    
+    @objc func moveToNewStart(sender:UIButton) {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+        RealmUser.shared.initializedUserInfo()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func moveToContinue(sender:UIButton) {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 
