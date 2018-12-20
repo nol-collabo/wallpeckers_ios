@@ -19,6 +19,8 @@ class AlreadyRegisterViewController: UIViewController {
     let nextBtn = BottomButton()
     let goetheView = UIImageView()
     let nolgongView = UIImageView()
+    let divider = UIView()
+    var startType:Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class AlreadyRegisterViewController: UIViewController {
     
     func setUI(){
         
-        self.view.addSubview([titleImageView, descLb, newStartBtn, continueBtn, nextBtn, goetheView, nolgongView])
+        self.view.addSubview([titleImageView, descLb, newStartBtn, divider, continueBtn, nextBtn, goetheView, nolgongView])
         self.view.backgroundColor = .basicBackground
         titleImageView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(33)
@@ -76,10 +78,22 @@ class AlreadyRegisterViewController: UIViewController {
             make.height.equalTo(50)
         }
         
+        divider.snp.makeConstraints { (make) in
+            make.height.equalTo(1.5)
+            make.top.equalTo(newStartBtn.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(continueBtn.snp.width)
+        }
+        divider.backgroundColor = .black
+        
+        nextBtn.snp.makeConstraints { (make) in
+            make.bottom.equalTo(view.safeArea.bottom).offset(-70)
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalTo(60)
+            make.centerX.equalToSuperview()
+        }
         newStartBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)
-        newStartBtn.setBackgroundColor(color: .sunnyYellow, forState: .highlighted)
         continueBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)
-        continueBtn.setBackgroundColor(color: .sunnyYellow, forState: .highlighted)
 
         newStartBtn.addTarget(self, action: #selector(moveToNewStart(sender:)), for: .touchUpInside)
         continueBtn.addTarget(self, action: #selector(moveToContinue(sender:)), for: .touchUpInside)
@@ -88,20 +102,51 @@ class AlreadyRegisterViewController: UIViewController {
         titleImageView.contentMode = .scaleAspectFit
         goetheView.image = UIImage.init(named: "goethe")
         nolgongView.image = UIImage.init(named: "nolgong")
+        nextBtn.addTarget(self, action: #selector(moveToMain(sender:)), for: .touchUpInside)
+        nextBtn.setAttributedTitle("OK".makeAttrString(font: .NotoSans(.medium, size: 30), color: .white), for: .normal)
+    }
+    
+    @objc func moveToMain(sender:UIButton) {
+        
+        sender.isUserInteractionEnabled = false
+        if startType == 0 {
+            sender.isUserInteractionEnabled = true
+            return
+        }else {
+            sender.isUserInteractionEnabled = true
+
+            if startType == 1 {
+                        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+                sender.isUserInteractionEnabled = true
+                        RealmUser.shared.initializedUserInfo()
+                        self.navigationController?.pushViewController(vc, animated: true)
+            }else if startType == 2 {
+                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+                sender.isUserInteractionEnabled = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
         
     }
     
+    func deselectBtn() {
+        for btn in [newStartBtn, continueBtn] {
+            btn.isSelected = false
+        }
+    }
+    
     @objc func moveToNewStart(sender:UIButton) {
+        
+        deselectBtn()
         sender.isSelected = !(sender.isSelected)
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
-        RealmUser.shared.initializedUserInfo()
-        self.navigationController?.pushViewController(vc, animated: true)
+        startType = 1
+
     }
     
     @objc func moveToContinue(sender:UIButton) {
+        deselectBtn()
         sender.isSelected = !(sender.isSelected)
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
-        self.navigationController?.pushViewController(vc, animated: true)
+        startType = 2
     }
     
 

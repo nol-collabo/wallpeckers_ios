@@ -33,8 +33,6 @@ class Standard {
     
     func startTimer(gameMode:GameMode) {
         
-//        gamePlayTime = gameMode?
-        
         switch gameMode {
             
         case .long:
@@ -51,31 +49,17 @@ class Standard {
         
     }
     
-    func endTimer() {
-        
-    
-        
-    }
-
-    
     func changeLocalized(_ countryCode:String) {
 
         UserDefaults.standard.set(countryCode, forKey: "Language")
         
     }
+    
     func getLocalized() -> Language {
         
         return Language.init(rawValue: UserDefaults.standard.string(forKey: "Language") ?? "ko")!
         
     }
-    
- 
-    func setLanguate() {
-        
-//        UserDefaults.standard.set
-        
-    }
-    
     
     func getJSON() -> JSON? {
         
@@ -103,11 +87,6 @@ class Standard {
         }
     }
     
-    
-    
-//    func getUser() ->
-    
-    
 }
 
 enum Language:String {
@@ -117,8 +96,6 @@ enum Language:String {
     case ENGLISH = "en"
     
 }
-
-//clas
 
 enum GameMode:String {
     case long, short
