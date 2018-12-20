@@ -21,16 +21,14 @@ class Standard {
             
             delegate?.checkPlayTime(gamePlayTime)
 
-            if gamePlayTime == 0 {
+            if gamePlayTime == -1 {
                 sharedTimer.invalidate()
                 sharedTimer = nil
             }
         }
     }
     
-    private init() {
-        
-    }
+    private init() {}
     
     
     func startTimer(gameMode:GameMode) {

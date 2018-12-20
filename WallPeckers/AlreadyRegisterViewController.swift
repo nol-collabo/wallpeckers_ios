@@ -66,6 +66,8 @@ class AlreadyRegisterViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
+        newStartBtn.setAttributedTitle("Start a New Game".makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
+        continueBtn.setAttributedTitle("Continue the last game".makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
         
         continueBtn.snp.makeConstraints { (make) in
             make.top.equalTo(newStartBtn.snp.bottom).offset(30)
@@ -74,8 +76,11 @@ class AlreadyRegisterViewController: UIViewController {
             make.height.equalTo(50)
         }
         
-        newStartBtn.backgroundColor = .blue
-        continueBtn.backgroundColor = .red
+        newStartBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)
+        newStartBtn.setBackgroundColor(color: .sunnyYellow, forState: .highlighted)
+        continueBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)
+        continueBtn.setBackgroundColor(color: .sunnyYellow, forState: .highlighted)
+
         newStartBtn.addTarget(self, action: #selector(moveToNewStart(sender:)), for: .touchUpInside)
         continueBtn.addTarget(self, action: #selector(moveToContinue(sender:)), for: .touchUpInside)
         
@@ -87,12 +92,14 @@ class AlreadyRegisterViewController: UIViewController {
     }
     
     @objc func moveToNewStart(sender:UIButton) {
+        sender.isSelected = !(sender.isSelected)
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
         RealmUser.shared.initializedUserInfo()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func moveToContinue(sender:UIButton) {
+        sender.isSelected = !(sender.isSelected)
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
         self.navigationController?.pushViewController(vc, animated: true)
     }
