@@ -157,6 +157,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             if !topReached {
                 topReached = true
                 bottomReached = false
+                self.hashView.initAnimation()
             }
         }
         
@@ -433,8 +434,7 @@ class HashTagGraphView:UIView {
 
     }
     
-    func startAnimation(heights:[Int]) {
-        
+    func initAnimation() {
         for i in [firstView, secondView, thirdView, fourthView, fifthView] {
             
             i.graphV.snp.updateConstraints { (make) in
@@ -442,6 +442,11 @@ class HashTagGraphView:UIView {
             }
             self.layoutIfNeeded()
         }
+    }
+    
+    func startAnimation(heights:[Int]) {
+        
+
     
         UIView.animate(withDuration: 5) {
             self.firstView.graphV.snp.updateConstraints { (make) in
