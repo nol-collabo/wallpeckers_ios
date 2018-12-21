@@ -367,7 +367,7 @@ class HashTagGraphView:UIView {
         fifthView.tag = 4
         
         self.setBorder(color: .black, width: 1.5)
-        self.addSubview([titleLb, underLine1, underLine2, firstView, secondView, thirdView, fourthView, fifthView])
+        self.addSubview([titleLb, underLine1, underLine2, firstView, secondView, thirdView, fourthView, fifthView, hashTitleLb1, hashTitleLb2, hashTitleLb3, hashTitleLb4, hashTitleLb5])
         
         titleLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -390,6 +390,12 @@ class HashTagGraphView:UIView {
         }
         underLine2.backgroundColor = .black
         underLine1.backgroundColor = .black
+        hashTitleLb1.setNotoText("hash1".localized, size: 12, textAlignment: .center)
+        hashTitleLb2.setNotoText("hash2".localized, size: 12, textAlignment: .center)
+        hashTitleLb3.setNotoText("hash3".localized, size: 12, textAlignment: .center)
+        hashTitleLb4.setNotoText("hash4".localized, size: 12, textAlignment: .center)
+        hashTitleLb5.setNotoText("hash5".localized, size: 12, textAlignment: .center)
+
         
         firstView.snp.makeConstraints { (make) in
 
@@ -400,6 +406,11 @@ class HashTagGraphView:UIView {
             make.top.equalTo(underLine1.snp.bottom).offset(20)
         }
         
+        hashTitleLb1.snp.makeConstraints { (make) in
+            make.centerX.equalTo(firstView.snp.centerX)
+            make.top.equalTo(firstView.snp.bottom).offset(10)
+        }
+        
         secondView.snp.makeConstraints { (make) in
             make.leading.equalTo(firstView.snp.trailing)
             make.bottom.equalTo(underLine2.snp.top).offset(1)
@@ -407,6 +418,11 @@ class HashTagGraphView:UIView {
             make.height.equalTo(180)
             make.top.equalTo(underLine1.snp.bottom).offset(20)
 
+        }
+        
+        hashTitleLb2.snp.makeConstraints { (make) in
+            make.centerX.equalTo(secondView.snp.centerX)
+            make.top.equalTo(firstView.snp.bottom).offset(10)
         }
         thirdView.snp.makeConstraints { (make) in
             make.leading.equalTo(secondView.snp.trailing)
@@ -416,6 +432,11 @@ class HashTagGraphView:UIView {
             make.top.equalTo(underLine1.snp.bottom).offset(20)
 
         }
+        
+        hashTitleLb3.snp.makeConstraints { (make) in
+            make.centerX.equalTo(thirdView.snp.centerX)
+            make.top.equalTo(firstView.snp.bottom).offset(10)
+        }
         fourthView.snp.makeConstraints { (make) in
             make.leading.equalTo(thirdView.snp.trailing)
             make.bottom.equalTo(underLine2.snp.top).offset(1)
@@ -424,12 +445,22 @@ class HashTagGraphView:UIView {
             make.top.equalTo(underLine1.snp.bottom).offset(20)
 
         }
+        
+        hashTitleLb4.snp.makeConstraints { (make) in
+            make.centerX.equalTo(fourthView.snp.centerX)
+            make.top.equalTo(firstView.snp.bottom).offset(10)
+        }
         fifthView.snp.makeConstraints { (make) in
             make.top.equalTo(underLine1.snp.bottom).offset(20)
             make.leading.equalTo(fourthView.snp.trailing)
             make.bottom.equalTo(underLine2.snp.top).offset(1)
             make.width.equalTo(underLine2.snp.width).multipliedBy(0.2)
             make.height.equalTo(180)
+        }
+        
+        hashTitleLb5.snp.makeConstraints { (make) in
+            make.centerX.equalTo(fifthView.snp.centerX)
+            make.top.equalTo(firstView.snp.bottom).offset(10)
         }
 
     }
@@ -493,7 +524,7 @@ class GraphView:UIView {
     }
     
     func initData(percent:Int, myTag:Int) {
-        
+        self.percentLb.font = UIFont.NotoSans(.bold, size: 14)
         self.percentLb.text = "\(percent)"
         self.titleLb.text = ""
         self.titleLb.adjustsFontSizeToFitWidth = true
@@ -501,6 +532,7 @@ class GraphView:UIView {
         self.titleLb.textAlignment = .center
         
         if self.tag == myTag {
+            self.titleLb.font = UIFont.NotoSans(.bold, size: 12)
             self.graphV.backgroundColor = .sunnyYellow
             self.titleLb.text = "MYTAG".localized
         }else{
@@ -509,9 +541,11 @@ class GraphView:UIView {
         
         if percent == 100 {
             if self.titleLb.text != "" {
+                self.titleLb.font = UIFont.NotoSans(.bold, size: 14)
                 self.titleLb.text?.append("\n\("MOST".localized)")
 
             }else{
+                self.titleLb.font = UIFont.NotoSans(.bold, size: 14)
                 self.titleLb.text?.append("MOST".localized)
 
             }
