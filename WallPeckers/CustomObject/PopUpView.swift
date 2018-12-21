@@ -140,7 +140,7 @@ class LevelBadgePopUpView:BasePopUpView {
 class ArticleSubmitView:BasePopUpView {
     
 
-    let hashTags = ["happy", "hopeful", "don't care", "sad", "frustrated"]
+    let hashTags = ["hash1".localized, "hash2".localized, "hash3".localized, "hash4".localized, "hash5".localized]
     let topStarView = UILabel()
     let centerInfoView = UIStackView()
     let descLb = UILabel()
@@ -160,12 +160,7 @@ class ArticleSubmitView:BasePopUpView {
     func setData(correctCount:Int, questionCount:Int) {
         
         var point = 0
-        
-        
-        
-        
-        
-        
+
         switch questionCount {
             
             
@@ -178,11 +173,9 @@ class ArticleSubmitView:BasePopUpView {
             if correctCount == 1{
                 topStarView.attributedText = "★  ☆".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
                 point = 150
-//
             }else{
                 topStarView.attributedText = "★  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
                 point = 300
-
             }
 
         case 3:
@@ -255,7 +248,7 @@ class ArticleSubmitView:BasePopUpView {
         }
         
         let pointString = "\n\(point) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 49), color: .black)
-        let articleString = correctCount != questionCount ? "GOOD ARTICLE".makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black) : "PERFECT ARTICLE".makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black)
+        let articleString = correctCount != questionCount ? "factcheckdialog_title".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black) : "factcheckdialog_perfecttitle".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: 30), color: .black)
         let aString = "".makeAttrString(font: .AmericanTypeWriter(.bold, size: 36), color: .black)
         aString.append(articleString)
         aString.append(pointString)
@@ -318,7 +311,6 @@ class ArticleSubmitView:BasePopUpView {
             make.width.equalTo(50)
             make.top.equalToSuperview()
         }
-        centerLabel.text = "a\n b\n c"
         centerLabel.numberOfLines = 0
         centerLabel.textAlignment = .center
     
@@ -331,7 +323,7 @@ class ArticleSubmitView:BasePopUpView {
             make.width.equalToSuperview().multipliedBy(0.7)
         }
 //        descLb.setBorder(color: .black, width: 1)
-        descLb.text = "Pick your #hashtag for \nyour article."
+        descLb.text = "factcheckdialog_hashguide".localized
         descLb.textAlignment = .center
         descLb.numberOfLines = 2
         

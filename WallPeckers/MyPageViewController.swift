@@ -12,7 +12,6 @@ import AloeStackView
 
 class MyPageViewController: UIViewController, SectionViewDelegate {
     func moveToCompleteArticle(id: Int) {
-        print("DELEGATE FFOFOFOFOFO", id)
         
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
         
@@ -82,7 +81,6 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
         completedBadges.append(1)
         completedBadges.append(2)
-        print(completedBadges)
         
         setUI()
 
@@ -107,9 +105,8 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
             make.centerY.equalTo(dismissBtn.snp.centerY).offset(10)
         }
         
-        titleLb.attributedText = "MY PAGE".makeAttrString(font: .NotoSans(NotoSansFontSize.medium, size: 25), color: .black)
+        titleLb.attributedText = "MY_PAGE".localized.makeAttrString(font: .NotoSans(NotoSansFontSize.medium, size: 25), color: .black)
         dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
-//        dismissBtn.backgroundColor = .blue
         aStackView.snp.makeConstraints { (make) in
            make.top.equalTo(dismissBtn.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
@@ -207,7 +204,7 @@ class MyPageSectionView:UIView, ThumnailDelegate {
     
     func setData(content:ContentType) {
         
-        titleLb.setNotoText(content.rawValue, color: .black, size: 20, textAlignment: .center)
+        titleLb.setNotoText(content.rawValue.localized, color: .black, size: 20, textAlignment: .center)
 
         switch content {
         case .Badge:
@@ -230,13 +227,13 @@ class MyPageSectionView:UIView, ThumnailDelegate {
                 make.top.equalToSuperview()
                 make.leading.equalTo(10)
                 make.trailing.equalTo(-10)
-                make.height.equalTo(100)
+                make.height.equalTo(110)
             }
             secondRowStackView.snp.makeConstraints { (make) in
                 make.leading.equalTo(10)
                 make.trailing.equalTo(-10)
                 make.bottom.equalTo(-10)
-                make.height.equalTo(100)
+                make.height.equalTo(110)
                 make.top.equalTo(firstRowStackView.snp.bottom).offset(15)
             }
             firstRowStackView.axis = .horizontal
@@ -247,41 +244,41 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             secondRowStackView.spacing = 15
             
             if let _ = delegate?.completedBadges.filter({$0 == 1}).first {
-                politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "politic", tag: 1, isCompleted: true)
+                politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "Politics".localized, tag: 1, isCompleted: true)
 
             }else{
-                politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "politic", tag: 1)
+                politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "Politics".localized, tag: 1)
             }
             
             if let _ = delegate?.completedBadges.filter({$0 == 2}).first {
-                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "ecomony", tag: 2, isCompleted: true)
+                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "Economy".localized, tag: 2, isCompleted: true)
 
             }else{
-                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "ecomony", tag: 2)
+                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "Economy".localized, tag: 2)
             }
             
             if let _ = delegate?.completedBadges.filter({$0 == 3}).first {
-                generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "general", tag: 3, isCompleted: true)
+                generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "General".localized, tag: 3, isCompleted: true)
 
             }else{
-                generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "general", tag: 3)
+                generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "General".localized, tag: 3)
             }
             
             if let _ = delegate?.completedBadges.filter({$0 == 4}).first {
-                artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4, isCompleted: true)
+                artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "Art".localized, tag: 4, isCompleted: true)
             }else{
-                artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "art", tag: 4)
+                artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "Art".localized, tag: 4)
             }
             if let _ = delegate?.completedBadges.filter({$0 == 5}).first {
-                sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5, isCompleted: true)
+                sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "Sports".localized, tag: 5, isCompleted: true)
             }else{
-                sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "sports", tag: 5)
+                sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "Sports".localized, tag: 5)
             }
 
             if let _ = delegate?.completedBadges.filter({$0 == 6}).first {
-                peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6, isCompleted: true)
+                peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "People".localized, tag: 6, isCompleted: true)
             }else{
-                peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "people", tag: 6)
+                peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "People".localized, tag: 6)
 
             }
 
@@ -459,11 +456,11 @@ protocol ThumnailDelegate {
 
 enum ContentType:String {
     
-    case Score = "내 점수"
-    case Level = "내 레벨"
-    case Badge = "내 뱃지"
-    case CREDIBILITY = "신뢰도"
-    case COMPLETEDARTICLE = "완성된 기사"
+    case Score = "ARTICLE POINTS"
+    case Level = "MY LEVEL"
+    case Badge = "MY BADGES"
+    case CREDIBILITY = "ARTICLE CREDIBILITY"
+    case COMPLETEDARTICLE = "COMPLETED ARTICLES"
 //    , Level, Badge
 }
 
@@ -480,7 +477,7 @@ final class BadgeView:UIView {
     func setData(badgeImage:String, badgeTitle:String, tag:Int, isCompleted:Bool = false) {
         self.tag = tag
         self.badgeImageView.image = UIImage.init(named: !isCompleted ? badgeImage : "\(badgeImage)C")
-        self.badgeTitleLb.attributedText = badgeTitle.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
+        self.badgeTitleLb.attributedText = badgeTitle.makeAttrString(font: .NotoSans(.bold, size: 12), color: .black)
     }
     
     private func setUI() {
@@ -490,17 +487,20 @@ final class BadgeView:UIView {
             make.centerX.equalToSuperview()
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
-            make.width.equalTo(badgeImageView.snp.height)
+            make.width.equalTo(90)
+            make.height.equalTo(90)
         }
         badgeTitleLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(badgeImageView.snp.bottom).offset(5)
-            make.height.equalTo(30)
+            make.height.equalTo(40)
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         badgeImageView.contentMode = .scaleAspectFit
         badgeTitleLb.textAlignment = .center
+        badgeTitleLb.adjustsFontSizeToFitWidth = true
+        badgeTitleLb.numberOfLines = 2
         
     }
     

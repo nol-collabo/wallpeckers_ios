@@ -88,7 +88,7 @@ class GameNavigationBar:UIView {
         }
         myPageBtn.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.width.equalTo(82)
+            make.width.equalTo(100)
             make.height.equalTo(20)
             make.top.equalTo(29)
             
@@ -107,7 +107,7 @@ class GameNavigationBar:UIView {
         timerView.setData(text: "", backgroundimage: UIImage.init(named: "timeSectionView")!)
         scoreView.setData(text: "", backgroundimage: UIImage.init(named: "scoreSectionView")!)
         
-        myPageBtn.setAttributedTitle("MY PAGE".makeAttrString(font: .NotoSans(.medium, size: 14), color: .white), for: .normal)
+        myPageBtn.setAttributedTitle("MY_PAGE".localized.makeAttrString(font: .NotoSans(.medium, size: 14), color: .white), for: .normal)
         myPageBtn.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)
         
     }

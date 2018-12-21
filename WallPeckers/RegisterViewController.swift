@@ -164,7 +164,7 @@ class RegisterViewController: UIViewController {
         
         view.addSubview([topLb, profileImv, cameraBtn, nameLb, ageLb, nameTf, registBtn, ageSelectPickerView, descLb, ageSelectIndicatedLb])
         view.backgroundColor = .basicBackground
-        topLb.setNotoText("기자증 신청\nPRESS PASS", color: .black, size: 25, textAlignment: .center, font: .medium)
+        topLb.setNotoText("\("registration_toptitle".localized)\n\("registration_undertoptitle".localized)", color: .black, size: 25, textAlignment: .center, font: .medium)
         
         topLb.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(40)
@@ -188,8 +188,8 @@ class RegisterViewController: UIViewController {
 //        profileImv.backgroundColor = .blue
         cameraBtn.setImage(UIImage.init(named: "profile_btn")!, for: .normal)
         
-        nameLb.setNotoText("필명", color: .black, size: 16, textAlignment: .right)
-        ageLb.setNotoText("연령대", size: 16, textAlignment: .right)
+        nameLb.setNotoText("registration_penname".localized, color: .black, size: 16, textAlignment: .right)
+        ageLb.setNotoText("registration_age".localized, size: 16, textAlignment: .right)
         
         nameLb.snp.makeConstraints { (make) in
             make.top.equalTo(cameraBtn.snp.bottom).offset(DEVICEHEIGHT > 600 ? 30 : 20)
@@ -208,7 +208,7 @@ class RegisterViewController: UIViewController {
         nameTf.autocorrectionType = .no
         nameTf.addUnderBar()
         
-        descLb.setNotoText("*필명:내가 쓴 기사에 사용할 이름", size: 10, textAlignment: .left)
+        descLb.setNotoText("registration_namehint".localized, size: 10, textAlignment: .left)
         
         descLb.snp.makeConstraints { (make) in
             make.top.equalTo(nameTf.snp.bottom).offset(1)
@@ -230,7 +230,7 @@ class RegisterViewController: UIViewController {
             make.centerY.equalTo(ageLb.snp.centerY)
             make.height.equalTo(30)
         }
-        ageSelectIndicatedLb.setNotoText("SELECT AGE", color: .black, size: 26, textAlignment: .left, font: .medium)
+        ageSelectIndicatedLb.setNotoText("registration_defaultage".localized, color: .black, size: 26, textAlignment: .left, font: .medium)
         ageSelectIndicatedLb.isUserInteractionEnabled = true
         registBtn.isHidden = true
         ageSelectPickerView.snp.makeConstraints { (make) in
@@ -251,7 +251,7 @@ class RegisterViewController: UIViewController {
             make.width.equalTo(200)
         }
         
-        registBtn.setAttributedTitle("REGISTER".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
+        registBtn.setAttributedTitle("registration_registbtn".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
         registBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
@@ -288,9 +288,9 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func callProfileImageOption(sender:UIButton) {
-//        sender.isUserInteractionEnabled = false
+
         imagePicker.delegate = self
-        PopUp.call(mainTitle: "사진 추가", selectButtonTitles: ["카메라", "사진첩", "기본 이미지로"], bottomButtonTitle: "취소", bottomButtonType: 0, self)
+        PopUp.call(mainTitle: "registrationdialog_title".localized, selectButtonTitles: ["registrationdialog_camera".localized, "registrationdialog_album".localized, "registrationdialog_noprofile".localized], bottomButtonTitle: "CANCEL".localized, bottomButtonType: 0, self)
     }
     
 }
@@ -316,8 +316,7 @@ class BottomButton:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .black
-//        self.titleLabel?.setNotoText(<#T##text: String##String#>, size: <#T##CGFloat#>, textAlignment: <#T##NSTextAlignment#>)
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        self.titleLabel?.font = UIFont.NotoSans(.bold, size: 20)
         self.titleLabel?.textColor = .white
         if self.isEnabled {
             self.backgroundColor = .black
@@ -426,7 +425,6 @@ extension RegisterViewController:SelectPopupDelegate {
         
         switch tag {
         case 0:
-            print("CAMERA")
             imagePicker.sourceType = .camera
             checkPermission()
 //            checkPermission { (result) in
@@ -435,7 +433,6 @@ extension RegisterViewController:SelectPopupDelegate {
 //                }
 //            }
         case 1:
-            print("LIBRARY")
             imagePicker.sourceType = .photoLibrary
             checkPermission()
 

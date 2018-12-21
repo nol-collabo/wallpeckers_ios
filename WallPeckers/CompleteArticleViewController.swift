@@ -67,7 +67,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
             if wrongIds.count > 0 {
                 aStackView.addRow(deskView)
-                deskView.setDataForCompleteArticle(region: _article.region!, desc: "some of the articles")
+                deskView.setDataForCompleteArticle(region: _article.region!, desc: "completearticle_desk".localized)
             }
             aStackView.addRow(hashView)
             aStackView.addRow(okButton)
@@ -94,7 +94,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
         }
          
-        titleLb.attributedText = "COMPLETED ARTICLE".makeAttrString(font: .NotoSans(.medium, size: 25), color: .black)
+        titleLb.attributedText = "completearticle_title".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .black)
         titleLb.textAlignment = .center
         okButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)
     }
@@ -147,7 +147,6 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             if !bottomReached {
                 bottomReached = true
                 topReached = false
-                print("BOTOM!")
                 self.hashTagGraphAnimation()
                 
             }
@@ -196,7 +195,7 @@ final class CompletedArticleView:UIView {
         
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
-        let regionString = region == "GERMANY" ? "at the Berlin Wall" : "at the DMZ"
+        let regionString = region == "GERMANY" ? "at the Berlin Wall".localized : "completearticle_korea".localized
         let userNameString = "by \(RealmUser.shared.getUserData()?.name! ?? "User")"
         infoAString.append(dString)
         infoAString.append("\n\(regionString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
@@ -298,9 +297,10 @@ final class CompletedArticleView:UIView {
         commentTitleLb.snp.makeConstraints { (make) in
             make.leading.equalTo(15)
             make.top.equalTo(underLine2.snp.bottom).offset(20)
-            make.width.equalTo(100)
+            make.width.equalTo(120)
+            make.height.equalTo(19)
         }
-        commentTitleLb.attributedText = "COMMENT".makeAttrString(font: .NotoSans(.bold, size: 16), color: .black)
+        commentTitleLb.attributedText = "COMMENT".localized.makeAttrString(font: .NotoSans(.bold, size: 16), color: .black)
         
         thumbImgView.snp.makeConstraints { (make) in
             make.centerY.equalTo(commentTitleLb.snp.centerY)
@@ -373,7 +373,7 @@ class HashTagGraphView:UIView {
             make.centerX.equalToSuperview()
             make.top.equalTo(20)
         }
-        titleLb.attributedText = "HASHTAG".makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
+        titleLb.attributedText = "HASHTAG".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
         
         underLine1.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -398,8 +398,8 @@ class HashTagGraphView:UIView {
             make.width.equalTo(underLine2.snp.width).multipliedBy(0.2)
             make.height.equalTo(180)
             make.top.equalTo(underLine1.snp.bottom).offset(20)
-//            make.top.equalToSuperview()
         }
+        
         secondView.snp.makeConstraints { (make) in
             make.leading.equalTo(firstView.snp.trailing)
             make.bottom.equalTo(underLine2.snp.top).offset(1)
@@ -502,17 +502,17 @@ class GraphView:UIView {
         
         if self.tag == myTag {
             self.graphV.backgroundColor = .sunnyYellow
-            self.titleLb.text = "My Tag"
+            self.titleLb.text = "MYTAG".localized
         }else{
             self.graphV.backgroundColor = .white
         }
         
         if percent == 100 {
             if self.titleLb.text != "" {
-                self.titleLb.text?.append("\nMostWanted")
+                self.titleLb.text?.append("\n\("MOST".localized)")
 
             }else{
-                self.titleLb.text?.append("MostWanted")
+                self.titleLb.text?.append("MOST".localized)
 
             }
         }

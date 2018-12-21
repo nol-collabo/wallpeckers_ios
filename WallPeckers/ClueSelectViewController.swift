@@ -51,7 +51,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         
         self.view.backgroundColor = .basicBackground
         backButton.setImage(UIImage.init(named: "backButton"), for: .normal)
-        factCheckButton.setTitle("FACT CHECK", for: .normal)
+        factCheckButton.setTitle("FACT CHECK".localized, for: .normal)
         backButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)
         factCheckButton.addTarget(self, action: #selector(moveToFactCheck(sender:)), for: .touchUpInside)
         setStack()
@@ -77,7 +77,6 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             if let aa = RealmClue.shared.getLocalClue(id: v.clue, language: Standard.shared.getLocalized()) {
                 view.setData(five: v, clue: aa)
                 view.tag = v.clue
-                print(view.tag, "TAG")
                 
                 _ = checkedFactList.map({
                     
@@ -104,10 +103,8 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     }
     
     @objc func moveToFactCheck(sender:UIButton) {
-        print("MOVE To FactCheck")
+
         var sendingData:[FactCheck] = []
-        
-        //        print(checkedFactList)
         
         _ = checkedFactList.map({
             
@@ -193,7 +190,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
     
     func touchButton(sender: Clue, tag: Int) {
         if let clueType = sender.type {
-            PopUp.callCluePopUp(clueType: clueType, tag: tag, vc: self)
+            PopUp.callCluePopUp(clueType: clueType.localized, tag: tag, vc: self)
         }
     }
     
@@ -321,7 +318,7 @@ final class ClueSelectView:UIView {
     func setData(five:Five_W_One_Hs, clue:Clue) {
         
         self.clue = clue
-        clueButton.setAttributedTitle("\(clue.type!)".makeAttrString(font: .NotoSans(.bold, size: 20), color: .black), for: .normal)
+        clueButton.setAttributedTitle("\(clue.type!.localized)".makeAttrString(font: .NotoSans(.bold, size: 20), color: .black), for: .normal)
         
         if !five.given {
             clueLb.text = ""
@@ -465,7 +462,7 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
-        okButton.setTitle("OK", for: .normal)
+        okButton.setTitle("OK".localized, for: .normal)
         titleLb.snp.makeConstraints { (make) in
             make.top.equalTo(20)
             make.leading.equalTo(30)
@@ -478,7 +475,7 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
             make.leading.equalTo(40)
         }
         
-        codeLb.attributedText = "CODE:".makeAttrString(font: .NotoSans(.medium, size: 18), color: .black)
+        codeLb.attributedText = "CODE".localized.makeAttrString(font: .NotoSans(.medium, size: 18), color: .black)
         codeTf.snp.makeConstraints { (make) in
             make.leading.equalTo(codeLb.snp.trailing).offset(10)
             make.trailing.equalTo(-40)

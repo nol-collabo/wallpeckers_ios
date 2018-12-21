@@ -78,17 +78,17 @@
 "ARTICLE CREDIBILITY" = "ARTICLE CREDIBILITY";
 "MY NEWSPAPER" = "MY NEWSPAPER";
 "Send Newspaper" = "Send Newspaper";
-"OMPLETED ARTICLES" = "COMPLETED ARTICLES";
+"COMPLETED ARTICLES" = "COMPLETED ARTICLES";
 "MY LEVEL" = "MY LEVEL";
 "MY BADGES" = "MY BADGES";
 
 
 "writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "You may want to re-check the following item is true: %1$s";
+"factcheck_deskrecheck" = "You may want to re-check the following item is true: ";
 "factcheck_deskperfect" = "PERFECT!\nYour article has been successfully passed the FACT CHECK!";
 
-"factcheckdialog_title" = "A GOOD\nARTICLE";
-"factcheckdialog_perfecttitle" = "A PERFECT\nARTICLE";
+"factcheckdialog_title" = "A GOOD ARTICLE";
+"factcheckdialog_perfecttitle" = "A PERFECT ARTICLE";
 "factcheckdialog_hashguide" = "Pick your emotional #hashtag\nabout the article";
 
 "hash1" = "#happy";
@@ -135,3 +135,9 @@
 "emailsuccessdialog_desc" = "The e-mail successfully has been sent.";
 "printsuccessdialog_desc" = "The newspaper successfully has been printed out.\nGo Get your newspaper at the Printer.";
 
+"Politics" = "POLITICS";
+"Economy" = "Economy/\nDiplomacy";
+"General" = "General";
+"Art" = "Art & Culture";
+"Sports" = "Sports";
+"People" = "People";

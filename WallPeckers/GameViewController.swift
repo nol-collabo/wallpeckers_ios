@@ -89,11 +89,6 @@ class GameViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        
-
-//        clueSelectViewContoller.view.snp.makeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//        }
         horizontalView.scrollView.isScrollEnabled = false
     }
     

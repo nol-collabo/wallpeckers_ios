@@ -53,7 +53,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
         self.view.backgroundColor = .basicBackground
         
         backButton.setImage(UIImage.init(named: "backButton"), for: .normal)
-        submitButton.setTitle("SUBMIT", for: .normal)
+        submitButton.setTitle("Send".localized, for: .normal)
         backButton.addTarget(self, action: #selector(touchBackButton(sender:)), for: .touchUpInside)
         submitButton.addTarget(self, action: #selector(touchSubmitButton(sender:)), for: UIControl.Event.touchUpInside)
     }
@@ -182,7 +182,6 @@ class FactCheckViewController: GameTransitionBaseViewController {
                     _ = _checkdata.map({
                         
                         if fc.selectedClue == $0.selectedClue && fc.selectedArticleId == $0.selectedArticleId {
-                            print("HERE")
                             try! realm.write {
                                 fc.isSubmit = true
                             }
@@ -297,7 +296,7 @@ final class BasicBubbleView:UIView {
     func setData(clue:Clue, type:FactCorrect) {
         
         self.clue = clue
-        clueTypeLb.text = self.clue?.type
+        clueTypeLb.text = self.clue?.type?.localized
         clueTypeLb.font = UIFont.NotoSans(.bold, size: 16)
         clueDescLb.font = UIFont.NotoSans(.medium, size: 16)
         clueDescLb.text = clue.desc
@@ -386,27 +385,28 @@ final class DeskBubbleView:UIView {
         clueDescLb.snp.makeConstraints { (make) in
             make.leading.equalTo(profileView.snp.trailing).offset(30)
             make.top.equalTo(bubbleBaseView.snp.top).offset(3)
-            make.trailing.equalTo(bubbleBaseView.snp.trailing).offset(-10)
+            make.trailing.equalTo(bubbleBaseView.snp.trailing).offset(-20)
             make.bottom.equalTo(-10)
         }
+        clueDescLb.numberOfLines = 0
         
     }
     
     func setData(region:String, wrongParts:[String]) {
 
-        var sss = ""
+        var sss = "factcheck_deskrecheck".localized
         
         if wrongParts.count == 0 {
-            
+            sss = "factcheck_deskperfect".localized
         }else {
             for i in 0...wrongParts.count - 1 {
                 
                 if i == wrongParts.count - 1 {
                     
-                    sss.append("\(wrongParts[i])")
+                    sss.append("\(wrongParts[i].localized)")
                     
                 }else{
-                    sss.append("\(wrongParts[i]), ")
+                    sss.append("\(wrongParts[i].localized), ")
                 }
                 
             }
@@ -414,6 +414,7 @@ final class DeskBubbleView:UIView {
 
         
         clueDescLb.attributedText = sss.makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
+        clueDescLb.numberOfLines = 0
         
         print(wrongParts)
         print("~~~###")

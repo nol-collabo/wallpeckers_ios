@@ -88,7 +88,7 @@ class TopicViewController: GameTransitionBaseViewController {
         sportsButton.delegate = self
         peopleButton.delegate = self
         
-        topicTitleLb.setNotoText("CHOOSE A TOPIC", color: .black, size: 24, textAlignment: .center, font: .medium)
+        topicTitleLb.setNotoText("selectsection_title".localized, color: .black, size: 24, textAlignment: .center, font: .medium)
         
         topicTitleLb.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(70)

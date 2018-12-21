@@ -78,17 +78,17 @@
 "ARTICLE CREDIBILITY" = "ARTIKEL ZUVERLÄSSIGKEIT";
 "MY NEWSPAPER" = "MEINE ZEITUNG";
 "Send Newspaper" = "Zeitung versenden";
-"OMPLETED ARTICLES" = "FERTIGE ARTIKELN";
+"COMPLETED ARTICLES" = "FERTIGE ARTIKELN";
 "MY LEVEL" = "MEIN LEVEL";
 "MY BADGES" = "MEIN ABZEICHEN";
 
 
 "writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt: %1$s";
+"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt: ";
 "factcheck_deskperfect" = "PERFEKT!\nDein Arikel hat den Faktencheck erfolgreich bestanden.";
 
-"factcheckdialog_title" = "EIN GUTER\nARTIKEL";
-"factcheckdialog_perfecttitle" = "EIN PERFEKTER\nARTIKEL";
+"factcheckdialog_title" = "EIN GUTER ARTIKEL";
+"factcheckdialog_perfecttitle" = "EIN PERFEKTER ARTIKEL";
 "factcheckdialog_hashguide" = "Wähle ein Gefühls-Hashtag\nzu deinem Artikel!";
 
 "hash1" = "#glücklich";
@@ -135,3 +135,9 @@
 "emailsuccessdialog_desc" = "Die E-Mail wurde erfolgreich versendet.";
 "printsuccessdialog_desc" = "eine Zeitung wurde gedruckt.\nHol sie dir am Schalter ab!.";
 
+"Politics" = "POLITIK";
+"Economy" = "WIRTSCHAFT/\nAUSSENPOLITIK";
+"General" = "GESELLSCHAFT";
+"Art" = "FEUILLETON";
+"Sports" = "SPORT";
+"People" = "MENSCHEN";

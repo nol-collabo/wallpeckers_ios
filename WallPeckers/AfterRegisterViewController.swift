@@ -65,18 +65,18 @@ class AfterRegisterViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(34)
         }
-        pressCodeTf.attributedPlaceholder = "PRESS CODE".makeAttrString(font: .NotoSans(.medium, size: 25), color: UIColor.init(white: 155/255, alpha: 1))
+        pressCodeTf.attributedPlaceholder = "inputkey_passcode".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: UIColor.init(white: 155/255, alpha: 1))
         pressCodeTf.textAlignment = .center
         pressCodeTf.addUnderBar()
-        pressCodeLb.setNotoText("프레스 코드를 입력하고 확인을 누르세요", size: 16, textAlignment: .center)
-        pressCodeDescLb.setNotoText("You Could find out PRESS CODE on site.", color: .white, size: 12, textAlignment: .center)
+        pressCodeLb.setNotoText("inputkey_codeguide".localized, size: 16, textAlignment: .center)
+//        pressCodeDescLb.setNotoText("You Could find out PRESS CODE on site.", color: .white, size: 12, textAlignment: .center)
         confirmBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeArea.bottom).offset(-30)
             make.height.equalTo(55)
             make.centerX.equalToSuperview()
             make.leading.equalTo(55)
         }
-        confirmBtn.setTitle("확인", for: .normal)
+        confirmBtn.setTitle("OK".localized, for: .normal)
 //        myPagebtn.setTitle("마이페이지", for: .normal)
         pressCodeTf.delegate = self
         confirmBtn.backgroundColor = .gray
@@ -136,7 +136,6 @@ extension AfterRegisterViewController:UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string.count > 0 {
-            print("Not Empty")
             confirmBtn.isUserInteractionEnabled = true
             confirmBtn.backgroundColor = .black
 
@@ -148,7 +147,6 @@ extension AfterRegisterViewController:UITextFieldDelegate {
 
 class MyProfileView:UIView {
     
-//    let baseView = UIView()
     let titleLb = UILabel()
     let profileImageView = UIImageView()
     let nameTf = UITextField()
@@ -169,12 +167,7 @@ class MyProfileView:UIView {
     }
     
     private func setUI() {
-    
-//        self.addSubview(baseView)
-//        baseView.snp.makeConstraints { (make) in
-//           make.top.bottom.equalToSuperview()
-//            make.width.equalTo(DeviceSize.width * 0.8)
-//        }
+
         self.addSubview([titleLb, profileImageView, nameTf, nameEditBtn, myPagebtn, cameraBtn, levelDescLb])
         
         self.setBorder(color: .black, width: 3)
@@ -184,7 +177,7 @@ class MyProfileView:UIView {
             make.top.equalTo(20)
             make.height.equalTo(40)
         }
-        titleLb.setAeericanTypeText("PRESS", size: 50, textAlignment: .center, font:.bold)
+        titleLb.setAeericanTypeText("PRESS".localized, size: 50, textAlignment: .center, font:.bold)
         
         profileImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -221,7 +214,7 @@ class MyProfileView:UIView {
             make.height.equalTo(43)
             make.bottom.equalTo(-20)
         }
-        myPagebtn.setTitle("My Page", for: .normal)
+        myPagebtn.setTitle("MY_PAGE".localized, for: .normal)
         self.nameTf.isEnabled = false
         levelDescLb.numberOfLines = 2
         levelDescLb.textAlignment = .center

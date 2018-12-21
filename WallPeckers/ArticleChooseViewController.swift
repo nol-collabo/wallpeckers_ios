@@ -46,7 +46,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         if let ar = articles?.filter({$0.id == sender.tag}).first {
             
             if ar.isCompleted {
-                print("move To CompletedArticle")
                 
                 let sendingData = (ar, ar.selectedHashtag, Array(ar.wrongQuestionsId))
                 
@@ -79,9 +78,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     
     var factCheckList:[FactCheck] = [] {
         didSet {
-            print(factCheckList)
             self.changeColor()
-            print("~FHKJFHJKF")
         }
     }
     var links:[ArticleLinkLine] = []
@@ -223,7 +220,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         }
         
         
-        articleTitleLb.setNotoText("CHOOSE A ARTICLE", color: .black, size: 24, textAlignment: .center, font: .medium)
+        articleTitleLb.setNotoText("selectarticle_title".localized, color: .black, size: 24, textAlignment: .center, font: .medium)
                 
         articleTitleLb.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(70)
@@ -337,7 +334,9 @@ class ArticleSelectButton:UIView {
             make.width.height.equalTo(25)
         }
         titleLb.snp.makeConstraints { (make) in
-            make.leading.bottom.trailing.equalToSuperview()
+            make.leading.equalTo(5)
+            make.bottom.equalTo(-5)
+            make.trailing.equalTo(-5)
             make.height.equalTo(30)
         }
         starImageView.image = UIImage.init(named: "YellowStar")

@@ -77,17 +77,17 @@
 "ARTICLE CREDIBILITY" = "기사 신뢰도";
 "MY NEWSPAPER" = "내 신문";
 "Send Newspaper" = "이메일 보내기";
-"OMPLETED ARTICLES" = "완성한 기사";
+"COMPLETED ARTICLES" = "완성한 기사";
 "MY LEVEL" = "내 레벨";
 "MY BADGES" = "내 뱃지";
 
 
 "writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요: %1$s";
-"factcheck_deskperfect" = "P완벽하군요!\n당신의 기사는 팩트 체크를 무사 통과했습니다.";
+"factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요: ";
+"factcheck_deskperfect" = "완벽하군요!\n당신의 기사는 팩트 체크를 무사 통과했습니다.";
 
-"factcheckdialog_title" = "A GOOD\nARTICLE";
-"factcheckdialog_perfecttitle" = "A PERFECT\nARTICLE";
+"factcheckdialog_title" = "A GOOD ARTICLE";
+"factcheckdialog_perfecttitle" = "A PERFECT ARTICLE";
 "factcheckdialog_hashguide" = "기사에 대한 나의 감정 태그를\n골라주세요";
 
 "hash1" = "#행복";
@@ -136,3 +136,9 @@
 "emailsuccessdialog_desc" = "메일이 성공적으로\n발송되었습니다.";
 "printsuccessdialog_desc" = "성공적으로 인쇄되었습니다.\n신문 배포처로 이동하여 신문을 수령하세요.";
 
+"Politics" = "정치";
+"Economy" = "경제/\n외교";
+"General" = "사회";
+"Art" = "문화예술";
+"Sports" = "스포츠";
+"People" = "사람들";

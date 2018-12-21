@@ -87,7 +87,7 @@ class AlreadyRegisterViewController: UIViewController {
         divider.backgroundColor = .black
         
         nextBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeArea.bottom).offset(-30)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-50)
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(60)
             make.centerX.equalToSuperview()

@@ -57,10 +57,10 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
             make.height.equalToSuperview()
             make.top.equalToSuperview()
         }
-        t1View.setData(title: "WHO, WHEN, WHERE,\nWHAT, HOW and WHY?", desc: "As the Wall stood strong,\nit became a part of everyday\nand you forgot WHY.\nThe WALLPECKERS\n- the journalist of the Wall -\nask WHY and find the truth.", image: UIImage.init(named: "tutorial1")!)
-        t2View.setData(title: "From the DMZ to the Berlin Wall", desc: "Cover issues about\nthe Korean DMZ, still standing 65 years\nand the Berlin Wall, demolished in 1989.\nWrite as many articles as you can\nincluding PAIRED ones. ", image:  UIImage.init(named: "tutorial2")!)
-        t3View.setData(title: "INTO THE PRESSROOM", desc: "Collect clues by 5W1H\naround you in the pressroom\nand enter the CODE of them.\nGet a FACT-CHECK\nby the desk of WALLPECKERS\nand publish the article.", image: UIImage.init(named: "tutorial3")!)
-        t4View.setData(title: "GOAL", desc: "You have 20 minutes\nto complete & publish the articles.\nMaximize your article points\nto be the journalist of the day!", image: UIImage.init(named: "tutorial4")!, isLast: true)
+        t1View.setData(title: "tutorial1_subtitle".localized, desc: "tutorial1".localized, image: UIImage.init(named: "tutorial1")!)
+        t2View.setData(title: "tutorial2_subtitle".localized, desc: "tutorial2".localized, image:  UIImage.init(named: "tutorial2")!)
+        t3View.setData(title: "tutorial3_subtitle".localized, desc: "tutorial3".localized, image: UIImage.init(named: "tutorial3")!)
+        t4View.setData(title: "tutorial4_subtitle".localized, desc: "tutorial4".localized, image: UIImage.init(named: "tutorial4")!, isLast: true)
 
         t4View.delegate = self
 
@@ -109,7 +109,7 @@ final class TutorialView:UIView {
             make.width.equalTo(270)
             make.height.equalTo(55)
         }
-        nextBtn.setAttributedTitle("START".makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
+        nextBtn.setAttributedTitle("tutorial_startBtn".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
         descImv.snp.makeConstraints { (make) in
             make.top.equalTo(topLb.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
