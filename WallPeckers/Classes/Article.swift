@@ -30,6 +30,9 @@ class Article:Object {
     @objc dynamic var selectedHashtag = 0
     @objc dynamic var totalQuestionCount = 0
     @objc dynamic var correctQuestionCount = 0
+    @objc dynamic var isPairedArticle = false
+//    @objc dynamic var
+    
     var wrongQuestionsId = List<Int>()
 
     convenience init(_ json:JSON) {
@@ -54,7 +57,7 @@ class Article:Object {
     
     }
     
-    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:List<Int>, hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int) {
+    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:List<Int>, hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int, isPaired:Bool) {
         
         self.word = word
         self.title = title
@@ -69,7 +72,7 @@ class Article:Object {
         self.selectedHashtag = selectedHashTag
         self.totalQuestionCount = totalquestionCOunt
         self.correctQuestionCount = correctquestioncount
-        
+        self.isPairedArticle = isPaired
         
     }
     

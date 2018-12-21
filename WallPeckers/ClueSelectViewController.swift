@@ -184,7 +184,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
             
             
         }else{
-            PopUp.callAlert(time: "The Codx", desc: "xx", vc: self, tag: 9)
+            PopUp.callAlert(time: "", desc: "writearticleerrordialog_desc".localized, vc: self, tag: 9)
         }
     }
     

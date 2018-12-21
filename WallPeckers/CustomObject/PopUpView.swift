@@ -157,7 +157,7 @@ class ArticleSubmitView:BasePopUpView {
         
     }
     
-    func setData(correctCount:Int, questionCount:Int) {
+    func setData(article:Article, correctCount:Int, questionCount:Int) {
         
         var point = 0
 
@@ -245,6 +245,7 @@ class ArticleSubmitView:BasePopUpView {
         
         try! realm.write {
             RealmUser.shared.getUserData()?.score += point
+            article.point = point
         }
         
         let pointString = "\n\(point) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 49), color: .black)
@@ -296,7 +297,7 @@ class ArticleSubmitView:BasePopUpView {
         for i in 0...hashTags.count - 1 {
             
             let hashbtn = HashTagBtn()
-            hashbtn.setTitle("# \(hashTags[i])", for: .normal)
+            hashbtn.setTitle("\(hashTags[i])", for: .normal)
             hashbtn.tag = i
             hashbtn.addTarget(self, action: #selector(touchHashtag(sender:)), for: .touchUpInside)
             hashBtns.append(hashbtn)
@@ -674,11 +675,11 @@ struct PopUp {
         
     }
     
-    static func callSubmitView(tag:Int, correctCount:Int, questionCount:Int, vc:UIViewController) {
+    static func callSubmitView(article:Article, tag:Int, correctCount:Int, questionCount:Int, vc:UIViewController) {
         
         let popupView = ArticleSubmitView()
         popupView.delegate = vc as? ArticleSubmitDelegate
-        popupView.setData(correctCount: correctCount, questionCount: questionCount)
+        popupView.setData(article: article, correctCount: correctCount, questionCount: questionCount)
         if let _parent = vc.parent {
             _parent.view.addSubview(popupView)
         }else{

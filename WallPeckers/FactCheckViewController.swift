@@ -192,7 +192,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
                 
             })
             
-            PopUp.callSubmitView(tag: 1, correctCount: correctCount, questionCount: questionCount, vc: self)
+            PopUp.callSubmitView(article: article!, tag: 1, correctCount: correctCount, questionCount: questionCount, vc: self)
         }
     }
     
@@ -234,7 +234,6 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             article?.selectedHashtag = hashtag
             article?.totalQuestionCount = questionCount
             article?.correctQuestionCount = correctCount
-            
             if let _a = self.parent as? GameViewController {
                 
                 _a.setScore()

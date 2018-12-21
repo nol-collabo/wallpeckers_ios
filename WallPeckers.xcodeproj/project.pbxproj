@@ -26,6 +26,7 @@
 		230BD4D021C0C21B00503CD5 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4CF21C0C21B00503CD5 /* TopicViewController.swift */; };
 		230BD4D221C0CF4F00503CD5 /* GameTransitionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4D121C0CF4F00503CD5 /* GameTransitionBaseViewController.swift */; };
 		230BD4F921C7981000503CD5 /* CompleteArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */; };
+		230BD4FB21CCD89200503CD5 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 230BD4FA21CCD89100503CD5 /* data.json */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -50,7 +51,7 @@
 		23D86F1A21B125C700CDC5B6 /* notokr_black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1221B125C700CDC5B6 /* notokr_black.ttf */; };
 		23D86F1B21B125C700CDC5B6 /* american_typewriter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1321B125C700CDC5B6 /* american_typewriter.ttf */; };
 		23D86F1C21B125C700CDC5B6 /* notokr_demilight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1421B125C700CDC5B6 /* notokr_demilight.ttf */; };
-		23D86F2021B125D300CDC5B6 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1D21B125D300CDC5B6 /* data.json */; };
+		23D86F2021B125D300CDC5B6 /* data1.json in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1D21B125D300CDC5B6 /* data1.json */; };
 		23D86F2121B125D300CDC5B6 /* loding.json in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1E21B125D300CDC5B6 /* loding.json */; };
 		23D86F2221B125D300CDC5B6 /* game_press.xls in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F1F21B125D300CDC5B6 /* game_press.xls */; };
 		23D86F2421B1280200CDC5B6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D86F2321B1280200CDC5B6 /* User.swift */; };
@@ -105,6 +106,7 @@
 		230BD4CF21C0C21B00503CD5 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 		230BD4D121C0CF4F00503CD5 /* GameTransitionBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTransitionBaseViewController.swift; sourceTree = "<group>"; };
 		230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteArticleViewController.swift; sourceTree = "<group>"; };
+		230BD4FA21CCD89100503CD5 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,7 +141,7 @@
 		23D86F1221B125C700CDC5B6 /* notokr_black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notokr_black.ttf; sourceTree = "<group>"; };
 		23D86F1321B125C700CDC5B6 /* american_typewriter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = american_typewriter.ttf; sourceTree = "<group>"; };
 		23D86F1421B125C700CDC5B6 /* notokr_demilight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notokr_demilight.ttf; sourceTree = "<group>"; };
-		23D86F1D21B125D300CDC5B6 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		23D86F1D21B125D300CDC5B6 /* data1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data1.json; sourceTree = "<group>"; };
 		23D86F1E21B125D300CDC5B6 /* loding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loding.json; sourceTree = "<group>"; };
 		23D86F1F21B125D300CDC5B6 /* game_press.xls */ = {isa = PBXFileReference; lastKnownFileType = file; path = game_press.xls; sourceTree = "<group>"; };
 		23D86F2321B1280200CDC5B6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -252,7 +254,8 @@
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
 				2357816221ABF29000338CB9 /* LaunchScreen.storyboard */,
 				2357816521ABF29000338CB9 /* Info.plist */,
-				23D86F1D21B125D300CDC5B6 /* data.json */,
+				23D86F1D21B125D300CDC5B6 /* data1.json */,
+				230BD4FA21CCD89100503CD5 /* data.json */,
 				23D86F1F21B125D300CDC5B6 /* game_press.xls */,
 				23D86F1E21B125D300CDC5B6 /* loding.json */,
 				23D86F0C21B125C700CDC5B6 /* font */,
@@ -462,11 +465,12 @@
 				23D86F3D21B50DE700CDC5B6 /* Game.storyboard in Resources */,
 				23D86F2221B125D300CDC5B6 /* game_press.xls in Resources */,
 				2357818A21ABF2B900338CB9 /* Main.storyboard in Resources */,
+				230BD4FB21CCD89200503CD5 /* data.json in Resources */,
 				230BD47221BA102800503CD5 /* NotoSans-Bold.otf in Resources */,
 				23D86F1721B125C700CDC5B6 /* notokr_medium.ttf in Resources */,
 				230BD47121BA102800503CD5 /* NotoSans-Regular.otf in Resources */,
 				23D86EFF21AFF40900CDC5B6 /* Localizable.strings in Resources */,
-				23D86F2021B125D300CDC5B6 /* data.json in Resources */,
+				23D86F2021B125D300CDC5B6 /* data1.json in Resources */,
 				23D86F2121B125D300CDC5B6 /* loding.json in Resources */,
 				23D86F1621B125C700CDC5B6 /* american_typewriter_light.ttf in Resources */,
 				23D86F1B21B125C700CDC5B6 /* american_typewriter.ttf in Resources */,

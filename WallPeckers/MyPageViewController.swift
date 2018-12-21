@@ -54,7 +54,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         levelView.delegate = self
         //내 점수
         currentPoint = RealmUser.shared.getUserData()?.score
-//        myLevel = 10
+        myLevel = 10
         
         if let _currentPoint = currentPoint {
             if _currentPoint > 0 {
@@ -285,6 +285,19 @@ class MyPageSectionView:UIView, ThumnailDelegate {
         case .Level:
             
             guard let myLevel = delegate?.myLevel else {return}
+            
+            let levelLineView = LevelCustomView()
+            
+            self.contentView.addSubview(levelLineView)
+            
+            levelLineView.snp.makeConstraints { (make) in
+              
+                make.edges.equalToSuperview()
+                make.height.equalTo(200)
+                
+            }
+            levelLineView.setLine()
+            
 
             print(myLevel)
             
@@ -360,17 +373,15 @@ class MyPageSectionView:UIView, ThumnailDelegate {
                 
                 let vv = CompleteArticleThumnailView()
                 vv.delegate = self
-//                vv.delegate =
                 vv.setData(article: completedArticle[i])
                 articleStackView.addRow(vv)
                 self.layoutIfNeeded()
             }
             articleStackView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
-                make.height.equalTo(135 * completedArticle.count)
+                make.height.equalTo(140 * completedArticle.count)
             }
-            
-            print(completedArticle)
+            articleStackView.isScrollEnabled = false
         }
     }
     
@@ -391,7 +402,52 @@ protocol SectionViewDelegate {
 
 }
 
-final class CompleteArticleThumnailView:UIView, Tappable {
+final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    
+    class HashtagCollectionViewCell:UICollectionViewCell {
+        
+        
+        let lbl = UILabel()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.addSubview(lbl)
+            lbl.snp.makeConstraints { (make) in
+                make.edges.equalToSuperview()
+            }
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let _hashTags = hashTags {
+            return _hashTags.count
+        }else{
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashtagCollectionViewCell", for: indexPath) as? HashtagCollectionViewCell {
+            
+            if let _hash = hashTags {
+                cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 14), color: UIColor.deepSkyBlue)
+            return cell
+            }else{
+                return UICollectionViewCell()
+            }
+        }else{
+            return UICollectionViewCell()
+        }
+    }
+    
+    
+    
     func didTapView() {
         delegate?.moveToNext(id: self.tag)
     }
@@ -399,19 +455,38 @@ final class CompleteArticleThumnailView:UIView, Tappable {
     
     let titleLb = UILabel()
     var delegate:ThumnailDelegate?
+    let coLayout = UICollectionViewLeftAlignedLayout()
+    lazy var collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: coLayout)
     let hashView = UIView()
     let underLine = UIView()
+    var hashTags:[String]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        coLayout.estimatedItemSize = CGSize.init(width: 100, height: 20)
+        coLayout.itemSize = CGSize.init(width: 100, height: 20)
+        collectionView.collectionViewLayout = coLayout
+        collectionView.register(HashtagCollectionViewCell.self, forCellWithReuseIdentifier: "HashtagCollectionViewCell")
+        
     }
     
     func setData(article:Article) {
-        
+
+        if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
+            
+            let aa = hash5.components(separatedBy: "/").index(after: article.selectedHashtag - 1)
+
+            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P", "\(aa)%"]
+
+        }
+
         self.titleLb.attributedText = article.title!.makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
         self.tag = article.id
-        
+        collectionView.reloadData()
+
     }
     
     private func setUI() {
@@ -432,8 +507,11 @@ final class CompleteArticleThumnailView:UIView, Tappable {
             make.bottom.equalTo(-5)
             make.trailing.equalTo(-10)
         }
-        hashView.backgroundColor = .red
-        
+        hashView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        collectionView.backgroundColor = .basicBackground
         underLine.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview()
             make.height.equalTo(1.5)
@@ -565,4 +643,69 @@ class NewspaperPublishedView:UIView {
 
 protocol PublishDelegate {
     func moveToNext(sender:UIButton)
+}
+
+class LevelCustomView: UIView {
+    
+    let levelLineView = LevelLineView()
+    let myLayer = CAShapeLayer()
+    let path = UIBezierPath()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        
+       
+        
+//        self.addSubview(levelLineView)
+//        levelLineView.backgroundColor = .red
+////        levelLineView.draw(.zero)
+//        levelLineView.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
+        
+ 
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setLine() {
+        path.move(to: CGPoint.zero)
+        print(self.bounds.maxY)
+        path.addLine(to: CGPoint.init(x: self.bounds.maxX, y: 100))
+        myLayer.path = path.cgPath
+        myLayer.fillColor = UIColor.red.cgColor
+        self.layer.addSublayer(myLayer)
+    }
+
+}
+
+class LevelLineView:UIView {
+    
+ 
+    let path = UIBezierPath()
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        path.move(to: CGPoint.zero)
+        path.addLine(to: CGPoint.init(x: self.bounds.maxX, y: self.bounds.maxY))
+        UIColor.black.setFill()
+        path.fill()
+    }
+
+}
+
+enum TopicSection:Int {
+
+    case Politics, Economy, General, Art, Sports, People
+    
+    
+}
+
+enum HashSection:Int {
+    
+    case hash1, hash2, hash3, hash4, hash5
+    
 }

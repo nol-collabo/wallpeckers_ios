@@ -37,7 +37,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                     
                     Int($0)!
                 })
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                     self.hashView.startAnimation(heights: ints)
                 }
                 
@@ -142,7 +142,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (scrollView.contentOffset.y + 1) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+        if (scrollView.contentOffset.y - 50) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
             //reach bottom
             if !bottomReached {
                 bottomReached = true
