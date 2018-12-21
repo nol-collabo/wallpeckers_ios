@@ -246,9 +246,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             let unpairedCompletedIds = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({!($0.isPairedArticle) && $0.isCompleted}).map({$0.id})
 
             if let articleLink = RealmArticleLink.shared.getAll().filter({$0.articles.contains(article!.id)}).first {
-                
-                print(articleLink)
-                
+                                
                 let ar = Array(articleLink.articles)
                 
                 if unpairedCompletedIds.contains(ar[0]) && unpairedCompletedIds.contains(ar[1]) {

@@ -192,7 +192,7 @@ final class CompletedArticleView:UIView {
     
     func setData(article:Article, wrongClue:[Int], region:String) {
         
-        dFormatter.dateFormat = "mm.dd.yyyy"
+        dFormatter.dateFormat = "MM.dd.yyyy"
         
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
@@ -205,19 +205,24 @@ final class CompletedArticleView:UIView {
         infoLb.attributedText = infoAString
         
         let articleString:NSMutableAttributedString = "".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
-
         
         for clue in article.clues {
             
             if let a = RealmClue.shared.getLocalClue(id: clue, language: Standard.shared.getLocalized()) {
+                
                 if wrongClue.count > 0 {
-                    for wrong in wrongClue {
-                        if a.id == wrong {
-                            articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .blue)))
-                        }else{
-                            articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
-                        }
+                
+                    print(wrongClue)
+                    print("VVV")
+                    
+                    if wrongClue.contains(a.id) {
+                        articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .blue)))
+
+                    }else{
+                        articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
+
                     }
+
                 }else{
                     articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
                 }
