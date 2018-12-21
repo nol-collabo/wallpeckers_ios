@@ -23,7 +23,7 @@
 "registrationdialog_album" = "Bildergalerie";
 "registrationdialog_noprofile" = "Ohne Foto";
 
-"selectload_desc" = "Du hast das Spiel schon begonnen.\nUm das Spiel fortsetzen\noder das Ergebnis zu sehen,\nklicke auf ‚,Spiel fortsetzen‘‘."
+"selectload_desc" = "Du hast das Spiel schon begonnen.\nUm das Spiel fortsetzen\noder das Ergebnis zu sehen,\nklicke auf ‚,Spiel fortsetzen‘‘.";
 "selectload_newgame" = "Neues Spiel";
 "selectload_continuegame" = "Spiel fortsetzen";
 
@@ -84,7 +84,7 @@
 
 
 "writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt: %1$s;
+"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt: %1$s";
 "factcheck_deskperfect" = "PERFEKT!\nDein Arikel hat den Faktencheck erfolgreich bestanden.";
 
 "factcheckdialog_title" = "EIN GUTER\nARTIKEL";

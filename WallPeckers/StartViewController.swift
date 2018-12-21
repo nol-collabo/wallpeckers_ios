@@ -40,7 +40,7 @@ class StartViewController: UIViewController {
 
         self.navigationController?.isNavigationBarHidden = true
         playButton.backgroundColor = .black
-        playButton.setAttributedTitle("PLAY".makeAttrString(font: .NotoSans(.bold, size: 30), color: .white), for: .normal)
+        playButton.setAttributedTitle("selectlanguage_playbtn".localized.makeAttrString(font: .NotoSans(.bold, size: 30), color: .white), for: .normal)
         playButton.addTarget(self, action: #selector(playBtnTouched(sender:)), for: .touchUpInside)
         
         titleImv.snp.makeConstraints { (make) in

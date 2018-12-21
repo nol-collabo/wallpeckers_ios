@@ -63,13 +63,13 @@ class AlreadyRegisterViewController: UIViewController {
         }
         
         newStartBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(descLb.snp.bottom).offset(200)
+            make.top.equalTo(descLb.snp.bottom).offset(100)
             make.leading.equalTo(30)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
-        newStartBtn.setAttributedTitle("Start a New Game".makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
-        continueBtn.setAttributedTitle("Continue the last game".makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
+        newStartBtn.setAttributedTitle("selectload_newgame".localized.makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
+        continueBtn.setAttributedTitle("selectload_continuegame".localized.makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
         
         continueBtn.snp.makeConstraints { (make) in
             make.top.equalTo(newStartBtn.snp.bottom).offset(30)
@@ -87,7 +87,7 @@ class AlreadyRegisterViewController: UIViewController {
         divider.backgroundColor = .black
         
         nextBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeArea.bottom).offset(-70)
+            make.bottom.equalTo(view.safeArea.bottom).offset(-30)
             make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(60)
             make.centerX.equalToSuperview()
@@ -148,16 +148,5 @@ class AlreadyRegisterViewController: UIViewController {
         sender.isSelected = !(sender.isSelected)
         startType = 2
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

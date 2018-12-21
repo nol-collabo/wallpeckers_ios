@@ -23,7 +23,7 @@
 "registrationdialog_album" = "Gallery";
 "registrationdialog_noprofile" = "Default Iamge";
 
-"selectload_desc" = "You have already played this game.\nIf you want to continue the game or see the result of it\nPress \'Continue the Last Game\'."
+"selectload_desc" = "You have already played this game.\nIf you want to continue the game or see the result of it\nPress \'Continue the Last Game\'.";
 "selectload_newgame" = "Start a New Game";
 "selectload_continuegame" = "Continue the Last Game";
 
