@@ -239,6 +239,36 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 _a.setScore()
             }
             
+            
+            // 이 시점에서 paired article 여부 체크해서 한번 더 띄워야함
+            
+//            RealmArticle.shared.
+            
+    
+            let completedArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
+                
+                $0.isCompleted
+            })
+            
+            if let articleLink = RealmArticleLink.shared.getAll().filter({
+                
+                 $0.articles.contains(article!.id)
+                
+            }).first {
+                
+                print(articleLink)
+                
+
+                
+            }
+            
+            
+            
+//            if completedArticle.contains(<#T##element: Article##Article#>)
+            
+            
+            
+            
             delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
 
         }

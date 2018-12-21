@@ -92,6 +92,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     var localArticles:Results<LocalArticle>?
     
     var articleButtons:[ArticleSelectButton] = []
+    let infoLb = UILabel()
     
     func touchMoveToMyPage(sender: UIButton) {
         sender.isUserInteractionEnabled = false
@@ -213,11 +214,14 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         backButton.setImage(UIImage.init(named: "backButton")!, for: .normal)
         self.view.addSubview(backButton)
         self.view.addSubview(articleTitleLb)
+        self.view.addSubview(infoLb)
         backButton.snp.makeConstraints { (make) in
             make.width.height.equalTo(40)
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-60)
         }
+        
+        
         
         
         articleTitleLb.setNotoText("selectarticle_title".localized, color: .black, size: 24, textAlignment: .center, font: .medium)
@@ -285,6 +289,14 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             
         }
         
+        infoLb.snp.makeConstraints { (make) in
+            make.top.equalTo( articleButtons[8].snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.left.equalTo(10)
+        }
+        infoLb.numberOfLines = 0
+        infoLb.attributedText = "selectarticle_desc".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .black)
+        infoLb.textAlignment = .center
         backButton.addTarget(self, action: #selector(back(sender:)), for: .touchUpInside)
         
         drawLine()

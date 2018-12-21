@@ -102,6 +102,7 @@ final class TutorialView:UIView {
             make.height.equalTo(50)
         }
         topLb.numberOfLines = 0
+        descImv.contentMode = .scaleAspectFit
         
         nextBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(DEVICEHEIGHT > 800 ? -100 : -50)
