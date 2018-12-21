@@ -142,7 +142,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (scrollView.contentOffset.y - 50) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+  
+        if (scrollView.contentOffset.y + 100) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
             //reach bottom
             if !bottomReached {
                 bottomReached = true
