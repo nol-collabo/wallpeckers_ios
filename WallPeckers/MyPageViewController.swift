@@ -143,8 +143,6 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
                 completedArticleView.setData(content: .COMPLETEDARTICLE)
                 aStackView.addRows([credView, completedArticleView])
             }
-        
-//            credView.backgroundColor = .red
         }
        
         

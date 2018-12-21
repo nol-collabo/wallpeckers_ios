@@ -6,4 +6,132 @@
   Copyright © 2018 KimJimin and Company. All rights reserved.
 */
 
-"Play" = "Pla1y";
+"WALLPECKERS" = "WALLPECKERS";
+"selectlanguage_subtitle" = "From the DMZ to the Berlin Wall";
+"selectlanguage_playbtn" = "PLAY";
+
+"registration_toptitle" = "REGISTRATION";
+"registration_undertoptitle" = "PRESS PASS";
+"registration_namehint" = "*PEN NAME: to write your articles under";
+"registration_penname" = "PEN NAME";
+"registration_age" = "AGE";
+"registration_defaultage" = "Select your age group";
+"registration_registbtn" = "Register";
+
+"registrationdialog_title" = "Add Photo";
+"registrationdialog_camera" = "Camera";
+"registrationdialog_album" = "Gallery";
+"registrationdialog_noprofile" = "Default Iamge";
+
+"selectload_desc" = "You have already played this game.\nIf you want to continue the game or see the result of it\nPress \'Continue the Last Game\'."
+"selectload_newgame" = "Start a New Game";
+"selectload_continuegame" = "Continue the Last Game";
+
+"inputkey_title" = "PRESS";
+"inputkey_mymenu" = "Go To My Page";
+"inputkey_passcode" = "PRESS CODE";
+"inputkey_codeguide" = "Enter the PRESS CODE and press \'OK\'";
+"inputkey_errorguide" = "Check the PRESS CODE and Try again";
+
+"inputkeydialog_description" = "Your last game has been finished.\nIf you press \'OK\', your articles of last game\nwill be deleted and start a new game.\nWould you like to start a new one?";
+
+"tutorial1_subtitle" = "WHO, WHEN, WHER,\nWHAT, HOW and WHY?";
+"tutorial1" = "As the Wall stood strong,\nit became a part of everyday\nand you forgot WHY.\n\nThe WALLPECKERS\n- the journalist of the WALL -\nask WHY and find the truth.";
+"tutorial2_subtitle" = "From the DMZ to the Berlin Wall";
+"tutorial2" = "Cover issues about\nthe Korean DMZ, still standing 65 years\nand the Berlin Wall, demolished in 1989.\n\nWrite as many articles as you can\nincluding PAIRED ones";
+"tutorial3_subtitle" = "INTO THE PRESSROOM";
+"tutorial3" = "Collect clues by 5W1H\naround you in the pressroom\nand enter the CODE of them.\n\nGet a FACT-CHECK\nby the desk of WALLPECKERS\nand publish the article.";
+"tutorial4_subtitle" = "GOAL";
+"tutorial4" = "You have 20 minutes\nto complete &amp; publish the articles.\n\nMaximize article points\nto be the journalist of the day!";
+"tutorial_startBtn" = "START";
+
+
+"selectsection_title" = "CHOOSE A TOPIC";
+
+"selectarticle_title" = "CHOOSE AN ARTICLE";
+"selectarticle_desc" = "Finish PAIRED articles &amp; Get 2X points!";
+"CHANGE TOPIC" = "CHANGE TOPIC";
+
+"WHO" = "WHO";
+"WHEN" = "WHEN";
+"WHERE" = "WHERE";
+"WHAT" = "WHAT";
+"HOW" = "HOW";
+"WHY" = "WHY";
+"FACT CHECK" = "FACT CHECK";
+"BACK" = "BACK";
+"Tap_Code" = "Tap to insert CODE";
+"CODE" = "CODE:";
+"ENTER" = "ENTER";
+"OK" = "OK";
+"CANCEL" = "Cancel";
+"REPORT" = "REPORT";
+"COMMENT" = "COMMENT";
+"HASHTAG" = "HASHTAG";
+"MOST" = "#most_popular";
+"MYTAG" = "#MY";
+"at the Berlin Wall" = "at the Berlin Wall";
+"completearticle_korea" = "at the Korean DMZ";
+"MY_PAGE" = "MY PAGE";
+"PRESS" = "PRESS";
+"ARTICLE POINTS" = "ARTICLE POINTS";
+"ARTICLE CREDIBILITY" = "ARTICLE CREDIBILITY";
+"MY NEWSPAPER" = "MY NEWSPAPER";
+"Send Newspaper" = "Send Newspaper";
+"OMPLETED ARTICLES" = "COMPLETED ARTICLES";
+"MY LEVEL" = "MY LEVEL";
+"MY BADGES" = "MY BADGES";
+
+
+"writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
+"factcheck_deskrecheck" = "You may want to re-check the following item is true: %1$s";
+"factcheck_deskperfect" = "PERFECT!\nYour article has been successfully passed the FACT CHECK!";
+
+"factcheckdialog_title" = "A GOOD\nARTICLE";
+"factcheckdialog_perfecttitle" = "A PERFECT\nARTICLE";
+"factcheckdialog_hashguide" = "Pick your emotional #hashtag\nabout the article";
+
+"hash1" = "#happy";
+"hash2" = "#hopeful";
+"hash3" = "#don\'t care";
+"hash4" = "#sad";
+"hash5" = "#frustrated";
+"factcheckdialog_reportbtn" = "PUBLISH THE ARTICLE";
+
+"paireddialog_title" = "PAIRED\nARTICLES";
+
+"completearticle_title" = "COMPLETED ARTICLE";
+"Go to MY PAGE" = "Go to MY PAGE";
+"Go to START" = "Go to START";
+"Printing Press" = "Printing Press";
+"CONGRATULATIONS!" = "CONGRATULATIONS!";
+"timedialog_timeend" = "Time\'s up!";
+"completearticle_desk" = "Some parts of your article were not based on facts and I have edited them.";
+
+"publish_title" = "Printing Press";
+"publish_titlearticle" = "HEADLINE";
+"publish_subarticle1" = "FEATURED 1";
+"publish_subarticle2" = "FEATURED 2";
+"publish_changedesc" = "Select a Headline &amp; 2 Featured Articles.";
+"publish_changebtn" = "Edit My Newspaper";
+"publish_gonews" = "Send Newspaper";
+"publish_gonews_verbose" = "You can send your newspaper via e-mail.";
+"publish_gomymenubtn" = "Go to MYPAGE";
+"publish_gohomebtn" = "Go to START";
+
+"titlearticlechange_title" = "Edit My Newspaper";
+"titlearticlechange_titleselect" = "Select the Headline";
+"titlearticlechange_subselect" = "Your Featured Article";
+"Next" = "Next";
+"titlearticlechange_guide" = "Select 2 Fetured Articles.";
+
+"newspublishdialog_title" = "Share My Newspaper";
+"newspublishdialog_email" = "E-mail";
+"newspublishdialog_print" = "Print Out";
+
+"inputemaildialog_email" = "E-mail Address";
+"Send" = "Send";
+
+"emailsuccessdialog_desc" = "The e-mail successfully has been sent.";
+"printsuccessdialog_desc" = "The newspaper successfully has been printed out.\nGo Get your newspaper at the Printer.";
+

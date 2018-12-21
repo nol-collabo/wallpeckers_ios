@@ -103,7 +103,7 @@ class AlreadyRegisterViewController: UIViewController {
         goetheView.image = UIImage.init(named: "goethe")
         nolgongView.image = UIImage.init(named: "nolgong")
         nextBtn.addTarget(self, action: #selector(moveToMain(sender:)), for: .touchUpInside)
-        nextBtn.setAttributedTitle("OK".makeAttrString(font: .NotoSans(.medium, size: 30), color: .white), for: .normal)
+        nextBtn.setAttributedTitle("OK".localized.makeAttrString(font: .NotoSans(.medium, size: 30), color: .white), for: .normal)
     }
     
     @objc func moveToMain(sender:UIButton) {

@@ -5,5 +5,134 @@
   Created by Seongchan Kang on 29/11/2018.
   Copyright © 2018 KimJimin and Company. All rights reserved.
 */
+"WALLPECKERS" = "WALLPECKERS";
+"selectlanguage_subtitle" = "FDMZ에서 베를린장벽까지";
+"selectlanguage_playbtn" = "PLAY";
 
-"Play" = "실행";
+"registration_toptitle" = "기자증 신청";
+"registration_undertoptitle" = "PRESS PASS";
+"registration_namehint" = "*필명: 내가 쓴 기사에 사용할 이름";
+"registration_penname" = "필명";
+"registration_age" = "연령대";
+"registration_defaultage" = "선택하세요";
+"registration_registbtn" = "등록하기";
+
+"registrationdialog_title" = "사진 추가";
+"registrationdialog_camera" = "카메라";
+"registrationdialog_album" = "사진첩";
+"registrationdialog_noprofile" = "기본 이미지로";
+
+"selectload_desc" = "이미 게임을 플레이한 내역이 있습니다.\n기존 게임을 이어서 하거나 게임 기록을 확인하려면\n이어하기를 선택해주세요.";
+"selectload_newgame" = "새로 시작하기";
+"selectload_continuegame" = "이어하기";
+
+"inputkey_title" = "PRESS";
+"inputkey_mymenu" = "Go To My Page";
+"inputkey_passcode" = "PRESS CODE";
+"inputkey_codeguide" = "프레스 코드를 입력하고 확인을 누르세요";
+"inputkey_errorguide" = "프레스 코드를 확인해주세요";
+
+"inputkeydialog_description" = "지난 게임이 종료되었습니다.\n확인을 누르면 지난 게임 기록이\n사라지고 새 게임이 시작됩니다.\n계속하시겠습니까?";
+
+"tutorial1_subtitle" = "누가, 언제, 어디서,\n무엇을, 어떻게, 왜?";
+"tutorial1" = "단단한 장벽이 서 있는 동안\n벽은 우리 삶의 일부가 되었고\n\'왜?\'라는 물음은 잊혀졌다.\n\n월페커즈(WALLPECKERS)는\n분단 전문 기자로서\n\'왜?\'를 물으며 답을 찾아나선다.";
+"tutorial2_subtitle" = "DMZ에서 베를린장벽까지";
+"tutorial2" = "현재까지 65년간 서있는 DMZ와\n30년 전 무너진 베를린장벽\n사건들을 취재하는 월페커즈.\n\n한국-독일 짝 기사를 포함해서\n가능한 한 많은 기사를 작성하세요.";
+"tutorial3_subtitle" = "기사 작성 방법";
+"tutorial3" = "육하원칙에 따라\n흩어져 있는 단서들을 찾아\n코드를 입력합니다.\n\n작성한 기사가 사실인지\n데스크의 확인을 받은 후\n기사를 발행할 수 있습니다.";
+"tutorial4_subtitle" = "게임 목표";
+"tutorial4" = "마감까지 주어진 시간은\n단 20분.\n\n오늘의 기자상을 목표로\n기사 점수를 쌓으세요!";
+"tutorial_startBtn" = "시작하기";
+
+
+"selectsection_title" = "주제를 선택하세요";
+
+"selectarticle_title" = "기사를 선택하세요";
+"selectarticle_desc" = "짝 기사를 완성하면 포인트가 두 배!";
+"CHANGE TOPIC" = "다른 주제 선택하기";
+
+"WHO" = "누가";
+"WHEN" = "언제";
+"WHERE" = "어디서";
+"WHAT" = "무엇을";
+"HOW" = "어떻게";
+"WHY" = "왜";
+"FACT CHECK" = "팩트체크";
+"BACK" = "뒤로 가기";
+"Tap_Code" = "← 눌러서 코드 입력";
+"CODE" = "코드:";
+"ENTER" = "입력";
+"OK" = "확인";
+"CANCEL" = "취소";
+"REPORT" = "송고하기";
+"COMMENT" = "댓글";
+"HASHTAG" = "나의 감정 해시태그";
+"MOST" = "#인기 태그";
+"MYTAG" = "#내 태그";
+"at the Berlin Wall" = "베를린장벽에서";
+"completearticle_korea" = "c한반도 DMZ에서";
+"MY_PAGE" = "마이페이지";
+"PRESS" = "PRESS";
+"ARTICLE POINTS" = "기사 점수";
+"ARTICLE CREDIBILITY" = "기사 신뢰도";
+"MY NEWSPAPER" = "내 신문";
+"Send Newspaper" = "이메일 보내기";
+"OMPLETED ARTICLES" = "완성한 기사";
+"MY LEVEL" = "내 레벨";
+"MY BADGES" = "내 뱃지";
+
+
+"writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
+"factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요: %1$s";
+"factcheck_deskperfect" = "P완벽하군요!\n당신의 기사는 팩트 체크를 무사 통과했습니다.";
+
+"factcheckdialog_title" = "A GOOD\nARTICLE";
+"factcheckdialog_perfecttitle" = "A PERFECT\nARTICLE";
+"factcheckdialog_hashguide" = "기사에 대한 나의 감정 태그를\n골라주세요";
+
+"hash1" = "#행복";
+"hash2" = "#희망적";
+"hash3" = "#관심없음";
+"hash4" = "#슬픔";
+"hash5" = "#절망적";
+"factcheckdialog_reportbtn" = "기사 발행하기";
+
+"paireddialog_title" = "짝 기사 완성";
+
+"completearticle_title" = "완성한 기사";
+"Go to MY PAGE" = "Go to MY PAGE";
+"Go to START" = "Go to START";
+"Printing Press" = "Printing Press";
+"CONGRATULATIONS!" = "CONGRATULATIONS!";
+"timedialog_timeend" = "Time\'s up!";
+"completearticle_desk" = "기사 중 일부가 사실이 아니었으므로, 편집부에서 수정 후 발행했습니다.";
+
+
+
+"publish_title" = "신문 출력소";
+"publish_titlearticle" = "헤드라인";
+"publish_subarticle1" = "주요기사 1";
+"publish_subarticle2" = "주요기사 2";
+"publish_changedesc" = "헤드라인 1개와 주요기사 2개를 선택하세요.";
+"publish_changebtn" = "내 신문 편집하기";
+"publish_gonews" = "이메일 보내기";
+"publish_gonews_verbose" = "편집한 신문을 이메일로 보낼 수 있습니다.";
+"publish_gomymenubtn" = "마이페이지";
+"publish_gohomebtn" = "시작 화면";
+
+"titlearticlechange_title" = "신문 편집하기";
+"titlearticlechange_titleselect" = "1. 헤드라인 선택";
+"titlearticlechange_subselect" = "2. 주요기사 선택";
+"Next" = "다음";
+"titlearticlechange_guide" = "주요기사는 2개 선택해주세요.";
+
+"newspublishdialog_title" = "내 신문 공유하기";
+"newspublishdialog_email" = "이메일로 보내기";
+"newspublishdialog_print" = "프린트하기";
+
+"inputemaildialog_email" = "이메일 주소";
+"Send" = "보내기";
+
+"emailsuccessdialog_desc" = "메일이 성공적으로\n발송되었습니다.";
+"printsuccessdialog_desc" = "성공적으로 인쇄되었습니다.\n신문 배포처로 이동하여 신문을 수령하세요.";
+
