@@ -234,6 +234,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             article?.selectedHashtag = hashtag
             article?.totalQuestionCount = questionCount
             article?.correctQuestionCount = correctCount
+            
             if let _a = self.parent as? GameViewController {
                 
                 _a.setScore()
@@ -242,41 +243,29 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             
             // 이 시점에서 paired article 여부 체크해서 한번 더 띄워야함
             
-//            RealmArticle.shared.
-            
-    
-            let completedArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
-                
-                $0.isCompleted
-            })
-            
-            if let articleLink = RealmArticleLink.shared.getAll().filter({
-                
-                 $0.articles.contains(article!.id)
-                
-            }).first {
+            let unpairedCompletedIds = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({!($0.isPairedArticle) && $0.isCompleted}).map({$0.id})
+
+            if let articleLink = RealmArticleLink.shared.getAll().filter({$0.articles.contains(article!.id)}).first {
                 
                 print(articleLink)
                 
-
+                let ar = Array(articleLink.articles)
                 
+                if unpairedCompletedIds.contains(ar[0]) && unpairedCompletedIds.contains(ar[1]) {
+                    print("Time To Paired Popup")
+                    if let ar1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar[0]}).first,
+                        let ar2 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar[1]}).first {
+                        ar1.isPairedArticle = true
+                        ar2.isPairedArticle = true
+                    }else{
+                        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
+                    }
+                }else{
+                    delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
+                }
             }
-            
-            
-            
-//            if completedArticle.contains(<#T##element: Article##Article#>)
-            
-            
-            
-            
-            delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
-
         }
-        
-
     }
-    
-    
 }
 
 final class BasicBubbleView:UIView {
