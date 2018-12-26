@@ -225,6 +225,8 @@ extension FactCheckViewController:ArticleSubmitDelegate {
         try! realm.write {
             
     
+            //이 구간이 영어/독어 일때 체크가 안되고 있음 
+            
             _ = wrongQuestionId.map({
                 
                 article?.wrongQuestionsId.append($0)
@@ -234,6 +236,10 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             article?.selectedHashtag = hashtag
             article?.totalQuestionCount = questionCount
             article?.correctQuestionCount = correctCount
+            
+            print(article?.isCompleted)
+            print("{FJLFJFKLFJKL"
+)
             
             if let _a = self.parent as? GameViewController {
                 
@@ -245,7 +251,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             
             let unpairedCompletedIds = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({!($0.isPairedArticle) && $0.isCompleted}).map({$0.id})
 
-            if let articleLink = RealmArticleLink.shared.getAll().filter({$0.articles.contains(article!.id)}).first {
+            if let articleLink = RealmArticleLink.shared.get(Standard.shared.getLocalized()).filter({$0.articles.contains(article!.id)}).first {
                                 
                 let ar = Array(articleLink.articles)
                 
@@ -255,6 +261,11 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                         let ar2 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar[1]}).first {
                         ar1.isPairedArticle = true
                         ar2.isPairedArticle = true
+                    
+                        let point = (ar1.point + ar2.point) * 2
+                        
+                        PopUp.callPairedPopUp(articleLink: articleLink, left: ar1, right: ar2, earnPoint: point, vc: self)
+                        
                     }else{
                         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
                     }
@@ -264,6 +275,17 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             }
         }
     }
+}
+
+extension FactCheckViewController:PairedPopupDelegate {
+    func moveToNext(sender: UIButton) {
+        
+         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
+        
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article,article?.selectedHashtag, wrongQuestionId), direction: .forward)
+    }
+    
+    
 }
 
 final class BasicBubbleView:UIView {

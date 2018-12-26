@@ -39,7 +39,7 @@ class TopicViewController: GameTransitionBaseViewController {
 
         for i in 1...sections.count {
             
-            let a = RealmArticle.shared.get(selectedLanguage).filter({
+            let a = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
                 
                 $0.section == i
                 
@@ -49,7 +49,7 @@ class TopicViewController: GameTransitionBaseViewController {
                 
                 $0.correctQuestionCount
             }).reduce(0, +)
-            
+                        
             self.sectionStars.append(starCount)
             
         }

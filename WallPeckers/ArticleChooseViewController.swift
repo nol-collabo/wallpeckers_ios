@@ -10,9 +10,10 @@ import UIKit
 import RealmSwift
 import Realm
 
+let iconWidth = DEVICEHEIGHT > 600 ? 93 : 83
+
 class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupViewDelegate, ArticleSelectDelegate {
     
-    let iconWidth = DEVICEHEIGHT > 600 ? 93 : 83
 
     
     func tapArticle(sender: ArticleSelectButton) {
@@ -363,6 +364,7 @@ class ArticleSelectButton:UIView {
         self.backgroundColor = backgroundColor
         self.tag = tag
         self.setBorder(color: borderColor, width: 4.5)
+        self.titleLb.adjustsFontSizeToFitWidth = true
     }
     
     func changeBackground(status:ArticleCompleteStatus) {

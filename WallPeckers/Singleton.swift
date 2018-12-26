@@ -85,7 +85,7 @@ class RealmArticle {
     
     private init() {}
     
-    private func getAll() -> [Article]{
+    open func getAll() -> [Article]{
         
         return Array(realm.objects(Article.self))
         
@@ -119,7 +119,15 @@ class RealmArticle {
                     
                     let translate = Article()
                     
-                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: $0.clues, hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle)
+                    
+                    print($0.isCompleted, "COMPLETED!")
+//                    print(local)
+                    
+                   
+                     translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: Array($0.clues), hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle)
+
+                    print(translate.isCompleted)
+                    print("VBBBBB")
                     
                     translateArticles.append(translate)
                 }
@@ -144,6 +152,43 @@ class RealmArticleLink {
     open func getAll() -> [ArticleLink] {
         
         return Array(realm.objects(ArticleLink.self))
+        
+    }
+    
+    func get(_ language:Language) -> [ArticleLink] {
+        
+        var lanInt = 0
+        let originals = getAll()
+        
+        switch language {
+        case .ENGLISH:
+            lanInt = 2
+        case .KOREAN :
+            return originals
+        case .GERMAN :
+            lanInt = 3
+        }
+        
+        var localLink = Array(realm.objects(LocalArticleLink.self).filter("language = \(lanInt)"))
+        
+        var translates:[ArticleLink] = []
+        
+        _ = originals.map({
+            
+            for la in localLink {
+                if $0.id == la.article_link {
+                    
+                    let tr = ArticleLink()
+                    
+                    tr.translate(desc:la.desc!, id: $0.id, color: $0.color!, articles: Array($0.articles))
+                    
+                    translates.append(tr)
+                }
+            }
+            
+        })
+        
+        return translates
         
     }
 }
