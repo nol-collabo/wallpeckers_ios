@@ -124,7 +124,11 @@ class EditFeaturesViewController: UIViewController {
             make.height.equalTo(55)
             make.centerX.equalToSuperview()
         }
-        nextButton.isEnabled = false
+        if selectedId.count == 2 {
+            nextButton.isEnabled = true
+        }else{
+            nextButton.isEnabled = false
+        }
         //
         nextButton.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
         nextButton.setTitle("OK", for: .normal)
