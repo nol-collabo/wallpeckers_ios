@@ -139,6 +139,7 @@ class PublishViewController: UIViewController {
         }
         editButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
         sendButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
+        
         editButton.setBorder(color: .black, width: 1.5)
         sendButton.setBorder(color: .black, width: 1.5)
         underLine2.snp.makeConstraints { (make) in
@@ -177,6 +178,8 @@ class PublishViewController: UIViewController {
             make.bottom.equalTo(-20)
         }
         editButton.addTarget(self, action: #selector(moveToEdit(sender:)), for: .touchUpInside)
+        myPageButton.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)
+        startButton.addTarget(self, action: #selector(moveToStart(sender:)), for: .touchUpInside)
         
     }
     
@@ -190,12 +193,30 @@ class PublishViewController: UIViewController {
         
     }
     
-
+    @objc func moveToMyPage(sender:UIButton){
+        sender.isUserInteractionEnabled = false
+        
+        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
+        sender.isUserInteractionEnabled = true
+        
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func moveToStart(sender:UIButton) {
+        
+        sender.isUserInteractionEnabled = false
+        
+        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
+        sender.isUserInteractionEnabled = true
+        
+        self.present(vc, animated: true)
+        
+    }
+    
 }
 
 protocol EditHeadlineProtocol {
     
-
     var headlines:[Int]? {get}
     
 }

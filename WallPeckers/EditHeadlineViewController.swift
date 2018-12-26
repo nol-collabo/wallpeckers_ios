@@ -29,14 +29,20 @@ class EditHeadlineViewController: UIViewController {
     }
     
     @objc func moveBack(sender:UIButton) {
+        
 
-        if let vc = self.navigationController?.viewControllers.filter({$0 is PublishViewController}).first as? PublishViewController {
-            
-            vc.delegate = self
-            
-            self.navigationController?.popToViewController(vc, animated: true)
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditFeaturesViewController") as? EditFeaturesViewController else {return}
+        
 
-        }
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        if let vc = self.navigationController?.viewControllers.filter({$0 is PublishViewController}).first as? PublishViewController {
+//
+////            vc.delegate = self
+//
+//            self.navigationController?.popToViewController(vc, animated: true)
+//
+//        }
         
     }
     
@@ -53,13 +59,3 @@ class EditHeadlineViewController: UIViewController {
 
 }
 
-extension EditHeadlineViewController:EditHeadlineProtocol {
-    var headlines: [Int]? {
-        get {
-            return [1,2,3] // 수정된 헤드라인 보여주면됨
-        }
-        
-    }
-
-    
-}
