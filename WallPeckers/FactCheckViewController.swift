@@ -235,15 +235,12 @@ extension FactCheckViewController:ArticleSubmitDelegate {
     
             //이 구간이 영어/독어 일때 체크가 안되고 있음
             
-            _ = wrongQuestionId.map({
-                
-                article?.wrongQuestionsId.append($0)
-            })
+   
             
-            article?.isCompleted = true
-            article?.selectedHashtag = hashtag
-            article?.totalQuestionCount = questionCount
-            article?.correctQuestionCount = correctCount
+//            article?.isCompleted = true
+//            article?.selectedHashtag = hashtag
+//            article?.totalQuestionCount = questionCount
+//            article?.correctQuestionCount = correctCount
             
             
             if let saved = RealmArticle.shared.getAll().filter({$0.id == article!.id}).first {
@@ -251,6 +248,10 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 saved.selectedHashtag = hashtag
                 saved.totalQuestionCount = questionCount
                 saved.correctQuestionCount = correctCount
+                _ = wrongQuestionId.map({
+                    
+                    saved.wrongQuestionsId.append($0)
+                })
                 
             }
 
@@ -288,10 +289,6 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                             
                             _a.setScore()
                         }
-                        
-                        
-                        print(point)
-                        print("VVVV")
                         
                         PopUp.callPairedPopUp(articleLink: articleLink, left: ar1, right: ar2, earnPoint: point, vc: self)
                         

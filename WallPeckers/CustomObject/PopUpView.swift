@@ -157,7 +157,7 @@ class PairedArticleView:BasePopUpView {
         
         popupView.snp.remakeConstraints { (make) in
             make.center.equalToSuperview()
-            make.leading.equalTo(40)
+            make.leading.equalTo(30)
 //            make.height.equalTo(popUpViewHeight)
         }
         self.popupView.addSubview([topStackView, leftArticle, rightArticle, linkView, pointLb, descLb, okButton])
@@ -200,13 +200,13 @@ class PairedArticleView:BasePopUpView {
         
         leftArticle.snp.makeConstraints { (make) in
             make.top.equalTo(topStackView.snp.bottom).offset(10)
-            make.leading.equalTo(40)
+            make.leading.equalTo(DeviceSize.width > 320 ? 40 : 30)
             make.width.height.equalTo(iconWidth)
         }
         
         rightArticle.snp.makeConstraints { (make) in
             make.top.equalTo(topStackView.snp.bottom).offset(10)
-            make.trailing.equalTo(-40)
+            make.trailing.equalTo(DeviceSize.width > 320 ? -40 : -30)
             make.width.height.equalTo(iconWidth)
         }
         

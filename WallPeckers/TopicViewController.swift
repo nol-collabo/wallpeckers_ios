@@ -39,7 +39,7 @@ class TopicViewController: GameTransitionBaseViewController {
 
         for i in 1...sections.count {
             
-            let a = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
+            let a = RealmArticle.shared.getAll().filter({
                 
                 $0.section == i
                 

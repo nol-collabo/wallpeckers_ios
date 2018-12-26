@@ -28,6 +28,15 @@ class Level:Object {
         self.id = json["id"].intValue
     }
     
+    func translate(level:Int, grade:String, maxPoint:Int, minPoint:Int) {
+        
+        self.id = level
+        self.grade = grade
+        self.maxPoint = maxPoint
+        self.minPoint = minPoint
+        
+    }
+    
     
 }
 

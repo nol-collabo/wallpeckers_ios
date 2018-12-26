@@ -44,7 +44,7 @@ class AfterRegisterViewController: UIViewController {
         
         }
         
-        mainProfileView.setData(userData: realm.objects(User.self).last!, level: nil, camera: false, nameEdit: false, myPage: true)
+        mainProfileView.setData(userData: realm.objects(User.self).last!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: true)
         
         pressCodeTf.snp.makeConstraints { (make) in
             make.top.equalTo(mainProfileView.snp.bottom).offset(46)

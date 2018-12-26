@@ -79,8 +79,8 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         
         
         //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
-        completedBadges.append(1)
-        completedBadges.append(2)
+//        completedBadges.append(1)
+//        completedBadges.append(2)
         
         setUI()
 
@@ -128,7 +128,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
             
         }
         
-        profileView.setData(userData: RealmUser.shared.getUserData()!, level: "intern", camera: true, nameEdit: true, myPage: false)
+        profileView.setData(userData: RealmUser.shared.getUserData()!, level: RealmUser.shared.getUserLevel(), camera: true, nameEdit: true, myPage: false)
         
         
         //완료된 거 없으면 히든처리할 놈들
@@ -144,7 +144,6 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
        
         
         //엔딩페이지에서만 보이는 신문
-        
         
         aStackView.addRows([levelView, badgeView])
         
@@ -379,8 +378,10 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             }
             articleStackView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
-                make.height.equalTo(140 * completedArticle.count)
+                make.height.equalTo(150 * completedArticle.count)
             }
+            self.layoutIfNeeded()
+            self.layoutSubviews()
             articleStackView.isScrollEnabled = false
         }
     }
@@ -518,6 +519,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
             make.leading.equalTo(7)
             make.centerX.equalToSuperview()
         }
+        self.layoutSubviews()
+        self.layoutIfNeeded()
         underLine.backgroundColor = .black
         
     }
@@ -628,8 +631,6 @@ class NewspaperPublishedView:UIView {
         }
     }
     
-//    func setData() {
-    
     @objc func moveToNext(sender:UIButton) {
         
         delegate?.moveToNext(sender: sender)
@@ -653,17 +654,6 @@ class LevelCustomView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        
-       
-        
-//        self.addSubview(levelLineView)
-//        levelLineView.backgroundColor = .red
-////        levelLineView.draw(.zero)
-//        levelLineView.snp.makeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//        }
-        
  
     }
     

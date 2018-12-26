@@ -134,6 +134,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         if time == 0 { //완료 됐을떄
             
             PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
+            
             print("END!")
             
         }else if time == 60 { // 1분 남았을 때
@@ -192,7 +193,7 @@ extension GameViewController:GameViewTransitionDelegate {
                     $0.point
                 }).reduce(0, +)
                 
-                
+                vc.changeColor()
                 btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
                 articleButtons.append(btn)
                 
