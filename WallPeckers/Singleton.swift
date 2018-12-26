@@ -63,13 +63,26 @@ class RealmUser {
             user.stars = 0
             
             _ = RealmArticle.shared.get(Standard.shared.getLocalized()).map({
-                
+                $0.isPairedArticle = false
                 $0.isCompleted = false
                 $0.correctQuestionCount = 0
                 $0.wrongQuestionsId.removeAll()
                 $0.selectedHashtag = 0
                 $0.totalQuestionCount = 0
+                $0.point = 0
                 
+            })
+            
+            _ = RealmArticle.shared.getAll().map({
+                
+                $0.isPairedArticle = false
+                $0.isCompleted = false
+                $0.correctQuestionCount = 0
+                $0.wrongQuestionsId.removeAll()
+                $0.selectedHashtag = 0
+                $0.totalQuestionCount = 0
+                $0.point = 0
+
             })
         }
     }
@@ -118,13 +131,8 @@ class RealmArticle {
                 if $0.id == local.article {
                     
                     let translate = Article()
-                    
-                    
-                    print($0.isCompleted, "COMPLETED!")
-//                    print(local)
-                    
                    
-                     translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: Array($0.clues), hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle)
+                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: Array($0.clues), hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle, point: $0.point)
 
                     print(translate.isCompleted)
                     print("VBBBBB")

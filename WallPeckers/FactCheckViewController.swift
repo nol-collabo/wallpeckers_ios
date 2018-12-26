@@ -220,8 +220,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
         self.article = article
         self.five = five
         self.questionPoint = questionPoint
-        print(questionPoint)
-        print("FFFFF")
+     
     }
 }
 
@@ -252,7 +251,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 saved.selectedHashtag = hashtag
                 saved.totalQuestionCount = questionCount
                 saved.correctQuestionCount = correctCount
-                print("VVVJVJVJVJVJVJVJ")
+                
             }
 
             
@@ -260,7 +259,8 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 
                 _a.setScore()
             }
-        }
+        
+        
             
             
             // 이 시점에서 paired article 여부 체크해서 한번 더 띄워야함
@@ -273,12 +273,25 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 
                 if unpairedCompletedIds.contains(ar[0]) && unpairedCompletedIds.contains(ar[1]) {
                     print("Time To Paired Popup")
-                    if let ar1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar[0]}).first,
-                        let ar2 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar[1]}).first {
-                        ar1.isPairedArticle = true
-                        ar2.isPairedArticle = true
-                    
+                    if let ar1 = RealmArticle.shared.getAll().filter({$0.id == ar[0]}).first,
+                        let ar2 = RealmArticle.shared.getAll().filter({$0.id == ar[1]}).first {
+                        
+                            ar1.isPairedArticle = true
+                            ar2.isPairedArticle = true
+
                         let point = (ar1.point + ar2.point) * 2
+                        
+                        RealmUser.shared.getUserData()?.score += point
+                        
+                        
+                        if let _a = self.parent as? GameViewController {
+                            
+                            _a.setScore()
+                        }
+                        
+                        
+                        print(point)
+                        print("VVVV")
                         
                         PopUp.callPairedPopUp(articleLink: articleLink, left: ar1, right: ar2, earnPoint: point, vc: self)
                         
@@ -290,6 +303,8 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 }
             }
         }
+    }
+    
 }
 
 extension FactCheckViewController:PairedPopupDelegate {

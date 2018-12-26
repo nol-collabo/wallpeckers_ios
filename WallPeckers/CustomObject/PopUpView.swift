@@ -155,8 +155,11 @@ class PairedArticleView:BasePopUpView {
     
     private func setUI() {
         
-        self.setPopUpViewHeight(450)
-
+        popupView.snp.remakeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.leading.equalTo(40)
+//            make.height.equalTo(popUpViewHeight)
+        }
         self.popupView.addSubview([topStackView, leftArticle, rightArticle, linkView, pointLb, descLb, okButton])
         
         let leftWingImv = UIImageView.init(image: UIImage.init(named: "leftWing"))
@@ -197,15 +200,24 @@ class PairedArticleView:BasePopUpView {
         
         leftArticle.snp.makeConstraints { (make) in
             make.top.equalTo(topStackView.snp.bottom).offset(10)
-            make.leading.equalTo(50)
+            make.leading.equalTo(40)
             make.width.height.equalTo(iconWidth)
         }
         
         rightArticle.snp.makeConstraints { (make) in
             make.top.equalTo(topStackView.snp.bottom).offset(10)
-            make.trailing.equalTo(-50)
+            make.trailing.equalTo(-40)
             make.width.height.equalTo(iconWidth)
         }
+        
+        linkView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(rightArticle.snp.centerY)
+            make.leading.equalTo(leftArticle.snp.trailing)
+            make.trailing.equalTo(rightArticle.snp.leading)
+            make.height.equalTo(15)
+            
+        }
+        linkView.backgroundColor = .black
         
         pointLb.snp.makeConstraints { (make) in
             make.top.equalTo(rightArticle.snp.bottom).offset(20)
@@ -222,6 +234,7 @@ class PairedArticleView:BasePopUpView {
         self.popupView.setBorder(color: .black, width: 2.5)
         okButton.setTitle("OK", for: .normal)
         okButton.snp.makeConstraints { (make) in
+            make.top.equalTo(descLb.snp.bottom).offset(10)
             make.bottom.equalTo(-20)
             make.leading.equalTo(50)
             make.height.equalTo(40)
@@ -309,14 +322,13 @@ class ArticleSubmitView:BasePopUpView {
         
     }
     
+    
     func setData(article:Article, correctCount:Int, questionCount:Int) {
         
         var point = 0
 
         switch questionCount {
-            
-            
-            
+
         case 1:
             topStarView.attributedText = "★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
             point = 100
@@ -397,7 +409,12 @@ class ArticleSubmitView:BasePopUpView {
         
         try! realm.write {
             RealmUser.shared.getUserData()?.score += point
-            article.point = point
+//            article.point = point
+            
+            if let saved = RealmArticle.shared.getAll().filter({$0.id == article.id}).first {
+                saved.point = point
+            }
+            
         }
         
         let pointString = "\n\(point) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 49), color: .black)

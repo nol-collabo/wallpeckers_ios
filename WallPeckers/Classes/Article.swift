@@ -57,14 +57,14 @@ class Article:Object {
     
     }
     
-    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:[Int], hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int, isPaired:Bool) {
+    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:[Int], hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int, isPaired:Bool, point:Int) {
         
         self.word = word
         self.title = title
         self.title_sub = title_sub
         self.result = result
         self.id = id
-        
+        self.point = point
         _ = clues.map({
             self.clues.append($0)
 
