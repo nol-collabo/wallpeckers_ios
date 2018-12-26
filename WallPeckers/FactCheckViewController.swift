@@ -23,6 +23,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     var questionCount:Int = 0
     var correctCount:Int = 0
     var wrongQuestionId:[Int] = []
+    var questionPoint:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +88,12 @@ class FactCheckViewController: GameTransitionBaseViewController {
             let articleView = ArticleView()
             articleView.forFactCheck()
             
-            articleView.setData(article: article!, point: "300")
+            
+            if let _questionPoint = questionPoint, let _article = article {
+                articleView.setData(article: _article, point: _questionPoint)
+
+            }
+            
 
             aStackView.addRow(articleView)
             
@@ -208,11 +214,14 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     
-    func setData(_ data:[FactCheck], article:Article, five:[Five_W_One_Hs]) {
+    func setData(_ data:[FactCheck], article:Article, five:[Five_W_One_Hs], questionPoint:String) {
         
         self.checkData = data
         self.article = article
         self.five = five
+        self.questionPoint = questionPoint
+        print(questionPoint)
+        print("FFFFF")
     }
 }
 
@@ -225,7 +234,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
         try! realm.write {
             
     
-            //이 구간이 영어/독어 일때 체크가 안되고 있음 
+            //이 구간이 영어/독어 일때 체크가 안되고 있음
             
             _ = wrongQuestionId.map({
                 
@@ -237,14 +246,21 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             article?.totalQuestionCount = questionCount
             article?.correctQuestionCount = correctCount
             
-            print(article?.isCompleted)
-            print("{FJLFJFKLFJKL"
-)
+            
+            if let saved = RealmArticle.shared.getAll().filter({$0.id == article!.id}).first {
+                saved.isCompleted = true
+                saved.selectedHashtag = hashtag
+                saved.totalQuestionCount = questionCount
+                saved.correctQuestionCount = correctCount
+                print("VVVJVJVJVJVJVJVJ")
+            }
+
             
             if let _a = self.parent as? GameViewController {
                 
                 _a.setScore()
             }
+        }
             
             
             // 이 시점에서 paired article 여부 체크해서 한번 더 띄워야함
@@ -274,7 +290,6 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 }
             }
         }
-    }
 }
 
 extension FactCheckViewController:PairedPopupDelegate {
