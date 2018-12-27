@@ -134,15 +134,11 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         timerView?.updateTime(time)
         if time == 0 { //완료 됐을떄
             
-            PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
-            
-            print("END!")
+            PopUp.callAlert(time: "00:00", desc: "timedialog_timeend".localized, vc: self, tag: 1)
             
         }else if time == 60 { // 1분 남았을 때
-            PopUp.callAlert(time: "01:00", desc: "1분", vc: self, tag: 2)
-            
-            print("1minute!")
-            
+            PopUp.callAlert(time: "01:00", desc: String(format:"timedialog_timelimit".localized, "1"), vc: self, tag: 2)
+                        
         }
         
     }

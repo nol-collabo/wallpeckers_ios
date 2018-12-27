@@ -146,3 +146,5 @@
 "getBadge" = " Congratulations! You've got the %@!";
 "getPrize" = "Congratulations!\nYou're the %@\nof the Day.";
 
+"timedialog_timeend" = "Time's up!";
+"timedialog_timelimit" = "You have %@minuites left.";

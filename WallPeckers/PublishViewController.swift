@@ -188,9 +188,18 @@ class PublishViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-20)
         }
+        sendButton.addTarget(self, action: #selector(callSendOption(sender:)), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(moveToEdit(sender:)), for: .touchUpInside)
         myPageButton.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)
         startButton.addTarget(self, action: #selector(moveToStart(sender:)), for: .touchUpInside)
+        
+    }
+    
+    @objc func callSendOption(sender:UIButton) {
+        
+        sender.isUserInteractionEnabled = false
+        PopUp.call(mainTitle: "뉴스", selectButtonTitles: ["이메일", "인쇄하기"], bottomButtonTitle: "확인", bottomButtonType: 0, self, buttonImages: nil)
+        sender.isUserInteractionEnabled = true
         
     }
     
@@ -224,6 +233,34 @@ class PublishViewController: UIViewController {
         sender.isUserInteractionEnabled = true
         self.present(vc, animated: true, completion: nil)
     }
+    
+}
+
+extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate {
+    func tapBottomButton(sender: AlertPopUpView) {
+        sender.removeFromSuperview()
+    }
+    
+    func bottomButtonTouched(sender: UIButton) {
+        self.removePopUpView()
+    }
+    
+    func selectButtonTouched(tag: Int) {
+        print(tag)
+        
+        
+        if tag == 1 {
+            
+            //서버로 인쇄 관련 api 전송 시점임
+            
+            PopUp.callAlert(time: "", desc: "printsuccessdialog_desc".localized, vc: self, tag: 1)
+            self.removePopUpView()
+        }else if tag == 0 {
+            //이메일 팝업 호출 시점
+        }
+        
+    }
+    
     
 }
 

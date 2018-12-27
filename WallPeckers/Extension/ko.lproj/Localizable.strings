@@ -146,3 +146,6 @@
 "levelup" = "나는 현재 \n%@ 입니다.";
 "getBadge" = "축하합니다! %@ 뱃지를 획득했습니다!";
 "getPrize" = "축하합니다!\n오늘의 %@ 상을\n받았습니다!";
+
+"timedialog_timeend" = "기사 작성을 마감합니다!";
+"timedialog_timelimit" = "마감 %@분 남았습니다.";

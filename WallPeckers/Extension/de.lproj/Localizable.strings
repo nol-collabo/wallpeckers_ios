@@ -145,3 +145,6 @@
 "levelup" = "Du bist jetzt \n%@.";
 "getBadge" = "Herzlichen Glückwunsch! Du bekommst ein %@ geworden!";
 "getPrize" = "HERZLICHEN GLÜCKWUNSCH! Du bist der %@ des Tages!";
+
+"timedialog_timeend" = "Die Zeit ist um!";
+"timedialog_timelimit" = "Du hast noch %@ Minuten.";

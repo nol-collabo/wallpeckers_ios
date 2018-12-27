@@ -828,14 +828,17 @@ class AlertPopUpView:BasePopUpView {
         self.popupView.setBorder(color: .black, width: 2.5)
 
         timeLb.snp.makeConstraints { (make) in
-            make.top.equalTo(10)
+            make.top.equalTo(50)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
         }
+        timeLb.textAlignment = .center
+        descLb.textAlignment = .center
+        descLb.numberOfLines = 0
         descLb.snp.makeConstraints { (make) in
-//            make.top.equalTo(timeLb.snp.bottom).offset(20)
+            make.top.equalTo(timeLb.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-10)
+//                make.centerY.equalToSuperview().offset(-10)
             make.leading.equalTo(32)
         }
         bottomButton.snp.makeConstraints { (make) in
@@ -845,7 +848,34 @@ class AlertPopUpView:BasePopUpView {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-24)
         }
+        bottomButton.setTitle("OK".localized, for: .normal)
         bottomButton.addTarget(self, action: #selector(tapButton(sender:)), for: .touchUpInside)
+    }
+    
+    func setData(title:String, desc:String) {
+        self.timeLb.attributedText = title.makeAttrString(font: .NotoSans(.bold, size: 48), color: .black)
+        self.descLb.attributedText = desc.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
+        
+        if title == "" {
+            
+            self.setPopUpViewHeight(220)
+
+            descLb.snp.remakeConstraints { (make) in
+                make.top.equalTo(20)
+                make.centerX.equalToSuperview()
+                make.leading.equalTo(20)
+            }
+            bottomButton.snp.makeConstraints { (make) in
+                //            make.top.equalTo(descLb.snp.bottom).offset(10)
+                make.width.equalTo(200)
+                make.height.equalTo(43)
+                make.centerX.equalToSuperview()
+                make.bottom.equalTo(-10)
+            }
+            self.layoutSubviews()
+            self.layoutIfNeeded()
+
+        }
     }
     
     @objc func tapButton(sender:AlertPopUpView) {
@@ -948,8 +978,7 @@ struct PopUp {
         let popUpView = AlertPopUpView()
         
         vc.view.addSubview(popUpView)
-        popUpView.timeLb.setNotoText(time, size: 12, textAlignment: .center)
-        popUpView.descLb.setNotoText(desc, size: 12, textAlignment: .center)
+        popUpView.setData(title: time, desc: desc)
         popUpView.delegate = vc as? AlerPopupViewDelegate
         popUpView.tag = tag
         
@@ -980,9 +1009,7 @@ struct PopUp {
             popUpView.setButton(selectedButton: selectButtonTitles, bottomBtn: bottomButtonTitle, buttonImages: nil)
 
         }
-        
-//        if let buttonImage
-        
+                
         popUpView.bottomButtonType(bottomButtonType)
         popUpView.popupView.setBorder(color: .black, width: 5)
         
