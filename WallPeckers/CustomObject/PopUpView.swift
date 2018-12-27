@@ -670,7 +670,6 @@ class SelectPopUpView:BasePopUpView {
     private func setUI() {
         
         popupView.addSubview([titleView, buttonView, bottomView])
-        
         titleView.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.leading.equalTo(0)
@@ -716,28 +715,46 @@ class SelectPopUpView:BasePopUpView {
         
     }
     
-    func setButton(selectedButton:[String], bottomBtn:String) {
+    func setButton(selectedButton:[String], bottomBtn:String, buttonImages:[UIImage]?) {
         
         confirmBtn.setAttributedTitle(bottomBtn.makeAttrString(font: .NotoSans(.medium, size: 20), color: .white), for: .normal)
 
         
         buttonView.snp.updateConstraints { (make) in
-            make.height.equalTo(selectedButton.count * 60)
+            make.height.equalTo(selectedButton.count * 70)
         }
+        if let _ = buttonImages {
+            self.setPopUpViewHeight(380)
+        }
+        buttonView.isScrollEnabled = false
+//        buttonView.al
+
+        self.layoutIfNeeded()
         for i in 0...selectedButton.count - 1 {
             
             let button = UIButton()
             
-            button.setAttributedTitle(selectedButton[i].makeAttrString(font: .NotoSans(.medium, size: 18), color: .black), for: .normal)
-            button.setAttributedTitle(selectedButton[i].makeAttrString(font: .NotoSans(.medium, size: 18), color: .white), for: .selected)
+            button.setAttributedTitle("  \(selectedButton[i])".makeAttrString(font: .NotoSans(.medium, size: 18), color: .black), for: .normal)
+            button.setAttributedTitle("  \(selectedButton[i])".makeAttrString(font: .NotoSans(.medium, size: 18), color: .white), for: .selected)
+        
+            if let _btnimgs = buttonImages {
+                button.setImage(_btnimgs[i], for: .normal)
+                button.setImage(_btnimgs[i].tinted(with: .white), for: .selected)
 
-//            button.setTitle(, for: .normal)
+            }
             button.tag = i
-//            button.setBackgroundColor(color: .gray, forState: .selected)
             button.setTitleColor(.black, for: .normal)
             button.addTarget(self, action: #selector(selectBtnTouched(sender:)), for: .touchUpInside)
             buttonView.addRow(button)
 
+            button.snp.makeConstraints { (make) in
+                make.top.equalTo(5)
+                make.leading.equalTo(20)
+                make.trailing.equalTo(-20)
+                make.bottom.equalTo(-5)
+                make.height.equalTo(60)
+            }
+            
         }
         
     }
@@ -943,7 +960,7 @@ struct PopUp {
     }
     
     static func call(mainTitle:String, selectButtonTitles:[String], bottomButtonTitle:String, bottomButtonType:Int,
-                     _ vc:UIViewController) {
+                     _ vc:UIViewController, buttonImages:[UIImage]?) {
         
         let popUpView = SelectPopUpView()
         
@@ -956,9 +973,29 @@ struct PopUp {
             make.edges.equalToSuperview()
         }
         
-        popUpView.setButton(selectedButton: selectButtonTitles, bottomBtn: bottomButtonTitle)
+        if let _btnImgs = buttonImages {
+            popUpView.setButton(selectedButton: selectButtonTitles, bottomBtn: bottomButtonTitle, buttonImages: _btnImgs)
+
+        }else{
+            popUpView.setButton(selectedButton: selectButtonTitles, bottomBtn: bottomButtonTitle, buttonImages: nil)
+
+        }
+        
+//        if let buttonImage
+        
         popUpView.bottomButtonType(bottomButtonType)
         popUpView.popupView.setBorder(color: .black, width: 5)
         
+    }
+}
+
+extension UIImage {
+    func tinted(with color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        color.set()
+        withRenderingMode(.alwaysTemplate)
+            .draw(in: CGRect(origin: .zero, size: size))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }

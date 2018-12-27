@@ -101,20 +101,8 @@ class StartViewController: UIViewController {
     
     @objc func playBtnTouched(sender:UIButton) {
         
-        PopUp.call(mainTitle: "LANGUAGE", selectButtonTitles: ["Deutch","한국어","English"], bottomButtonTitle: "확인", bottomButtonType: 0, self)
-        
+        PopUp.call(mainTitle: "LANGUAGE", selectButtonTitles: ["Deutch","한국어","English"], bottomButtonTitle: "확인", bottomButtonType: 0, self, buttonImages: [UIImage.init(named: "languageDeBlack")!, UIImage.init(named: "languageKrBlack")!, UIImage.init(named: "languageEnBlack")!])
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
