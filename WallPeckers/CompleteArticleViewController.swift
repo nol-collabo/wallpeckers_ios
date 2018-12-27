@@ -71,6 +71,12 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             }
             aStackView.addRow(hashView)
             aStackView.addRow(okButton)
+            okButton.snp.makeConstraints { (make) in
+                make.top.bottom.equalToSuperview()
+                make.height.equalTo(55)
+                make.leading.equalTo(20)
+                make.trailing.equalTo(-20)
+            }
             okButton.setTitle("OK".localized, for: .normal)
         }
         
