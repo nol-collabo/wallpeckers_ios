@@ -29,7 +29,17 @@ class ResultViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        aloeStackView.addRows([resultView, profileBaseView, buttonView])
+        
+        let congLb = UILabel()
+        
+        
+        congLb.attributedText = String(format:"getPrize".localized, RealmUser.shared.getUserLevel()).makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
+        congLb.textAlignment = .center
+        congLb.numberOfLines = 0
+        
+        
+        
+        aloeStackView.addRows([resultView, congLb, profileBaseView, buttonView])
         
         resultView.snp.makeConstraints { (make) in
             make.height.equalTo(250)
@@ -68,7 +78,13 @@ class ResultViewController: UIViewController {
         pressButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
         
         myPageButton.snp.makeConstraints { (make) in
-            make.top.equalTo(pressButton.snp.bottom).offset(30)
+            
+            if pressButton.isHidden {
+                make.top.equalTo(30)
+            }else{
+                make.top.equalTo(pressButton.snp.bottom).offset(30)
+            }
+            
             make.height.equalTo(60)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.7)

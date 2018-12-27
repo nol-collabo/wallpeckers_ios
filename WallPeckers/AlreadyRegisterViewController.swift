@@ -49,14 +49,14 @@ class AlreadyRegisterViewController: UIViewController {
         
         goetheView.snp.makeConstraints { (make) in
             
-            make.leading.equalTo(100)
+            make.leading.equalTo(80)
             make.width.equalTo(53)
             make.height.equalTo(25)
             make.bottom.equalTo(view.safeArea.bottom).offset(-7)
         }
         nolgongView.snp.makeConstraints { (make) in
             
-            make.trailing.equalTo(-100)
+            make.trailing.equalTo(-80)
             make.width.equalTo(77)
             make.height.equalTo(17)
             make.bottom.equalTo(view.safeArea.bottom).offset(-12)

@@ -185,12 +185,26 @@ class MyProfileView:UIView {
             make.width.equalTo(DEVICEHEIGHT > 600 ? 150 : 100)
             make.height.equalTo(DEVICEHEIGHT > 600 ? 180 : 120)
         }
-        self.backgroundColor = .paleOliveGreen
+        
+        switch Standard.shared.getLocalized() {
+            
+        case .ENGLISH:
+            self.backgroundColor = .paleOliveGreen
+
+        case .KOREAN:
+            self.backgroundColor = .babyBlue
+
+        case .GERMAN :
+            self.backgroundColor = .paleOrange
+
+            
+        }
+        
         profileImageView.setBorder(color: .black, width: 3.5)
         nameTf.snp.makeConstraints { (make) in
             make.top.equalTo(profileImageView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.height.equalTo(30)
+//            make.height.equalTo(30)
         }
         nameTf.textAlignment = .center
         
@@ -204,15 +218,15 @@ class MyProfileView:UIView {
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
             make.height.equalTo(43)
-            make.bottom.equalTo(-15)
+            make.bottom.equalTo(-10)
         }
         cameraBtn.setImage(UIImage.init(named: "cameraButton")!, for: .normal)
         nameEditBtn.setImage(UIImage.init(named: "nameEditButton")!, for: .normal)
         levelDescLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
-            make.height.equalTo(43)
-            make.bottom.equalTo(-20)
+//            make.height.equalTo(43)
+            make.top.equalTo(nameTf.snp.bottom).offset(DeviceSize.width > 320 ? 10 : 5)
         }
         myPagebtn.setTitle("MY_PAGE".localized, for: .normal)
         self.nameTf.isEnabled = false
