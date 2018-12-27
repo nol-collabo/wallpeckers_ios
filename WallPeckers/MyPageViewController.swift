@@ -335,11 +335,11 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             position1Lb.snp.makeConstraints { (make) in
                 make.leading.equalTo(levelImageView.snp.leading)
                 make.top.equalTo(levelImageView.snp.bottom)
-                make.width.equalTo(41)
+                make.width.equalTo(45)
             }
             
             position2Lb.snp.makeConstraints { (make) in
-                make.leading.equalTo(position1Lb.snp.trailing).offset(3)
+                make.leading.equalTo(position1Lb.snp.trailing).offset(0)
                 make.top.equalTo(levelImageView.snp.bottom).offset(-20)
                 make.width.equalTo(70)
 
@@ -361,15 +361,20 @@ class MyPageSectionView:UIView, ThumnailDelegate {
                 make.width.equalTo(66)
             }
          
-            position1Lb.setAmericanTyperWriterText("Intern", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position2Lb.setAmericanTyperWriterText("Junior Journalist", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position3Lb.setAmericanTyperWriterText("Senior Journalist", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position4Lb.setAmericanTyperWriterText("Editor", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position5Lb.setAmericanTyperWriterText("Chief Editor", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+    
+            
+            let levels = RealmLevel.shared.get(Standard.shared.getLocalized()).sorted(by: {$0.id < $1.id})
+
+            position1Lb.setAmericanTyperWriterText(levels[0].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position2Lb.setAmericanTyperWriterText(levels[1].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position3Lb.setAmericanTyperWriterText(levels[2].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position4Lb.setAmericanTyperWriterText(levels[3].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position5Lb.setAmericanTyperWriterText(levels[4].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
 
             
             levelImageView.contentMode = .scaleAspectFit
             
+
             
             if let myScore = RealmUser.shared.getUserData()?.score {
                 
