@@ -45,7 +45,7 @@ class EditHeadlineViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        titleLb.setNotoText("Edit My Newspaper", color: .black, size: 20, textAlignment: .center, font: .bold)
+        titleLb.setNotoText("titlearticlechange_title".localized, color: .black, size: 20, textAlignment: .center, font: .bold)
         
         
         arrowLb.snp.makeConstraints { (make) in
@@ -62,10 +62,12 @@ class EditHeadlineViewController: UIViewController {
             make.width.equalTo(140)
         }
         headLineLb.numberOfLines = 2
+        headLineLb.attributedText = "titlearticlechange_titleselect".localized.makeAttrString(font: .NotoSans(.medium, size: 14), color: .black)
+        featuredLb.attributedText = "titlearticlechange_subselect".localized.makeAttrString(font: .NotoSans(.medium, size: 14), color: .init(white: 155/255, alpha: 1))
         
         featuredLb.snp.makeConstraints { (make) in
             make.centerY.equalTo(headLineLb.snp.centerY)
-            make.leading.equalTo(arrowLb.snp.trailing)
+            make.leading.equalTo(arrowLb.snp.trailing).offset(20)
             make.width.equalTo(140)
         }
         

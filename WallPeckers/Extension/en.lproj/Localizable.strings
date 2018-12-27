@@ -42,14 +42,14 @@
 "tutorial3_subtitle" = "INTO THE PRESSROOM";
 "tutorial3" = "Collect clues by 5W1H\naround you in the pressroom\nand enter the CODE of them.\n\nGet a FACT-CHECK\nby the desk of WALLPECKERS\nand publish the article.";
 "tutorial4_subtitle" = "GOAL";
-"tutorial4" = "You have 20 minutes\nto complete &amp; publish the articles.\n\nMaximize article points\nto be the journalist of the day!";
+"tutorial4" = "You have 20 minutes\nto complete & publish the articles.\n\nMaximize article points\nto be the journalist of the day!";
 "tutorial_startBtn" = "START";
 
 
 "selectsection_title" = "CHOOSE A TOPIC";
 
 "selectarticle_title" = "CHOOSE AN ARTICLE";
-"selectarticle_desc" = "Finish PAIRED articles &amp; Get 2X points!";
+"selectarticle_desc" = "Finish PAIRED articles & Get 2X points!";
 "CHANGE TOPIC" = "CHANGE TOPIC";
 
 "WHO" = "WHO";
@@ -112,7 +112,7 @@
 "publish_titlearticle" = "HEADLINE";
 "publish_subarticle1" = "FEATURED 1";
 "publish_subarticle2" = "FEATURED 2";
-"publish_changedesc" = "Select a Headline &amp; 2 Featured Articles.";
+"publish_changedesc" = "Select a Headline & 2 Featured Articles.";
 "publish_changebtn" = "Edit My Newspaper";
 "publish_gonews" = "Send Newspaper";
 "publish_gonews_verbose" = "You can send your newspaper via e-mail.";

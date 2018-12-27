@@ -46,23 +46,23 @@ class PublishViewController: UIViewController {
         
         if let headLine = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[0]}).first {
             
-            headlineView.setData(header: "Headline", thumnail: headLine.result!)
+            headlineView.setData(header: "publish_titlearticle".localized, thumnail: headLine.result!)
             
             if defaultHeadlines.count == 1 {
-                feature1View.setData(header: "Feature1", thumnail: "")
-                feature2View.setData(header: "Feature2", thumnail: "")
+                feature1View.setData(header: "publish_subarticle1".localized, thumnail: "")
+                feature2View.setData(header: "publish_subarticle2".localized, thumnail: "")
 //                feature1View.isHidden = true
 //                feature2View.isHidden = true
             }else if defaultHeadlines.count == 2 {
                 if let feature1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[1]}).first {
-                    feature1View.setData(header: "Feature1", thumnail: feature1.result!)
-                    feature2View.setData(header: "Feature2", thumnail: "")
+                    feature1View.setData(header: "publish_subarticle1".localized, thumnail: feature1.result!)
+                    feature2View.setData(header: "publish_subarticle2".localized, thumnail: "")
                     
                 }
             }else {
                 if let feature1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[1]}).first, let feature2 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[2]}).first {
-                    feature1View.setData(header: "Feature1", thumnail: feature1.result!)
-                    feature2View.setData(header: "Feature2", thumnail: feature2.result!)
+                    feature1View.setData(header: "publish_subarticle1".localized, thumnail: feature1.result!)
+                    feature2View.setData(header: "publish_subarticle2".localized, thumnail: feature2.result!)
                 }
             }
         }
@@ -128,11 +128,14 @@ class PublishViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        descLb.attributedText = "Select a Headline & 2 Featured Articles.".makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
+        descLb.attributedText = "publish_changedesc".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
         desc2Lb.adjustsFontSizeToFitWidth = true
+        descLb.textAlignment = .center
+        desc2Lb.textAlignment = .center
         descLb.adjustsFontSizeToFitWidth = true
-        desc2Lb.attributedText = "You can send your newspaper via e-mail.".makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
+        desc2Lb.attributedText = "publish_gonews_verbose".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
         
+        editButton.setTitle("titlearticlechange_title".localized, for: .normal)
         editButton.snp.makeConstraints { (make) in
             make.top.equalTo(descLb.snp.bottom).offset(20)
             make.width.equalToSuperview().multipliedBy(0.8)
@@ -172,7 +175,9 @@ class PublishViewController: UIViewController {
             make.height.equalTo(55)
             make.centerX.equalToSuperview()
         }
-        
+        sendButton.setTitle("publish_gonews".localized, for: .normal)
+        myPageButton.setTitle("publish_gomymenubtn".localized, for: .normal)
+        startButton.setTitle("publish_gohomebtn".localized, for: .normal)
         startButton.snp.makeConstraints { (make) in
             make.top.equalTo(myPageButton.snp.bottom).offset(10)
             make.width.equalToSuperview().multipliedBy(0.8)
@@ -200,6 +205,11 @@ class PublishViewController: UIViewController {
         sender.isUserInteractionEnabled = false
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
+        if let mvc = vc.viewControllers[0] as? MyPageViewController {
+            
+            mvc.fromResult = true
+        }
+        
         
         self.present(vc, animated: true, completion: nil)
     }

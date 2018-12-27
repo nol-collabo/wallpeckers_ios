@@ -10,7 +10,15 @@ import UIKit
 import SnapKit
 import AloeStackView
 
-class MyPageViewController: UIViewController, SectionViewDelegate {
+class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelegate {
+    func moveToNext(sender: UIButton) {
+        
+        self.dismiss(animated: true, completion: nil)
+//        guard let vc = UIStoryboard.init(name: "Publish", bundle: nil).instantiateViewController(withIdentifier: "Publish") as? UINavigationController else {return}
+//
+//        self.present(vc, animated: true, completion: nil)
+    }
+    
     func moveToCompleteArticle(id: Int) {
         
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
@@ -29,7 +37,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         // id 로 완료기사로 ㄱㄱ하심
     }
     
-    
+    let publishView = NewspaperPublishedView()
     var completedArticle: [Article]?
     var credibility: Int?
     var myLevel: Int?
@@ -116,10 +124,24 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         levelView.setData(content: .Level)
         badgeView.setData(content: .Badge)
         
+        aStackView.addRow(profileBaseView)
         
-        aStackView.addRows([profileBaseView, scoreView])
+        if let _count = completedArticle?.count {
+            if _count > 0 {
+                aStackView.addRow(publishView)
+                publishView.snp.makeConstraints { (make) in
+                    make.edges.equalToSuperview()
+                    make.height.equalTo(320)
+                }
+                publishView.delegate = self
+            }
+        }
         
+        aStackView.addRow(scoreView)
         profileBaseView.addSubview(profileView)
+        
+        
+        
         profileView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.top.bottom.equalToSuperview()
@@ -136,13 +158,17 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         if let _completedArticle = completedArticle {
             
             if _completedArticle.count > 0 {
+                
                 credView.setData(content: .CREDIBILITY)
                 completedArticleView.setData(content: .COMPLETEDARTICLE)
+                
+                
                 aStackView.addRows([credView, completedArticleView])
             }
         }
        
         
+
         //엔딩페이지에서만 보이는 신문
         
         aStackView.addRows([levelView, badgeView])
@@ -206,6 +232,7 @@ class MyPageSectionView:UIView, ThumnailDelegate {
         titleLb.setNotoText(content.rawValue.localized, color: .black, size: 20, textAlignment: .center)
 
         switch content {
+            
         case .Badge:
             
             let firstRowStackView = UIStackView()
@@ -285,20 +312,6 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             
             guard let myLevel = delegate?.myLevel else {return}
             
-            let levelLineView = LevelCustomView()
-            
-            self.contentView.addSubview(levelLineView)
-            
-            levelLineView.snp.makeConstraints { (make) in
-              
-                make.edges.equalToSuperview()
-                make.height.equalTo(200)
-                
-            }
-            levelLineView.setLine()
-            
-
-            print(myLevel)
             
         case .Score:
             
@@ -528,10 +541,6 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
     @objc func selectArticle(sender:UIButton) {
         
         
-//        if sender.isSelected {
-//            return
-//        }
-        
         sender.isSelected = true
         
         delegate?.selectNewspaper!(id: self.tag)
@@ -559,7 +568,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         }
         hashView.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.leading.bottom.equalToSuperview()
+            make.trailing.equalTo(-30)
         }
         collectionView.backgroundColor = .basicBackground
         underLine.snp.makeConstraints { (make) in
@@ -661,13 +671,15 @@ class NewspaperPublishedView:UIView {
             make.top.equalTo(10)
             make.width.equalToSuperview().multipliedBy(0.9)
             make.centerX.equalToSuperview()
-            make.height.equalTo(newspaperImageView.bounds.width * 2/3)
+            make.height.equalTo(240)
         }
+        newspaperImageView.contentMode = .scaleAspectFit
         
         publishButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newspaperImageView.snp.bottom).offset(25)
+            make.top.equalTo(newspaperImageView.snp.bottom).offset(10)
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalTo(55)
+            make.centerX.equalToSuperview()
         }
         
         switch Standard.shared.getLocalized() {
@@ -679,6 +691,8 @@ class NewspaperPublishedView:UIView {
         case .GERMAN:
             newspaperImageView.image = UIImage.init(named: "germanNewsPaper")
         }
+        
+        publishButton.setTitle("PRESS".localized, for: .normal)
     }
     
     @objc func moveToNext(sender:UIButton) {
@@ -696,46 +710,6 @@ protocol PublishDelegate {
     func moveToNext(sender:UIButton)
 }
 
-class LevelCustomView: UIView {
-    
-    let levelLineView = LevelLineView()
-    let myLayer = CAShapeLayer()
-    let path = UIBezierPath()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
- 
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setLine() {
-        path.move(to: CGPoint.zero)
-        print(self.bounds.maxY)
-        path.addLine(to: CGPoint.init(x: self.bounds.maxX, y: 100))
-        myLayer.path = path.cgPath
-        myLayer.fillColor = UIColor.red.cgColor
-        self.layer.addSublayer(myLayer)
-    }
-
-}
-
-class LevelLineView:UIView {
-    
- 
-    let path = UIBezierPath()
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        path.move(to: CGPoint.zero)
-        path.addLine(to: CGPoint.init(x: self.bounds.maxX, y: self.bounds.maxY))
-        UIColor.black.setFill()
-        path.fill()
-    }
-
-}
 
 enum TopicSection:Int {
 
