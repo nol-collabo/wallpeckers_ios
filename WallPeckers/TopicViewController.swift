@@ -12,9 +12,7 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
     func callCompleteBadge(tag: Int) {
         
         if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == tag}).first?.badge {
-            print(badge)
-            print("BADGE:")
-            
+
             if RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9 {
                 
                 PopUp.levelBadgePopup(type: .badge, title:String(format:"getBadge".localized, badge), image: UIImage.init(named: "getBadge\(tag)")!, tag: 10, vc: self)
@@ -54,8 +52,7 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
             
             let level = RealmLevel.shared.get(selectedLanguage).sorted(by: {$0.id < $1.id})
             
-            
-            if score >= 0 {
+            if score >= 2000 {
                 if !firstLevelUp {
                     PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[0].grade!), image: UIImage.init(named: "level35")!, tag: topic, vc: self)
                     firstLevelUp = true
