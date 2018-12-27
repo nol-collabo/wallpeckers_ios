@@ -32,7 +32,7 @@ class PublishViewController: UIViewController {
         setUI()
         
 
-        RealmUser.shared.getUserData()?.playTime = 0
+//        RealmUser.shared.getUserData()?.playTime = 0
         
         // Do any additional setup after loading the view.
     }

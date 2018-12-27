@@ -118,7 +118,9 @@ class ResultViewController: UIViewController {
         
         try! realm.write {
 
+            if (RealmUser.shared.getUserData()?.publishedArticles.count)! > 0 {
             _ = RealmUser.shared.getUserData()?.publishedArticles.removeAll()
+            }
 
             _ = aa.map({
 
