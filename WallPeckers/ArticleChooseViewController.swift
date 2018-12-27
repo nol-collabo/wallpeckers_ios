@@ -220,7 +220,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         backButton.snp.makeConstraints { (make) in
             make.width.height.equalTo(40)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(-60)
+            make.bottom.equalTo(DeviceSize.width > 320 ? -60 : -25)
         }
         
         
@@ -296,7 +296,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             make.centerX.equalToSuperview()
             make.left.equalTo(10)
         }
-        infoLb.numberOfLines = 1
+        infoLb.numberOfLines = 0
         infoLb.attributedText = "selectarticle_desc".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .black)
         infoLb.adjustsFontSizeToFitWidth = true
         infoLb.textAlignment = .center

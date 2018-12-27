@@ -289,7 +289,7 @@ final class ArticleView:UIView {
         
         pathLb.snp.makeConstraints { (make) in
             make.top.leading.equalTo(5)
-            make.width.equalTo(120)
+//            make.width.equalTo(120)
             make.height.equalTo(30)
         }
         pointLb.snp.makeConstraints { (make) in

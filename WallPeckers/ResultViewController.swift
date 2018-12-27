@@ -98,8 +98,8 @@ class ResultViewController: UIViewController {
 
         }
         
-        myPageButton.setAttributedTitle("마이페이지".makeAttrString(font: .NotoSans(.medium, size: 20), color: .white), for: .normal)
-        startButton.setAttributedTitle("시작 화면으로".makeAttrString(font: .NotoSans(.medium, size: 20), color: .white), for: .normal)
+        myPageButton.setAttributedTitle("publish_gomymenubtn".localized.makeAttrString(font: .NotoSans(.medium, size: 20), color: .white), for: .normal)
+        startButton.setAttributedTitle("publish_gohomebtn".localized.makeAttrString(font: .NotoSans(.medium, size: 20), color: .white), for: .normal)
         pressButton.setBorder(color: .black, width: 1.5)
         pressButton.addTarget(self, action: #selector(moveToPublish(sender:)), for: .touchUpInside)
         myPageButton.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)

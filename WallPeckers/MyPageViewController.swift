@@ -371,7 +371,7 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             position4Lb.snp.makeConstraints { (make) in
                 make.leading.equalTo(position3Lb.snp.trailing).offset(0)
                 make.top.equalTo(levelImageView.snp.bottom).offset(-65)
-//                make.width.equalTo(66)
+                make.width.equalTo(66)
             }
             position5Lb.snp.makeConstraints { (make) in
                 make.trailing.equalTo(levelImageView.snp.trailing).offset(-3)
@@ -389,6 +389,10 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             position4Lb.setAmericanTyperWriterText(levels[3].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
             position5Lb.setAmericanTyperWriterText(levels[4].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
 
+            for i in [position1Lb, position2Lb, position3Lb, position4Lb, position5Lb] {
+                i.numberOfLines = 2
+                i.adjustsFontSizeToFitWidth = true
+            }
             
             levelImageView.contentMode = .scaleAspectFit
             

@@ -58,8 +58,10 @@ class AfterRegisterViewController: UIViewController {
         pressCodeLb.snp.makeConstraints { (make) in
             make.top.equalTo(pressCodeTf.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
-            make.height.equalTo(34)
+            make.leading.equalTo(10)
+//            make.height.equalTo(34)
         }
+        
         pressCodeDescLb.snp.makeConstraints { (make) in
             make.top.equalTo(pressCodeLb.snp.bottom).offset(0)
             make.centerX.equalToSuperview()
@@ -69,6 +71,8 @@ class AfterRegisterViewController: UIViewController {
         pressCodeTf.textAlignment = .center
         pressCodeTf.addUnderBar()
         pressCodeLb.setNotoText("inputkey_codeguide".localized, size: 16, textAlignment: .center)
+        pressCodeLb.numberOfLines = 1
+        pressCodeLb.adjustsFontSizeToFitWidth = true
 //        pressCodeDescLb.setNotoText("You Could find out PRESS CODE on site.", color: .white, size: 12, textAlignment: .center)
         confirmBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeArea.bottom).offset(-30)

@@ -188,13 +188,14 @@ class RegisterViewController: UIViewController {
 //        profileImv.backgroundColor = .blue
         cameraBtn.setImage(UIImage.init(named: "profile_btn")!, for: .normal)
         
-        nameLb.setNotoText("registration_penname".localized, color: .black, size: 16, textAlignment: .right)
-        ageLb.setNotoText("registration_age".localized, size: 16, textAlignment: .right)
-        
+        nameLb.setNotoText("registration_penname".localized, color: .black, size: 14, textAlignment: .right)
+        ageLb.setNotoText("registration_age".localized, size: 14, textAlignment: .right)
+        nameLb.adjustsFontSizeToFitWidth = true
+        ageLb.adjustsFontSizeToFitWidth = true
         nameLb.snp.makeConstraints { (make) in
             make.top.equalTo(cameraBtn.snp.bottom).offset(DEVICEHEIGHT > 600 ? 30 : 20)
             make.leading.equalTo(20)
-            make.width.equalTo(50)
+            make.width.equalTo(80)
             make.height.equalTo(30)
         }
         nameTf.snp.makeConstraints { (make) in
@@ -220,7 +221,7 @@ class RegisterViewController: UIViewController {
             make.leading.equalTo(nameLb.snp.leading)
             make.top.equalTo(nameLb.snp.bottom).offset(30)
             make.height.equalTo(30)
-            make.width.equalTo(50)
+            make.width.equalTo(80)
 
         }
         ageSelectPickerView.isHidden = true
@@ -230,7 +231,9 @@ class RegisterViewController: UIViewController {
             make.centerY.equalTo(ageLb.snp.centerY)
             make.height.equalTo(30)
         }
-        ageSelectIndicatedLb.setNotoText("registration_defaultage".localized, color: .black, size: 26, textAlignment: .left, font: .medium)
+        ageSelectIndicatedLb.setNotoText("registration_defaultage".localized, color: .black, size: 20, textAlignment: .left, font: .medium)
+        ageSelectIndicatedLb.adjustsFontSizeToFitWidth = true
+        
         ageSelectIndicatedLb.isUserInteractionEnabled = true
         registBtn.isHidden = true
         ageSelectPickerView.snp.makeConstraints { (make) in
@@ -358,22 +361,15 @@ extension RegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        pickerView.isHidden = true
         
         if selectedLanguage == .KOREAN {
             ageSelectIndicatedLb.setNotoText(ages[row].age!, color: .black, size: 25, textAlignment: .left, font: .medium)
 
         }else{
             ageSelectIndicatedLb.setNotoText(localAges[row].age!, color: .black, size: 25, textAlignment: .left, font: .medium)
-
-//            ageSelectIndicatedLb.text = localAges[row].age
-
         }
-        myAge = row
-        
+            myAge = row
     }
-
-    
 }
 
 extension RegisterViewController:UITextFieldDelegate {
