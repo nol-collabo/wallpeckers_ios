@@ -128,20 +128,20 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         
         if let _count = completedArticle?.count {
             if _count > 0 {
-                aStackView.addRow(publishView)
-                publishView.snp.makeConstraints { (make) in
-                    make.edges.equalToSuperview()
-                    make.height.equalTo(320)
+                if fromResult {
+                    aStackView.addRow(publishView)
+                    publishView.snp.makeConstraints { (make) in
+                        make.edges.equalToSuperview()
+                        make.height.equalTo(320)
+                    }
+                    publishView.delegate = self
                 }
-                publishView.delegate = self
             }
         }
         
         aStackView.addRow(scoreView)
         profileBaseView.addSubview(profileView)
-        
-        
-        
+ 
         profileView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.top.bottom.equalToSuperview()
@@ -161,8 +161,6 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
                 
                 credView.setData(content: .CREDIBILITY)
                 completedArticleView.setData(content: .COMPLETEDARTICLE)
-                
-                
                 aStackView.addRows([credView, completedArticleView])
             }
         }
@@ -311,6 +309,96 @@ class MyPageSectionView:UIView, ThumnailDelegate {
         case .Level:
             
             guard let myLevel = delegate?.myLevel else {return}
+            let baseView = UIView()
+            let levelImageView = UIImageView()
+            let position1Lb = UILabel()
+            let position2Lb = UILabel()
+            let position3Lb = UILabel()
+            let position4Lb = UILabel()
+            let position5Lb = UILabel()
+            
+            self.contentView.addSubview(baseView)
+            
+            baseView.snp.makeConstraints { (make) in
+                make.edges.equalToSuperview()
+            }
+            baseView.addSubview([levelImageView, position1Lb, position2Lb, position3Lb, position4Lb, position5Lb])
+            
+            levelImageView.snp.makeConstraints { (make) in
+                make.top.equalToSuperview().offset(10)
+                make.width.equalTo(280)
+                make.height.equalTo(130)
+                make.centerX.equalToSuperview()
+                make.bottom.equalTo(-30)
+            }
+            
+            position1Lb.snp.makeConstraints { (make) in
+                make.leading.equalTo(levelImageView.snp.leading)
+                make.top.equalTo(levelImageView.snp.bottom)
+                make.width.equalTo(41)
+            }
+            
+            position2Lb.snp.makeConstraints { (make) in
+                make.leading.equalTo(position1Lb.snp.trailing).offset(3)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-20)
+                make.width.equalTo(70)
+
+            }
+            position3Lb.snp.makeConstraints { (make) in
+
+                make.centerX.equalTo(levelImageView.snp.centerX).offset(-3)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-45)
+                make.width.equalTo(66)
+            }
+            position4Lb.snp.makeConstraints { (make) in
+                make.leading.equalTo(position3Lb.snp.trailing).offset(0)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-65)
+//                make.width.equalTo(66)
+            }
+            position5Lb.snp.makeConstraints { (make) in
+                make.trailing.equalTo(levelImageView.snp.trailing).offset(-3)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-90)
+                make.width.equalTo(66)
+            }
+         
+            position1Lb.setAmericanTyperWriterText("Intern", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position2Lb.setAmericanTyperWriterText("Junior Journalist", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position3Lb.setAmericanTyperWriterText("Senior Journalist", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position4Lb.setAmericanTyperWriterText("Editor", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position5Lb.setAmericanTyperWriterText("Chief Editor", color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+
+            
+            levelImageView.contentMode = .scaleAspectFit
+            
+            
+            if let myScore = RealmUser.shared.getUserData()?.score {
+                
+                if myScore < 2000 {
+                    levelImageView.image = UIImage.init(named: "levelRe45")
+                    position1Lb.textColor = .black
+                }else if myScore < 4000 {
+                    levelImageView.image = UIImage.init(named: "levelRe46")
+                    position2Lb.textColor = .black
+
+                }else if myScore < 8000 {
+                    levelImageView.image = UIImage.init(named: "levelRe47")
+                    position3Lb.textColor = .black
+
+                }else if myScore < 12000 {
+                    levelImageView.image = UIImage.init(named: "levelRe48")
+                    position4Lb.textColor = .black
+
+                }else{
+                    levelImageView.image = UIImage.init(named: "levelRe49")
+                    position5Lb.textColor = .black
+
+                }
+
+            }
+            
+            print(myLevel)
+            
+            
             
             
         case .Score:

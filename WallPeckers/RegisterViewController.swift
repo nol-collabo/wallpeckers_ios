@@ -466,7 +466,7 @@ extension UILabel {
         self.numberOfLines = 0
     }
     
-    func setAeericanTypeText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:AmericanTypeWriterFontSize = AmericanTypeWriterFontSize.regular) {
+    func setAmericanTyperWriterText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:AmericanTypeWriterFontSize = AmericanTypeWriterFontSize.regular) {
         
         self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
         self.textAlignment = textAlignment

@@ -27,7 +27,7 @@ class EditFeaturesViewController: UIViewController {
 
             let count = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count
             
-            if count == 3 {
+            if count >= 3 {
                 if selectedId.count == 2 {
                     nextButton.isEnabled = true
                 }else{

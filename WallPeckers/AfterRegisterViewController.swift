@@ -177,7 +177,7 @@ class MyProfileView:UIView {
             make.top.equalTo(20)
             make.height.equalTo(40)
         }
-        titleLb.setAeericanTypeText("PRESS".localized, size: 50, textAlignment: .center, font:.bold)
+        titleLb.setAmericanTyperWriterText("PRESS".localized, size: 50, textAlignment: .center, font:.bold)
         
         profileImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()

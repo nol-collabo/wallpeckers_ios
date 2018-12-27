@@ -125,6 +125,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
         
+        
         self.present(vc, animated: true, completion: nil)
     }
     
