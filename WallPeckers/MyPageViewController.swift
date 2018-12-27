@@ -54,6 +54,24 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
     let aStackView = AloeStackView()
     var fromResult:Bool = false
     var titleLb = UILabel()
+    let selectedLanguage = Standard.shared.getLocalized()
+    
+    
+    
+    func isBadge(tag:Int) -> Bool {
+        
+        return RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9
+        
+    }
+    
+    func addBadge(tag:Int) {
+        if isBadge(tag: tag) {
+            if !completedBadges.contains(tag) {
+                completedBadges.append(tag)
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +105,14 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         
         
         //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
-//        completedBadges.append(1)
+        
+     
+        for i in 1...6 {
+            addBadge(tag: i)
+        }
+        
+        
+        
 //        completedBadges.append(2)
         
         setUI()
