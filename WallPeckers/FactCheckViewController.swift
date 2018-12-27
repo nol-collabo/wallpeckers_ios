@@ -69,6 +69,9 @@ class FactCheckViewController: GameTransitionBaseViewController {
             
         })
         
+        print(_data)
+        print("~~~~~~")
+        
         if let whoC = clues.filter({
             $0.type == "WHO"
         }).first, let whenC = clues.filter({
@@ -128,19 +131,23 @@ class FactCheckViewController: GameTransitionBaseViewController {
                 for data in _data {
                     
                     if b.tag == data.correctClue { // 정답 검증 구간, b.tag 가 correctClue 임
-                        
+
                         if let selectedClue = RealmClue.shared.getLocalClue(id: data.selectedClue, language: Standard.shared.getLocalized()) {
                             
                             if data.selectedClue != data.correctClue {
 
                                 wrongQuestionId.append((b.clue?.id)!)
                                 wrongs.append(b.clue!.type!)
+                                b.setDataCheck(clue: selectedClue, type: .wrong)
+
 
                             }else{
-                                correctCount += 1
+                                if !wrongQuestionId.contains((b.clue?.id)!) {
+                                    correctCount += 1
+                                    b.setDataCheck(clue: selectedClue, type: .correct)
+                                }
                             }
                         
-                            b.setDataCheck(clue: selectedClue, type: data.selectedClue == data.correctClue ? .correct : .wrong)
                             
                         }
                     }
@@ -231,18 +238,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
         
         
         try! realm.write {
-            
-    
-            //이 구간이 영어/독어 일때 체크가 안되고 있음
-            
-   
-            
-//            article?.isCompleted = true
-//            article?.selectedHashtag = hashtag
-//            article?.totalQuestionCount = questionCount
-//            article?.correctQuestionCount = correctCount
-            
-            
+
             if let saved = RealmArticle.shared.getAll().filter({$0.id == article!.id}).first {
                 saved.isCompleted = true
                 saved.selectedHashtag = hashtag

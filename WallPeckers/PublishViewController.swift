@@ -31,8 +31,9 @@ class PublishViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         
-        print(String(format:"levelup".localized, "ddd"))
 
+        RealmUser.shared.getUserData()?.playTime = 0
+        
         // Do any additional setup after loading the view.
     }
     

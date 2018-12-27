@@ -112,7 +112,9 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         }else{
             
             guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResultViewController") as? ResultViewController else {return}
-            
+            RealmUser.shared.savePlayTime()
+            print(RealmUser.shared.getUserData()?.playTime)
+            print("GGGGGGGG")
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
