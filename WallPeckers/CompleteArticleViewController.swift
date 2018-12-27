@@ -242,6 +242,7 @@ final class CompletedArticleView:UIView {
     }
     
     private func setUI() {
+        
         self.setBorder(color: .black, width: 1.5)
         self.addSubview([titleImageView, underLine1, titleLb, imageContainerView, infoLb, articleTv, underLine2, commentTitleLb, thumbImgView, commentProfileImv, commentTv])
         titleImageView.snp.makeConstraints { (make) in
@@ -305,14 +306,14 @@ final class CompletedArticleView:UIView {
         commentTitleLb.snp.makeConstraints { (make) in
             make.leading.equalTo(15)
             make.top.equalTo(underLine2.snp.bottom).offset(20)
-            make.width.equalTo(120)
+//            make.width.equalTo(120)
             make.height.equalTo(19)
         }
         commentTitleLb.attributedText = "COMMENT".localized.makeAttrString(font: .NotoSans(.bold, size: 16), color: .black)
-        
+        commentTitleLb.adjustsFontSizeToFitWidth = true
         thumbImgView.snp.makeConstraints { (make) in
-            make.centerY.equalTo(commentTitleLb.snp.centerY)
-            make.leading.equalTo(commentTitleLb.snp.trailing)
+            make.centerY.equalTo(commentTitleLb.snp.centerY).offset(-2)
+            make.leading.equalTo(commentTitleLb.snp.trailing).offset(10)
             make.width.height.equalTo(19)
         }
         thumbImgView.image = UIImage.init(named: "thumbUp")
@@ -345,7 +346,7 @@ final class CompletedArticleView:UIView {
     
 }
 
-class HashTagGraphView:UIView {
+final class HashTagGraphView:UIView {
     
     let titleLb = UILabel()
     let underLine1 = UIView()
