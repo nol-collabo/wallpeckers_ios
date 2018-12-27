@@ -49,7 +49,10 @@ class PublishViewController: UIViewController {
             headlineView.setData(header: "Headline", thumnail: headLine.result!)
             
             if defaultHeadlines.count == 1 {
-                
+                feature1View.setData(header: "Feature1", thumnail: "")
+                feature2View.setData(header: "Feature2", thumnail: "")
+//                feature1View.isHidden = true
+//                feature2View.isHidden = true
             }else if defaultHeadlines.count == 2 {
                 if let feature1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[1]}).first {
                     feature1View.setData(header: "Feature1", thumnail: feature1.result!)

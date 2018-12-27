@@ -22,15 +22,19 @@ class EditFeaturesViewController: UIViewController {
     var firstSelected:Int = 0
     var selectedId:[Int] = [] {
         didSet {
+
+            let count = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count
             
-            // 2개 이하일때 예외처리는 내일 하기
-            if selectedId.count == 2 {
+            if count == 3 {
+                if selectedId.count == 2 {
+                    nextButton.isEnabled = true
+                }else{
+                    nextButton.isEnabled = false
+                }
+            }else if count == 2 {
                 nextButton.isEnabled = true
-            }else{
-                nextButton.isEnabled = false
             }
         }
-        
     }
     
     override func viewDidLoad() {
@@ -100,14 +104,24 @@ class EditFeaturesViewController: UIViewController {
             tv.setDataForPublish(article: ca)
             tv.delegate = self
             tv.selectButton.setBackgroundColor(color: .tangerine, forState: .selected)
-            if tv.tag == defaultHeadlines[0] {
-                tv.selectButton.isEnabled = false
-            }else if tv.tag == defaultHeadlines[1] {
-                tv.selectButton.isSelected = true
-                selectedId.append(tv.tag)
-            }else if tv.tag == defaultHeadlines[2] {
-                tv.selectButton.isSelected = true
-                selectedId.append(tv.tag)
+            
+            if RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count > 2 {
+                if tv.tag == defaultHeadlines[0] {
+                    tv.selectButton.isEnabled = false
+                }else if tv.tag == defaultHeadlines[1] {
+                    tv.selectButton.isSelected = true
+                    selectedId.append(tv.tag)
+                }else if tv.tag == defaultHeadlines[2] {
+                    tv.selectButton.isSelected = true
+                    selectedId.append(tv.tag)
+                }
+            }else{
+                    if tv.tag == defaultHeadlines[0] {
+                        tv.selectButton.isEnabled = false
+                    }else if tv.tag == defaultHeadlines[1] {
+                        tv.selectButton.isSelected = true
+                        selectedId.append(tv.tag)
+                    }
             }
             
             aStackView.addRow(tv)
@@ -153,8 +167,20 @@ class EditFeaturesViewController: UIViewController {
         
         guard let vc = self.navigationController?.viewControllers.filter({$0 is PublishViewController}).first as? PublishViewController else {return}
         
-        defaultHeadlines[1] = selectedId[0]
-        defaultHeadlines[2] = selectedId[1]
+        let completedCount = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count
+        
+        if completedCount == 1 {
+            
+        }else if completedCount == 2 {
+            defaultHeadlines[1] = selectedId[0]
+
+        }else{
+            defaultHeadlines[1] = selectedId[0]
+            defaultHeadlines[2] = selectedId[1]
+        }
+        
+//        defaultHeadlines[1] = selectedId[0]
+//        defaultHeadlines[2] = selectedId[1]
         
         vc.delegate = self
         print(defaultHeadlines)

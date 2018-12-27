@@ -121,11 +121,35 @@ class EditHeadlineViewController: UIViewController {
     @objc func moveNext(sender:UIButton) {
         
 
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditFeaturesViewController") as? EditFeaturesViewController else {return}
         
-        vc.defaultHeadlines = defaultHeadlines
+        if (RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count) < 2 { // 헤드라인밖에 없을때
+            sender.isUserInteractionEnabled = false
+            
+            guard let vc = self.navigationController?.viewControllers.filter({$0 is PublishViewController}).first as? PublishViewController else {return}
+            
+            
+            vc.delegate = self
+            print(defaultHeadlines)
+            
+            try! realm.write {
+                _ = RealmUser.shared.getUserData()?.publishedArticles.removeAll()
+                _ = defaultHeadlines.map({RealmUser.shared.getUserData()?.publishedArticles.append($0)})
+                
+            }
+            print("~~~~~")
+            
+            self.navigationController?.popToViewController(vc, animated: true)
+            
+            
+        }else{
+            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditFeaturesViewController") as? EditFeaturesViewController else {return}
+            
+            vc.defaultHeadlines = defaultHeadlines
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
-        self.navigationController?.pushViewController(vc, animated: true)
+        
         
     }
     
@@ -142,7 +166,11 @@ class EditHeadlineViewController: UIViewController {
 
 }
 
-extension EditHeadlineViewController:ThumnailDelegate {
+extension EditHeadlineViewController:ThumnailDelegate, EditHeadlineProtocol {
+    var headlines: [Int]? {
+        return defaultHeadlines
+    }
+    
     func moveToNext(id: Int) {
         print(id)
     }

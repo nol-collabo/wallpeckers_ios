@@ -109,7 +109,7 @@ class ResultViewController: UIViewController {
                 if aa.count < 3 {
                     RealmUser.shared.getUserData()?.publishedArticles.append($0.id)
                 }else{
-                    while (RealmUser.shared.getUserData()?.publishedArticles.count)! < 3 {
+                    if (RealmUser.shared.getUserData()?.publishedArticles.count)! < 3 {
                         RealmUser.shared.getUserData()?.publishedArticles.append($0.id)
                     }
                 }
