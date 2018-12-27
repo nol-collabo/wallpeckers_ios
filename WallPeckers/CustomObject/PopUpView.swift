@@ -53,6 +53,76 @@ class BasePopUpView:UIView {
     
 }
 
+class AlertTwoButtonView:BasePopUpView {
+    
+    let descLb = UILabel()
+    let okButton = BottomButton()
+    let cancelButton = UIButton()
+    var delegate:TwobuttonAlertViewDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setUI()
+        
+    }
+    
+    
+    private func setUI() {
+        
+        self.setPopUpViewHeight(300)
+        self.popupView.addSubview([descLb, okButton, cancelButton])
+        
+        descLb.snp.makeConstraints { (make) in
+            make.top.equalTo(30)
+            make.leading.equalTo(10)
+            make.centerX.equalToSuperview()
+        }
+        descLb.numberOfLines = 0
+        descLb.textAlignment = .center
+        
+        cancelButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(-10)
+            make.leading.equalTo(30)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(42)
+        }
+        okButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(cancelButton.snp.top).offset(-10)
+            make.leading.equalTo(30)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(42)
+        }
+        descLb.attributedText = "inputkeydialog_description".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .black)
+        okButton.setTitle("OK".localized, for: .normal)
+        cancelButton.setAttributedTitle("CANCEL".localized.makeAttrString(font: .NotoSans(.bold, size: 20), color: .black), for: .normal)
+        cancelButton.setBorder(color: .black, width: 1.5)
+        okButton.addTarget(self, action: #selector(touchOk(sender:)), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(touchCancel(sender:)), for: .touchUpInside)
+        
+    }
+    
+    @objc func touchOk(sender:UIButton) {
+        sender.isUserInteractionEnabled = false
+        delegate?.tapOk(sender: sender)
+        self.removeFromSuperview()
+        sender.isUserInteractionEnabled = true
+    }
+    
+    @objc func touchCancel(sender:UIButton) {
+        self.removeFromSuperview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+protocol TwobuttonAlertViewDelegate {
+    func tapOk(sender:UIButton)
+}
+
 enum PopUpType:String {
     
     case level, badge
@@ -897,6 +967,24 @@ protocol AlerPopupViewDelegate {
 
 
 struct PopUp {
+    
+    
+    static func callTwoButtonAlert(vc:UIViewController) {
+        
+        let popupView = AlertTwoButtonView()
+        
+        if let _parent = vc.parent {
+            _parent.view.addSubview(popupView)
+        }else{
+            vc.view.addSubview(popupView)
+        }
+        
+        popupView.delegate = vc as? TwobuttonAlertViewDelegate
+        popupView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+    }
     
     static func callPairedPopUp(articleLink:ArticleLink, left:Article, right:Article, earnPoint:Int, vc:UIViewController) {
         

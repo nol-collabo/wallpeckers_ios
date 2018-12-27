@@ -27,6 +27,8 @@ class AlreadyRegisterViewController: UIViewController {
 
         setUI()
         
+        
+        
         // Do any additional setup after loading the view.
     }
     

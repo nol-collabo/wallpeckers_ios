@@ -134,6 +134,7 @@ final class TutorialView:UIView {
         self.descImv.image = image
     }
     @objc func moveToNext(sender:UIButton) {
+        UserDefaults.standard.set(true, forKey: "Tutorial")
         delegate?.touchMove(sender: sender)
     }
 }

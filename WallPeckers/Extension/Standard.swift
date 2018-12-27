@@ -38,7 +38,18 @@ class Standard {
         case .long:
             gamePlayTime = 1000
         case .short:
-            gamePlayTime = 100
+            if let playTime = RealmUser.shared.getUserData()?.playTime {
+                if playTime != 0 {
+                    gamePlayTime = playTime
+                }else{
+                    gamePlayTime = 120
+
+                }
+
+            }else{
+                gamePlayTime = 120
+
+            }
         }
         
         sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in

@@ -22,6 +22,9 @@ class AfterRegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        RealmUser.shared.savePlayTime()
+        print(RealmUser.shared.getUserData()?.playTime)
+        print("PLAYTIME")
         setUI()
         addAction()
         // Do any additional setup after loading the view.
@@ -103,18 +106,49 @@ class AfterRegisterViewController: UIViewController {
         
         sender.isUserInteractionEnabled = false
         
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
-        
-        sender.isUserInteractionEnabled = false
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+        if let playTime = RealmUser.shared.getUserData()?.playTime {
+            
+            if playTime > 0 {
+                
+                if UserDefaults.standard.bool(forKey: "Tutorial") {
+                    guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+                    sender.isUserInteractionEnabled = true
+
+                    self.present(vc, animated: true, completion: nil)
+                    
+                }else{
+                    guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+                    
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+
+ 
+            }else{
+                
+                PopUp.callTwoButtonAlert(vc:self)
+                sender.isUserInteractionEnabled = true
+
+                // 팝업
+            }
+            
+        }
+     
     }
     
 
 }
 
 
-extension AfterRegisterViewController:UITextFieldDelegate {
+extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDelegate {
+    func tapOk(sender: UIButton) {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+        RealmUser.shared.initializedUserInfo()
+        sender.isUserInteractionEnabled = false
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if DEVICEHEIGHT < 800 {
