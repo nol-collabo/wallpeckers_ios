@@ -170,9 +170,9 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         profileView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
-            
+            make.leading.equalTo(DEVICEHEIGHT > 600 ? 42 : 32)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 330 : 250)
+
         }
         
         profileView.setData(userData: RealmUser.shared.getUserData()!, level: RealmUser.shared.getUserLevel(), camera: true, nameEdit: true, myPage: false)
@@ -197,14 +197,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         aStackView.addRows([levelView, badgeView])
         
         aStackView.backgroundColor = .basicBackground
-        profileView.snp.makeConstraints { (make) in
 
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalTo(DeviceSize.width * 0.5)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
-            
-        }
 
         dismissBtn.addTarget(self, action: #selector(dismissTouched(sender:)), for: .touchUpInside)
 

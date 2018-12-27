@@ -214,20 +214,25 @@ class MyProfileView:UIView {
             make.leading.equalTo(nameTf.snp.trailing).offset(5)
         }
         
-        myPagebtn.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.leading.equalTo(20)
-            make.height.equalTo(43)
-            make.bottom.equalTo(-10)
-        }
+
         cameraBtn.setImage(UIImage.init(named: "cameraButton")!, for: .normal)
         nameEditBtn.setImage(UIImage.init(named: "nameEditButton")!, for: .normal)
         levelDescLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
+            make.bottom.equalTo(-58)
 //            make.height.equalTo(43)
             make.top.equalTo(nameTf.snp.bottom).offset(DeviceSize.width > 320 ? 10 : 5)
         }
+        
+        myPagebtn.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(20)
+            make.height.equalTo(40)
+            make.top.equalTo(levelDescLb.snp.bottom).offset(10)
+            //            make.bottom.equalTo(-10)
+        }
+        
         myPagebtn.setTitle("MY_PAGE".localized, for: .normal)
         self.nameTf.isEnabled = false
         levelDescLb.numberOfLines = 2
@@ -243,7 +248,13 @@ class MyProfileView:UIView {
         self.cameraBtn.isHidden = !camera
         self.nameEditBtn.isHidden = !nameEdit
         self.myPagebtn.isHidden = !myPage
-        
+
+        if self.myPagebtn.isHidden {
+            levelDescLb.snp.updateConstraints { (make) in
+                make.bottom.equalTo(-10)
+            }
+            self.layoutIfNeeded()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -50,8 +50,8 @@ class ResultViewController: UIViewController {
         profileView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
+            make.leading.equalTo(DEVICEHEIGHT > 600 ? 42 : 32)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 330 : 250)
             
         }
                 
