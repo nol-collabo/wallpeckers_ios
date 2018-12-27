@@ -141,3 +141,7 @@
 "Art" = "FEUILLETON";
 "Sports" = "SPORT";
 "People" = "MENSCHEN";
+
+"levelup" = "Du bist jetzt \n%@.";
+"getBadge" = "Herzlichen Glückwunsch! Du bekommst ein %@ geworden!";
+"getPrize" = "HERZLICHEN GLÜCKWUNSCH! Du bist der %@ des Tages!";

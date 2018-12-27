@@ -141,3 +141,8 @@
 "Art" = "Art & Culture";
 "Sports" = "Sports";
 "People" = "People";
+
+"levelup" = "You're now\n%@.";
+"getBadge" = " Congratulations! You've got the %@!";
+"getPrize" = "Congratulations!\nYou're the %@\nof the Day.";
+

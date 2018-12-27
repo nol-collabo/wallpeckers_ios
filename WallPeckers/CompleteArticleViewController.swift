@@ -71,6 +71,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             }
             aStackView.addRow(hashView)
             aStackView.addRow(okButton)
+            okButton.setTitle("OK".localized, for: .normal)
         }
         
     }
@@ -105,7 +106,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             self.navigationController?.popViewController(animated: true)
         }else{
             guard let vc = self.findBeforeVc(type: .topic) else {return}
-            delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+            
+            delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article?.section)!, direction: .backward)
         }
     }
 

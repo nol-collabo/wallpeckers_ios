@@ -65,14 +65,17 @@ class LevelBadgePopUpView:BasePopUpView {
     let mainImageView = UIImageView()
     let descLb = UILabel()
     let bottomButton = BottomButton()
+    var delegate:CallBadgeDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUI()
     }
     
     
-    func setData(type:PopUpType, mainImage:UIImage, desc:String) {
+    func setData(type:PopUpType, mainImage:UIImage, desc:String, tag:Int) {
         
+        self.tag = tag
         switch type {
         
         case .badge:
@@ -94,6 +97,7 @@ class LevelBadgePopUpView:BasePopUpView {
         }
         
         mainImageView.image = mainImage
+        mainImageView.contentMode = .center
         descLb.text = desc
         
     }
@@ -101,6 +105,7 @@ class LevelBadgePopUpView:BasePopUpView {
     private func setUI() {
         
         self.popupView.addSubview([bgImageView, mainImageView, descLb, bottomButton])
+        self.popupView.setBorder(color: .black, width: 2.5)
         self.setPopUpViewHeight(450)
         
         bgImageView.snp.makeConstraints { (make) in
@@ -116,12 +121,24 @@ class LevelBadgePopUpView:BasePopUpView {
             make.height.equalTo(190)
         }
         
+  
+        descLb.numberOfLines = 0
+        
         bottomButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-20)
             make.width.equalTo(200)
             make.height.equalTo(44)
         }
+        
+        descLb.snp.makeConstraints { (make) in
+            make.bottom.equalTo(bottomButton.snp.top).offset(-20)
+            make.leading.equalTo(20)
+            make.centerX.equalToSuperview()
+        }
+        descLb.textAlignment = .center
+        
+        bottomButton.setTitle("OK", for: .normal)
         bottomButton.addTarget(self, action: #selector(removePopup), for: .touchUpInside)
         
     }
@@ -132,9 +149,14 @@ class LevelBadgePopUpView:BasePopUpView {
     
     @objc func removePopup() {
         
+        delegate?.callCompleteBadge(tag: self.tag)
         self.removeFromSuperview()
         
     }
+}
+
+protocol CallBadgeDelegate {
+    func callCompleteBadge(tag:Int)
 }
 
 class PairedArticleView:BasePopUpView {
@@ -786,7 +808,8 @@ class AlertPopUpView:BasePopUpView {
         
         self.setPopUpViewHeight(250)
         popupView.addSubview([timeLb, descLb, bottomButton])
-        
+        self.popupView.setBorder(color: .black, width: 2.5)
+
         timeLb.snp.makeConstraints { (make) in
             make.top.equalTo(10)
             make.centerX.equalToSuperview()
@@ -846,10 +869,12 @@ struct PopUp {
         
     }
     
-    static func levelBadgePopup(vc:UIViewController) {
+    static func levelBadgePopup(type:PopUpType, title:String, image:UIImage, tag:Int, vc:UIViewController) {
         
         let popupView = LevelBadgePopUpView()
-
+        popupView.setData(type: type, mainImage: image, desc: title, tag: tag)
+        popupView.delegate = vc as? CallBadgeDelegate
+        
         if let _parent = vc.parent {
             _parent.view.addSubview(popupView)
         }else{

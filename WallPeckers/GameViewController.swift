@@ -230,6 +230,11 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 
                 if let vc = toVc as? TopicViewController {
+//                    sendData as
+                    
+                    let sectionTag = sendData as! Int
+                    
+                    vc.callLevelPopUp(topic: sectionTag)
                     
                     vc.setStars()
                     vc.view.layoutIfNeeded()

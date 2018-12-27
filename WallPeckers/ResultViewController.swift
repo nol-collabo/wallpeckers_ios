@@ -150,7 +150,7 @@ class ResultViewController: UIViewController {
         
         
         self.present(vc, animated: true, completion: nil)
-    }
+    } 
     
     @objc func moveToMain(sender:UIButton) {
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}

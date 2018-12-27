@@ -30,6 +30,9 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        
+        print(String(format:"levelup".localized, "ddd"))
+
         // Do any additional setup after loading the view.
     }
     
