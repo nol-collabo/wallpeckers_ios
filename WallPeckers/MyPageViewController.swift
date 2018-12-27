@@ -10,7 +10,15 @@ import UIKit
 import SnapKit
 import AloeStackView
 
-class MyPageViewController: UIViewController, SectionViewDelegate {
+class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelegate {
+    func moveToNext(sender: UIButton) {
+        
+        self.dismiss(animated: true, completion: nil)
+//        guard let vc = UIStoryboard.init(name: "Publish", bundle: nil).instantiateViewController(withIdentifier: "Publish") as? UINavigationController else {return}
+//
+//        self.present(vc, animated: true, completion: nil)
+    }
+    
     func moveToCompleteArticle(id: Int) {
         
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
@@ -29,7 +37,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         // id 로 완료기사로 ㄱㄱ하심
     }
     
-    
+    let publishView = NewspaperPublishedView()
     var completedArticle: [Article]?
     var credibility: Int?
     var myLevel: Int?
@@ -46,6 +54,24 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
     let aStackView = AloeStackView()
     var fromResult:Bool = false
     var titleLb = UILabel()
+    let selectedLanguage = Standard.shared.getLocalized()
+    
+    
+    
+    func isBadge(tag:Int) -> Bool {
+        
+        return RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9
+        
+    }
+    
+    func addBadge(tag:Int) {
+        if isBadge(tag: tag) {
+            if !completedBadges.contains(tag) {
+                completedBadges.append(tag)
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,8 +105,15 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         
         
         //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
-        completedBadges.append(1)
-        completedBadges.append(2)
+        
+     
+        for i in 1...6 {
+            addBadge(tag: i)
+        }
+        
+        
+        
+//        completedBadges.append(2)
         
         setUI()
 
@@ -116,10 +149,24 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         levelView.setData(content: .Level)
         badgeView.setData(content: .Badge)
         
+        aStackView.addRow(profileBaseView)
         
-        aStackView.addRows([profileBaseView, scoreView])
+        if let _count = completedArticle?.count {
+            if _count > 0 {
+                if fromResult {
+                    aStackView.addRow(publishView)
+                    publishView.snp.makeConstraints { (make) in
+                        make.edges.equalToSuperview()
+                        make.height.equalTo(320)
+                    }
+                    publishView.delegate = self
+                }
+            }
+        }
         
+        aStackView.addRow(scoreView)
         profileBaseView.addSubview(profileView)
+ 
         profileView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.top.bottom.equalToSuperview()
@@ -128,7 +175,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
             
         }
         
-        profileView.setData(userData: RealmUser.shared.getUserData()!, level: "intern", camera: true, nameEdit: true, myPage: false)
+        profileView.setData(userData: RealmUser.shared.getUserData()!, level: RealmUser.shared.getUserLevel(), camera: true, nameEdit: true, myPage: false)
         
         
         //완료된 거 없으면 히든처리할 놈들
@@ -136,6 +183,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         if let _completedArticle = completedArticle {
             
             if _completedArticle.count > 0 {
+                
                 credView.setData(content: .CREDIBILITY)
                 completedArticleView.setData(content: .COMPLETEDARTICLE)
                 aStackView.addRows([credView, completedArticleView])
@@ -143,8 +191,8 @@ class MyPageViewController: UIViewController, SectionViewDelegate {
         }
        
         
+
         //엔딩페이지에서만 보이는 신문
-        
         
         aStackView.addRows([levelView, badgeView])
         
@@ -207,6 +255,7 @@ class MyPageSectionView:UIView, ThumnailDelegate {
         titleLb.setNotoText(content.rawValue.localized, color: .black, size: 20, textAlignment: .center)
 
         switch content {
+            
         case .Badge:
             
             let firstRowStackView = UIStackView()
@@ -285,21 +334,102 @@ class MyPageSectionView:UIView, ThumnailDelegate {
         case .Level:
             
             guard let myLevel = delegate?.myLevel else {return}
+            let baseView = UIView()
+            let levelImageView = UIImageView()
+            let position1Lb = UILabel()
+            let position2Lb = UILabel()
+            let position3Lb = UILabel()
+            let position4Lb = UILabel()
+            let position5Lb = UILabel()
             
-            let levelLineView = LevelCustomView()
+            self.contentView.addSubview(baseView)
             
-            self.contentView.addSubview(levelLineView)
-            
-            levelLineView.snp.makeConstraints { (make) in
-              
+            baseView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
-                make.height.equalTo(200)
-                
             }
-            levelLineView.setLine()
+            baseView.addSubview([levelImageView, position1Lb, position2Lb, position3Lb, position4Lb, position5Lb])
+            
+            levelImageView.snp.makeConstraints { (make) in
+                make.top.equalToSuperview().offset(10)
+                make.width.equalTo(280)
+                make.height.equalTo(130)
+                make.centerX.equalToSuperview()
+                make.bottom.equalTo(-30)
+            }
+            
+            position1Lb.snp.makeConstraints { (make) in
+                make.leading.equalTo(levelImageView.snp.leading)
+                make.top.equalTo(levelImageView.snp.bottom)
+                make.width.equalTo(45)
+            }
+            
+            position2Lb.snp.makeConstraints { (make) in
+                make.leading.equalTo(position1Lb.snp.trailing).offset(0)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-20)
+                make.width.equalTo(70)
+
+            }
+            position3Lb.snp.makeConstraints { (make) in
+
+                make.centerX.equalTo(levelImageView.snp.centerX).offset(-3)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-45)
+                make.width.equalTo(66)
+            }
+            position4Lb.snp.makeConstraints { (make) in
+                make.leading.equalTo(position3Lb.snp.trailing).offset(0)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-65)
+//                make.width.equalTo(66)
+            }
+            position5Lb.snp.makeConstraints { (make) in
+                make.trailing.equalTo(levelImageView.snp.trailing).offset(-3)
+                make.top.equalTo(levelImageView.snp.bottom).offset(-90)
+                make.width.equalTo(66)
+            }
+         
+    
+            
+            let levels = RealmLevel.shared.get(Standard.shared.getLocalized()).sorted(by: {$0.id < $1.id})
+
+            position1Lb.setAmericanTyperWriterText(levels[0].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position2Lb.setAmericanTyperWriterText(levels[1].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position3Lb.setAmericanTyperWriterText(levels[2].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position4Lb.setAmericanTyperWriterText(levels[3].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            position5Lb.setAmericanTyperWriterText(levels[4].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+
+            
+            levelImageView.contentMode = .scaleAspectFit
             
 
+            
+            if let myScore = RealmUser.shared.getUserData()?.score {
+                
+                if myScore < 2000 {
+                    levelImageView.image = UIImage.init(named: "levelRe45")
+                    position1Lb.textColor = .black
+                }else if myScore < 4000 {
+                    levelImageView.image = UIImage.init(named: "levelRe46")
+                    position2Lb.textColor = .black
+
+                }else if myScore < 8000 {
+                    levelImageView.image = UIImage.init(named: "levelRe47")
+                    position3Lb.textColor = .black
+
+                }else if myScore < 12000 {
+                    levelImageView.image = UIImage.init(named: "levelRe48")
+                    position4Lb.textColor = .black
+
+                }else{
+                    levelImageView.image = UIImage.init(named: "levelRe49")
+                    position5Lb.textColor = .black
+
+                }
+
+            }
+            
             print(myLevel)
+            
+            
+            
             
         case .Score:
             
@@ -379,8 +509,10 @@ class MyPageSectionView:UIView, ThumnailDelegate {
             }
             articleStackView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
-                make.height.equalTo(140 * completedArticle.count)
+                make.height.equalTo(150 * completedArticle.count)
             }
+            self.layoutIfNeeded()
+            self.layoutSubviews()
             articleStackView.isScrollEnabled = false
         }
     }
@@ -460,7 +592,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
     let hashView = UIView()
     let underLine = UIView()
     var hashTags:[String]?
-    
+    let selectButton = UIButton()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
@@ -489,6 +622,50 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
 
     }
     
+    func setDataForPublish(article:Article) {
+        
+        self.backgroundColor = .white
+        
+        
+        selectButton.addTarget(self, action: #selector(selectArticle(sender:)), for: .touchUpInside)
+        self.addSubview(selectButton)
+        
+        selectButton.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(24)
+            make.trailing.equalTo(-10)
+        }
+        selectButton.setBackgroundColor(color: .white, forState: .normal)
+        selectButton.setBackgroundColor(color: .sunnyYellow, forState: .selected)
+        selectButton.setBackgroundColor(color: .init(white: 155/255, alpha: 1), forState: .disabled)
+        
+        selectButton.setBorder(color: .init(white: 155/255, alpha: 1), width: 1, cornerRadius: 12)
+        
+        if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
+            
+            let aa = hash5.components(separatedBy: "/").index(after: article.selectedHashtag - 1)
+            
+            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P", "\(aa)%"]
+            
+        }
+        
+        self.titleLb.attributedText = article.title!.makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
+        self.tag = article.id
+        collectionView.backgroundColor = .white
+        collectionView.reloadData()
+        
+    }
+    
+    @objc func selectArticle(sender:UIButton) {
+        
+        
+        sender.isSelected = true
+        
+        delegate?.selectNewspaper!(id: self.tag)
+        
+    }
+    
+    
     private func setUI() {
         
         self.backgroundColor = .basicBackground
@@ -509,7 +686,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         }
         hashView.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.leading.bottom.equalToSuperview()
+            make.trailing.equalTo(-30)
         }
         collectionView.backgroundColor = .basicBackground
         underLine.snp.makeConstraints { (make) in
@@ -518,6 +696,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
             make.leading.equalTo(7)
             make.centerX.equalToSuperview()
         }
+        self.layoutSubviews()
+        self.layoutIfNeeded()
         underLine.backgroundColor = .black
         
     }
@@ -528,8 +708,9 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
     
 }
 
-protocol ThumnailDelegate {
+@objc protocol ThumnailDelegate {
     func moveToNext(id:Int)
+    @objc optional func selectNewspaper(id:Int)
 }
 
 enum ContentType:String {
@@ -608,13 +789,15 @@ class NewspaperPublishedView:UIView {
             make.top.equalTo(10)
             make.width.equalToSuperview().multipliedBy(0.9)
             make.centerX.equalToSuperview()
-            make.height.equalTo(newspaperImageView.bounds.width * 2/3)
+            make.height.equalTo(240)
         }
+        newspaperImageView.contentMode = .scaleAspectFit
         
         publishButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newspaperImageView.snp.bottom).offset(25)
+            make.top.equalTo(newspaperImageView.snp.bottom).offset(10)
             make.width.equalToSuperview().multipliedBy(0.6)
             make.height.equalTo(55)
+            make.centerX.equalToSuperview()
         }
         
         switch Standard.shared.getLocalized() {
@@ -626,9 +809,9 @@ class NewspaperPublishedView:UIView {
         case .GERMAN:
             newspaperImageView.image = UIImage.init(named: "germanNewsPaper")
         }
+        
+        publishButton.setTitle("PRESS".localized, for: .normal)
     }
-    
-//    func setData() {
     
     @objc func moveToNext(sender:UIButton) {
         
@@ -645,57 +828,6 @@ protocol PublishDelegate {
     func moveToNext(sender:UIButton)
 }
 
-class LevelCustomView: UIView {
-    
-    let levelLineView = LevelLineView()
-    let myLayer = CAShapeLayer()
-    let path = UIBezierPath()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        
-       
-        
-//        self.addSubview(levelLineView)
-//        levelLineView.backgroundColor = .red
-////        levelLineView.draw(.zero)
-//        levelLineView.snp.makeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//        }
-        
- 
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setLine() {
-        path.move(to: CGPoint.zero)
-        print(self.bounds.maxY)
-        path.addLine(to: CGPoint.init(x: self.bounds.maxX, y: 100))
-        myLayer.path = path.cgPath
-        myLayer.fillColor = UIColor.red.cgColor
-        self.layer.addSublayer(myLayer)
-    }
-
-}
-
-class LevelLineView:UIView {
-    
- 
-    let path = UIBezierPath()
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        path.move(to: CGPoint.zero)
-        path.addLine(to: CGPoint.init(x: self.bounds.maxX, y: self.bounds.maxY))
-        UIColor.black.setFill()
-        path.fill()
-    }
-
-}
 
 enum TopicSection:Int {
 

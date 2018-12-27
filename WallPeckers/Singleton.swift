@@ -53,6 +53,30 @@ class RealmUser {
         }
     }
     
+    func getUserLevel() -> String {
+//        get {
+            let levels = RealmLevel.shared.get(Standard.shared.getLocalized()).sorted(by: {$0.id < $1.id})
+            
+            if let myPoint = RealmUser.shared.getUserData()?.score {
+                
+                if myPoint < 2000 {
+                    return levels[0].grade!
+                }else if myPoint < 4000 {
+                    return levels[1].grade!
+                }else if myPoint < 8000 {
+                    return levels[2].grade!
+                }else if myPoint < 12000 {
+                    return levels[3].grade!
+                }else {
+                    return levels[4].grade!
+                }
+            }
+            return "Intern"
+//        }
+    }
+    
+    
+    
     func initializedUserInfo() {
         guard let user = user else {return}
 
@@ -63,13 +87,26 @@ class RealmUser {
             user.stars = 0
             
             _ = RealmArticle.shared.get(Standard.shared.getLocalized()).map({
-                
+                $0.isPairedArticle = false
                 $0.isCompleted = false
                 $0.correctQuestionCount = 0
                 $0.wrongQuestionsId.removeAll()
                 $0.selectedHashtag = 0
                 $0.totalQuestionCount = 0
+                $0.point = 0
                 
+            })
+            
+            _ = RealmArticle.shared.getAll().map({
+                
+                $0.isPairedArticle = false
+                $0.isCompleted = false
+                $0.correctQuestionCount = 0
+                $0.wrongQuestionsId.removeAll()
+                $0.selectedHashtag = 0
+                $0.totalQuestionCount = 0
+                $0.point = 0
+
             })
         }
     }
@@ -79,13 +116,68 @@ protocol LevelUpDelegate {
     func levelupPopUp(score:Int)
 }
 
+class RealmLevel {
+    
+    static var shared = RealmLevel()
+    
+    private init() {}
+    
+    func getAll() -> [Level] {
+        
+        return Array(realm.objects(Level.self))
+        
+    }
+    
+    func get(_ language:Language) -> [Level] {
+        
+        let originalLevel = getAll()
+        var languageInt = 0
+        switch language {
+        case .ENGLISH:
+            languageInt = 2
+        case .GERMAN:
+            languageInt = 3
+        case .KOREAN:
+            return originalLevel
+            
+        }
+        
+        let localLevel = realm.objects(LocalLevel.self).filter("language = \(languageInt)")
+        
+        
+        var translates:[Level] = []
+        
+        _ = originalLevel.map({
+            
+            for lv in localLevel {
+                
+                if $0.id == lv.level {
+
+                    let tr = Level()
+                    
+                    tr.translate(level: $0.id, grade: lv.grade!, maxPoint: $0.maxPoint, minPoint: $0.minPoint)
+                    
+                    translates.append(tr)
+
+                }
+                
+            }
+        })
+        
+        return translates
+  
+    }
+    
+    
+}
+
 class RealmArticle {
     
     static var shared = RealmArticle()
     
     private init() {}
     
-    private func getAll() -> [Article]{
+    open func getAll() -> [Article]{
         
         return Array(realm.objects(Article.self))
         
@@ -118,8 +210,8 @@ class RealmArticle {
                 if $0.id == local.article {
                     
                     let translate = Article()
-                    
-                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: $0.clues, hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle)
+                   
+                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: Array($0.clues), hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle, point: $0.point)
                     
                     translateArticles.append(translate)
                 }
@@ -144,6 +236,43 @@ class RealmArticleLink {
     open func getAll() -> [ArticleLink] {
         
         return Array(realm.objects(ArticleLink.self))
+        
+    }
+    
+    func get(_ language:Language) -> [ArticleLink] {
+        
+        var lanInt = 0
+        let originals = getAll()
+        
+        switch language {
+        case .ENGLISH:
+            lanInt = 2
+        case .KOREAN :
+            return originals
+        case .GERMAN :
+            lanInt = 3
+        }
+        
+        let localLink = Array(realm.objects(LocalArticleLink.self).filter("language = \(lanInt)"))
+        
+        var translates:[ArticleLink] = []
+        
+        _ = originals.map({
+            
+            for la in localLink {
+                if $0.id == la.article_link {
+                    
+                    let tr = ArticleLink()
+                    
+                    tr.translate(desc:la.desc!, id: $0.id, color: $0.color!, articles: Array($0.articles))
+                    
+                    translates.append(tr)
+                }
+            }
+            
+        })
+        
+        return translates
         
     }
 }

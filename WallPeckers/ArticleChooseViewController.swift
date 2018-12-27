@@ -10,10 +10,12 @@ import UIKit
 import RealmSwift
 import Realm
 
+let iconWidth = DEVICEHEIGHT > 600 ? 93 : 85
+
 class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupViewDelegate, ArticleSelectDelegate {
     
-    let iconWidth = DEVICEHEIGHT > 600 ? 93 : 83
 
+    let topConstraint = DeviceSize.width > 320 ? 30 : 20
     
     func tapArticle(sender: ArticleSelectButton) {
         
@@ -239,63 +241,64 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         }
         
         articleButtons[1].snp.makeConstraints { (make) in
-            make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
+            make.top.equalTo(articleTitleLb.snp.bottom).offset(topConstraint)
             make.centerX.equalToSuperview()
             make.width.height.equalTo(iconWidth)
         }
 
         articleButtons[0].snp.makeConstraints { (make) in
-            make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
+            make.top.equalTo(articleTitleLb.snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
             make.trailing.equalTo( articleButtons[1].snp.leading).offset(-25)
             
         }
         articleButtons[2].snp.makeConstraints { (make) in
-            make.top.equalTo(articleTitleLb.snp.bottom).offset(35)
+            make.top.equalTo(articleTitleLb.snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
             make.leading.equalTo( articleButtons[1].snp.trailing).offset(25)
         }
         articleButtons[4].snp.makeConstraints { (make) in
-            make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
+            make.top.equalTo(articleButtons[1].snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
             make.centerX.equalToSuperview()
         }
         articleButtons[3].snp.makeConstraints { (make) in
-            make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
+            make.top.equalTo(articleButtons[1].snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
             make.trailing.equalTo( articleButtons[4].snp.leading).offset(-25)
         }
         articleButtons[5].snp.makeConstraints { (make) in
-            make.top.equalTo(articleButtons[1].snp.bottom).offset(30)
+            make.top.equalTo(articleButtons[1].snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
             make.leading.equalTo(articleButtons[4].snp.trailing).offset(25)
         }
         articleButtons[7].snp.makeConstraints { (make) in
-            make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
+            make.top.equalTo(articleButtons[4].snp.bottom).offset(topConstraint)
             make.centerX.equalToSuperview()
             make.width.height.equalTo(iconWidth)
         }
         articleButtons[6].snp.makeConstraints { (make) in
-            make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
+            make.top.equalTo(articleButtons[4].snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
             make.trailing.equalTo(articleButtons[7].snp.leading).offset(-25)
             
         }
         
         articleButtons[8].snp.makeConstraints { (make) in
-            make.top.equalTo(articleButtons[4].snp.bottom).offset(30)
+            make.top.equalTo(articleButtons[4].snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
             make.leading.equalTo(articleButtons[7].snp.trailing).offset(25)
             
         }
         
         infoLb.snp.makeConstraints { (make) in
-            make.top.equalTo( articleButtons[8].snp.bottom).offset(20)
+            make.top.equalTo(articleButtons[8].snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.left.equalTo(10)
         }
-        infoLb.numberOfLines = 0
+        infoLb.numberOfLines = 1
         infoLb.attributedText = "selectarticle_desc".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .black)
+        infoLb.adjustsFontSizeToFitWidth = true
         infoLb.textAlignment = .center
         backButton.addTarget(self, action: #selector(back(sender:)), for: .touchUpInside)
         
@@ -342,13 +345,15 @@ class ArticleSelectButton:UIView {
             make.height.equalTo(30)
         }
         starImageView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(5)
             make.width.height.equalTo(25)
         }
         titleLb.snp.makeConstraints { (make) in
-            make.leading.equalTo(5)
-            make.bottom.equalTo(-5)
-            make.trailing.equalTo(-5)
+            make.leading.equalTo(7)
+            make.bottom.equalTo(-7)
+            make.trailing.equalTo(-7)
+            make.top.equalTo(starImageView.snp.bottom).offset(5)
             make.height.equalTo(30)
         }
         starImageView.image = UIImage.init(named: "YellowStar")
@@ -363,12 +368,7 @@ class ArticleSelectButton:UIView {
         self.backgroundColor = backgroundColor
         self.tag = tag
         self.setBorder(color: borderColor, width: 4.5)
-    }
-    
-    func changeBackground(status:ArticleCompleteStatus) {
-        
-        
-        
+        self.titleLb.adjustsFontSizeToFitWidth = true
     }
     
     @objc func tap(sender:UITapGestureRecognizer) {

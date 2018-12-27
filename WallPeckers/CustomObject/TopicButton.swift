@@ -39,7 +39,7 @@ class TopicButton:UIView {
         titleLb.snp.makeConstraints { (make) in
             make.leading.equalTo(3)
             make.trailing.equalTo(-3)
-            make.top.equalTo(titleImageView.snp.bottom).offset(10)
+            make.top.equalTo(titleImageView.snp.bottom).offset(5)
 //            make.height.equalTo(50)
             make.bottom.equalTo(-3)
             
@@ -63,6 +63,7 @@ class TopicButton:UIView {
 //        starCountLb.text = "asd"
         
         titleLb.numberOfLines = 0
+        titleLb.adjustsFontSizeToFitWidth = true
     }
     
     func setStar(count:Int) {

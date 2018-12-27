@@ -124,7 +124,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "FactCheckViewController") as? FactCheckViewController else {return}
         
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (sendingData, article, five_W_One_Hs), direction: .forward)
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (sendingData, article, five_W_One_Hs, questionPoint), direction: .forward)
        
 
         
@@ -237,8 +237,36 @@ final class ArticleView:UIView {
     
     func setData(article:Article, point:String) {
         
-        pathLb.attributedText = article.word?.makeAttrString(font: .NotoSans(.medium, size: 10), color: .black)
-        pointLb.attributedText = "\(point)".makeAttrString(font: .NotoSans(.medium, size: 10), color: .black)
+    
+        
+        var section = ""
+        
+        switch article.section {
+            
+        case 1:
+            section = "Politics".localized
+        case 2:
+            section = "Economy".localized
+
+        case 3:
+            section = "General".localized
+
+        case 4:
+            section = "Art".localized
+
+        case 5:
+            section = "Sports".localized
+
+        case 6:
+            section = "People".localized
+
+        default:
+            break
+            
+        }
+ 
+        pathLb.attributedText = "\(section) > \(article.word!)".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
+        pointLb.attributedText = "\(point)".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
         titleLb.attributedText = article.title?.makeAttrString(font: .NotoSans(.bold, size: 20), color: .black)
         descLb.attributedText = article.title_sub?.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
         articleImageView.image = UIImage()

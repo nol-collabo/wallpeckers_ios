@@ -19,6 +19,8 @@ class User:Object {
     @objc dynamic var playTime:Int = 0
     var factCheckList = List<FactCheck>()
     var stars:Int = 0
+    var publishedArticles = List<Int>()
+    
     
 }
 

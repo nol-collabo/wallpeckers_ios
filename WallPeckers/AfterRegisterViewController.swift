@@ -44,7 +44,7 @@ class AfterRegisterViewController: UIViewController {
         
         }
         
-        mainProfileView.setData(userData: realm.objects(User.self).last!, level: nil, camera: false, nameEdit: false, myPage: true)
+        mainProfileView.setData(userData: realm.objects(User.self).last!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: true)
         
         pressCodeTf.snp.makeConstraints { (make) in
             make.top.equalTo(mainProfileView.snp.bottom).offset(46)
@@ -177,7 +177,7 @@ class MyProfileView:UIView {
             make.top.equalTo(20)
             make.height.equalTo(40)
         }
-        titleLb.setAeericanTypeText("PRESS".localized, size: 50, textAlignment: .center, font:.bold)
+        titleLb.setAmericanTyperWriterText("PRESS".localized, size: 50, textAlignment: .center, font:.bold)
         
         profileImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()

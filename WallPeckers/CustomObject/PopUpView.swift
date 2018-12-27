@@ -65,14 +65,17 @@ class LevelBadgePopUpView:BasePopUpView {
     let mainImageView = UIImageView()
     let descLb = UILabel()
     let bottomButton = BottomButton()
+    var delegate:CallBadgeDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setUI()
     }
     
     
-    func setData(type:PopUpType, mainImage:UIImage, desc:String) {
+    func setData(type:PopUpType, mainImage:UIImage, desc:String, tag:Int) {
         
+        self.tag = tag
         switch type {
         
         case .badge:
@@ -94,6 +97,7 @@ class LevelBadgePopUpView:BasePopUpView {
         }
         
         mainImageView.image = mainImage
+        mainImageView.contentMode = .center
         descLb.text = desc
         
     }
@@ -101,6 +105,7 @@ class LevelBadgePopUpView:BasePopUpView {
     private func setUI() {
         
         self.popupView.addSubview([bgImageView, mainImageView, descLb, bottomButton])
+        self.popupView.setBorder(color: .black, width: 2.5)
         self.setPopUpViewHeight(450)
         
         bgImageView.snp.makeConstraints { (make) in
@@ -116,12 +121,24 @@ class LevelBadgePopUpView:BasePopUpView {
             make.height.equalTo(190)
         }
         
+  
+        descLb.numberOfLines = 0
+        
         bottomButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-20)
             make.width.equalTo(200)
             make.height.equalTo(44)
         }
+        
+        descLb.snp.makeConstraints { (make) in
+            make.bottom.equalTo(bottomButton.snp.top).offset(-20)
+            make.leading.equalTo(20)
+            make.centerX.equalToSuperview()
+        }
+        descLb.textAlignment = .center
+        
+        bottomButton.setTitle("OK", for: .normal)
         bottomButton.addTarget(self, action: #selector(removePopup), for: .touchUpInside)
         
     }
@@ -132,9 +149,179 @@ class LevelBadgePopUpView:BasePopUpView {
     
     @objc func removePopup() {
         
+        delegate?.callCompleteBadge(tag: self.tag)
         self.removeFromSuperview()
         
     }
+}
+
+protocol CallBadgeDelegate {
+    func callCompleteBadge(tag:Int)
+}
+
+class PairedArticleView:BasePopUpView {
+    
+    let topStackView = UIStackView()
+    let leftArticle = ArticleSelectButton()
+    let rightArticle = ArticleSelectButton()
+    let linkView = UIView()
+    let pointLb = UILabel()
+    let descLb = UILabel()
+    let okButton = BottomButton()
+    var delegate:PairedPopupDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    private func setUI() {
+        
+        popupView.snp.remakeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.leading.equalTo(30)
+//            make.height.equalTo(popUpViewHeight)
+        }
+        self.popupView.addSubview([topStackView, leftArticle, rightArticle, linkView, pointLb, descLb, okButton])
+        
+        let leftWingImv = UIImageView.init(image: UIImage.init(named: "leftWing"))
+        let rightWingImv = UIImageView.init(image: UIImage.init(named: "rightWing"))
+        let infoLb = UILabel()
+        
+        topStackView.snp.makeConstraints { (make) in
+            make.top.equalTo(10)
+            make.leading.equalTo(10)
+            make.trailing.equalTo(-10)
+            make.height.equalTo(120)
+        }
+        
+        topStackView.addArrangedSubview(leftWingImv)
+        topStackView.addArrangedSubview(infoLb)
+        topStackView.addArrangedSubview(rightWingImv)
+        infoLb.textAlignment = .center
+        
+        leftWingImv.snp.makeConstraints { (make) in
+            make.width.equalTo(50)
+            make.top.equalToSuperview()
+        }
+        rightWingImv.snp.makeConstraints { (make) in
+            make.width.equalTo(50)
+            make.top.equalToSuperview()
+        }
+        
+        leftWingImv.contentMode = .top
+        rightWingImv.contentMode = .top
+        
+        leftArticle.borderColor = .black
+        rightArticle.borderColor = .black
+        okButton.addTarget(self, action: #selector(tapOkButton(sender:)), for: .touchUpInside)
+        
+        infoLb.attributedText = "PAIRED\nARTICLES".makeAttrString(font: .AmericanTypeWriter(.bold, size: 32), color: .black)
+        infoLb.numberOfLines = 0
+        infoLb.adjustsFontSizeToFitWidth = true
+        
+        leftArticle.snp.makeConstraints { (make) in
+            make.top.equalTo(topStackView.snp.bottom).offset(10)
+            make.leading.equalTo(DeviceSize.width > 320 ? 40 : 30)
+            make.width.height.equalTo(iconWidth)
+        }
+        
+        rightArticle.snp.makeConstraints { (make) in
+            make.top.equalTo(topStackView.snp.bottom).offset(10)
+            make.trailing.equalTo(DeviceSize.width > 320 ? -40 : -30)
+            make.width.height.equalTo(iconWidth)
+        }
+        
+        linkView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(rightArticle.snp.centerY)
+            make.leading.equalTo(leftArticle.snp.trailing)
+            make.trailing.equalTo(rightArticle.snp.leading)
+            make.height.equalTo(15)
+            
+        }
+        linkView.backgroundColor = .black
+        
+        pointLb.snp.makeConstraints { (make) in
+            make.top.equalTo(rightArticle.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+        }
+        descLb.snp.makeConstraints { (make) in
+            make.leading.equalTo(10)
+            make.top.equalTo(pointLb.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+        }
+        descLb.textAlignment = .center
+        descLb.numberOfLines = 0
+        
+        self.popupView.setBorder(color: .black, width: 2.5)
+        okButton.setTitle("OK", for: .normal)
+        okButton.snp.makeConstraints { (make) in
+            make.top.equalTo(descLb.snp.bottom).offset(10)
+            make.bottom.equalTo(-20)
+            make.leading.equalTo(50)
+            make.height.equalTo(40)
+            make.centerX.equalToSuperview()
+        }
+        
+    }
+    
+    @objc func tapOkButton(sender:UIButton) {
+        self.removeFromSuperview()
+        delegate?.moveToNext(sender: sender)
+    }
+    
+    func setData(articleLink:ArticleLink, left:Article, right:Article, earnPoint:Int) {
+        
+        self.descLb.attributedText = articleLink.desc!.makeAttrString(font: .NotoSans(.medium, size: 17), color: .black)
+        self.pointLb.attributedText = "+ \(earnPoint) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 33), color: .black)
+        let color = LineColor.init(rawValue: articleLink.color!)
+        
+        
+        self.leftArticle.setData(point: "\(left.point) P", textColor: .black, title: left.title!, isStar: true, tag: 0)
+        self.rightArticle.setData(point: "\(right.point) P", textColor: .black, title: right.title!, isStar: true, tag: 0)
+        self.leftArticle.isUserInteractionEnabled = false
+        self.rightArticle.isUserInteractionEnabled = false
+        
+        changeColor(color!)
+
+    }
+    
+    func changeColor(_ LineColor:LineColor) {
+        
+        func change(color:UIColor) {
+            
+            self.popupView.backgroundColor = color
+            self.leftArticle.pointTitleLb.textColor = color
+            self.rightArticle.pointTitleLb.textColor = color
+            self.leftArticle.titleLb.textColor = color
+            self.rightArticle.titleLb.textColor = color
+            
+        }
+        
+        switch LineColor {
+        case .BLUE:
+            change(color: .niceBlue)
+        case .GREEN:
+            change(color: .darkGrassGreen)
+        case .ORANGE:
+            change(color: .tangerine)
+        case .RED:
+            change(color: .scarlet)
+        }
+        
+        
+
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+protocol PairedPopupDelegate {
+    func moveToNext(sender:UIButton)
 }
 
 class ArticleSubmitView:BasePopUpView {
@@ -157,14 +344,13 @@ class ArticleSubmitView:BasePopUpView {
         
     }
     
+    
     func setData(article:Article, correctCount:Int, questionCount:Int) {
         
         var point = 0
 
         switch questionCount {
-            
-            
-            
+
         case 1:
             topStarView.attributedText = "★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
             point = 100
@@ -245,7 +431,12 @@ class ArticleSubmitView:BasePopUpView {
         
         try! realm.write {
             RealmUser.shared.getUserData()?.score += point
-            article.point = point
+//            article.point = point
+            
+            if let saved = RealmArticle.shared.getAll().filter({$0.id == article.id}).first {
+                saved.point = point
+            }
+            
         }
         
         let pointString = "\n\(point) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 49), color: .black)
@@ -617,7 +808,8 @@ class AlertPopUpView:BasePopUpView {
         
         self.setPopUpViewHeight(250)
         popupView.addSubview([timeLb, descLb, bottomButton])
-        
+        self.popupView.setBorder(color: .black, width: 2.5)
+
         timeLb.snp.makeConstraints { (make) in
             make.top.equalTo(10)
             make.centerX.equalToSuperview()
@@ -659,10 +851,30 @@ protocol AlerPopupViewDelegate {
 
 struct PopUp {
     
-    static func levelBadgePopup(vc:UIViewController) {
+    static func callPairedPopUp(articleLink:ArticleLink, left:Article, right:Article, earnPoint:Int, vc:UIViewController) {
+        
+        let popupView = PairedArticleView()
+        
+        if let _parent = vc.parent {
+            _parent.view.addSubview(popupView)
+        }else{
+            vc.view.addSubview(popupView)
+        }
+        
+        popupView.delegate = vc as? PairedPopupDelegate
+        popupView.setData(articleLink: articleLink, left: left, right: right, earnPoint: earnPoint)
+        popupView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+    }
+    
+    static func levelBadgePopup(type:PopUpType, title:String, image:UIImage, tag:Int, vc:UIViewController) {
         
         let popupView = LevelBadgePopUpView()
-
+        popupView.setData(type: type, mainImage: image, desc: title, tag: tag)
+        popupView.delegate = vc as? CallBadgeDelegate
+        
         if let _parent = vc.parent {
             _parent.view.addSubview(popupView)
         }else{

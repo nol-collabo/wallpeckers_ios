@@ -125,6 +125,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
         
+        
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -134,6 +135,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         if time == 0 { //완료 됐을떄
             
             PopUp.callAlert(time: "00:00", desc: "완료", vc: self, tag: 1)
+            
             print("END!")
             
         }else if time == 60 { // 1분 남았을 때
@@ -170,8 +172,8 @@ extension GameViewController:GameViewTransitionDelegate {
             
             if let vc = toVc as? FactCheckViewController {
                 
-                guard let _sendData = sendData as? ([FactCheck], Article, [Five_W_One_Hs]) else {return}
-                vc.setData(_sendData.0, article: _sendData.1, five: _sendData.2)
+                guard let _sendData = sendData as? ([FactCheck], Article, [Five_W_One_Hs], String) else {return}
+                vc.setData(_sendData.0, article: _sendData.1, five: _sendData.2, questionPoint: _sendData.3)
                 self.setChildVc(rootView: factCheckView, vc)
                 
                  horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 3, y: horizontalView.scrollView.contentOffset.y), animated: true)
@@ -192,7 +194,7 @@ extension GameViewController:GameViewTransitionDelegate {
                     $0.point
                 }).reduce(0, +)
                 
-                
+                vc.changeColor()
                 btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
                 articleButtons.append(btn)
                 
@@ -228,6 +230,11 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 
                 if let vc = toVc as? TopicViewController {
+//                    sendData as
+                    
+                    let sectionTag = sendData as! Int
+                    
+                    vc.callLevelPopUp(topic: sectionTag)
                     
                     vc.setStars()
                     vc.view.layoutIfNeeded()

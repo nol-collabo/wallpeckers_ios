@@ -15,9 +15,11 @@ class ResultViewController: UIViewController {
     let buttonView = UIView()
     let myPageButton = BottomButton()
     let startButton = BottomButton()
+    let pressButton = BottomButton()
     let profileView = MyProfileView()
     let resultView = UIImageView()
-
+    let profileBaseView = UIView()
+    let currentLanguage = Standard.shared.getLocalized()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,36 +29,63 @@ class ResultViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        aloeStackView.addRows([resultView, profileView, buttonView])
+        aloeStackView.addRows([resultView, profileBaseView, buttonView])
         
         resultView.snp.makeConstraints { (make) in
-            make.height.equalTo(400)
+            make.height.equalTo(250)
         }
         resultView.image = UIImage.init(named: "finalTrophy")
+
+        profileBaseView.addSubview(profileView)
         profileView.snp.makeConstraints { (make) in
-            make.height.equalTo(300)
+            make.center.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 280)
+            
         }
+                
+        resultView.contentMode = .scaleAspectFit
         
-        profileView.setData(userData: RealmUser.shared.getUserData()!, level: "dd", camera: false, nameEdit: false, myPage: false)
-        buttonView.snp.makeConstraints { (make) in
-            make.height.equalTo(130)
-        }
-//        buttonView.backgroundColor = .blue
-        buttonView.addSubview([myPageButton, startButton])
-        
-        myPageButton.snp.makeConstraints { (make) in
+        profileView.setData(userData: RealmUser.shared.getUserData()!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: false)
+        buttonView.addSubview([pressButton, myPageButton, startButton])
+        pressButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.height.equalTo(60)
-            make.width.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.centerX.equalToSuperview()
+
+        }
+        pressButton.setAttributedTitle("Printing Press".makeAttrString(font: .NotoSans(.bold, size: 18), color: .black), for: .normal)
+        
+        let completedArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
+            
+            $0.isCompleted
+        })
+        
+        pressButton.isHidden = completedArticle.count == 0
+        
+        pressButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
+        
+        myPageButton.snp.makeConstraints { (make) in
+            make.top.equalTo(pressButton.snp.bottom).offset(30)
+            make.height.equalTo(60)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.7)
         }
         startButton.snp.makeConstraints { (make) in
             make.top.equalTo(myPageButton.snp.bottom).offset(10)
             make.height.equalTo(60)
-            make.width.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.bottom.equalToSuperview().offset(-10)
+            make.centerX.equalToSuperview()
+
         }
         
         myPageButton.setAttributedTitle("마이페이지".makeAttrString(font: .NotoSans(.medium, size: 20), color: .white), for: .normal)
         startButton.setAttributedTitle("시작 화면으로".makeAttrString(font: .NotoSans(.medium, size: 20), color: .white), for: .normal)
+        pressButton.setBorder(color: .black, width: 1.5)
+        pressButton.addTarget(self, action: #selector(moveToPublish(sender:)), for: .touchUpInside)
         myPageButton.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)
         startButton.addTarget(self, action: #selector(moveToMain(sender:)), for: .touchUpInside)
 
@@ -65,12 +94,63 @@ class ResultViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @objc func moveToPublish(sender:UIButton) {
+        
+        
+        
+        let aa = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
+        
+        try! realm.write {
+
+            _ = RealmUser.shared.getUserData()?.publishedArticles.removeAll()
+
+            _ = aa.map({
+
+                if aa.count < 3 {
+                    RealmUser.shared.getUserData()?.publishedArticles.append($0.id)
+                }else{
+                    if (RealmUser.shared.getUserData()?.publishedArticles.count)! < 3 {
+                        RealmUser.shared.getUserData()?.publishedArticles.append($0.id)
+                    }
+                }
+
+            })
+        }
+
+        print(RealmUser.shared.getUserData()?.publishedArticles.count)
+        print("COUNT!!!!")
+        
+//        RealmUser.shared.getUserData().ar
+        
+        
+        sender.isUserInteractionEnabled = false
+        
+        guard let vc = UIStoryboard.init(name: "Publish", bundle: nil).instantiateViewController(withIdentifier: "Publish") as? UINavigationController else {return}
+        
+//        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "PublishViewController") as? PublishViewController else {return}
+        
+//        vc.defaultHeadlines = Array((RealmUser.shared.getUserData()?.publishedArticles)!)
+        
+        sender.isUserInteractionEnabled = true
+        self.present(vc, animated: true, completion: nil)
+        
+        
+    }
+    
     @objc func moveToMyPage(sender:UIButton) {
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
+        print(vc.viewControllers)
+        
+        if let mvc = vc.viewControllers[0] as? MyPageViewController {
+            
+            mvc.fromResult = true
+        }
+        
+        
         
         self.present(vc, animated: true, completion: nil)
-    }
+    } 
     
     @objc func moveToMain(sender:UIButton) {
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}

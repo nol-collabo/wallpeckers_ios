@@ -23,6 +23,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
     var questionCount:Int = 0
     var correctCount:Int = 0
     var wrongQuestionId:[Int] = []
+    var questionPoint:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +88,12 @@ class FactCheckViewController: GameTransitionBaseViewController {
             let articleView = ArticleView()
             articleView.forFactCheck()
             
-            articleView.setData(article: article!, point: "300")
+            
+            if let _questionPoint = questionPoint, let _article = article {
+                articleView.setData(article: _article, point: _questionPoint)
+
+            }
+            
 
             aStackView.addRow(articleView)
             
@@ -208,11 +214,13 @@ class FactCheckViewController: GameTransitionBaseViewController {
     }
     
     
-    func setData(_ data:[FactCheck], article:Article, five:[Five_W_One_Hs]) {
+    func setData(_ data:[FactCheck], article:Article, five:[Five_W_One_Hs], questionPoint:String) {
         
         self.checkData = data
         self.article = article
         self.five = five
+        self.questionPoint = questionPoint
+     
     }
 }
 
@@ -225,36 +233,65 @@ extension FactCheckViewController:ArticleSubmitDelegate {
         try! realm.write {
             
     
-            _ = wrongQuestionId.map({
-                
-                article?.wrongQuestionsId.append($0)
-            })
+            //이 구간이 영어/독어 일때 체크가 안되고 있음
             
-            article?.isCompleted = true
-            article?.selectedHashtag = hashtag
-            article?.totalQuestionCount = questionCount
-            article?.correctQuestionCount = correctCount
+   
+            
+//            article?.isCompleted = true
+//            article?.selectedHashtag = hashtag
+//            article?.totalQuestionCount = questionCount
+//            article?.correctQuestionCount = correctCount
+            
+            
+            if let saved = RealmArticle.shared.getAll().filter({$0.id == article!.id}).first {
+                saved.isCompleted = true
+                saved.selectedHashtag = hashtag
+                saved.totalQuestionCount = questionCount
+                saved.correctQuestionCount = correctCount
+                _ = wrongQuestionId.map({
+                    
+                    saved.wrongQuestionsId.append($0)
+                })
+                
+            }
+
             
             if let _a = self.parent as? GameViewController {
                 
                 _a.setScore()
             }
+        
+        
             
             
             // 이 시점에서 paired article 여부 체크해서 한번 더 띄워야함
             
             let unpairedCompletedIds = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({!($0.isPairedArticle) && $0.isCompleted}).map({$0.id})
 
-            if let articleLink = RealmArticleLink.shared.getAll().filter({$0.articles.contains(article!.id)}).first {
+            if let articleLink = RealmArticleLink.shared.get(Standard.shared.getLocalized()).filter({$0.articles.contains(article!.id)}).first {
                                 
                 let ar = Array(articleLink.articles)
                 
                 if unpairedCompletedIds.contains(ar[0]) && unpairedCompletedIds.contains(ar[1]) {
                     print("Time To Paired Popup")
-                    if let ar1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar[0]}).first,
-                        let ar2 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar[1]}).first {
-                        ar1.isPairedArticle = true
-                        ar2.isPairedArticle = true
+                    if let ar1 = RealmArticle.shared.getAll().filter({$0.id == ar[0]}).first,
+                        let ar2 = RealmArticle.shared.getAll().filter({$0.id == ar[1]}).first {
+                        
+                            ar1.isPairedArticle = true
+                            ar2.isPairedArticle = true
+
+                        let point = (ar1.point + ar2.point) * 2
+                        
+                        RealmUser.shared.getUserData()?.score += point
+                        
+                        
+                        if let _a = self.parent as? GameViewController {
+                            
+                            _a.setScore()
+                        }
+                        
+                        PopUp.callPairedPopUp(articleLink: articleLink, left: ar1, right: ar2, earnPoint: point, vc: self)
+                        
                     }else{
                         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
                     }
@@ -264,6 +301,18 @@ extension FactCheckViewController:ArticleSubmitDelegate {
             }
         }
     }
+    
+}
+
+extension FactCheckViewController:PairedPopupDelegate {
+    func moveToNext(sender: UIButton) {
+        
+         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
+        
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article,article?.selectedHashtag, wrongQuestionId), direction: .forward)
+    }
+    
+    
 }
 
 final class BasicBubbleView:UIView {

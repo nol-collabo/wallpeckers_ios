@@ -27,6 +27,10 @@
 		230BD4D221C0CF4F00503CD5 /* GameTransitionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4D121C0CF4F00503CD5 /* GameTransitionBaseViewController.swift */; };
 		230BD4F921C7981000503CD5 /* CompleteArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */; };
 		230BD4FB21CCD89200503CD5 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 230BD4FA21CCD89100503CD5 /* data.json */; };
+		230BD4FF21D35FD500503CD5 /* PublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD4FE21D35FD500503CD5 /* PublishViewController.swift */; };
+		230BD50121D37BA900503CD5 /* EditHeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD50021D37BA800503CD5 /* EditHeadlineViewController.swift */; };
+		230BD50321D37D4000503CD5 /* Publish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230BD50221D37D4000503CD5 /* Publish.storyboard */; };
+		230BD50521D3821E00503CD5 /* EditFeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD50421D3821D00503CD5 /* EditFeaturesViewController.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
 		2357816421ABF29000338CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2357816221ABF29000338CB9 /* LaunchScreen.storyboard */; };
@@ -107,6 +111,10 @@
 		230BD4D121C0CF4F00503CD5 /* GameTransitionBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTransitionBaseViewController.swift; sourceTree = "<group>"; };
 		230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteArticleViewController.swift; sourceTree = "<group>"; };
 		230BD4FA21CCD89100503CD5 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		230BD4FE21D35FD500503CD5 /* PublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewController.swift; sourceTree = "<group>"; };
+		230BD50021D37BA800503CD5 /* EditHeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHeadlineViewController.swift; sourceTree = "<group>"; };
+		230BD50221D37D4000503CD5 /* Publish.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Publish.storyboard; sourceTree = "<group>"; };
+		230BD50421D3821D00503CD5 /* EditFeaturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFeaturesViewController.swift; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2357816021ABF29000338CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -244,6 +252,7 @@
 				230BD4CF21C0C21B00503CD5 /* TopicViewController.swift */,
 				23D86F3A21B4FA0900CDC5B6 /* TutorialViewController.swift */,
 				23D86F3C21B50DE700CDC5B6 /* Game.storyboard */,
+				230BD50221D37D4000503CD5 /* Publish.storyboard */,
 				230BD47C21BA50FC00503CD5 /* ArticleChooseViewController.swift */,
 				75FF39E421C2560300136D03 /* FactCheckViewController.swift */,
 				230BD4F821C7981000503CD5 /* CompleteArticleViewController.swift */,
@@ -251,6 +260,9 @@
 				230BD4CD21C0BC2800503CD5 /* GameViewController.swift */,
 				230BD48021BE47B600503CD5 /* ClueSelectViewController.swift */,
 				230BD47E21BA667100503CD5 /* ResultViewController.swift */,
+				230BD4FE21D35FD500503CD5 /* PublishViewController.swift */,
+				230BD50421D3821D00503CD5 /* EditFeaturesViewController.swift */,
+				230BD50021D37BA800503CD5 /* EditHeadlineViewController.swift */,
 				2357816021ABF29000338CB9 /* Assets.xcassets */,
 				2357816221ABF29000338CB9 /* LaunchScreen.storyboard */,
 				2357816521ABF29000338CB9 /* Info.plist */,
@@ -479,6 +491,7 @@
 				23D86F1C21B125C700CDC5B6 /* notokr_demilight.ttf in Resources */,
 				23D86F1921B125C700CDC5B6 /* notokr_thin.ttf in Resources */,
 				23D86F1821B125C700CDC5B6 /* american_typewriter_bold.ttf in Resources */,
+				230BD50321D37D4000503CD5 /* Publish.storyboard in Resources */,
 				230BD47321BA102800503CD5 /* NotoSans-Medium.otf in Resources */,
 				2357816121ABF29000338CB9 /* Assets.xcassets in Resources */,
 				23D86F1A21B125C700CDC5B6 /* notokr_black.ttf in Resources */,
@@ -620,6 +633,7 @@
 				230BD48321BF543400503CD5 /* Singleton.swift in Sources */,
 				2357819521ABF47A00338CB9 /* PopUpView.swift in Sources */,
 				230BD4CC21C0B4AB00503CD5 /* TopicButton.swift in Sources */,
+				230BD4FF21D35FD500503CD5 /* PublishViewController.swift in Sources */,
 				23D86F3321B157DC00CDC5B6 /* Article.swift in Sources */,
 				2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */,
 				230BD47D21BA50FC00503CD5 /* ArticleChooseViewController.swift in Sources */,
@@ -630,10 +644,12 @@
 				23D86F0B21B11BC800CDC5B6 /* AfterRegisterViewController.swift in Sources */,
 				230BD48121BE47B600503CD5 /* ClueSelectViewController.swift in Sources */,
 				2357819321ABF2DA00338CB9 /* UIView_extension.swift in Sources */,
+				230BD50121D37BA900503CD5 /* EditHeadlineViewController.swift in Sources */,
 				2357819121ABF2DA00338CB9 /* Standard.swift in Sources */,
 				2357819021ABF2DA00338CB9 /* LeftPaddedTextField.swift in Sources */,
 				230BD4C921C0B47300503CD5 /* NavigationCustomView.swift in Sources */,
 				75FF39E521C2560300136D03 /* FactCheckViewController.swift in Sources */,
+				230BD50521D3821E00503CD5 /* EditFeaturesViewController.swift in Sources */,
 				230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */,
 				230BD4F921C7981000503CD5 /* CompleteArticleViewController.swift in Sources */,
 				23D86F3521B1594700CDC5B6 /* ArticleLink.swift in Sources */,

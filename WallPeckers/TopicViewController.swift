@@ -8,8 +8,18 @@
 
 import UIKit
 
-class TopicViewController: GameTransitionBaseViewController {
+class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
+    func callCompleteBadge(tag: Int) {
+        
+        if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == tag}).first?.badge {
 
+            if RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9 {
+                
+                PopUp.levelBadgePopup(type: .badge, title:String(format:"getBadge".localized, badge), image: UIImage.init(named: "getBadge\(tag)")!, tag: 10, vc: self)
+            }
+        }
+    }
+    
     let iconWidth = DEVICEHEIGHT > 600 ? 90 : 80
     let iconHeight = DEVICEHEIGHT > 600 ? 180 : 150
     let topicTitleLb = UILabel()
@@ -23,23 +33,73 @@ class TopicViewController: GameTransitionBaseViewController {
     let selectedLanguage = Standard.shared.getLocalized()
     var sections:[Section]?
     var sectionStars:[Int] = []
+    var firstLevelUp:Bool = false
+    var secondLevelUp:Bool = false
+    var thirdLevelUp:Bool = false
+    var fourthLevelUp:Bool = false
+    
     lazy var buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
     }
     
     
+    func callLevelPopUp(topic:Int) {
+        
+        if let score = RealmUser.shared.getUserData()?.score {
+            
+            let level = RealmLevel.shared.get(selectedLanguage).sorted(by: {$0.id < $1.id})
+            
+            if score >= 2000 {
+                if !firstLevelUp {
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[0].grade!), image: UIImage.init(named: "level35")!, tag: topic, vc: self)
+                    firstLevelUp = true
+                }
+            }else if score >= 4000 {
+                if !secondLevelUp {
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[1].grade!), image: UIImage.init(named: "level36")!, tag: topic, vc: self)
+                    secondLevelUp = true
+                }
+            }else if score >= 8000 {
+                if !thirdLevelUp {
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[2].grade!), image: UIImage.init(named: "level37")!, tag: topic, vc: self)
+                    thirdLevelUp = true
+                }
+            }else if score >= 12000 {
+                if !fourthLevelUp {
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[3].grade!), image: UIImage.init(named: "level38")!, tag: topic, vc: self)
+                    fourthLevelUp = true
+                }
+            }
+        }
+        
+        if let popupEmpty = self.parent?.view.subviews.filter({$0 is LevelBadgePopUpView}).isEmpty {
+            
+        
+            if popupEmpty {
+                if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == topic}).first?.badge {
+                    
+                    
+                    if RealmArticle.shared.getAll().filter({$0.section == topic}).filter({$0.isCompleted}).count == 9 {
+                        
+                        PopUp.levelBadgePopup(type: .badge, title:String(format:"getBadge".localized, badge), image: UIImage.init(named: "getBadge\(topic)")!, tag: 10, vc: self)
+                    }
+                }
+            }
+        }
+    }
+    
     func setStars() {
         
         sectionStars = []
         
         guard let sections = sections else {return}
-
+        
         for i in 1...sections.count {
             
-            let a = RealmArticle.shared.get(selectedLanguage).filter({
+            let a = RealmArticle.shared.getAll().filter({
                 
                 $0.section == i
                 
@@ -79,7 +139,7 @@ class TopicViewController: GameTransitionBaseViewController {
         
         setStars()
         
-
+        
         
         politicsButton.delegate = self
         economyButton.delegate = self
@@ -140,7 +200,7 @@ class TopicViewController: GameTransitionBaseViewController {
         
         
     }
-
+    
 }
 
 extension TopicViewController:TopicButtonDelegate {
@@ -163,7 +223,7 @@ extension TopicViewController:TopicButtonDelegate {
                 $0.point
             }).reduce(0, +)
             
-//            print(aa)
+            //            print(aa)
             
             btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
             articleButtons.append(btn)
@@ -171,7 +231,7 @@ extension TopicViewController:TopicButtonDelegate {
         }
         
         
-//        print(articleButtons.count)
+        //        print(articleButtons.count)
         
         vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
             $0.section == tag
@@ -180,7 +240,7 @@ extension TopicViewController:TopicButtonDelegate {
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: tag, direction: .forward)
         
         
-//        self.navigationController?.pushViewController(vc, animated: false)
+        //        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     
