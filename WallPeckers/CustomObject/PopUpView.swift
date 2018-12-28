@@ -70,14 +70,16 @@ class AlertTwoButtonView:BasePopUpView {
     
     private func setUI() {
         
-        self.setPopUpViewHeight(300)
+        self.setPopUpViewHeight(310)
+        self.popupView.setBorder(color: .black, width: 1.5)
         self.popupView.addSubview([descLb, okButton, cancelButton])
         
         descLb.snp.makeConstraints { (make) in
-            make.top.equalTo(30)
-            make.leading.equalTo(10)
+            make.top.equalTo(20)
+            make.leading.equalTo(5)
             make.centerX.equalToSuperview()
         }
+        
         descLb.numberOfLines = 0
         descLb.textAlignment = .center
         
@@ -85,13 +87,15 @@ class AlertTwoButtonView:BasePopUpView {
             make.bottom.equalTo(-10)
             make.leading.equalTo(30)
             make.centerX.equalToSuperview()
-            make.height.equalTo(42)
+            make.height.equalTo(DeviceSize.width > 320 ? 42 : 32)
         }
         okButton.snp.makeConstraints { (make) in
+            make.top.equalTo(descLb.snp.bottom).offset(10)
             make.bottom.equalTo(cancelButton.snp.top).offset(-10)
             make.leading.equalTo(30)
             make.centerX.equalToSuperview()
-            make.height.equalTo(42)
+            make.height.equalTo(cancelButton.snp.height)
+//            make.height.equalTo(42)
         }
         descLb.attributedText = "inputkeydialog_description".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .black)
         okButton.setTitle("OK".localized, for: .normal)
@@ -580,14 +584,15 @@ class ArticleSubmitView:BasePopUpView {
         rightWingImv.contentMode = .top
         
         descLb.snp.makeConstraints { (make) in
-            make.top.equalTo(centerInfoView.snp.bottom).offset(10)
+            make.top.equalTo(centerInfoView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.7)
+            make.width.equalToSuperview().multipliedBy(0.8)
         }
 //        descLb.setBorder(color: .black, width: 1)
         descLb.text = "factcheckdialog_hashguide".localized
         descLb.textAlignment = .center
         descLb.numberOfLines = 2
+        descLb.adjustsFontSizeToFitWidth = true
         
         hashTagBtnView.snp.makeConstraints { (make) in
             make.top.equalTo(descLb.snp.bottom).offset(10)
@@ -795,6 +800,11 @@ class SelectPopUpView:BasePopUpView {
         }
         if let _ = buttonImages {
             self.setPopUpViewHeight(380)
+        }else{
+            buttonView.snp.updateConstraints { (make) in
+                make.height.equalTo(selectedButton.count * 60)
+            }
+
         }
         buttonView.isScrollEnabled = false
 //        buttonView.al
@@ -822,7 +832,11 @@ class SelectPopUpView:BasePopUpView {
                 make.leading.equalTo(20)
                 make.trailing.equalTo(-20)
                 make.bottom.equalTo(-5)
-                make.height.equalTo(60)
+                if let _ = buttonImages {
+                    make.height.equalTo(60)
+                }else{
+                    make.height.equalTo(50)
+                }
             }
             
         }

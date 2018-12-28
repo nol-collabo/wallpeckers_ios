@@ -100,7 +100,20 @@ class AlreadyRegisterViewController: UIViewController {
         newStartBtn.addTarget(self, action: #selector(moveToNewStart(sender:)), for: .touchUpInside)
         continueBtn.addTarget(self, action: #selector(moveToContinue(sender:)), for: .touchUpInside)
         
-        titleImageView.image = UIImage.init(named: "MainTitleImv")!
+        
+        switch Standard.shared.getLocalized() {
+            
+        case .ENGLISH:
+            titleImageView.image = UIImage.init(named: "enLogo")!
+
+        case .GERMAN:
+            titleImageView.image = UIImage.init(named: "deLogo")!
+
+        case .KOREAN:
+            titleImageView.image = UIImage.init(named: "krLogo")!
+            
+        }
+        
         titleImageView.contentMode = .scaleAspectFit
         goetheView.image = UIImage.init(named: "goethe")
         nolgongView.image = UIImage.init(named: "nolgong")

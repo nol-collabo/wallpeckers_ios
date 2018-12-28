@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import AloeStackView
+import Photos
 
 class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelegate {
     func moveToNext(sender: UIButton) {
@@ -33,10 +34,8 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
-   
-        // id 로 완료기사로 ㄱㄱ하심
     }
-    
+    let imagePicker = UIImagePickerController()
     let publishView = NewspaperPublishedView()
     var completedArticle: [Article]?
     var credibility: Int?
@@ -55,8 +54,14 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
     var fromResult:Bool = false
     var titleLb = UILabel()
     let selectedLanguage = Standard.shared.getLocalized()
+    let keyboardResigner = UITapGestureRecognizer()
+
     
-    
+    @objc func keyboardResign() {
+
+        profileView.nameTf.resignFirstResponder()
+
+    }
     
     func isBadge(tag:Int) -> Bool {
         
@@ -78,6 +83,10 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         scoreView.delegate = self
         badgeView.delegate = self
         levelView.delegate = self
+        profileView.delegate = self
+        keyboardResigner.addTarget(self, action: #selector(keyboardResign))
+        self.view.addGestureRecognizer(keyboardResigner)
+
         //내 점수
         currentPoint = RealmUser.shared.getUserData()?.score
         myLevel = 10
@@ -102,22 +111,12 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
             }
         }
         
-        
-        
-        //내 뱃지, 정치부터 완료된거에 1,2,3,4,5,6 넣으면 됨
-        
-     
         for i in 1...6 {
             addBadge(tag: i)
         }
-        
-        
-        
-//        completedBadges.append(2)
-        
+
         setUI()
 
-        // Do any additional setup after loading the view.
     }
     
     func setUI() {
@@ -171,7 +170,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
             make.center.equalToSuperview()
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(DEVICEHEIGHT > 600 ? 42 : 32)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 330 : 250)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 360 : 290)
 
         }
         
@@ -209,6 +208,123 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
             sender.isUserInteractionEnabled = true
         }
     }
+}
+
+extension MyPageViewController:MyPageDelegate {
+    
+    
+    func isbecomeKeyboard(sender: UITextField) {
+        UIView.animate(withDuration: 0.2) {
+            self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 80)
+        }
+    }
+    
+    func isresignKeyboard(sender: UITextField) {
+        UIView.animate(withDuration: 0.2) {
+            self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 80)
+        }
+        
+        try! realm.write {
+            RealmUser.shared.getUserData()?.name = sender.text
+        }
+    }
+    
+    func callProfileImageOption(sender: UIButton) {
+        print("HERE!")
+        
+        imagePicker.delegate = self
+        PopUp.call(mainTitle: "registrationdialog_title".localized, selectButtonTitles: ["registrationdialog_camera".localized, "registrationdialog_album".localized, "registrationdialog_noprofile".localized], bottomButtonTitle: "CANCEL".localized, bottomButtonType: 0, self, buttonImages: nil)
+        
+    }
+    
+}
+
+extension MyPageViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            
+            try! realm.write {
+                RealmUser.shared.getUserData()?.profileImage = image.jpegData(compressionQuality: 0.5)
+            }
+            
+            profileView.profileImageView.image = image
+        }
+        
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension MyPageViewController:SelectPopupDelegate {
+    func bottomButtonTouched(sender: UIButton) {
+        
+        self.removePopUpView()
+        
+    }
+    
+    func checkPermission() {
+        
+        
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    /* do stuff here */
+                    
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            // same same
+            
+            print("User do not have access to photo album.")
+        case .denied:
+            // same same
+            
+            print("User has denied the permission.")
+        }
+    }
+    
+    func selectButtonTouched(tag: Int) {
+        
+        switch tag {
+        case 0:
+            imagePicker.sourceType = .camera
+            checkPermission()
+            //            checkPermission { (result) in
+            //                if result == "authorized" {
+            self.present(self.imagePicker, animated: true, completion: nil)
+            //                }
+        //            }
+        case 1:
+            imagePicker.sourceType = .photoLibrary
+            checkPermission()
+            
+            //            checkPermission { (result) in
+            //                if result == "authorized" {
+            self.present(self.imagePicker, animated: true, completion: nil)
+            //                }
+        //            }
+        case 2:
+            print("DEFAULT")
+        default:
+            break
+        }
+        
+        self.removePopUpView()
+        
+        //        print(tag)
+    }
+    
+    
 }
 
 

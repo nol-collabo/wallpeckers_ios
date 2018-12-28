@@ -18,35 +18,45 @@ class AfterRegisterViewController: UIViewController {
     let confirmBtn = BottomButton()
     let pressCodeDescLb = UILabel()
     var userInfo:User?
+    let keyboardResigner = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(RealmUser.shared.getUserData()?.playTime)
-        print("PLAYTIME")
         setUI()
         addAction()
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mainProfileView.setData(userData: realm.objects(User.self).last!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: true)
+
+    }
+    
     func addAction() {
         mainProfileView.setAction(vc: self, #selector(moveToMaPage(sender:)))
         confirmBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
+        keyboardResigner.addTarget(self, action: #selector(keyboardResign))
+    }
+    
+    @objc func keyboardResign() {
+        pressCodeTf.resignFirstResponder()
     }
     
     func setUI() {
         
         self.view.addSubview([mainProfileView, pressCodeLb, pressCodeTf, confirmBtn, pressCodeDescLb])
         self.view.backgroundColor = .basicBackground
+        self.view.addGestureRecognizer(keyboardResigner)
         mainProfileView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(20)
             make.centerX.equalToSuperview()
             make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 370 : 300)
-        
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 410 : 345)
+
         }
         
-        mainProfileView.setData(userData: realm.objects(User.self).last!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: true)
         
         pressCodeTf.snp.makeConstraints { (make) in
             make.top.equalTo(mainProfileView.snp.bottom).offset(46)
@@ -161,19 +171,19 @@ extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDel
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if DEVICEHEIGHT < 800 {
+//        if DEVICEHEIGHT < 600 {
             UIView.animate(withDuration: 0.2) {
                 self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 80)
                 
-            }
+//            }
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if DEVICEHEIGHT < 800 {
+//        if DEVICEHEIGHT < 600 {
             UIView.animate(withDuration: 0.2) {
                 self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 80)
-            }
+//            }
         }
     }
     
@@ -186,14 +196,16 @@ extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDel
         if string.count > 0 {
             confirmBtn.isUserInteractionEnabled = true
             confirmBtn.backgroundColor = .black
-
+        }else{
+            confirmBtn.isUserInteractionEnabled = false
+            confirmBtn.backgroundColor = .gray
         }
         return true
         
     }
 }
 
-class MyProfileView:UIView {
+class MyProfileView:UIView, UITextFieldDelegate {
     
     let titleLb = UILabel()
     let profileImageView = UIImageView()
@@ -202,7 +214,7 @@ class MyProfileView:UIView {
     let myPagebtn = BottomButton()
     let cameraBtn = UIButton()
     let levelDescLb = UILabel()
-    
+    var delegate:MyPageDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -234,6 +246,9 @@ class MyProfileView:UIView {
             make.height.equalTo(DEVICEHEIGHT > 600 ? 180 : 120)
         }
         
+        nameTf.font = UIFont.NotoSans(.bold, size: 19)
+        nameTf.delegate = self
+        
         switch Standard.shared.getLocalized() {
             
         case .ENGLISH:
@@ -250,9 +265,10 @@ class MyProfileView:UIView {
         
         profileImageView.setBorder(color: .black, width: 3.5)
         nameTf.snp.makeConstraints { (make) in
-            make.top.equalTo(profileImageView.snp.bottom).offset(10)
+            make.top.equalTo(profileImageView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-//            make.height.equalTo(30)
+            make.width.greaterThanOrEqualTo(50)
+            make.width.lessThanOrEqualToSuperview().multipliedBy(0.8)
         }
         nameTf.textAlignment = .center
         
@@ -269,7 +285,6 @@ class MyProfileView:UIView {
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
             make.bottom.equalTo(-58)
-//            make.height.equalTo(43)
             make.top.equalTo(nameTf.snp.bottom).offset(DeviceSize.width > 320 ? 10 : 5)
         }
         
@@ -278,21 +293,43 @@ class MyProfileView:UIView {
             make.leading.equalTo(20)
             make.height.equalTo(40)
             make.top.equalTo(levelDescLb.snp.bottom).offset(10)
-            //            make.bottom.equalTo(-10)
+        }
+        
+        cameraBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(profileImageView.snp.trailing)
+            make.centerY.equalTo(profileImageView.snp.bottom)
+            make.width.equalTo(DEVICEHEIGHT > 600 ? 60 : 40)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 50 : 30)
         }
         
         myPagebtn.setTitle("MY_PAGE".localized, for: .normal)
         self.nameTf.isEnabled = false
         levelDescLb.numberOfLines = 2
         levelDescLb.textAlignment = .center
+        cameraBtn.addTarget(self, action: #selector(cameraTouched(sender:)), for: .touchUpInside)
+        nameEditBtn.addTarget(self, action: #selector(changeNameTouched(sender:)), for: .touchUpInside)
     
+    }
+    
+    @objc func cameraTouched(sender:UIButton) {
+        delegate?.callProfileImageOption!(sender: sender)
+        
+    }
+    
+    @objc func changeNameTouched(sender:UIButton) {
+        
+        nameTf.isEnabled = (!nameTf.isEnabled)
+        nameTf.becomeFirstResponder()
+
     }
     
     func setData(userData:User, level:String?, camera:Bool, nameEdit:Bool, myPage:Bool) {
         
+        
+        
         self.nameTf.text = userData.name
         self.profileImageView.image = UIImage.init(data: userData.profileImage!)
-        self.levelDescLb.text = level
+        self.levelDescLb.attributedText = "\("WALLPECKERS".localized)\n\(level ?? "Intern")".makeAttrString(font: .NotoSans(.bold, size: 14), color: .black)
         self.cameraBtn.isHidden = !camera
         self.nameEditBtn.isHidden = !nameEdit
         self.myPagebtn.isHidden = !myPage
@@ -308,5 +345,27 @@ class MyProfileView:UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.isbecomeKeyboard!(sender: textField)
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.isresignKeyboard!(sender: textField)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        delegate?.isresignKeyboard!(sender: textField)
+        
+        return true
+        
+    }
+    
+}
+
+@objc protocol MyPageDelegate {
+    
+    @objc optional func callProfileImageOption(sender:UIButton)
+    @objc optional func isbecomeKeyboard(sender:UITextField)
+    @objc optional func isresignKeyboard(sender:UITextField)
     
 }
