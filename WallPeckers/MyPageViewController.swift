@@ -215,13 +215,14 @@ extension MyPageViewController:MyPageDelegate {
     
     func isbecomeKeyboard(sender: UITextField) {
         UIView.animate(withDuration: 0.2) {
-            self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 80)
+            self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 120)
         }
     }
     
     func isresignKeyboard(sender: UITextField) {
+        sender.resignFirstResponder()
         UIView.animate(withDuration: 0.2) {
-            self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 80)
+            self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 120)
         }
         
         try! realm.write {

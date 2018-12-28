@@ -357,7 +357,8 @@ class MyProfileView:UIView, UITextFieldDelegate {
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        delegate?.isresignKeyboard!(sender: textField)
+        textField.resignFirstResponder()
+//        delegate?.isresignKeyboard!(sender: textField)
         
         return true
         
