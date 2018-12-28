@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        print(Standard.shared.gamePlayTime)
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterForeground")
         
         let fore = UserDefaults.standard.integer(forKey: "enterForeground")
@@ -181,22 +180,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let fore = UserDefaults.standard.integer(forKey: "enterForeground")
         let back = UserDefaults.standard.integer(forKey: "enterBackground")
-        
-        
-        print(fore - back)
-        
-        
-        print(Standard.shared.gamePlayTime)
-        print("~~~~BEFORE")
+   
         
         Standard.shared.gamePlayTime -= (fore - back)
         
         RealmUser.shared.savePlayTime()
         
-        
-        print(Standard.shared.gamePlayTime)
-        
-        print("~~~AFTER~")
         
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
@@ -211,11 +200,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RealmUser.shared.savePlayTime()
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterBackground")
         print(Standard.shared.gamePlayTime)
-        print("CCCCC")
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
 }
 
