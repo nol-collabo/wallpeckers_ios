@@ -16,7 +16,7 @@ class Standard {
     static let shared = Standard()
     private var sharedTimer:Timer!
     var delegate:GamePlayTimeDelegate?
-    var gamePlayTime:Int = 1200 {
+    var gamePlayTime:Int = RealmUser.shared.getUserData()?.playTime ?? 1200 {
         didSet {
             
             delegate?.checkPlayTime(gamePlayTime)
@@ -42,10 +42,10 @@ class Standard {
                 if playTime != 0 {
                     gamePlayTime = playTime
                 }else{
-                    gamePlayTime = 10
+                    gamePlayTime = 1200
                 }
             }else{
-                gamePlayTime = 10
+                gamePlayTime = 1200
             }
         }
         
