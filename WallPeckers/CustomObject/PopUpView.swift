@@ -1027,7 +1027,7 @@ class AlertPopUpView:BasePopUpView {
             self.setPopUpViewHeight(220)
 
             descLb.snp.remakeConstraints { (make) in
-                make.top.equalTo(20)
+                make.centerY.equalToSuperview().offset(-30)
                 make.centerX.equalToSuperview()
                 make.leading.equalTo(20)
             }

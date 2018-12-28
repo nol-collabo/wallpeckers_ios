@@ -240,13 +240,13 @@ class PublishViewController: UIViewController {
 extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate, TwobuttonAlertViewDelegate, UITextFieldDelegate {
     func tapOk(sender: Any) {
         print(sender)
+        PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
         // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.2) {
 
-            
             if let pv = self.parent?.view.subviews.filter({$0 is EmailPopupView}).first as? EmailPopupView {
                 print(pv)
                 pv.popupView.center = .init(x:  pv.popupView.center.x, y: pv.popupView.center.y - 120)
