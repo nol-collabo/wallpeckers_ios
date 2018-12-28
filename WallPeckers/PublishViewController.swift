@@ -237,7 +237,42 @@ class PublishViewController: UIViewController {
     
 }
 
-extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate {
+extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate, TwobuttonAlertViewDelegate, UITextFieldDelegate {
+    func tapOk(sender: Any) {
+        print(sender)
+        // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.2) {
+
+            
+            if let pv = self.parent?.view.subviews.filter({$0 is EmailPopupView}).first as? EmailPopupView {
+                print(pv)
+                pv.popupView.center = .init(x:  pv.popupView.center.x, y: pv.popupView.center.y - 120)
+                
+            }
+            
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        UIView.animate(withDuration: 0.2) {
+            if let pv = self.parent?.view.subviews.filter({$0 is EmailPopupView}).first as? EmailPopupView {
+                
+                pv.popupView.center = .init(x:  pv.popupView.center.x, y: pv.popupView.center.y + 120)
+                
+            }
+            
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     func tapBottomButton(sender: AlertPopUpView) {
         sender.removeFromSuperview()
     }
@@ -258,6 +293,8 @@ extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate {
             self.removePopUpView()
         }else if tag == 0 {
             //이메일 팝업 호출 시점
+            PopUp.callEmailPopUp(vc: self)
+            self.removePopUpView()
         }
         
     }

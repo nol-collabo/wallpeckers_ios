@@ -163,12 +163,12 @@ class AfterRegisterViewController: UIViewController {
 
 
 extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDelegate {
-    func tapOk(sender: UIButton) {
+    func tapOk(sender: Any) {
         RealmUser.shared.initializedUserInfo()
         moveToGame()
-        sender.isUserInteractionEnabled = true
-
     }
+    
+
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

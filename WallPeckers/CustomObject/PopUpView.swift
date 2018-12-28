@@ -53,6 +53,89 @@ class BasePopUpView:UIView {
     
 }
 
+class EmailPopupView:BasePopUpView, UITextFieldDelegate {
+    
+    let titleLb = UILabel()
+    let okButton = BottomButton()
+    let cancelButton = BottomButton()
+    var delegate:TwobuttonAlertViewDelegate?
+    var emailTf = UITextField()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setUI()
+        
+    }
+    
+    private func setUI() {
+//        emailTf.delegate = se
+        
+        self.setPopUpViewHeight(300)
+        self.popupView.setBorder(color: .black, width: 3.5)
+        self.popupView.addSubview([titleLb, emailTf, okButton, cancelButton])
+        
+        titleLb.snp.makeConstraints { (make) in
+            make.top.left.equalTo(10)
+            make.trailing.equalTo(-10)
+            make.height.equalTo(55)
+        }
+        
+        emailTf.snp.makeConstraints { (make) in
+            make.leading.equalTo(10)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.height.equalTo(30)
+        }
+        emailTf.addUnderBar()
+        
+        titleLb.backgroundColor = .black
+        titleLb.attributedText = "inputemaildialog_email".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .white)
+        titleLb.textAlignment = .center
+        
+        cancelButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(-20)
+            make.leading.equalTo(30)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(DeviceSize.width > 320 ? 42 : 32)
+        }
+        okButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(cancelButton.snp.top).offset(-10)
+            make.leading.equalTo(30)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(cancelButton.snp.height)
+        }
+        
+        okButton.setTitle("OK".localized, for: .normal)
+        cancelButton.setAttributedTitle("CANCEL".localized.makeAttrString(font: .NotoSans(.bold, size: 20), color: .white), for: .normal)
+        cancelButton.setBorder(color: .black, width: 1.5)
+        okButton.addTarget(self, action: #selector(touchOk(sender:)), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(touchCancel(sender:)), for: .touchUpInside)
+        
+    }
+    
+    @objc func touchOk(sender:UIButton) {
+        sender.isUserInteractionEnabled = false
+        
+        
+        if emailTf.text != "" {
+            delegate?.tapOk(sender: emailTf.text ?? "")
+            self.removeFromSuperview()
+        }
+        
+        sender.isUserInteractionEnabled = true
+    }
+    
+    @objc func touchCancel(sender:UIButton) {
+        self.removeFromSuperview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
 class AlertTwoButtonView:BasePopUpView {
     
     let descLb = UILabel()
@@ -66,7 +149,6 @@ class AlertTwoButtonView:BasePopUpView {
         setUI()
         
     }
-    
     
     private func setUI() {
         
@@ -124,7 +206,7 @@ class AlertTwoButtonView:BasePopUpView {
 }
 
 protocol TwobuttonAlertViewDelegate {
-    func tapOk(sender:UIButton)
+    func tapOk(sender:Any)
 }
 
 enum PopUpType:String {
@@ -982,6 +1064,23 @@ protocol AlerPopupViewDelegate {
 
 struct PopUp {
     
+    static func callEmailPopUp(vc:UIViewController) {
+        
+        let popupView = EmailPopupView()
+        
+        if let _parent = vc.parent {
+            _parent.view.addSubview(popupView)
+        }else{
+            vc.view.addSubview(popupView)
+        }
+        
+        popupView.delegate = vc as? TwobuttonAlertViewDelegate
+        popupView.emailTf.delegate = vc as? UITextFieldDelegate
+        popupView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+    }
     
     static func callTwoButtonAlert(vc:UIViewController) {
         

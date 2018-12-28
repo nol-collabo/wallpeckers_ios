@@ -23,6 +23,8 @@ class StartViewController: UIViewController {
     var selectedLanguage:Int?
     let user = realm.objects(User.self)
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

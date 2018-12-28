@@ -44,10 +44,10 @@ class Standard {
                 if playTime != 0 {
                     gamePlayTime = playTime
                 }else{
-                    gamePlayTime = 1200
+                    gamePlayTime = 20
                 }
             }else{
-                gamePlayTime = 1200
+                gamePlayTime = 20
             }
         }
         
