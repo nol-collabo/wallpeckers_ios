@@ -22,7 +22,6 @@ class AfterRegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        RealmUser.shared.savePlayTime()
         print(RealmUser.shared.getUserData()?.playTime)
         print("PLAYTIME")
         setUI()
@@ -76,7 +75,7 @@ class AfterRegisterViewController: UIViewController {
         pressCodeLb.setNotoText("inputkey_codeguide".localized, size: 16, textAlignment: .center)
         pressCodeLb.numberOfLines = 1
         pressCodeLb.adjustsFontSizeToFitWidth = true
-//        pressCodeDescLb.setNotoText("You Could find out PRESS CODE on site.", color: .white, size: 12, textAlignment: .center)
+        
         confirmBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(view.safeArea.bottom).offset(-30)
             make.height.equalTo(55)
@@ -84,7 +83,6 @@ class AfterRegisterViewController: UIViewController {
             make.leading.equalTo(55)
         }
         confirmBtn.setTitle("OK".localized, for: .normal)
-//        myPagebtn.setTitle("마이페이지", for: .normal)
         pressCodeTf.delegate = self
         confirmBtn.backgroundColor = .gray
         confirmBtn.isUserInteractionEnabled = false
@@ -110,23 +108,19 @@ class AfterRegisterViewController: UIViewController {
             
             if playTime > 0 {
                 
-                if UserDefaults.standard.bool(forKey: "Tutorial") {
-                    guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
-                    sender.isUserInteractionEnabled = true
+                moveToGame()
 
-                    self.present(vc, animated: true, completion: nil)
-                    
-                }else{
-                    guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
-                    
-                    
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+                sender.isUserInteractionEnabled = true
 
  
             }else{
                 
-                PopUp.callTwoButtonAlert(vc:self)
+                if (RealmUser.shared.getUserData()?.score)! > 0 {
+                    PopUp.callTwoButtonAlert(vc:self)
+                }else{
+                    moveToGame()
+                }
+           
                 sender.isUserInteractionEnabled = true
 
                 // 팝업
@@ -136,17 +130,33 @@ class AfterRegisterViewController: UIViewController {
      
     }
     
+    func moveToGame(){
+        
+        UserDefaults.standard.set(true, forKey: "Playing")
+        
+        if UserDefaults.standard.bool(forKey: "Tutorial") {
+            guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+            
+            self.present(vc, animated: true, completion: nil)
+            
+        }else{
+            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+            
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 
 }
 
 
 extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDelegate {
     func tapOk(sender: UIButton) {
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
         RealmUser.shared.initializedUserInfo()
-        sender.isUserInteractionEnabled = false
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+        moveToGame()
+        sender.isUserInteractionEnabled = true
+
     }
     
     

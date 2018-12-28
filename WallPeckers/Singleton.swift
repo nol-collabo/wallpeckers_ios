@@ -80,6 +80,8 @@ class RealmUser {
     func initializedUserInfo() {
         guard let user = user else {return}
 
+        UserDefaults.standard.set(false, forKey: "Tutorial")
+        UserDefaults.standard.set(false, forKey: "Playing")
         try! realm.write {
             user.factCheckList.removeAll()
             user.score = 0
