@@ -28,6 +28,20 @@ class StartViewController: UIViewController {
 
         setUI()
         
+        
+        let fileManager = FileManager.default
+        let bundleURL = Bundle.main.resourcePath!
+        
+        let contents = try! fileManager.contentsOfDirectory(atPath: bundleURL)
+        
+        for item in contents
+        {
+            if item.hasPrefix("nssl") {
+                print(item)
+                print("VVV")
+            }
+        }
+        
         print(DeviceSize.width)
         print("~~~~")
     }
