@@ -294,6 +294,8 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 }else{
                     delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
                 }
+            }else{
+                delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
             }
         }
     }

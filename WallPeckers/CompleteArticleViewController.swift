@@ -209,7 +209,9 @@ final class CompletedArticleView:UIView {
         infoAString.append(dString)
         infoAString.append("\n\(regionString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
         infoAString.append("\n\(userNameString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
-        
+//        thumbImgView.image =
+    
+//         UIImage.init(named: "image_article_0\(article.id)")
         infoLb.attributedText = infoAString
         
         let articleString:NSMutableAttributedString = "".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
