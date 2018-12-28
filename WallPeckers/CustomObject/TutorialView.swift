@@ -53,6 +53,7 @@ final class TutorialView:UIView {
             make.leading.equalTo(20)
             make.height.equalTo(DEVICEHEIGHT > 600 ? 270 : 200)
         }
+        descImv.contentMode = .scaleAspectFit
         descLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(descImv.snp.bottom).offset(DEVICEHEIGHT > 600 ? 50 : 30)
@@ -62,12 +63,15 @@ final class TutorialView:UIView {
         descLb.numberOfLines = 0
     }
     
-    func setData(title:String, desc:String, image:UIImage, isLast:Bool = false) {
+    func setData(title:String, desc:String, images:[UIImage], isLast:Bool = false) {
         
         self.nextBtn.isHidden = !isLast
         self.topLb.setNotoText(title, size: 20, textAlignment: .center)
         self.descLb.setNotoText(desc, size: 16, textAlignment: .center)
-        self.descImv.image = image
+        self.descImv.animationImages = images
+        self.descImv.animationRepeatCount = 0
+        self.descImv.animationDuration = 1
+        self.descImv.startAnimating()
     }
     @objc func moveToNext(sender:UIButton) {
         UserDefaults.standard.set(true, forKey: "Tutorial")
