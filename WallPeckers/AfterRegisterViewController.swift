@@ -125,12 +125,13 @@ class AfterRegisterViewController: UIViewController {
  
             }else{
                 
-                if (RealmUser.shared.getUserData()?.score)! > 0 {
-                    PopUp.callTwoButtonAlert(vc:self)
-                }else{
+                if !UserDefaults.standard.bool(forKey: "Playing") {
                     moveToGame()
+                }else{
+                    PopUp.callTwoButtonAlert(vc:self)
                 }
-           
+                
+
                 sender.isUserInteractionEnabled = true
 
                 // 팝업

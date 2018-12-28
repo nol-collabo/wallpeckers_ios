@@ -29,6 +29,8 @@ class ResultViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
+        UserDefaults.standard.set(0, forKey: "enterForeground")
+        UserDefaults.standard.set(0, forKey: "enterBackground")
         
         let congLb = UILabel()
         
@@ -51,8 +53,8 @@ class ResultViewController: UIViewController {
             make.center.equalToSuperview()
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(DEVICEHEIGHT > 600 ? 42 : 32)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 330 : 250)
-            
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 360 : 290)
+
         }
                 
         resultView.contentMode = .scaleAspectFit

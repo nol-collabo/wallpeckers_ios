@@ -79,7 +79,9 @@ class RealmUser {
     
     func initializedUserInfo() {
         guard let user = user else {return}
-
+        
+        UserDefaults.standard.set(0, forKey: "enterForeground")
+        UserDefaults.standard.set(0, forKey: "enterBackground")
         UserDefaults.standard.set(false, forKey: "Tutorial")
         UserDefaults.standard.set(false, forKey: "Playing")
         try! realm.write {

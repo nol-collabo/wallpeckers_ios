@@ -134,7 +134,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
     func checkPlayTime(_ time: Int) {
         
         timerView?.updateTime(time)
-        if time == 0 { //완료 됐을떄
+        if time <= 0 { //완료 됐을떄
             
             PopUp.callAlert(time: "00:00", desc: "timedialog_timeend".localized, vc: self, tag: 1)
             

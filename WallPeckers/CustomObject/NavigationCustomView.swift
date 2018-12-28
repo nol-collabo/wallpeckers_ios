@@ -44,8 +44,13 @@ class NavigationCustomView:UIView {
     func updateTime(_ time:Int) {
         
         let (_, m, s) = secondsToHoursMinutesSeconds(seconds: time)
-        
-        self.textLb.setNotoText("\(m):\(s)", size: 14, textAlignment: .center)
+        if s < 0 {
+            self.textLb.setNotoText("\(m):\(0)", size: 14, textAlignment: .center)
+
+        }else{
+            self.textLb.setNotoText("\(m):\(s)", size: 14, textAlignment: .center)
+
+        }
     }
     
     func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
