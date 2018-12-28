@@ -22,8 +22,10 @@ class Standard {
             delegate?.checkPlayTime(gamePlayTime)
 
             if gamePlayTime <= 0 {
-                sharedTimer.invalidate()
-                sharedTimer = nil
+                if sharedTimer != nil {
+                    sharedTimer.invalidate()
+                    sharedTimer = nil
+                }
             }
         }
     }

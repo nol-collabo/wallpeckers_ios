@@ -98,21 +98,21 @@ final class TutorialView:UIView {
         
         topLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(DEVICEHEIGHT > 800 ? 70 : 50)
+            make.top.equalTo(DEVICEHEIGHT > 600 ? 70 : 30)
             make.height.equalTo(50)
         }
         topLb.numberOfLines = 0
         descImv.contentMode = .scaleAspectFit
         
         nextBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(DEVICEHEIGHT > 800 ? -100 : -50)
+            make.bottom.equalTo(DEVICEHEIGHT > 600 ? -100 : -40)
             make.centerX.equalToSuperview()
             make.width.equalTo(270)
             make.height.equalTo(55)
         }
         nextBtn.setAttributedTitle("tutorial_startBtn".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
         descImv.snp.makeConstraints { (make) in
-            make.top.equalTo(topLb.snp.bottom).offset(40)
+            make.top.equalTo(topLb.snp.bottom).offset(DEVICEHEIGHT > 600 ? 40 : 20)
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
             make.height.equalTo(DEVICEHEIGHT > 600 ? 270 : 200)

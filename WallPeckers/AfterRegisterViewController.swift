@@ -53,13 +53,13 @@ class AfterRegisterViewController: UIViewController {
             make.top.equalTo(view.safeArea.top).offset(20)
             make.centerX.equalToSuperview()
             make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
-            make.height.equalTo(DEVICEHEIGHT > 600 ? 410 : 345)
+            make.height.equalTo(DEVICEHEIGHT > 600 ? 410 : 320)
 
         }
         
         
         pressCodeTf.snp.makeConstraints { (make) in
-            make.top.equalTo(mainProfileView.snp.bottom).offset(46)
+            make.top.equalTo(mainProfileView.snp.bottom).offset(DeviceSize.width > 320 ? 46 : 26)
             make.centerX.equalToSuperview()
             make.leading.equalTo(35)
             make.height.equalTo(30)
@@ -174,7 +174,7 @@ extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDel
     func textFieldDidBeginEditing(_ textField: UITextField) {
 //        if DEVICEHEIGHT < 600 {
             UIView.animate(withDuration: 0.2) {
-                self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 80)
+                self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 120)
                 
 //            }
         }
@@ -183,7 +183,7 @@ extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDel
     func textFieldDidEndEditing(_ textField: UITextField) {
 //        if DEVICEHEIGHT < 600 {
             UIView.animate(withDuration: 0.2) {
-                self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 80)
+                self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 120)
 //            }
         }
     }
@@ -266,8 +266,9 @@ class MyProfileView:UIView, UITextFieldDelegate {
         
         profileImageView.setBorder(color: .black, width: 3.5)
         nameTf.snp.makeConstraints { (make) in
-            make.top.equalTo(profileImageView.snp.bottom).offset(20)
+            make.top.equalTo(profileImageView.snp.bottom).offset(DeviceSize.width > 320 ? 20 : 10)
             make.centerX.equalToSuperview()
+            make.height.equalTo(30)
             make.width.greaterThanOrEqualTo(50)
             make.width.lessThanOrEqualToSuperview().multipliedBy(0.8)
         }
@@ -285,8 +286,8 @@ class MyProfileView:UIView, UITextFieldDelegate {
         levelDescLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
-            make.bottom.equalTo(-58)
-            make.top.equalTo(nameTf.snp.bottom).offset(DeviceSize.width > 320 ? 10 : 5)
+            make.bottom.equalTo(DeviceSize.width > 320 ? -58 : -48)
+            make.top.equalTo(nameTf.snp.bottom).offset(DeviceSize.width > 320 ? 10 : 0)
         }
         
         myPagebtn.snp.makeConstraints { (make) in
@@ -294,6 +295,7 @@ class MyProfileView:UIView, UITextFieldDelegate {
             make.leading.equalTo(20)
             make.height.equalTo(40)
             make.top.equalTo(levelDescLb.snp.bottom).offset(10)
+            make.bottom.equalTo(-10)
         }
         
         cameraBtn.snp.makeConstraints { (make) in

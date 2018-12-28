@@ -37,17 +37,19 @@ class AlreadyRegisterViewController: UIViewController {
         self.view.addSubview([titleImageView, descLb, newStartBtn, divider, continueBtn, nextBtn, goetheView, nolgongView])
         self.view.backgroundColor = .basicBackground
         titleImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeArea.top).offset(33)
+            make.top.equalTo(view.safeArea.top).offset(52)
             make.centerX.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.height.equalTo(150)
+            make.leading.equalTo(10)
+            make.height.equalTo(50)
         }
         descLb.snp.makeConstraints { (make) in
-            make.top.equalTo(titleImageView.snp.bottom).offset(10)
-            make.leading.equalTo(10)
+            make.top.equalTo(titleImageView.snp.bottom).offset(53)
+            make.leading.equalTo(15)
             make.centerX.equalToSuperview()
         }
         descLb.numberOfLines = 0
+        descLb.textAlignment = .center
+        descLb.attributedText = "selectload_desc".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .black)
         
         goetheView.snp.makeConstraints { (make) in
             
@@ -64,17 +66,22 @@ class AlreadyRegisterViewController: UIViewController {
             make.bottom.equalTo(view.safeArea.bottom).offset(-12)
         }
         
-        newStartBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(descLb.snp.bottom).offset(100)
-            make.leading.equalTo(30)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(50)
-        }
+
         newStartBtn.setAttributedTitle("selectload_newgame".localized.makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
         continueBtn.setAttributedTitle("selectload_continuegame".localized.makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
         
+
+        divider.backgroundColor = .black
+        
+        nextBtn.snp.makeConstraints { (make) in
+            make.bottom.equalTo(view.safeArea.bottom).offset(-50)
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalTo(DeviceSize.width > 320 ? 60 : 40)
+            make.centerX.equalToSuperview()
+        }
+        
         continueBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(newStartBtn.snp.bottom).offset(30)
+            make.bottom.equalTo(nextBtn.snp.top).offset(-50)
             make.leading.equalTo(30)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
@@ -82,18 +89,22 @@ class AlreadyRegisterViewController: UIViewController {
         
         divider.snp.makeConstraints { (make) in
             make.height.equalTo(1.5)
-            make.top.equalTo(newStartBtn.snp.bottom).offset(15)
+            make.bottom.equalTo(continueBtn.snp.top).offset(-15)
             make.centerX.equalToSuperview()
             make.width.equalTo(continueBtn.snp.width)
         }
-        divider.backgroundColor = .black
         
-        nextBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeArea.bottom).offset(-50)
-            make.width.equalToSuperview().multipliedBy(0.7)
-            make.height.equalTo(60)
+        
+        newStartBtn.snp.makeConstraints { (make) in
+            make.bottom.equalTo(divider.snp.top).offset(-15)
+            make.leading.equalTo(30)
             make.centerX.equalToSuperview()
+            make.height.equalTo(50)
         }
+        
+
+
+        
         newStartBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)
         continueBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)
 
