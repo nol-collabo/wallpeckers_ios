@@ -127,13 +127,10 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
             buttons[i].setStar(count: sectionStars[i])
         }
         
-        
-        
-        print(sectionStars)
     }
     
     
-    func setUI() {
+    private func setUI() {
         self.view.backgroundColor = .basicBackground
         self.setCustomNavigationBar()
         type = GameViewType.topic
@@ -141,12 +138,7 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
         
         self.view.addSubview([topicTitleLb, politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton])
         
-        
-        
-        
         setStars()
-        
-        
         
         politicsButton.delegate = self
         economyButton.delegate = self
@@ -237,17 +229,13 @@ extension TopicViewController:TopicButtonDelegate {
             
         }
         
-        
-        //        print(articleButtons.count)
-        
         vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
             $0.section == tag
         }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
         
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: tag, direction: .forward)
+
         
-        
-        //        self.navigationController?.pushViewController(vc, animated: false)
     }
     
     

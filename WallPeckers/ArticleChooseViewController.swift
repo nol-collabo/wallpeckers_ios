@@ -320,66 +320,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     }
 }
 
-class ArticleSelectButton:UIView {
-    
-    let pointTitleLb = UILabel()
-    let starImageView = UIImageView()
-    let titleLb = UILabel()
-    let tapGesture = UITapGestureRecognizer()
-    var delegate:ArticleSelectDelegate?
-    var borderColor:UIColor?
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.addGestureRecognizer(tapGesture)
-        tapGesture.addTarget(self, action: #selector(tap(sender:)))
-        setUI()
-    }
-    
-    func setUI() {
-        self.addSubview([pointTitleLb, starImageView, titleLb])
-        pointTitleLb.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(5)
-            make.height.equalTo(30)
-        }
-        starImageView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(5)
-            make.width.height.equalTo(25)
-        }
-        titleLb.snp.makeConstraints { (make) in
-            make.leading.equalTo(7)
-            make.bottom.equalTo(-7)
-            make.trailing.equalTo(-7)
-            make.top.equalTo(starImageView.snp.bottom).offset(5)
-            make.height.equalTo(30)
-        }
-        starImageView.image = UIImage.init(named: "YellowStar")
-        
-    }
-    
-    func setData(point:String, textColor:UIColor, title:String, isStar:Bool, tag:Int, backgroundColor:UIColor = .white, borderColor:UIColor = .black) {
-        self.borderColor = borderColor
-        self.pointTitleLb.setNotoText(point, color: textColor, size: 26, textAlignment: .center, font: .bold)
-        self.titleLb.setNotoText(title, color: textColor, size: 12, textAlignment: .center, font: .bold)
-        self.starImageView.isHidden = !isStar
-        self.backgroundColor = backgroundColor
-        self.tag = tag
-        self.setBorder(color: borderColor, width: 4.5)
-        self.titleLb.adjustsFontSizeToFitWidth = true
-    }
-    
-    @objc func tap(sender:UITapGestureRecognizer) {
-        delegate?.tapArticle(sender: self)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
+
 
 enum ArticleCompleteStatus:String {
     
@@ -387,75 +328,6 @@ enum ArticleCompleteStatus:String {
     
 }
 
-class ArticleLinkLine:UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    var leftTag:Int = 0
-    var rightTag:Int = 0
-    
-    
-    func setLine(color:LineColor, leftButton:ArticleSelectButton, rightButton:ArticleSelectButton, vc:UIViewController) {
-
-        vc.view.addSubview(self)
-
-        leftTag = leftButton.tag
-        rightTag = rightButton.tag
-        
-        self.tag = tag
-        
-        switch color {
-        
-        case .BLUE:
-            self.backgroundColor = UIColor.niceBlue
-            leftButton.setBorder(color: .niceBlue, width: 5.5)
-            rightButton.setBorder(color: .niceBlue, width: 5.5)
-        case .GREEN:
-            self.backgroundColor = .darkGrassGreen
-            leftButton.setBorder(color: .darkGrassGreen, width: 5.5)
-            rightButton.setBorder(color: .darkGrassGreen, width: 5.5)
-        case .ORANGE:
-            self.backgroundColor = .tangerine
-            leftButton.setBorder(color: .tangerine, width: 5.5)
-            rightButton.setBorder(color: .tangerine, width: 5.5)
-        case .RED:
-            self.backgroundColor = .scarlet
-            leftButton.setBorder(color: .scarlet, width: 5.5)
-            rightButton.setBorder(color: .scarlet, width: 5.5)
-        }
-        
-        self.snp.makeConstraints { (make) in
-            
-            
-            if leftButton.tag - rightButton.tag == -1 {
-                make.centerY.equalTo(leftButton.snp.centerY)
-                make.height.equalTo(10)
-                make.leading.equalTo(leftButton.snp.trailing)
-                make.trailing.equalTo(rightButton.snp.leading)
-            }else{
-                make.centerX.equalTo(leftButton.snp.centerX)
-                make.width.equalTo(10)
-                make.top.equalTo(leftButton.snp.bottom)
-                make.bottom.equalTo(rightButton.snp.top)
-            }
-            
-        }
-    
-        
-        
-    }
-    
-}
-
-protocol ArticleSelectDelegate {
-    func tapArticle(sender:ArticleSelectButton)
-}
 
 enum LineColor:String {
     

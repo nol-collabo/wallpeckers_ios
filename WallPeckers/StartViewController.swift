@@ -30,22 +30,6 @@ class StartViewController: UIViewController {
 
         setUI()
         
-        
-        let fileManager = FileManager.default
-        let bundleURL = Bundle.main.resourcePath!
-        
-        let contents = try! fileManager.contentsOfDirectory(atPath: bundleURL)
-        
-        for item in contents
-        {
-            if item.hasPrefix("nssl") {
-                print(item)
-                print("VVV")
-            }
-        }
-        
-        print(DeviceSize.width)
-        print("~~~~")
     }
     
     private func setUI() {
@@ -127,7 +111,6 @@ extension StartViewController:SelectPopupDelegate {
     func bottomButtonTouched(sender: UIButton) {
         
         if let _selectedLanguage = selectedLanguage {
-            print(_selectedLanguage)
 //
             if user.count > 0 { // 유저정보 있을 떄
                 
@@ -144,24 +127,14 @@ extension StartViewController:SelectPopupDelegate {
                         
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
-                    
-                   
-                    
                 }
-                
-                
 
-             
-
-                
             }else{ // 신규유저
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as? RegisterViewController else {return}
                 
                 self.navigationController?.pushViewController(vc, animated: true)
             }
-        
-            
-            
+
         }else{
             print("언어를 선택해주세요")
         }

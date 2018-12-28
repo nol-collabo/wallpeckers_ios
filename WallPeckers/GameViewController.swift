@@ -22,22 +22,20 @@ class GameViewController: UIViewController {
     let factCheckView = UIView()
     let articleResultView = UIView()
     let topicViewController = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "TopicViewController") as! TopicViewController
-//    let articleViewContoller = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "ArticleChooseViewController") as! ArticleChooseViewController
-//    let clueSelectViewContoller = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "ClueSelectViewController") as! ClueSelectViewController
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         horizontalView.setScrollView(vc: self)
         self.setCustomNavigationBar()
         setUI()
         addChildVc()
         self.timerView = self.findTimerView()
         self.scoreView = self.findScoreView()
-//        self.
         Standard.shared.delegate = self
         Standard.shared.startTimer(gameMode: .short)
 
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,10 +45,10 @@ class GameViewController: UIViewController {
     
     func setScore() {
         scoreView?.textLb.attributedText = "\(RealmUser.shared.getUserData()!.score) P".makeAttrString(font: .NotoSans(.bold, size: 14), color: .black)
-
     }
     
     private func setUI() {
+        
         self.view.backgroundColor = .basicBackground
         horizontalView.contentView.addSubview([topicView, articleView, clueSelectView, factCheckView, articleResultView])
         
@@ -83,12 +81,9 @@ class GameViewController: UIViewController {
         articleView.backgroundColor = .blue
         topicView.addSubview(topicViewController.view)
         topicViewController.delegate = self
-//        articleView.addSubview(articleViewContoller.view)
-//        clueSelectView.addSubview(clueSelectViewContoller.view)
         topicViewController.view.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
         horizontalView.scrollView.isScrollEnabled = false
     }
     
@@ -97,24 +92,16 @@ class GameViewController: UIViewController {
             addChild(v)
         }
     }
-
-    
-//    func find
-    
-
 }
 
 extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, AlerPopupViewDelegate {
     func tapBottomButton(sender: AlertPopUpView) {
-        print(sender.tag)
+
         if sender.tag == 2 {
             sender.removeFromSuperview()
         }else{
-            
             guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResultViewController") as? ResultViewController else {return}
             RealmUser.shared.savePlayTime()
-            print(RealmUser.shared.getUserData()?.playTime)
-            print("GGGGGGGG")
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -125,8 +112,8 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         sender.isUserInteractionEnabled = false
         
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
-        sender.isUserInteractionEnabled = true
         
+        sender.isUserInteractionEnabled = true
         
         self.present(vc, animated: true, completion: nil)
     }
@@ -149,9 +136,8 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
 }
 
 extension GameViewController:GameViewTransitionDelegate {
+    
     func moveTo(fromVc: GameTransitionBaseViewController, toVc: GameTransitionBaseViewController, sendData: Any?, direction:TransitionDirection) {
-        print(fromVc)
-        print(toVc)
         
         switch direction {
             
@@ -228,7 +214,6 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 
                 if let vc = toVc as? TopicViewController {
-//                    sendData as
                     
                     let sectionTag = sendData as! Int
                     

@@ -19,16 +19,16 @@ class EditHeadlineViewController: UIViewController {
     let aStackView = AloeStackView()
     let nextButton = BottomButton()
     var defaultHeadlines:[Int] = []
-//    var selectedHeadLine = 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUI()
-      
+        
     }
     
-    func setUI() {
+    private func setUI() {
+        
         dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
         
         
@@ -122,24 +122,19 @@ class EditHeadlineViewController: UIViewController {
     
     @objc func moveNext(sender:UIButton) {
         
-
-        
         if (RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count) < 2 { // 헤드라인밖에 없을때
+            
             sender.isUserInteractionEnabled = false
             
             guard let vc = self.navigationController?.viewControllers.filter({$0 is PublishViewController}).first as? PublishViewController else {return}
             
-            
             vc.delegate = self
-            print(defaultHeadlines)
             
             try! realm.write {
                 _ = RealmUser.shared.getUserData()?.publishedArticles.removeAll()
                 _ = defaultHeadlines.map({RealmUser.shared.getUserData()?.publishedArticles.append($0)})
                 
             }
-            print("~~~~~")
-            
             self.navigationController?.popToViewController(vc, animated: true)
             
             
@@ -150,21 +145,7 @@ class EditHeadlineViewController: UIViewController {
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        
-        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

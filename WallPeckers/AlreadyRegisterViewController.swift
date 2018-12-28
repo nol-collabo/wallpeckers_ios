@@ -26,13 +26,10 @@ class AlreadyRegisterViewController: UIViewController {
         super.viewDidLoad()
 
         setUI()
-        
-        
-        
-        // Do any additional setup after loading the view.
+ 
     }
     
-    func setUI(){
+    private func setUI(){
         
         self.view.addSubview([titleImageView, descLb, newStartBtn, divider, continueBtn, nextBtn, goetheView, nolgongView])
         self.view.backgroundColor = .basicBackground

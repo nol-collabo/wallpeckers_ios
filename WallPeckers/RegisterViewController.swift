@@ -51,7 +51,6 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    
     var ages = realm.objects(Age.self)
     var localAges = realm.objects(LocalAge.self)
     
@@ -158,7 +157,7 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    func setUI() {
+    private func setUI() {
         
         
         
@@ -185,7 +184,6 @@ class RegisterViewController: UIViewController {
             make.height.equalTo(DEVICEHEIGHT > 600 ? 50 : 30)
         }
         
-//        profileImv.backgroundColor = .blue
         cameraBtn.setImage(UIImage.init(named: "profile_btn")!, for: .normal)
         
         nameLb.setNotoText("registration_penname".localized, color: .black, size: 14, textAlignment: .right)
@@ -313,29 +311,7 @@ extension RegisterViewController:UIImagePickerControllerDelegate, UINavigationCo
     }
 }
 
-class BottomButton:UIButton {
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .black
-        self.titleLabel?.font = UIFont.NotoSans(.bold, size: 20)
-        self.titleLabel?.textColor = .white
-        if self.isEnabled {
-            self.backgroundColor = .black
 
-        }else{
-            self.backgroundColor = .red
-        }
-        
-    }
-    
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
 
 extension RegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -423,20 +399,15 @@ extension RegisterViewController:SelectPopupDelegate {
         case 0:
             imagePicker.sourceType = .camera
             checkPermission()
-//            checkPermission { (result) in
-//                if result == "authorized" {
+
                 self.present(self.imagePicker, animated: true, completion: nil)
-//                }
-//            }
+
         case 1:
             imagePicker.sourceType = .photoLibrary
             checkPermission()
 
-//            checkPermission { (result) in
-//                if result == "authorized" {
                     self.present(self.imagePicker, animated: true, completion: nil)
-//                }
-//            }
+
         case 2:
             print("DEFAULT")
         default:
@@ -445,51 +416,13 @@ extension RegisterViewController:SelectPopupDelegate {
         
         self.removePopUpView()
 
-//        print(tag)
     }
     
     
 }
 
-extension UILabel {
-    
-    
-    
-    func setNotoText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:NotoSansFontSize = NotoSansFontSize.medium) {
-                
-        self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
-        self.textAlignment = textAlignment
-        self.numberOfLines = 0
-    }
-    
-    func setAmericanTyperWriterText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:AmericanTypeWriterFontSize = AmericanTypeWriterFontSize.regular) {
-        
-        self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
-        self.textAlignment = textAlignment
-        self.numberOfLines = 0
-    }
 
-}
 
-extension String {
-    
-    func makeAttrString(font:UIFont, color:UIColor) -> NSMutableAttributedString {
-        
-        let descTitle = NSMutableAttributedString.init(string:self)
-        
-        descTitle.addAttributes([NSAttributedString.Key.foregroundColor:color, NSAttributedString.Key.font:font], range: NSRange.init(location: 0, length: descTitle.length))
-        
-        return descTitle
-    }
-    
-    var localized: String {
-        
-        let countryCode = Standard.shared.getLocalized()
-        
-        let path = Bundle.main.path(forResource: countryCode.rawValue, ofType: "lproj")
-        let bundleName = Bundle(path: path!)
-        return NSLocalizedString(self, tableName: nil, bundle: bundleName!, value: "", comment: "")    }
-}
 
 enum NotoSansFontSize:String {
     

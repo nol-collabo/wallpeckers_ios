@@ -206,3 +206,23 @@ extension UIFont {
         return UIFont.init(name: weight.rawValue, size: size)!
     }
 }
+
+extension UILabel {
+    
+    
+    
+    func setNotoText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:NotoSansFontSize = NotoSansFontSize.medium) {
+        
+        self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
+        self.textAlignment = textAlignment
+        self.numberOfLines = 0
+    }
+    
+    func setAmericanTyperWriterText(_ text:String, color:UIColor = .black, size:CGFloat, textAlignment:NSTextAlignment, font:AmericanTypeWriterFontSize = AmericanTypeWriterFontSize.regular) {
+        
+        self.attributedText = text.localized.makeAttrString(font: UIFont.init(name: font.rawValue, size: size)!, color: color)
+        self.textAlignment = textAlignment
+        self.numberOfLines = 0
+    }
+    
+}

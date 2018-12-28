@@ -80,6 +80,7 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
             make.trailing.equalTo(-10)
             make.height.equalTo(55)
         }
+        emailTf.keyboardType = .emailAddress
         
         emailTf.snp.makeConstraints { (make) in
             make.leading.equalTo(10)
@@ -1059,6 +1060,123 @@ class AlertPopUpView:BasePopUpView {
 protocol AlerPopupViewDelegate {
     
     func tapBottomButton(sender:AlertPopUpView)
+}
+
+final class CluePopUpView:UIView, UITextFieldDelegate {
+    
+    let baseView = UIView()
+    let popupView = UIView()
+    let titleLb = UILabel()
+    let codeLb = UILabel()
+    let codeTf = LeftPaddedTextField()
+    let okButton = BottomButton()
+    var delegate:CluePopUpViewDelegate?
+    let keyboardResigner = UITapGestureRecognizer()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        codeTf.delegate = self
+        setUI()
+    }
+    
+    @objc func keyboardRemove(){
+        codeTf.resignFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.popupView.snp.updateConstraints { (make) in
+                make.centerY.equalToSuperview().offset(-50)
+                
+            }
+            self.layoutIfNeeded()
+            
+        }
+        
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.5) {
+            self.popupView.snp.updateConstraints { (make) in
+                make.centerY.equalToSuperview()
+            }
+            self.layoutIfNeeded()
+            
+        }
+        
+    }
+    
+    private func setUI(){
+        
+        keyboardResigner.addTarget(self, action: #selector(keyboardRemove))
+        self.addSubview([baseView, popupView])
+        self.addGestureRecognizer(keyboardResigner)
+        baseView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        baseView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        
+        popupView.snp.makeConstraints { (make) in
+            
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.leading.equalTo(30)
+            make.height.equalTo(330)
+        }
+        popupView.addSubview([titleLb, codeLb, codeTf, okButton])
+        popupView.backgroundColor = .white
+        codeTf.keyboardType = .numberPad
+        
+        okButton.snp.makeConstraints { (make) in
+            make.leading.equalTo(30)
+            make.bottom.equalTo(-20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        okButton.setTitle("OK".localized, for: .normal)
+        titleLb.snp.makeConstraints { (make) in
+            make.top.equalTo(20)
+            make.leading.equalTo(30)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(55)
+        }
+        titleLb.setBorder(color: .black, width: 1.5)
+        codeLb.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(40)
+        }
+        
+        codeLb.attributedText = "CODE".localized.makeAttrString(font: .NotoSans(.medium, size: 18), color: .black)
+        codeTf.snp.makeConstraints { (make) in
+            make.leading.equalTo(codeLb.snp.trailing).offset(10)
+            make.trailing.equalTo(-40)
+            make.centerY.equalTo(codeLb.snp.centerY)
+        }
+        codeTf.addUnderBar()
+        codeTf.font = UIFont.NotoSans(.bold, size: 31)
+        
+        popupView.setBorder(color: .black, width: 2.5)
+        titleLb.textAlignment = .center
+        okButton.addTarget(self, action: #selector(okButtonTouched(sender:)), for: .touchUpInside)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func okButtonTouched(sender:UIButton) {
+        
+        delegate?.inputCode(codeTf.text, tag: self.tag)
+        self.removeFromSuperview()
+    }
+    
+}
+
+protocol CluePopUpViewDelegate {
+    
+    func inputCode(_ code:String?, tag:Int)
+    
 }
 
 

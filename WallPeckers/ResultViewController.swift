@@ -20,6 +20,7 @@ class ResultViewController: UIViewController {
     let resultView = UIImageView()
     let profileBaseView = UIView()
     let currentLanguage = Standard.shared.getLocalized()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -137,19 +138,12 @@ class ResultViewController: UIViewController {
             })
         }
 
-        print(RealmUser.shared.getUserData()?.publishedArticles.count)
-        print("COUNT!!!!")
-        
-//        RealmUser.shared.getUserData().ar
         
         
         sender.isUserInteractionEnabled = false
         
         guard let vc = UIStoryboard.init(name: "Publish", bundle: nil).instantiateViewController(withIdentifier: "Publish") as? UINavigationController else {return}
         
-//        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "PublishViewController") as? PublishViewController else {return}
-        
-//        vc.defaultHeadlines = Array((RealmUser.shared.getUserData()?.publishedArticles)!)
         
         sender.isUserInteractionEnabled = true
         self.present(vc, animated: true, completion: nil)
@@ -188,16 +182,5 @@ class ResultViewController: UIViewController {
 //        }
 //        self.present(vc, animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
