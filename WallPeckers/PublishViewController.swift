@@ -240,8 +240,8 @@ class PublishViewController: UIViewController {
 extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate, TwobuttonAlertViewDelegate, UITextFieldDelegate {
     func tapOk(sender: Any) {
         print(sender)
-        PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
         // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
+        PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -282,13 +282,10 @@ extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate, Twob
     }
     
     func selectButtonTouched(tag: Int) {
-        print(tag)
-        
-        
+
         if tag == 1 {
             
-            //서버로 인쇄 관련 api 전송 시점임
-            
+            // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
             PopUp.callAlert(time: "", desc: "printsuccessdialog_desc".localized, vc: self, tag: 1)
             self.removePopUpView()
         }else if tag == 0 {
