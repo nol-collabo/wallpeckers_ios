@@ -31,6 +31,7 @@
 		230BD50121D37BA900503CD5 /* EditHeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD50021D37BA800503CD5 /* EditHeadlineViewController.swift */; };
 		230BD50321D37D4000503CD5 /* Publish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230BD50221D37D4000503CD5 /* Publish.storyboard */; };
 		230BD50521D3821E00503CD5 /* EditFeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD50421D3821D00503CD5 /* EditFeaturesViewController.swift */; };
+		23419C5221DC811000C05377 /* POPAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23419C5121DC811000C05377 /* POPAPI.swift */; };
 		235520D721DC58460029290D /* CustomAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235520D621DC58460029290D /* CustomAPI.swift */; };
 		2357815A21ABF28F00338CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357815921ABF28F00338CB9 /* AppDelegate.swift */; };
 		2357816121ABF29000338CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2357816021ABF29000338CB9 /* Assets.xcassets */; };
@@ -219,6 +220,7 @@
 		230BD50021D37BA800503CD5 /* EditHeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHeadlineViewController.swift; sourceTree = "<group>"; };
 		230BD50221D37D4000503CD5 /* Publish.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Publish.storyboard; sourceTree = "<group>"; };
 		230BD50421D3821D00503CD5 /* EditFeaturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFeaturesViewController.swift; sourceTree = "<group>"; };
+		23419C5121DC811000C05377 /* POPAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POPAPI.swift; sourceTree = "<group>"; };
 		235520D621DC58460029290D /* CustomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAPI.swift; sourceTree = "<group>"; };
 		2357815621ABF28F00338CB9 /* WallPeckers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallPeckers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2357815921ABF28F00338CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 				230BD4CA21C0B47D00503CD5 /* CustomObject */,
 				230BD48221BF543400503CD5 /* Singleton.swift */,
 				235520D621DC58460029290D /* CustomAPI.swift */,
+				23419C5121DC811000C05377 /* POPAPI.swift */,
 				23D86F2721B1391C00CDC5B6 /* Classes */,
 				2357818721ABF2AE00338CB9 /* StartViewController.swift */,
 				23D86F0A21B11BC800CDC5B6 /* AfterRegisterViewController.swift */,
@@ -1084,6 +1087,7 @@
 				23C0465E21D62280003BFC3C /* CompletedArticleView.swift in Sources */,
 				230BD47F21BA667100503CD5 /* ResultViewController.swift in Sources */,
 				230BD4F921C7981000503CD5 /* CompleteArticleViewController.swift in Sources */,
+				23419C5221DC811000C05377 /* POPAPI.swift in Sources */,
 				23D86F3521B1594700CDC5B6 /* ArticleLink.swift in Sources */,
 				23C0466821D62566003BFC3C /* HeadlineView.swift in Sources */,
 				23D86F3721B15DFE00CDC5B6 /* FIVE_W_ONE_HS.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import Kingfisher
 
 final class CompletedArticleView:UIView {
     
@@ -26,6 +26,12 @@ final class CompletedArticleView:UIView {
     let commentProfileImv = UIImageView()
     let commentTv = UITextView()
     let dFormatter = DateFormatter()
+    var images:[String] = [] {
+        didSet {
+            print(images)
+            imageCollectionView.reloadData()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +41,9 @@ final class CompletedArticleView:UIView {
     func setData(article:Article, wrongClue:[Int], region:String) {
         
         dFormatter.dateFormat = "MM.dd.yyyy"
+        
+        
+        images = Album.findImages(articleId: article.id)
         
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
@@ -180,7 +189,77 @@ final class CompletedArticleView:UIView {
             make.bottom.equalTo(-10)
         }
         
+        imageContainerView.addSubview(imageCollectionView)
+        imageCollectionView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        imageCollectionView.isPagingEnabled = true
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+        imageCollectionView.register(CompleteThumnailImageCell.self, forCellWithReuseIdentifier: "CompleteThumnailImageCell")
+        
+        
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+extension CompletedArticleView:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompleteThumnailImageCell", for: indexPath) as? CompleteThumnailImageCell {
+            
+            cell.imv.image = UIImage.init(contentsOfFile: images[indexPath.row])
+//            cell.imv.image = UIImage.init(contentsOfFile: images[indexPath.row])
+            return cell
+            
+        }else {
+            return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        return CGSize.init(width: self.imageCollectionView.bounds.width - 1, height: self.imageCollectionView.bounds.height)
+        
+    }
+    
+}
+
+
+class CompleteThumnailImageCell:UICollectionViewCell {
+    
+    let imv = UIImageView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addSubview(imv)
+        imv.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func setData(imageUrl:URL) {
+        
+        self.imv.kf.setImage(with: imageUrl, placeholder: UIImage(), options: nil, progressBlock: nil, completionHandler: nil)
+        
+    }
+    
+//    collec
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

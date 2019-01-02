@@ -431,3 +431,29 @@ class RealmClue {
     }
     
 }
+
+struct Album {
+    //
+    static func findImages(articleId:Int)-> [String]{
+        
+        
+        var images:[String] = []
+        
+        if let mainImage = Bundle.main.path(forResource: "image_article_0\(articleId)", ofType: "png") {
+            
+            images.append(mainImage)
+            
+        }
+        
+        for i in 1...3 {
+            
+            if let subImages = Bundle.main.path(forResource: "image_article_0\(articleId)_0\(i)", ofType: "jpg") {
+                images.append(subImages)
+            }
+            
+        }
+        
+        return images
+        
+    }
+}

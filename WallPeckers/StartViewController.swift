@@ -22,13 +22,24 @@ class StartViewController: UIViewController {
     let playButton = UIButton()
     var selectedLanguage:Int?
     let user = realm.objects(User.self)
+    let cc = POPAPI()
     
 
     
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
+ 
+        
+        
+    
+        
         setUI()
+        
     }
+
+    
     
     private func setUI() {
         

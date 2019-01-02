@@ -11,7 +11,13 @@ import Realm
 import RealmSwift
 import AloeStackView
 
-class FactCheckViewController: GameTransitionBaseViewController {
+class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleViewDelegate {
+    func tapToBack() {
+        guard let vc = self.findBeforeVc(type: .clue) else {return}
+        
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+    }
+    
     
     let aStackView = AloeStackView()
     var checkData:[FactCheck]?
@@ -54,7 +60,7 @@ class FactCheckViewController: GameTransitionBaseViewController {
         self.view.backgroundColor = .basicBackground
         
         backButton.setImage(UIImage.init(named: "backButton"), for: .normal)
-        submitButton.setTitle("Send".localized, for: .normal)
+        submitButton.setTitle("REPORT".localized, for: .normal)
         backButton.addTarget(self, action: #selector(touchBackButton(sender:)), for: .touchUpInside)
         submitButton.addTarget(self, action: #selector(touchSubmitButton(sender:)), for: UIControl.Event.touchUpInside)
     }
@@ -118,6 +124,8 @@ class FactCheckViewController: GameTransitionBaseViewController {
             var wrongs:[String] = []
             
             for b in bubbles {
+                
+                b.delegate = self
                 
                 for f in _five {
                     if f.id == b.tag {

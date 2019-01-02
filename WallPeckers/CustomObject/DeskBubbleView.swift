@@ -65,7 +65,7 @@ final class DeskBubbleView:UIView {
         }
         
         
-        clueDescLb.attributedText = sss.makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
+        clueDescLb.attributedText = sss.makeAttrString(font: .NotoSans(.medium, size: 14), color: .black)
         clueDescLb.numberOfLines = 0
         
         print(wrongParts)
@@ -76,7 +76,7 @@ final class DeskBubbleView:UIView {
     func setDataForCompleteArticle(region:String, desc:String) {
         profileView.image = UIImage.init(named: region == "GERMANY" ? "germanDeskProfile" : "koreanDeskProfile")
         bubbleBaseView.image = UIImage.init(named: "blueLeftBallon")
-        clueDescLb.attributedText = desc.makeAttrString(font: .NotoSans(.medium, size: 12), color: .white)
+        clueDescLb.attributedText = desc.makeAttrString(font: .NotoSans(.medium, size: 14), color: .white)
     }
     
     required init?(coder aDecoder: NSCoder) {

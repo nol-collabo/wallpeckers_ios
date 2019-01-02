@@ -86,7 +86,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
             
             let aa = hash5.components(separatedBy: "/").index(after: article.selectedHashtag - 1)
             
-            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P", "\(aa)%"]
+            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P"]
             
         }
         
@@ -117,9 +117,9 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         
         if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
             
-            let aa = hash5.components(separatedBy: "/").index(after: article.selectedHashtag - 1)
+//            let aa = hash5.components(separatedBy: "/").index(after: article.selectedHashtag - 1)
             
-            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P", "\(aa)%"]
+            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P"]
             
         }
         

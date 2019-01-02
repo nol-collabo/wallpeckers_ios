@@ -8,12 +8,44 @@
 
 import Foundation
 import UIKit
-final class BasicBubbleView:UIView {
+import AloeStackView
+
+final class BasicBubbleView:UIView, Tappable {
+    func didTapView() {
+
+        
+        if bubbleBaseView.image == UIImage.init(named: "balloonFail")! {
+            delegate?.tapToBack()
+        }else{
+            print("BB")
+        }
+        
+//        switch correct! {
+//
+////        case .correct:
+//
+//        case .correct:
+//            print("CORRECT")
+//        case .empty:
+//            print("Emty")
+//        case .normal:
+//            print("normal")
+//        case .wrong:
+//            print("WORNG")
+//
+//        }
+        
+            
+        
+    }
+    
     
     let bubbleBaseView = UIImageView()
     let clueTypeLb = UILabel()
     let clueDescLb = UILabel()
     var clue:Clue?
+    var correct:FactCorrect?
+    var delegate:BasicBubbleViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,6 +91,7 @@ final class BasicBubbleView:UIView {
         clueDescLb.font = UIFont.NotoSans(.medium, size: 16)
         clueDescLb.text = clue.desc
         self.tag = clue.id
+        self.correct = type
         
         switch type {
             
@@ -113,4 +146,8 @@ final class BasicBubbleView:UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+protocol BasicBubbleViewDelegate {
+    func tapToBack()
 }

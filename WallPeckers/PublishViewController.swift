@@ -50,7 +50,7 @@ class PublishViewController: UIViewController {
         
         if let headLine = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[0]}).first {
             
-            headlineView.setData(header: "publish_titlearticle".localized, thumnail: headLine.result!)
+            headlineView.setData(header: "publish_titlearticle".localized, thumnail: headLine.title!)
             
             if defaultHeadlines.count == 1 {
                 feature1View.setData(header: "publish_subarticle1".localized, thumnail: "")
@@ -58,14 +58,14 @@ class PublishViewController: UIViewController {
 
             }else if defaultHeadlines.count == 2 {
                 if let feature1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[1]}).first {
-                    feature1View.setData(header: "publish_subarticle1".localized, thumnail: feature1.result!)
+                    feature1View.setData(header: "publish_subarticle1".localized, thumnail: feature1.title!)
                     feature2View.setData(header: "publish_subarticle2".localized, thumnail: "")
                     
                 }
             }else {
                 if let feature1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[1]}).first, let feature2 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[2]}).first {
-                    feature1View.setData(header: "publish_subarticle1".localized, thumnail: feature1.result!)
-                    feature2View.setData(header: "publish_subarticle2".localized, thumnail: feature2.result!)
+                    feature1View.setData(header: "publish_subarticle1".localized, thumnail: feature1.title!)
+                    feature2View.setData(header: "publish_subarticle2".localized, thumnail: feature2.title!)
                 }
             }
         }

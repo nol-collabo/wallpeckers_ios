@@ -42,7 +42,7 @@
 "tutorial3_subtitle" = "INTO THE PRESSROOM";
 "tutorial3" = "Collect clues by 5W1H\naround you in the pressroom\nand enter the CODE of them.\n\nGet a FACT-CHECK\nby the desk of WALLPECKERS\nand publish the article.";
 "tutorial4_subtitle" = "GOAL";
-"tutorial4" = "You have 20 minutes\nto complete & publish the articles.\n\nMaximize article points\nto be the journalist of the day!";
+"tutorial4" = "You complete, publish articles, \nand maximize your article points \nto be a journalist of the day!";
 "tutorial_startBtn" = "START";
 
 
@@ -69,7 +69,7 @@
 "COMMENT" = "COMMENT";
 "HASHTAG" = "HASHTAG";
 "MOST" = "#most_popular";
-"MYTAG" = "#MY";
+"MYTAG" = "#my";
 "at the Berlin Wall" = "at the Berlin Wall";
 "completearticle_korea" = "at the Korean DMZ";
 "MY_PAGE" = "MY PAGE";
@@ -116,7 +116,7 @@
 "publish_changebtn" = "Edit My Newspaper";
 "publish_gonews" = "Send Newspaper";
 "publish_gonews_verbose" = "You can send your newspaper via e-mail.";
-"publish_gomymenubtn" = "Go to MYPAGE";
+"publish_gomymenubtn" = "Go to MY PAGE";
 "publish_gohomebtn" = "Go to START";
 
 "titlearticlechange_title" = "Edit My Newspaper";
@@ -135,7 +135,7 @@
 "emailsuccessdialog_desc" = "The e-mail successfully has been sent.";
 "printsuccessdialog_desc" = "The newspaper successfully has been printed out.\nGo Get your newspaper at the Printer.";
 
-"Politics" = "POLITICS";
+"Politics" = "Politics";
 "Economy" = "Economy/\nDiplomacy";
 "General" = "General";
 "Art" = "Art & Culture";
@@ -144,7 +144,7 @@
 
 "levelup" = "You're now\n%@.";
 "getBadge" = " Congratulations! You've got the %@!";
-"getPrize" = "Congratulations!\nYou're the %@\nof the Day.";
+"getPrize" = "Congratulations!\nYou're Wallpecker's\n %@ of the Day.";
 
 "timedialog_timeend" = "Time's up!";
-"timedialog_timelimit" = "You have %@minuites left.";
+"timedialog_timelimit" = "You have %@ minuites left.";
