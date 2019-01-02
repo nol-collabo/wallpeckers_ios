@@ -201,7 +201,7 @@ final class CompletedArticleView:UIView {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         imageCollectionView.register(CompleteThumnailImageCell.self, forCellWithReuseIdentifier: "CompleteThumnailImageCell")
-        
+        imageContainerView.backgroundColor = .basicBackground
         
     }
     
@@ -222,7 +222,8 @@ extension CompletedArticleView:UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompleteThumnailImageCell", for: indexPath) as? CompleteThumnailImageCell {
             
-            cell.imv.image = UIImage.init(contentsOfFile: images[indexPath.row])
+            cell.setData(imageUrl: images[indexPath.row])
+//            cell.setData(imageUrl: <#T##URL#>)
 //            cell.imv.image = UIImage.init(contentsOfFile: images[indexPath.row])
             return cell
             
@@ -251,11 +252,13 @@ class CompleteThumnailImageCell:UICollectionViewCell {
         imv.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        self.backgroundColor = UIColor.basicBackground
     }
     
-    func setData(imageUrl:URL) {
+    func setData(imageUrl:String) {
         
-        self.imv.kf.setImage(with: imageUrl, placeholder: UIImage(), options: nil, progressBlock: nil, completionHandler: nil)
+        self.imv.image = UIImage.init(contentsOfFile: imageUrl)
+//        self.imv.kf.setImage(with: imageUrl, placeholder: UIImage(), options: nil, progressBlock: nil, completionHandler: nil)
         
     }
     

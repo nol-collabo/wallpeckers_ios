@@ -30,14 +30,25 @@ class StartViewController: UIViewController {
         
         
         super.viewDidLoad()
- 
-        
-        
-    
-        
+
         setUI()
         
+        
+        animatedTitleImage()
+//        UIView.animate(withDuration: <#T##TimeInterval#>, animations: <#T##() -> Void#>)
+        
     }
+    
+    func animatedTitleImage() {
+        
+        UIView.animate(withDuration: 0.1) {
+            self.descScrollView.center = CGPoint.init(x: 100, y: 100)
+            self.view.layoutIfNeeded()
+            self.view.layoutSubviews()
+        }
+        
+    }
+    
 
     
     

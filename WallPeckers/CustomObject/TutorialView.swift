@@ -42,14 +42,14 @@ final class TutorialView:UIView {
         descImv.contentMode = .scaleAspectFit
         
         nextBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(DEVICEHEIGHT > 600 ? -100 : -40)
+            make.bottom.equalTo(DEVICEHEIGHT > 600 ? -70 : -40)
             make.centerX.equalToSuperview()
             make.width.equalTo(270)
             make.height.equalTo(55)
         }
         nextBtn.setAttributedTitle("tutorial_startBtn".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .white), for: .normal)
         descImv.snp.makeConstraints { (make) in
-            make.top.equalTo(topLb.snp.bottom).offset(DEVICEHEIGHT > 600 ? 40 : 20)
+            make.top.equalTo(topLb.snp.bottom).offset(DeviceSize.width > 600 ? 40 : 20)
             make.centerX.equalToSuperview()
             make.leading.equalTo(20)
             make.height.equalTo(DEVICEHEIGHT > 600 ? 270 : 200)
