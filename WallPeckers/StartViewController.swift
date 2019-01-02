@@ -108,8 +108,8 @@ class StartViewController: UIViewController {
 extension StartViewController:SelectPopupDelegate {
     func bottomButtonTouched(sender: UIButton) {
         
-        if let _selectedLanguage = selectedLanguage {
-//
+        if let _ = selectedLanguage {
+
             if user.count > 0 { // 유저정보 있을 떄
                 
                 if let _ = RealmUser.shared.getUserData() {

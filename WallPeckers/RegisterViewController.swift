@@ -267,17 +267,32 @@ class RegisterViewController: UIViewController {
         let user = User()
         
         
-        user.name = myName
-        user.age = myAge ?? 0
-        user.profileImage = self.myImage ?? UIImage.init(named: "basicProfileImage")?.pngData()
+     
         
-        try! realm.write {
-            realm.add(user)
+
+        
+        CustomAPI.newPlayer { (id) in
+            
+            
+            user.name = myName
+            user.age = self.myAge ?? 0
+            user.profileImage = self.myImage ?? UIImage.init(named: "basicProfileImage")?.pngData()
+            user.allocatedId = id
+            try! realm.write {
+                realm.add(user)
+            }
+            
+            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+            
         }
-         
-        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
         
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+        
+   
         
         
     }

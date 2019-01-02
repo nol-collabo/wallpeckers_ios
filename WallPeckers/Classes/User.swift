@@ -17,6 +17,7 @@ class User:Object {
     @objc dynamic var profileImage:Data?
     @objc dynamic var score:Int = 0
     @objc dynamic var playTime:Int = 0
+    @objc dynamic var allocatedId:Int = 0
     var factCheckList = List<FactCheck>()
     var stars:Int = 0
     var publishedArticles = List<Int>()
