@@ -47,7 +47,11 @@ class ResultViewController: UIViewController {
         resultView.snp.makeConstraints { (make) in
             make.height.equalTo(250)
         }
-        resultView.image = UIImage.init(named: "finalTrophy")
+        
+        resultView.animationImages = [UIImage.init(named: "en4tuto1")!, UIImage.init(named: "en4tuto2")!]
+        resultView.animationDuration = 1
+        resultView.animationRepeatCount = 0
+        resultView.startAnimating()
 
         profileBaseView.addSubview(profileView)
         profileView.snp.makeConstraints { (make) in
