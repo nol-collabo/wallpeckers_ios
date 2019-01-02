@@ -22,6 +22,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
     var images1:[UIImage]?
     var images2:[UIImage]?
     var images3:[UIImage]?
+    let navView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
         
         horizontalScrollView.setScrollView(vc: self)
         
+
         self.view.backgroundColor = .basicBackground
         
         horizontalScrollView.contentView.addSubview([t1View, t2View, t3View, t4View])
@@ -84,7 +86,18 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
             images3 = [UIImage.init(named: "de3tuto1")!, UIImage.init(named: "de3tuto2")!]
 
         }
+//        UIWindow().vie
+        horizontalScrollView.addSubview(navView)
         
+        navView.snp.makeConstraints { (make) in
+            make.top.equalTo(40)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(190)
+            make.height.equalTo(100)
+        }
+        
+        navView.bringSubviewToFront(horizontalScrollView)
+        navView.backgroundColor = .red
 
 
     }

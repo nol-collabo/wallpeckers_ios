@@ -26,6 +26,8 @@ final class CompletedArticleView:UIView {
     let commentProfileImv = UIImageView()
     let commentTv = UITextView()
     let dFormatter = DateFormatter()
+    let leftBtn = UIButton()
+    let rightBtn = UIButton()
     var images:[String] = [] {
         didSet {
             print(images)
@@ -223,8 +225,7 @@ extension CompletedArticleView:UICollectionViewDelegate, UICollectionViewDataSou
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CompleteThumnailImageCell", for: indexPath) as? CompleteThumnailImageCell {
             
             cell.setData(imageUrl: images[indexPath.row])
-//            cell.setData(imageUrl: <#T##URL#>)
-//            cell.imv.image = UIImage.init(contentsOfFile: images[indexPath.row])
+
             return cell
             
         }else {
@@ -235,7 +236,7 @@ extension CompletedArticleView:UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         
-        return CGSize.init(width: self.imageCollectionView.bounds.width - 1, height: self.imageCollectionView.bounds.height)
+        return CGSize.init(width: self.imageCollectionView.bounds.width, height: self.imageCollectionView.bounds.height)
         
     }
     

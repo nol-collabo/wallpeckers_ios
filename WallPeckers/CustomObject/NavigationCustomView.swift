@@ -45,10 +45,33 @@ class NavigationCustomView:UIView {
         
         let (_, m, s) = secondsToHoursMinutesSeconds(seconds: time)
         if s < 0 {
-            self.textLb.setNotoText("\(m):\(0)", size: 14, textAlignment: .center)
+            
+            if "\(m)".count == 1 {
+                self.textLb.setNotoText("0\(m):0\(0)", size: 14, textAlignment: .center)
+
+            }else{
+                self.textLb.setNotoText("\(m):0\(0)", size: 14, textAlignment: .center)
+            }
+            
 
         }else{
-            self.textLb.setNotoText("\(m):\(s)", size: 14, textAlignment: .center)
+            if "\(m)".count == 1 {
+                if "\(s)".count == 1 {
+                    self.textLb.setNotoText("0\(m):0\(s)", size: 14, textAlignment: .center)
+                }else{
+                    self.textLb.setNotoText("0\(m):\(s)", size: 14, textAlignment: .center)
+                }
+
+            }else{
+                if "\(s)".count == 1 {
+                    self.textLb.setNotoText("\(m):0\(s)", size: 14, textAlignment: .center)
+
+                }else{
+                    self.textLb.setNotoText("\(m):\(s)", size: 14, textAlignment: .center)
+
+                }
+
+            }
 
         }
     }
