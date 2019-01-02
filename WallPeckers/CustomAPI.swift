@@ -92,7 +92,12 @@ struct CustomAPI {
     
     static func saveIncorrect(articleId:Int, playerId:Int, sessionId:Int, clue_type:String,  completion:((Any)->())?) {
         
+        let params:Parameters = ["article_proto":articleId, "player":playerId, "session":sessionId, "clue_type":clue_type]
     }
     
-    
+    static func updatePlayer(completion:((Any)->())?) {
+        
+        
+        
+    }
 }
