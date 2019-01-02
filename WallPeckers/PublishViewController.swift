@@ -198,7 +198,10 @@ class PublishViewController: UIViewController {
     @objc func callSendOption(sender:UIButton) {
         
         sender.isUserInteractionEnabled = false
-        PopUp.call(mainTitle: "뉴스", selectButtonTitles: ["이메일", "인쇄하기"], bottomButtonTitle: "확인", bottomButtonType: 0, self, buttonImages: nil)
+        
+        PopUp.callEmailPopUp(vc: self)
+        
+//        PopUp.call(mainTitle: "뉴스", selectButtonTitles: ["이메일", "인쇄하기"], bottomButtonTitle: "확인", bottomButtonType: 0, self, buttonImages: nil)
         sender.isUserInteractionEnabled = true
         
     }
@@ -236,7 +239,7 @@ class PublishViewController: UIViewController {
     
 }
 
-extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate, TwobuttonAlertViewDelegate, UITextFieldDelegate {
+extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelegate, UITextFieldDelegate {
     func tapOk(sender: Any) {
         print(sender)
         // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
@@ -279,23 +282,7 @@ extension PublishViewController:SelectPopupDelegate, AlerPopupViewDelegate, Twob
     func bottomButtonTouched(sender: UIButton) {
         self.removePopUpView()
     }
-    
-    func selectButtonTouched(tag: Int) {
 
-        if tag == 1 {
-            
-            // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
-            PopUp.callAlert(time: "", desc: "printsuccessdialog_desc".localized, vc: self, tag: 1)
-            self.removePopUpView()
-        }else if tag == 0 {
-            //이메일 팝업 호출 시점
-            PopUp.callEmailPopUp(vc: self)
-            self.removePopUpView()
-        }
-        
-    }
-    
-    
 }
 
 protocol EditHeadlineProtocol {

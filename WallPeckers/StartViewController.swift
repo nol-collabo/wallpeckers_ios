@@ -38,7 +38,7 @@ class StartViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        animatedTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (_) in
+        animatedTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (_) in
             self.animatedTitleImage()
         }
     }
