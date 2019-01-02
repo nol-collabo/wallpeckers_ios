@@ -9,10 +9,10 @@
 import UIKit
 import SnapKit
 
-
+let KEYWINDOW = UIApplication.shared.keyWindow
 let DeviceSize = UIWindow().bounds.size
 
-class TutorialViewController: UIViewController, TutorialViewDelegate {
+class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollViewDelegate {
 
     private let horizontalScrollView = BaseHorizontalScrollView()
     private let t1View = TutorialView()
@@ -22,8 +22,8 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
     var images1:[UIImage]?
     var images2:[UIImage]?
     var images3:[UIImage]?
-    let navView = UIView()
-    
+    let navView = TopDotView()
+    var currentIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,20 +87,49 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
 
         }
 //        UIWindow().vie
-        horizontalScrollView.addSubview(navView)
+      
+        
+        
+        KEYWINDOW!.addSubview(navView)
+        
         
         navView.snp.makeConstraints { (make) in
-            make.top.equalTo(40)
+            make.top.equalTo(KEYWINDOW!.safeArea.top).offset(30)
             make.centerX.equalToSuperview()
-            make.width.equalTo(190)
-            make.height.equalTo(100)
+            make.height.equalTo(19)
         }
         
-        navView.bringSubviewToFront(horizontalScrollView)
-        navView.backgroundColor = .red
+        navView.setHighlight(currentIndex: 0)
+        
+
 
 
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print("X", scrollView.contentOffset.x)
+        print("WIDTH", scrollView.frame.width * 3)
+        
+        
+        if scrollView.contentOffset.x == 0 {
+            navView.setHighlight(currentIndex: 0)
+        }
+        else if scrollView.contentOffset.x == scrollView.frame.width {
+            navView.setHighlight(currentIndex: 1)
+        }
+        else if scrollView.contentOffset.x == (scrollView.frame.width * 2) {
+            navView.setHighlight(currentIndex: 2)
+        }
+        else if scrollView.contentOffset.x == (scrollView.frame.width * 3) {
+            navView.setHighlight(currentIndex: 3)
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+    }
+    
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -121,7 +150,80 @@ class TutorialViewController: UIViewController, TutorialViewDelegate {
     
     func touchMove(sender: UIButton) {
         sender.isUserInteractionEnabled = false
+        navView.removeFromSuperview()
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
         self.present(vc, animated: true, completion: nil)
     }
+}
+
+
+final class TopDotView:UIView {
+    
+    private let stackView = UIStackView()
+    private let firstView = UIView()
+    private let secondView = UIView()
+    private let thirdView = UIView()
+    private let fourthView = UIView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+    }
+    
+    private func setUI() {
+        
+        self.addSubview(stackView)
+        stackView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+      
+//        stackView.addar([firstView, secondView, thirdView, fourthView])
+        
+    
+        for v in [firstView, secondView, thirdView, fourthView] {
+            stackView.addArrangedSubview(v)
+            v.snp.makeConstraints { (make) in
+                make.width.height.equalTo(19)
+            }
+            v.backgroundColor = .white
+            v.setBorder(color: .black, width: 4, cornerRadius: 9.5)
+        }
+        
+        firstView.tag = 0
+        secondView.tag = 1
+        thirdView.tag = 2
+        fourthView.tag = 3
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 15
+        stackView.distribution = .fillEqually
+    }
+    
+    func setHighlight(currentIndex:Int) {
+        for v in [firstView, secondView, thirdView, fourthView] {
+         
+            
+            UIView.animate(withDuration: 0.3) {
+                if v.tag == currentIndex {
+                    
+                    v.backgroundColor = .black
+                    
+                }else{
+                    
+                    v.backgroundColor = .white
+                    
+                }
+            }
+            
+
+            
+        }
+
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
