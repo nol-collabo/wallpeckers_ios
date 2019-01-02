@@ -28,9 +28,18 @@ final class CompletedArticleView:UIView {
     let dFormatter = DateFormatter()
     let leftBtn = UIButton()
     let rightBtn = UIButton()
+    var indexRow:Int = 0
     var images:[String] = [] {
         didSet {
             print(images)
+            
+            if images.count == 1 {
+                rightBtn.isHidden = true
+                leftBtn.isHidden = true
+            }else{
+                rightBtn.isHidden = false
+                leftBtn.isHidden = false
+            }
             imageCollectionView.reloadData()
         }
     }
@@ -192,10 +201,33 @@ final class CompletedArticleView:UIView {
         }
         
         imageContainerView.addSubview(imageCollectionView)
+        imageContainerView.addSubview([rightBtn, leftBtn])
         imageCollectionView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
         
+        
+        leftBtn.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(36)
+        }
+        
+        rightBtn.snp.makeConstraints { (make) in
+            make.trailing.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(36)
+        }
+        
+        leftBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        rightBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        leftBtn.setAttributedTitle("<".makeAttrString(font: .NotoSans(.medium, size: 30), color: .white), for: .normal)
+        rightBtn.setAttributedTitle(">".makeAttrString(font: .NotoSans(.medium, size: 30), color: .white), for: .normal)
+        leftBtn.tag = 1
+        rightBtn.tag = 0
+        leftBtn.addTarget(self, action: #selector(moveCollectionView(sender:)), for: .touchUpInside)
+        rightBtn.addTarget(self, action: #selector(moveCollectionView(sender:)), for: .touchUpInside)
+
         imageCollectionView.isPagingEnabled = true
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
@@ -204,8 +236,45 @@ final class CompletedArticleView:UIView {
         imageCollectionView.dataSource = self
         imageCollectionView.register(CompleteThumnailImageCell.self, forCellWithReuseIdentifier: "CompleteThumnailImageCell")
         imageContainerView.backgroundColor = .basicBackground
+        imageCollectionView.isUserInteractionEnabled = false
+        
+        
         
     }
+    
+    @objc func moveCollectionView(sender:UIButton) {
+        
+        if sender.tag == 0 {
+            
+            indexRow += 1
+            
+            if indexRow < images.count {
+               let nextIndex = IndexPath.init(row: indexRow, section: 0)
+                imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
+            }else{
+                indexRow = 0
+                let nextIndex = IndexPath.init(row: indexRow, section: 0)
+                imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
+            }
+                
+            
+            
+            
+            
+        }else{
+            if indexRow > 0 {
+                indexRow -= 1
+                let nextIndex = IndexPath.init(row: indexRow, section: 0)
+                imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
+            }else{
+                indexRow = images.count - 1
+                let nextIndex = IndexPath.init(row: indexRow, section: 0)
+                imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
+            }
+        }
+        
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

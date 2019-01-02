@@ -22,9 +22,8 @@ class StartViewController: UIViewController {
     let playButton = UIButton()
     var selectedLanguage:Int?
     let user = realm.objects(User.self)
-    let cc = POPAPI()
+    var animatedTimer:Timer?
     
-
     
     override func viewDidLoad() {
         
@@ -32,21 +31,41 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
 
         setUI()
+
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        animatedTitleImage()
-//        UIView.animate(withDuration: <#T##TimeInterval#>, animations: <#T##() -> Void#>)
-        
+        animatedTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (_) in
+            self.animatedTitleImage()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let timer = animatedTimer {
+            timer.invalidate()
+        }
+        animatedTimer = nil
+       
+//        animatedTimer = ni
     }
     
     func animatedTitleImage() {
         
-        UIView.animate(withDuration: 0.1) {
-            self.descScrollView.center = CGPoint.init(x: 100, y: 100)
-            self.view.layoutIfNeeded()
-            self.view.layoutSubviews()
+        if self.descScrollView.scrollView.contentOffset.x  == 0 {
+            UIView.animate(withDuration: 0.3) {
+                self.descScrollView.scrollView.contentOffset.x = self.descScrollView.scrollView.frame.width
+            }
+        }else{
+            UIView.animate(withDuration: 0.3) {
+                self.descScrollView.scrollView.contentOffset.x = 0
+            }
         }
         
+//        animatedTitleImage()
     }
     
 
@@ -74,6 +93,7 @@ class StartViewController: UIViewController {
         descScrollView.setScrollViewMiddle(vc: self)
         
         descScrollView.contentView.addSubview([desc2View, desc1View])
+        descScrollView.isUserInteractionEnabled = false
         
         desc1View.snp.makeConstraints { (make) in
             make.height.equalToSuperview()
