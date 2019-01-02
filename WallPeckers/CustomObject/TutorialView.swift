@@ -20,6 +20,7 @@ final class TutorialView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
+        print("XX")
         nextBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
