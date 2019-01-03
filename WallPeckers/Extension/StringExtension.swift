@@ -23,7 +23,6 @@ extension String {
     var localized: String {
         
         let countryCode = Standard.shared.getLocalized()
-        
         let path = Bundle.main.path(forResource: countryCode.rawValue, ofType: "lproj")
         let bundleName = Bundle(path: path!)
         return NSLocalizedString(self, tableName: nil, bundle: bundleName!, value: "", comment: "")
