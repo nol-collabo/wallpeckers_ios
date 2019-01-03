@@ -122,6 +122,9 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "FactCheckViewController") as? FactCheckViewController else {return}
         
+        try! realm.write {
+            article!.tryCount += 1
+        }
         
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (sendingData, article, five_W_One_Hs, questionPoint), direction: .forward)
        

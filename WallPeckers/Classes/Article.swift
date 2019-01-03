@@ -32,8 +32,9 @@ class Article:Object {
     @objc dynamic var correctQuestionCount = 0
     @objc dynamic var isPairedArticle = false
     @objc dynamic var selectedPictureId = 0
+    @objc dynamic var tryCount = 0
     var hashArray = List<Int>()
-
+    
 //    @objc dynamic var
     
     var wrongQuestionsId = List<Int>()
@@ -61,7 +62,7 @@ class Article:Object {
     
     }
     
-    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:[Int], hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int, isPaired:Bool, point:Int, selectedPictureId:Int, prints:String, hashArray:[Int]) {
+    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:[Int], hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int, isPaired:Bool, point:Int, selectedPictureId:Int, prints:String, hashArray:[Int], tryCount:Int) {
         
         self.selectedPictureId = selectedPictureId
         self.word = word
@@ -70,6 +71,7 @@ class Article:Object {
         self.result = result
         self.id = id
         self.point = point
+        self.tryCount = tryCount
         _ = clues.map({
             self.clues.append($0)
 

@@ -122,12 +122,12 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
             
             if isCompletedFirst {
-                CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: 1, photoId: article.selectedPictureId) { (result) in
-                    print(result)
+                CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: article.tryCount, photoId: article.selectedPictureId) { (result) in
                     
                     if result == "OK" {
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                     }else{
+                        
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                         
                         print("오류")
