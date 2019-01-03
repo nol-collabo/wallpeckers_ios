@@ -32,6 +32,8 @@
 "inputkey_passcode" = "PRESS CODE";
 "inputkey_codeguide" = "Enter the PRESS CODE and press \'OK\'";
 "inputkey_errorguide" = "Check the PRESS CODE and Try again";
+"presscodedesc" = "You could find out PRESS CODE on site.";
+
 
 "inputkeydialog_description" = "Your last game has been finished.\nIf you press \'OK\',\nyour articles of last game\nwill be deleted and start a new game.\nWould you like to start a new one?";
 
@@ -91,11 +93,11 @@
 "factcheckdialog_perfecttitle" = "A PERFECT ARTICLE";
 "factcheckdialog_hashguide" = "Pick your emotional #hashtag\nabout the article";
 
-"hash1" = "#happy";
-"hash2" = "#hopeful";
-"hash3" = "#don\'t care";
-"hash4" = "#sad";
-"hash5" = "#frustrated";
+"hash1" = " #happy ";
+"hash2" = " #hopeful ";
+"hash3" = " #don\'t care ";
+"hash4" = " #sad ";
+"hash5" = " #frustrated ";
 "factcheckdialog_reportbtn" = "PUBLISH THE ARTICLE";
 
 "paireddialog_title" = "PAIRED\nARTICLES";

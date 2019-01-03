@@ -213,6 +213,7 @@ class RegisterViewController: UIViewController {
             make.top.equalTo(nameTf.snp.bottom).offset(1)
             make.leading.equalTo(nameTf.snp.leading)
             make.height.equalTo(20)
+            make.trailing.equalTo(-10)
         }
         
         ageLb.snp.makeConstraints { (make) in
@@ -231,7 +232,7 @@ class RegisterViewController: UIViewController {
         }
         ageSelectIndicatedLb.setNotoText("registration_defaultage".localized, color: .black, size: 20, textAlignment: .left, font: .medium)
         ageSelectIndicatedLb.adjustsFontSizeToFitWidth = true
-        
+        descLb.adjustsFontSizeToFitWidth = true
         ageSelectIndicatedLb.isUserInteractionEnabled = true
         registBtn.isHidden = true
         ageSelectPickerView.snp.makeConstraints { (make) in

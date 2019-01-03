@@ -78,6 +78,7 @@ class AfterRegisterViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(34)
         }
+        pressCodeDescLb.attributedText = "presscodedesc".localized.makeAttrString(font: UIFont.NotoSans(.medium, size: 12), color: .white)
         pressCodeTf.attributedPlaceholder = "inputkey_passcode".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: UIColor.init(white: 155/255, alpha: 1))
         pressCodeTf.textAlignment = .center
         pressCodeTf.addUnderBar()

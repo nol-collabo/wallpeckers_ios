@@ -31,6 +31,7 @@
 "inputkey_passcode" = "PRESS CODE";
 "inputkey_codeguide" = "프레스 코드를 입력하고 확인을 누르세요";
 "inputkey_errorguide" = "프레스 코드를 확인해주세요";
+"presscodedesc" = "프레스 코드는 게임 현장에서 받을 수 있습니다.";
 
 "inputkeydialog_description" = "지난 게임이 종료되었습니다.\n확인을 누르면 지난 게임 기록이\n사라지고 새 게임이 시작됩니다.\n계속하시겠습니까?";
 
@@ -90,11 +91,11 @@
 "factcheckdialog_perfecttitle" = "A PERFECT ARTICLE";
 "factcheckdialog_hashguide" = "기사에 대한 나의 감정 태그를\n골라주세요";
 
-"hash1" = "#행복";
-"hash2" = "#희망적";
-"hash3" = "#관심없음";
-"hash4" = "#슬픔";
-"hash5" = "#절망적";
+"hash1" = " #행복 ";
+"hash2" = " #희망적 ";
+"hash3" = " #관심없음 ";
+"hash4" = " #슬픔 ";
+"hash5" = " #절망적 ";
 "factcheckdialog_reportbtn" = "기사 발행하기";
 
 "paireddialog_title" = "짝 기사 완성";
