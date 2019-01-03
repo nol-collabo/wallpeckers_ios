@@ -24,6 +24,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
     var images3:[UIImage]?
     let navView = TopDotView()
     var currentIndex = 0
+    var inputCode = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -144,6 +145,12 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
         sender.isUserInteractionEnabled = false
         navView.removeFromSuperview()
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+        
+    
+        if let gvc = vc.viewControllers.first as? GameViewController {
+            gvc.inputCode = inputCode            
+        }
+        
         self.present(vc, animated: true, completion: nil)
     }
 }

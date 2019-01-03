@@ -33,31 +33,104 @@ class Standard {
     private init() {}
     
     
-    func startTimer(gameMode:GameMode) {
+    func timerInit(inputCode:String) {
         
-        switch gameMode {
-            
-        case .long:
-            gamePlayTime = 1800
-        case .short:
+        let enPressCodes:[String] = ["peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape"]
+        let dePressCodes:[String] = ["frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht"]
+        
+        if enPressCodes.contains(inputCode) {
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
                     gamePlayTime = playTime
                 }else{
-                    gamePlayTime = 500
+                    gamePlayTime = 1800
                 }
             }else{
-                gamePlayTime = 500
+                gamePlayTime = 1800
             }
         }
         
-        sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
+        if dePressCodes.contains(inputCode) {
+            if let playTime = RealmUser.shared.getUserData()?.playTime {
+                if playTime != 0 {
+                    gamePlayTime = playTime
+                }else{
+                    gamePlayTime = 1800
+                }
+            }else{
+                gamePlayTime = 1800
+            }
+        }
+        
+        
+        switch inputCode {
+            
+        case "2", "5", "60" :
 
+            if let playTime = RealmUser.shared.getUserData()?.playTime {
+                if playTime != 0 {
+                    gamePlayTime = playTime
+                }else{
+                    gamePlayTime = Int(inputCode)! * 60
+                }
+            }else{
+                gamePlayTime = Int(inputCode)! * 60
+            }
+            
+            
+            
+        case "berlin", "wall", "dmz", "dorasan":
+            
+            if let playTime = RealmUser.shared.getUserData()?.playTime {
+                if playTime != 0 {
+                    gamePlayTime = playTime
+                }else{
+                    gamePlayTime = 1200
+                }
+            }else{
+                gamePlayTime = 1200
+            }
+  
+        default :
+            
+            print("default")
+            
+        }
+        
+        sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
+            
             self.gamePlayTime -= 1
         })
         
         
     }
+    
+    
+//    func startTimer(gameMode:GameMode) {
+//        
+//        switch gameMode {
+//            
+//        case .long:
+//            gamePlayTime = 1800
+//        case .short:
+//            if let playTime = RealmUser.shared.getUserData()?.playTime {
+//                if playTime != 0 {
+//                    gamePlayTime = playTime
+//                }else{
+//                    gamePlayTime = 500
+//                }
+//            }else{
+//                gamePlayTime = 500
+//            }
+//        }
+//        
+//        sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
+//
+//            self.gamePlayTime -= 1
+//        })
+//        
+//        
+//    }
     
     func changeLocalized(_ countryCode:String) {
 

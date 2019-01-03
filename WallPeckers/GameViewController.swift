@@ -22,7 +22,7 @@ class GameViewController: UIViewController {
     let factCheckView = UIView()
     let articleResultView = UIView()
     let topicViewController = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "TopicViewController") as! TopicViewController
-
+    var inputCode:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class GameViewController: UIViewController {
         self.timerView = self.findTimerView()
         self.scoreView = self.findScoreView()
         Standard.shared.delegate = self
-        Standard.shared.startTimer(gameMode: .short)
+        Standard.shared.timerInit(inputCode: inputCode)
 
     }
     
@@ -129,7 +129,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
             PopUp.callAlert(time: "05:00", desc: String(format:"timedialog_timelimit".localized, "5"), vc: self, tag: 2)
                         
         }else if time == 120 {
-            PopUp.callAlert(time: "02:00", desc: String(format:"timedialog_timelimit".localized, "1"), vc: self, tag: 2)
+            PopUp.callAlert(time: "02:00", desc: String(format:"timedialog_timelimit".localized, "2"), vc: self, tag: 2)
         }
         
     }

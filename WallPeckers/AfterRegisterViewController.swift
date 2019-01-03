@@ -17,6 +17,8 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeDescLb = UILabel()
     var userInfo:User?
     let keyboardResigner = UITapGestureRecognizer()
+    let enPressCodes:[String] = ["berlin", "wall", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape"]
+    let dePressCodes:[String] = ["dmz", "dorasan", "2", "5", "60", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,19 +142,48 @@ class AfterRegisterViewController: UIViewController {
     
     func moveToGame(){
         
-        UserDefaults.standard.set(true, forKey: "Playing")
-        
-        if UserDefaults.standard.bool(forKey: "Tutorial") {
-            guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+        if let _inputCode = pressCodeTf.text {
+            switch Standard.shared.getLocalized() {
+                
+            case .ENGLISH, .KOREAN:
+                if !enPressCodes.contains(_inputCode.lowercased()) {
+                    pressCodeTf.text = ""
+                    pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                    return
+                }
+            case .GERMAN:
+                if !dePressCodes.contains(_inputCode.lowercased()) {
+                    pressCodeTf.text = ""
+                    pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                    return
+                }
+            }
             
-            self.present(vc, animated: true, completion: nil)
-            
-        }else{
-            guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
             
             
-            self.navigationController?.pushViewController(vc, animated: true)
+            UserDefaults.standard.set(true, forKey: "Playing")
+            
+            if UserDefaults.standard.bool(forKey: "Tutorial") {
+                guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+
+                if let gvc = vc.viewControllers.first as? GameViewController {
+                    gvc.inputCode = _inputCode
+                }
+                
+                self.present(vc, animated: true, completion: nil)
+                
+            }else{
+                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+                
+                vc.inputCode = _inputCode
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
         }
+        
+        
+
     }
     
 
