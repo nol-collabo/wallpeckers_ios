@@ -85,15 +85,18 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         
         if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
             
-            let aa = hash5.components(separatedBy: "/").index(after: article.selectedHashtag - 1)
-            
-            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P"]
+            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
             
         }
         
         self.titleLb.attributedText = article.title!.makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
         self.tag = article.id
+        
+
         collectionView.reloadData()
+        
+        print(self.frame.height, "FGGGG")
+
         
     }
     
@@ -118,9 +121,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         
         if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
             
-//            let aa = hash5.components(separatedBy: "/").index(after: article.selectedHashtag - 1)
             
-            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "\(article.point) P X 2" :  "\(article.point) P"]
+            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
             
         }
         
@@ -144,7 +146,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
     private func setUI() {
         
         self.backgroundColor = .basicBackground
-        self.addSubview([titleLb, hashView, underLine, rightArrowImv])
+        self.addSubview([titleLb, collectionView, underLine, rightArrowImv])
         
         titleLb.snp.makeConstraints { (make) in
             make.top.equalTo(10)
@@ -158,27 +160,32 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         }
         rightArrowImv.contentMode = .center
         titleLb.numberOfLines = 0
-        hashView.snp.makeConstraints { (make) in
-            make.leading.equalTo(10)
-            make.top.equalTo(titleLb.snp.bottom).offset(10)
-            make.height.equalTo(50)
-            make.bottom.equalTo(-5)
-            make.trailing.equalTo(-10)
-        }
-        hashView.addSubview(collectionView)
+//        hashView.snp.makeConstraints { (make) in
+//            make.leading.equalTo(10)
+//            make.top.equalTo(titleLb.snp.bottom).offset(10)
+////            make.height.equalTo(60)
+//            make.bottom.equalTo(-5)
+//            make.trailing.equalTo(-10)
+//        }
+//        hashView.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
-            make.top.leading.bottom.equalToSuperview()
-            make.trailing.equalTo(-30)
+           
+            make.top.equalTo(titleLb.snp.bottom).offset(10)
+            make.leading.equalTo(10)
+            make.height.equalTo(DeviceSize.width > 320 ?  60 : 90)
+            make.bottom.equalTo(-10)
+            make.trailing.equalTo(-35)
+            
         }
         collectionView.backgroundColor = .basicBackground
         underLine.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
+            make.top.equalTo(collectionView.snp.bottom).offset(5)
             make.height.equalTo(1.5)
             make.leading.equalTo(7)
             make.centerX.equalToSuperview()
         }
-        self.layoutSubviews()
-        self.layoutIfNeeded()
+        collectionView.reloadData()
+        
         underLine.backgroundColor = .black
         
     }

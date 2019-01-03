@@ -77,6 +77,12 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 make.trailing.equalTo(-20)
             }
             okButton.setTitle("OK".localized, for: .normal)
+            let bottomV = UIView()
+            aStackView.addRow(bottomV)
+            bottomV.snp.makeConstraints { (make) in
+                make.height.equalTo(50)
+                make.edges.equalToSuperview()
+            }
         }
         
     }
@@ -94,7 +100,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 make.top.equalTo(view.safeArea.top).offset(60)
             }
             
-            make.bottom.equalTo(view.safeArea.bottom).offset(-40)
+            make.bottom.equalTo(view.safeArea.bottom)
             make.width.equalToSuperview()
             make.centerX.equalToSuperview()
             

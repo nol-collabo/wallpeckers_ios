@@ -293,17 +293,20 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             
             guard let completedArticle = delegate?.completedArticle else {return}
             
+            var heights:CGFloat = 0
             for i in 0...completedArticle.count - 1 {
                 
                 let vv = CompleteArticleThumnailView()
                 vv.delegate = self
                 vv.setData(article: completedArticle[i])
                 articleStackView.addRow(vv)
+                print(vv.frame.height, "FRAMEHHH")
                 self.layoutIfNeeded()
             }
             articleStackView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
-                make.height.equalTo(150 * completedArticle.count)
+                
+                make.height.equalTo((DeviceSize.width > 320 ? 150 : 180) * completedArticle.count)
             }
             self.layoutIfNeeded()
             self.layoutSubviews()
