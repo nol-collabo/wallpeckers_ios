@@ -295,7 +295,7 @@ class LevelBadgePopUpView:BasePopUpView {
         }
         descLb.textAlignment = .center
         
-        bottomButton.setTitle("OK", for: .normal)
+        bottomButton.setTitle("OK".localized, for: .normal)
         bottomButton.addTarget(self, action: #selector(removePopup), for: .touchUpInside)
         
     }
@@ -411,7 +411,7 @@ class PairedArticleView:BasePopUpView {
         descLb.numberOfLines = 0
         
         self.popupView.setBorder(color: .black, width: 2.5)
-        okButton.setTitle("OK", for: .normal)
+        okButton.setTitle("OK".localized, for: .normal)
         okButton.snp.makeConstraints { (make) in
             make.top.equalTo(descLb.snp.bottom).offset(10)
             make.bottom.equalTo(-20)
@@ -729,7 +729,7 @@ class ArticleSubmitView:BasePopUpView {
         }
         
 //        publishButton.setTitle("PUBLISH THE ARTICLE", for: .normal)
-        publishButton.setAttributedTitle("PUBLISH THE ARTICLE".makeAttrString(font: UIFont.AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .white), for: .normal)
+        publishButton.setAttributedTitle("PUBLISH THE ARTICLE".localized.makeAttrString(font: UIFont.AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .white), for: .normal)
 
         
         
@@ -797,7 +797,6 @@ final class HashTagBtn:UIButton {
         self.backgroundColor = UIColor.init(white: 216/255, alpha: 1)
         self.setBorder(color: .black, width: 1.5, cornerRadius: 8)
         self.titleLabel?.font = UIFont.AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 19 : 15)
-//        self.titleLabel?.adjustsFontSizeToFitWidth
         self.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     

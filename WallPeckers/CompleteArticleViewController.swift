@@ -31,17 +31,15 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         
         if let _hash = hashTag, let _article = article {
             
-            if let a = article?.hashes?.components(separatedBy: "/") {
+            if let a = article?.hashArray {
 
-                let ints = a.map({
-                    
-                    Int($0)!
-                })
+                let aa = Array(a)
+                
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                    self.hashView.startAnimation(heights: ints)
+                    self.hashView.startAnimation(heights: aa)
                 }
                 
-                for i in 0...ints.count - 1 {
+                for i in 0...aa.count - 1 {
                     
                     if let gps = self.hashView.subviews.filter({
                         
@@ -50,7 +48,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                         
                         _ = gps.map({
                             if $0.tag == i {
-                                $0.initData(percent: ints[i], myTag: _hash)
+                                $0.initData(percent: aa[i], myTag: _hash)
                             }
                             
                         })
