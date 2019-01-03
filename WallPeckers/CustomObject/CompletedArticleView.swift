@@ -75,23 +75,20 @@ final class CompletedArticleView:UIView {
             if let a = RealmClue.shared.getLocalClue(id: clue, language: Standard.shared.getLocalized()) {
                 
                 if wrongClue.count > 0 {
-                    
-                    print(wrongClue)
-                    print("VVV")
-                    
+
                     if wrongClue.contains(a.id) {
                         articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .blue)))
                         
                     }else{
                         articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
-                        
                     }
-                    
                 }else{
                     articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
                 }
             }
         }
+        
+        articleString.addAttribute(NSAttributedString.Key.font, value: UIFont.NotoSans(.bold, size: 37), range: NSRange.init(location: 0, length: 1))
         
         let titleAstring = "".makeAttrString(font: .NotoSans(.regular, size: 13), color: .black)
         
