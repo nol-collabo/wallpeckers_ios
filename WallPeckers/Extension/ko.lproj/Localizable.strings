@@ -83,7 +83,7 @@
 
 
 "writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요:\n";
+"factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요: ";
 "factcheck_deskperfect" = "완벽하군요!\n당신의 기사는 팩트 체크를 무사 통과했습니다.";
 
 "factcheckdialog_title" = "A GOOD ARTICLE";

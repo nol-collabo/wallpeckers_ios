@@ -82,9 +82,8 @@
 "MY LEVEL" = "MEIN LEVEL";
 "MY BADGES" = "MEIN ABZEICHEN";
 
-
-"writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt:\n";
+"writearticleerrordialog_desc" = "The CODE\nDer eingegebene CODE existiert nicht.";
+"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt: ";
 "factcheck_deskperfect" = "PERFEKT!\nDein Arikel hat den Faktencheck erfolgreich bestanden.";
 
 "factcheckdialog_title" = "EIN GUTER ARTIKEL";
