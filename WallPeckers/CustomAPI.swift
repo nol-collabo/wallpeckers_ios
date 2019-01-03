@@ -161,7 +161,7 @@ struct CustomAPI {
         }
     }
     
-    static func makePDF(email:String, headline:String, main1:String?, main2:String?, others:[String]?, tag:Int, photoId:Int, completion:((Any?)->())?) {
+    static func makePDF(email:String, headline:String, main1:String?, main2:String?, others:[String]?, completion:((Any?)->())?) {
         
         
         guard let user = RealmUser.shared.getUserData() else {return}

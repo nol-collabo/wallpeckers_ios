@@ -119,8 +119,6 @@ class ResultViewController: UIViewController {
     
     @objc func moveToPublish(sender:UIButton) {
         
-        
-        
         let aa = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
         
         try! realm.write {

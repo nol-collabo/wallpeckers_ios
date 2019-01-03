@@ -73,11 +73,7 @@ class StartViewController: UIViewController {
                 
             }
 
-            
-            CustomAPI.makePDF(email: "zelatool@gmail.com", headline: "1.1.1", main1: "2.1.1", main2: "1.1.1", others: ["1.2.3", "2.3.1"], tag: 1, photoId: 1, completion: { (result) in
-                print(result)
-            })
-            print("~~~~")
+
         }
 
     }

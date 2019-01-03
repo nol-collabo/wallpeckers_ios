@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class PublishViewController: UIViewController {
     
@@ -26,6 +27,7 @@ class PublishViewController: UIViewController {
     let feature2View = HeadlineView()
     var defaultHeadlines:[Int] = Array((RealmUser.shared.getUserData()?.publishedArticles)!)
     var delegate:EditHeadlineProtocol?
+    var email:String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -242,8 +244,60 @@ class PublishViewController: UIViewController {
 extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelegate, UITextFieldDelegate {
     func tapOk(sender: Any) {
         print(sender)
+        
+        var headline:String!
+        var main1:String?
+        var main2:String?
+        var others:[String]?
         // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
-        PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
+
+        if let headlineId = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[0]}).map({
+            
+            return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
+            
+        }).first {
+            headline = headlineId
+        }
+        
+        if defaultHeadlines.count == 2 {
+            if let main1Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[1]}).map({
+                return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
+            }).first {
+                main1 = main1Id
+            }
+        }
+        
+        if defaultHeadlines.count == 3 {
+            if let main1Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[1]}).map({
+                return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
+            }).first {
+                main1 = main1Id
+            }
+            if let main2Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[2]}).map({
+                return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
+            }).first {
+                main2 = main2Id
+            }
+        }
+        
+        others = RealmArticle.shared.getAll().filter({$0.isCompleted}).filter({!defaultHeadlines.contains($0.id)}).map({
+            return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
+        })
+
+        CustomAPI.makePDF(email: sender as! String, headline: headline, main1: main1, main2: main2, others: others) { (result) in
+
+            print(result)
+            let json = JSON(result)
+            
+            if json["result"].stringValue == "OK" {
+                PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
+            }else{
+                PopUp.callAlert(time: "", desc: "전송실패", vc: self, tag: 99)
+            }
+
+        }
+        
+        
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
