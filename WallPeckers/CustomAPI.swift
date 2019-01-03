@@ -210,9 +210,7 @@ struct CustomAPI {
             switch response.result {
                 
             case .success(let value):
-                
-                print(value)
-                
+                                
                 guard let _completion = completion else {return}
                 
                 _completion(value)

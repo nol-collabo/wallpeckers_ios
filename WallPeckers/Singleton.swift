@@ -217,7 +217,7 @@ class RealmArticle {
                     
                     let translate = Article()
                    
-                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: Array($0.clues), hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle, point: $0.point, selectedPictureId: $0.selectedPictureId, prints: local.prints!)
+                    translate.translate(word: local.word!, title: local.title!, title_sub: local.title_sub!, result: local.result!, id: local.article, clues: Array($0.clues), hashes: $0.hashes!, section: $0.section, region: $0.region!, isCompleted: $0.isCompleted, selectedHashTag: $0.selectedHashtag, totalquestionCOunt: $0.totalQuestionCount, correctquestioncount: $0.correctQuestionCount, isPaired: $0.isPairedArticle, point: $0.point, selectedPictureId: $0.selectedPictureId, prints: local.prints!, hashArray: Array($0.hashArray))
                     
                     translateArticles.append(translate)
                 }
