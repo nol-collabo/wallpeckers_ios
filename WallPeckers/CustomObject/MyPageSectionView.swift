@@ -85,7 +85,6 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             
             if let _ = delegate?.completedBadges.filter({$0 == 1}).first {
                 politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "Politics".localized, tag: 1, isCompleted: true)
-                
             }else{
                 politicBadgeV.setData(badgeImage: "politicBadge", badgeTitle: "Politics".localized, tag: 1)
             }
