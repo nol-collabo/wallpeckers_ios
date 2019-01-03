@@ -108,7 +108,7 @@ class MyProfileView:UIView, UITextFieldDelegate {
             make.height.equalTo(DEVICEHEIGHT > 600 ? 50 : 30)
         }
         
-        myPagebtn.setTitle("MY_PAGE".localized, for: .normal)
+        myPagebtn.setTitle("Go to MY PAGE".localized, for: .normal)
         self.nameTf.isEnabled = false
         levelDescLb.numberOfLines = 2
         levelDescLb.textAlignment = .center

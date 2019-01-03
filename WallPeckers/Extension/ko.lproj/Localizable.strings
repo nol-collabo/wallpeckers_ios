@@ -101,8 +101,8 @@
 "paireddialog_title" = "짝 기사 완성";
 
 "completearticle_title" = "완성한 기사";
-"Go to MY PAGE" = "Go to MY PAGE";
-"Go to START" = "Go to START";
+"Go to MY PAGE" = "마이 페이지";
+"Go to START" = "시작화면으로";
 "Printing Press" = "Printing Press";
 "CONGRATULATIONS!" = "CONGRATULATIONS!";
 "timedialog_timeend" = "Time\'s up!";
