@@ -83,7 +83,7 @@
 
 
 "writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요: ";
+"factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요:\n";
 "factcheck_deskperfect" = "완벽하군요!\n당신의 기사는 팩트 체크를 무사 통과했습니다.";
 
 "factcheckdialog_title" = "A GOOD ARTICLE";
@@ -145,7 +145,7 @@
 
 "levelup" = "나는 현재 \n%@ 입니다.";
 "getBadge" = "축하합니다! %@ 뱃지를 획득했습니다!";
-"getPrize" = "축하합니다!\n오늘의 %@ 상을\n받았습니다!";
+"getPrize" = "축하합니다!\n오늘의 월페커즈 %@상을\n받았습니다!";
 
 "timedialog_timeend" = "기사 작성을 마감합니다!";
 "timedialog_timelimit" = "마감 %@분 남았습니다.";

@@ -94,9 +94,9 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
         
         
         navView.snp.makeConstraints { (make) in
-            make.top.equalTo(KEYWINDOW!.safeArea.top).offset(30)
+            make.top.equalTo(KEYWINDOW!.safeArea.top).offset(DeviceSize.width > 320 ? 30 : 5)
             make.centerX.equalToSuperview()
-            make.height.equalTo(19)
+            make.height.equalTo(DeviceSize.width > 320 ? 19 : 13)
         }
         
         navView.setHighlight(currentIndex: 0)
@@ -107,9 +107,6 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("X", scrollView.contentOffset.x)
-        print("WIDTH", scrollView.frame.width * 3)
-        
         
         if scrollView.contentOffset.x == 0 {
             navView.setHighlight(currentIndex: 0)
@@ -124,11 +121,6 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
             navView.setHighlight(currentIndex: 3)
         }
     }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-    }
-    
 
     
     override func viewWillAppear(_ animated: Bool) {
@@ -183,10 +175,10 @@ final class TopDotView:UIView {
         for v in [firstView, secondView, thirdView, fourthView] {
             stackView.addArrangedSubview(v)
             v.snp.makeConstraints { (make) in
-                make.width.height.equalTo(19)
+                make.width.height.equalTo(DeviceSize.width > 320 ? 19 : 13)
             }
             v.backgroundColor = .white
-            v.setBorder(color: .black, width: 4, cornerRadius: 9.5)
+            v.setBorder(color: .black, width: 4, cornerRadius: DeviceSize.width > 320 ? 9.5 : 6.5)
         }
         
         firstView.tag = 0

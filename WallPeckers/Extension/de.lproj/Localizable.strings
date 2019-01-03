@@ -84,7 +84,7 @@
 
 
 "writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
-"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt: ";
+"factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt:\n";
 "factcheck_deskperfect" = "PERFEKT!\nDein Arikel hat den Faktencheck erfolgreich bestanden.";
 
 "factcheckdialog_title" = "EIN GUTER ARTIKEL";

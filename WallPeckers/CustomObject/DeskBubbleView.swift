@@ -37,7 +37,7 @@ final class DeskBubbleView:UIView {
         clueDescLb.snp.makeConstraints { (make) in
             make.leading.equalTo(profileView.snp.trailing).offset(30)
             make.top.equalTo(bubbleBaseView.snp.top).offset(3)
-            make.trailing.equalTo(bubbleBaseView.snp.trailing).offset(-20)
+            make.trailing.equalTo(bubbleBaseView.snp.trailing).offset(-10)
             make.bottom.equalTo(-10)
         }
         clueDescLb.numberOfLines = 0
@@ -65,7 +65,7 @@ final class DeskBubbleView:UIView {
         }
         
         
-        clueDescLb.attributedText = sss.makeAttrString(font: .NotoSans(.medium, size: 14), color: .black)
+        clueDescLb.attributedText = sss.makeAttrString(font: .NotoSans(.medium, size: 13), color: .black)
         clueDescLb.numberOfLines = 0
         
         print(wrongParts)
@@ -76,7 +76,7 @@ final class DeskBubbleView:UIView {
     func setDataForCompleteArticle(region:String, desc:String) {
         profileView.image = UIImage.init(named: region == "GERMANY" ? "germanDeskProfile" : "koreanDeskProfile")
         bubbleBaseView.image = UIImage.init(named: "blueLeftBallon")
-        clueDescLb.attributedText = desc.makeAttrString(font: .NotoSans(.medium, size: 14), color: .white)
+        clueDescLb.attributedText = desc.makeAttrString(font: .NotoSans(.medium, size: 13), color: .white)
     }
     
     required init?(coder aDecoder: NSCoder) {
