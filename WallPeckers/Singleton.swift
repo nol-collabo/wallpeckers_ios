@@ -84,6 +84,8 @@ class RealmUser {
         UserDefaults.standard.set(0, forKey: "enterBackground")
         UserDefaults.standard.set(false, forKey: "Tutorial")
         UserDefaults.standard.set(false, forKey: "Playing")
+        UserDefaults.standard.set(0, forKey: "sessionId")
+        
         try! realm.write {
             user.factCheckList.removeAll()
             user.score = 0
