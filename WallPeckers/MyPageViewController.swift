@@ -298,17 +298,20 @@ extension MyPageViewController:SelectPopupDelegate {
         case 0:
             imagePicker.sourceType = .camera
             checkPermission()
-
             self.present(self.imagePicker, animated: true, completion: nil)
 
         case 1:
             imagePicker.sourceType = .photoLibrary
             checkPermission()
-
             self.present(self.imagePicker, animated: true, completion: nil)
 
         case 2:
-            print("DEFAULT")
+            profileView.profileImageView.image = UIImage.init(named: "basicProfileImage")
+            
+            try! realm.write {
+                RealmUser.shared.getUserData()?.profileImage = UIImage.init(named: "basicProfileImage")!.jpegData(compressionQuality: 0.5)
+            }
+            
         default:
             break
         }

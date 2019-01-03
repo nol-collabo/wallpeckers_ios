@@ -91,7 +91,7 @@ class StartViewController: UIViewController {
         titleImv.image = UIImage.init(named: "MainTitleImv")!
         titleImv.contentMode = .scaleAspectFit
         descScrollView.setScrollViewMiddle(vc: self)
-        
+        descScrollView.scrollView.isUserInteractionEnabled = false
         descScrollView.contentView.addSubview([desc2View, desc1View])
         descScrollView.isUserInteractionEnabled = false
         
@@ -141,7 +141,7 @@ class StartViewController: UIViewController {
     
     @objc func playBtnTouched(sender:UIButton) {
         
-        PopUp.call(mainTitle: "LANGUAGE", selectButtonTitles: ["Deutch","한국어","English"], bottomButtonTitle: "확인", bottomButtonType: 0, self, buttonImages: [UIImage.init(named: "languageDeBlack")!, UIImage.init(named: "languageKrBlack")!, UIImage.init(named: "languageEnBlack")!])
+        PopUp.call(mainTitle: "LANGUAGE", selectButtonTitles: ["Deutsch","한국어","English"], bottomButtonTitle: "OK", bottomButtonType: 0, self, buttonImages: [UIImage.init(named: "languageDeBlack")!, UIImage.init(named: "languageKrBlack")!, UIImage.init(named: "languageEnBlack")!])
     }
 
 }

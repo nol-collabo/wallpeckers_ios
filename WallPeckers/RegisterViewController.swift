@@ -300,6 +300,8 @@ class RegisterViewController: UIViewController {
     @objc func callPickerView(sender:UITapGestureRecognizer) {
         
         self.ageSelectPickerView.isHidden = !(self.ageSelectPickerView.isHidden)
+        self.nameTf.resignFirstResponder()
+//        self.removeKeyboard()
         
     }
     
@@ -424,6 +426,7 @@ extension RegisterViewController:SelectPopupDelegate {
                     self.present(self.imagePicker, animated: true, completion: nil)
 
         case 2:
+            profileImv.image = UIImage.init(named: "basicProfileImage")
             print("DEFAULT")
         default:
             break

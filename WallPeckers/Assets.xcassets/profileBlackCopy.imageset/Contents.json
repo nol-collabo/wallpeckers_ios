@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "cameraButton.png",
+      "filename" : "profileBlackCopy.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cameraButton@2x.png",
+      "filename" : "profileBlackCopy@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "cameraButton@3x.png",
+      "filename" : "profileBlackCopy@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

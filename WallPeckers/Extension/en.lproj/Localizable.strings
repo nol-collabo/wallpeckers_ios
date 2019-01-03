@@ -147,4 +147,4 @@
 "getPrize" = "Congratulations!\nYou're Wallpecker's\n %@ of the Day.";
 
 "timedialog_timeend" = "Time's up!";
-"timedialog_timelimit" = "You have %@ minuites left.";
+"timedialog_timelimit" = "You have %@ minutes left.";

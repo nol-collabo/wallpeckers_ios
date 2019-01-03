@@ -131,8 +131,6 @@ class MyProfileView:UIView, UITextFieldDelegate {
     
     func setData(userData:User, level:String?, camera:Bool, nameEdit:Bool, myPage:Bool) {
         
-        
-        
         self.nameTf.text = userData.name
         self.profileImageView.image = UIImage.init(data: userData.profileImage!)
         self.levelDescLb.attributedText = "\("WALLPECKERS".localized)\n\(level ?? "Intern")".makeAttrString(font: .NotoSans(.bold, size: 14), color: .black)
@@ -161,10 +159,8 @@ class MyProfileView:UIView, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()
-        //        delegate?.isresignKeyboard!(sender: textField)
         
         return true
-        
     }
     
 }

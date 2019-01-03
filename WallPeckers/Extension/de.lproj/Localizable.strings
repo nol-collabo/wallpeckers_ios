@@ -39,8 +39,8 @@
 "tutorial1" = "Solange die Mauer stand\nwar sie Teil unseres Alltags\nund wir vergaßen nach dem WARUM zu fragen.\n\nDIE MAUERSPECHTE\n- Journalisten mit dem Spezialgebiet Teilung -\nsuchen nach den Antworten auf die Frage WARUM.";
 "tutorial2_subtitle" = "Von der DMZ zur Berliner Mauer";
 "tutorial2" = "Die MAUERSPECHTE sammeln Geschichten\nzur DMZ, die seit 65 Jahren besteht,\nund zur Berliner Mauer, die vor 30 Jahren fiel.\n\nSchreibe so viele Artikel wie möglich\ninklusive der Artikelpaare Korea-Deutschland.";
-"tutorial3_subtitle" = "IWie man einen Artikel schreibt";
-"tutorial3" = "Folge den 6 W-Fragen, suche nach den Hinweisen\nund gebe den CODE ein.\n\nKontaktiere den Nachrichtendesk\nfür einen Faktencheck\nund publiziere danach deinen Artikel.";
+"tutorial3_subtitle" = "Wie man einen Artikel schreibt";
+"tutorial3" = "Folge den 6 W-Fragen,\nsuche nach den Hinweisen\nund gebe den CODE ein.\n\nKontaktiere den Nachrichtendesk\nfür einen Faktencheck\nund publiziere danach deinen Artikel.";
 "tutorial4_subtitle" = "Spielziel";
 "tutorial4" = "Sammle bis Redaktionsschluss \nso viele Punkte wie möglich \nund werde Journalist des Jahres!";
 "tutorial_startBtn" = "START";
