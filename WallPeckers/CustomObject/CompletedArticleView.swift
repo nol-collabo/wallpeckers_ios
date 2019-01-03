@@ -52,8 +52,7 @@ final class CompletedArticleView:UIView {
     func setData(article:Article, wrongClue:[Int], region:String) {
         
         dFormatter.dateFormat = "MM.dd.yyyy"
-        
-        
+    
         images = Album.findImages(articleId: article.id)
         
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
@@ -63,30 +62,28 @@ final class CompletedArticleView:UIView {
         infoAString.append(dString)
         infoAString.append("\n\(regionString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
         infoAString.append("\n\(userNameString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
-        //        thumbImgView.image =
-        
-        //         UIImage.init(named: "image_article_0\(article.id)")
+
         infoLb.attributedText = infoAString
         
-        let articleString:NSMutableAttributedString = "".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
+        let articleString:NSMutableAttributedString = article.result!.makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
         
-        for clue in article.clues {
-            
-            if let a = RealmClue.shared.getLocalClue(id: clue, language: Standard.shared.getLocalized()) {
-                
-                if wrongClue.count > 0 {
-
-                    if wrongClue.contains(a.id) {
-                        articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .blue)))
-                        
-                    }else{
-                        articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
-                    }
-                }else{
-                    articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
-                }
-            }
-        }
+//        for clue in article.clues {
+//
+//            if let a = RealmClue.shared.getLocalClue(id: clue, language: Standard.shared.getLocalized()) {
+//
+//                if wrongClue.count > 0 {
+//
+//                    if wrongClue.contains(a.id) {
+//                        articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .blue)))
+//
+//                    }else{
+//                        articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
+//                    }
+//                }else{
+//                    articleString.append(("\(a.desc!) ".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)))
+//                }
+//            }
+//        }
         
         articleString.addAttribute(NSAttributedString.Key.font, value: UIFont.NotoSans(.bold, size: 37), range: NSRange.init(location: 0, length: 1))
         

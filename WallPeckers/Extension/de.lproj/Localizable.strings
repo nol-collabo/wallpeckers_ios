@@ -17,7 +17,6 @@
 "registration_age" = "ALTER";
 "registration_defaultage" = "Wähle deine Altersgruppe aus.";
 "registration_registbtn" = "Anmelden";
-
 "registrationdialog_title" = "Foto hinzufügen";
 "registrationdialog_camera" = "Kamera";
 "registrationdialog_album" = "Bildergalerie";
@@ -47,8 +46,7 @@
 
 
 "selectsection_title" = "WÄHLE EIN THEMA AUS";
-
-"selectarticle_title" = "ÄHLE EINEN ARTIKEL AUS";
+"selectarticle_title" = "WÄHLE EINEN ARTIKEL AUS";
 "selectarticle_desc" = "Sammle doppelt soviele Punkte,\nwenn du ein Artikelpaar richtig verbindest!";
 "CHANGE TOPIC" = "THEMA WECHSELN";
 

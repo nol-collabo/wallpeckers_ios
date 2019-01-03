@@ -161,10 +161,27 @@ struct CustomAPI {
         }
     }
     
-    static func makePDF(email:String, headline:String, main1:String, main2:String, tag:Int, photoId:Int, completion:((Any?)->())?) {
+    static func makePDF(email:String, headline:String, main1:String?, main2:String?, others:[String]?, tag:Int, photoId:Int, completion:((Any?)->())?) {
         
         
-        Alamofire.request("\(domainUrl)pdf/?\(email)&lang=\(Standard.shared.getLocalized().rawValue)&name=\(RealmUser.shared.getUserData()!.name!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+        guard let user = RealmUser.shared.getUserData() else {return}
+        
+        var params:Parameters = ["email":email, "lang":Standard.shared.getLocalized().rawValue, "name":user.name!, "head":"1.1.1"]
+
+        if let _others = others {
+            
+
+//            params.updateValue(<#T##value: Any##Any#>, forKey: <#T##String#>)
+            
+            params.updateValue(_others[0], forKey: "other")
+//            params.
+        }
+        
+//        param?
+
+        
+        
+        Alamofire.request("http://pdf.dmz.wallpeckers.kr/pdf", method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
                 
             case .success(let value):
@@ -185,6 +202,32 @@ struct CustomAPI {
                 
             }
         }
+    }
+    
+    static func getHashtag(completion:((Any?)->())?){
+        
+        Alamofire.request("\(domainUrl)article/hashes/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+            switch response.result {
+                
+            case .success(let value):
+                
+                print(value)
+                
+                guard let _completion = completion else {return}
+                
+                _completion(value)
+                
+                
+            case .failure(let error):
+                
+                guard let _completion = completion else {return}
+                
+                _completion(error.localizedDescription)
+                print(error.localizedDescription)
+                
+            }
+        }
+        
     }
     
     

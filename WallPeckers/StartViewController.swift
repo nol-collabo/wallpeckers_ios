@@ -32,7 +32,6 @@ class StartViewController: UIViewController {
 
         setUI()
 
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

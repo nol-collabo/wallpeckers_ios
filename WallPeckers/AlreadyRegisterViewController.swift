@@ -140,7 +140,7 @@ class AlreadyRegisterViewController: UIViewController {
 
             if startType == 1 {
                         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
-                sender.isUserInteractionEnabled = true
+                    sender.isUserInteractionEnabled = true
                         RealmUser.shared.initializedUserInfo()
                         self.navigationController?.pushViewController(vc, animated: true)
             }else if startType == 2 {

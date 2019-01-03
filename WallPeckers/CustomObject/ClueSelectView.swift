@@ -44,7 +44,12 @@ final class ClueSelectView:UIView {
     func indicatedWhenBeforeChecked(_ fact:FactCheck) {
         
         clueLb.text = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized())?.desc
-        clueButton.backgroundColor = .sunnyYellow
+        
+        if fact.isCorrect {
+            clueButton.backgroundColor = .sunnyYellow
+        }else{
+            clueButton.backgroundColor = .sunnyYellow
+        }
     }
     
     @objc func callCodePopUp(sender:Clue, tag:Int) {

@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class Article:Object {
     
-    
+    @objc dynamic var prints:String?
     @objc dynamic var desc:String?
     @objc dynamic var result:String?
     @objc dynamic var point:Int = 0
@@ -41,6 +41,7 @@ class Article:Object {
         self.desc = json["desc"].stringValue
         self.result = json["result"].stringValue
         self.point = json["point"].intValue
+        self.prints = json["prints"].stringValue
 
         _ = json["clues"].arrayValue.map({
             
@@ -58,7 +59,7 @@ class Article:Object {
     
     }
     
-    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:[Int], hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int, isPaired:Bool, point:Int, selectedPictureId:Int) {
+    func translate(word:String, title:String, title_sub:String, result:String, id:Int, clues:[Int], hashes:String, section:Int, region:String, isCompleted:Bool, selectedHashTag:Int, totalquestionCOunt:Int, correctquestioncount:Int, isPaired:Bool, point:Int, selectedPictureId:Int, prints:String) {
         
         self.selectedPictureId = selectedPictureId
         self.word = word
@@ -71,7 +72,7 @@ class Article:Object {
             self.clues.append($0)
 
         })
-        
+        self.prints = prints
         self.hashes = hashes
         self.section = section
         self.region = region
@@ -87,6 +88,7 @@ class Article:Object {
 
 class LocalArticle:Object {
     
+    @objc dynamic var prints:String?
     @objc dynamic var result:String?
     @objc dynamic var id:Int = 0
     @objc dynamic var article:Int = 0
@@ -99,6 +101,7 @@ class LocalArticle:Object {
     convenience init(_ json:JSON) {
         self.init()
         
+        self.prints = json["prints"].stringValue
         self.desc = json["desc"].stringValue
         self.result = json["result"].stringValue
         self.id = json["id"].intValue

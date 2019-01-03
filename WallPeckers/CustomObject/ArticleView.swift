@@ -58,7 +58,7 @@ final class ArticleView:UIView {
         titleLb.attributedText = article.title?.makeAttrString(font: .NotoSans(.bold, size: 20), color: .black)
         descLb.attributedText = article.title_sub?.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
         articleImageView.image = UIImage.init(named: "image_article_0\(article.id)")
-        //        articleImageView.backgroundColor = .blue
+
     }
     
     func forFactCheck() {

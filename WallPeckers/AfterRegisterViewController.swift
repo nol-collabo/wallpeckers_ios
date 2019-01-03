@@ -175,9 +175,14 @@ class AfterRegisterViewController: UIViewController {
             }else{
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
                 
-                vc.inputCode = _inputCode
+                CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
+                    UserDefaults.standard.set(sessionId, forKey: "sessionId")
+                    
+                    vc.inputCode = _inputCode
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
                 
-                self.navigationController?.pushViewController(vc, animated: true)
             }
             
         }
