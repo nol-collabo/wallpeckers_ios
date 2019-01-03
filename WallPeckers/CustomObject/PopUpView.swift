@@ -481,7 +481,70 @@ protocol PairedPopupDelegate {
     func moveToNext(sender:UIButton)
 }
 
-class ArticleSubmitView:BasePopUpView {
+class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    
+    class HashtagCollectionViewCell:UICollectionViewCell {
+        
+        let lbl = UILabel()
+        
+        override var isSelected: Bool {
+            didSet {
+                self.backgroundColor = isSelected ? UIColor.black : UIColor.init(white: 216/255, alpha: 1)
+                self.lbl.textColor = isSelected ? UIColor.white : .black
+            }
+        }
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUI()
+        }
+        
+        private func setUI() {
+            self.addSubview(lbl)
+            lbl.snp.makeConstraints { (make) in
+               make.height.equalTo(30)
+                make.leading.equalTo(5)
+                make.trailing.equalTo(-5)
+                make.top.equalTo(5)
+                make.bottom.equalTo(-5)
+            }
+            self.setBorder(color: .black, width: 1.5, cornerRadius: 8)
+            self.backgroundColor = UIColor.init(white: 216/255, alpha: 1)
+            
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize.init(width: 100, height: 40)
+//    }
+
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+        selectedHashTag = indexPath.item
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashtagCollectionViewCell", for: indexPath) as? HashtagCollectionViewCell {
+            
+            cell.lbl.attributedText = hashTags[indexPath.item].makeAttrString(font: .AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 18 : 15), color: .black)
+            
+            return cell
+        }else{
+            return UICollectionViewCell()
+        }
+    }
+    
     
 
     let hashTags = ["hash1".localized, "hash2".localized, "hash3".localized, "hash4".localized, "hash5".localized]
@@ -489,6 +552,8 @@ class ArticleSubmitView:BasePopUpView {
     let centerInfoView = UIStackView()
     let descLb = UILabel()
     let hashTagBtnView = UIView()
+    let coLayout = UICollectionViewLeftAlignedLayout()
+    lazy var collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: coLayout)
     let publishButton = BottomButton()
     var hashBtns:[HashTagBtn] = []
     let centerLabel = UILabel()
@@ -497,6 +562,13 @@ class ArticleSubmitView:BasePopUpView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        coLayout.estimatedItemSize = CGSize.init(width: 100, height: 40)
+        coLayout.itemSize = CGSize.init(width: 50, height: 40)
+        collectionView.collectionViewLayout = coLayout
+        collectionView.backgroundColor = .sunnyYellow
+        collectionView.register(HashtagCollectionViewCell.self, forCellWithReuseIdentifier: "HashtagCollectionViewCell")
         setUI()
         
     }
@@ -604,6 +676,9 @@ class ArticleSubmitView:BasePopUpView {
         
         self.centerLabel.attributedText = aString
         
+        collectionView.reloadData()
+
+        
     }
     
     private func setUI() {
@@ -642,16 +717,16 @@ class ArticleSubmitView:BasePopUpView {
             centerInfoView.addArrangedSubview(v)
             
         }
-        
-        for i in 0...hashTags.count - 1 {
-            
-            let hashbtn = HashTagBtn()
-            hashbtn.setTitle("\(hashTags[i])", for: .normal)
-            hashbtn.tag = i
-            hashbtn.addTarget(self, action: #selector(touchHashtag(sender:)), for: .touchUpInside)
-            hashBtns.append(hashbtn)
-            hashTagBtnView.addSubview(hashbtn)
-        }
+//
+//        for i in 0...hashTags.count - 1 {
+//
+//            let hashbtn = HashTagBtn()
+//            hashbtn.setTitle("\(hashTags[i])", for: .normal)
+//            hashbtn.tag = i
+//            hashbtn.addTarget(self, action: #selector(touchHashtag(sender:)), for: .touchUpInside)
+//            hashBtns.append(hashbtn)
+////            hashTagBtnView.addSubview(hashbtn)
+//        }
         
         leftWingImv.snp.makeConstraints { (make) in
             make.width.equalTo(50)
@@ -684,42 +759,50 @@ class ArticleSubmitView:BasePopUpView {
             make.height.equalTo(100)
         }
         
-//        for i in hashb
-        
-        hashBtns[0].snp.makeConstraints { (make) in
+        hashTagBtnView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { (make) in
             make.leading.equalTo(10)
+            make.centerX.equalToSuperview()
             make.top.equalToSuperview()
-            make.width.equalTo(DeviceSize.width > 320 ? 82 : 62)
-            make.height.equalTo(42)
+            make.bottom.equalToSuperview()
         }
         
-        hashBtns[2].snp.makeConstraints { (make) in
-            make.trailing.equalTo(-10)
-            make.height.equalTo(42)
-            make.top.equalToSuperview()
-            make.width.equalTo(DeviceSize.width > 320 ? 115 : 80)
-        }
-        
-        
-        hashBtns[1].snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.height.equalTo(42)
-            make.leading.equalTo(hashBtns[0].snp.trailing).offset(10)
-            make.trailing.equalTo(hashBtns[2].snp.leading).offset(-10)
-        }
-        
-        hashBtns[3].snp.makeConstraints { (make) in
-            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
-            make.width.equalTo(80)
-            make.height.equalTo(42)
-            make.leading.equalTo(DeviceSize.width > 320 ? 60 : 30)
-        }
-        hashBtns[4].snp.makeConstraints { (make) in
-            make.trailing.equalTo(DeviceSize.width > 320 ? -60 : -20)
-            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
-            make.leading.equalTo(hashBtns[3].snp.trailing).offset(10)
-            make.height.equalTo(42)
-        }
+//        for i in hashb
+//
+//        hashBtns[0].snp.makeConstraints { (make) in
+//            make.leading.equalTo(10)
+//            make.top.equalToSuperview()
+//            make.width.equalTo(DeviceSize.width > 320 ? 82 : 62)
+//            make.height.equalTo(42)
+//        }
+//
+//        hashBtns[2].snp.makeConstraints { (make) in
+//            make.trailing.equalTo(-10)
+//            make.height.equalTo(42)
+//            make.top.equalToSuperview()
+//            make.width.equalTo(DeviceSize.width > 320 ? 115 : 80)
+//        }
+//
+//
+//        hashBtns[1].snp.makeConstraints { (make) in
+//            make.top.equalToSuperview()
+//            make.height.equalTo(42)
+//            make.leading.equalTo(hashBtns[0].snp.trailing).offset(10)
+//            make.trailing.equalTo(hashBtns[2].snp.leading).offset(-10)
+//        }
+//
+//        hashBtns[3].snp.makeConstraints { (make) in
+//            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
+//            make.width.equalTo(80)
+//            make.height.equalTo(42)
+//            make.leading.equalTo(DeviceSize.width > 320 ? 60 : 30)
+//        }
+//        hashBtns[4].snp.makeConstraints { (make) in
+//            make.trailing.equalTo(DeviceSize.width > 320 ? -60 : -20)
+//            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
+//            make.leading.equalTo(hashBtns[3].snp.trailing).offset(10)
+//            make.height.equalTo(42)
+//        }
         
         publishButton.snp.makeConstraints { (make) in
             make.top.equalTo(hashTagBtnView.snp.bottom).offset(20)

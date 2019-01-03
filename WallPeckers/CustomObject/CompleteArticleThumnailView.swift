@@ -66,6 +66,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
     let hashView = UIView()
     let underLine = UIView()
     var hashTags:[String]?
+    let rightArrowImv = UIImageView.init(image: UIImage.init(named: "right_arrow")!)
     let selectButton = UIButton()
     
     override init(frame: CGRect) {
@@ -143,13 +144,19 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
     private func setUI() {
         
         self.backgroundColor = .basicBackground
-        self.addSubview([titleLb, hashView, underLine])
+        self.addSubview([titleLb, hashView, underLine, rightArrowImv])
         
         titleLb.snp.makeConstraints { (make) in
             make.top.equalTo(10)
             make.leading.equalTo(10)
             make.trailing.equalTo(-30)
         }
+        rightArrowImv.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.height.equalTo(20)
+        }
+        rightArrowImv.contentMode = .center
         titleLb.numberOfLines = 0
         hashView.snp.makeConstraints { (make) in
             make.leading.equalTo(10)

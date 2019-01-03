@@ -101,11 +101,13 @@ class RealmUser {
                 $0.totalQuestionCount = 0
                 $0.point = 0
                 $0.tryCount = 0
+                $0.selectedPictureId = 0
+//                $0.isPairedArticle
                 
             })
             
             _ = RealmArticle.shared.getAll().map({
-                
+                $0.selectedPictureId = 0
                 $0.isPairedArticle = false
                 $0.isCompleted = false
                 $0.correctQuestionCount = 0
