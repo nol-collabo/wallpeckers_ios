@@ -31,7 +31,6 @@ final class ClueSelectView:UIView {
             clueLb.text = ""
             infoLb.isHidden = false
             clueButton.backgroundColor = .white
-            
         }else {
             clueButton.backgroundColor = .basicBackground
             clueLb.text = clue.desc
@@ -45,6 +44,7 @@ final class ClueSelectView:UIView {
     func indicatedWhenBeforeChecked(_ fact:FactCheck) {
         
         clueLb.text = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized())?.desc
+        clueButton.backgroundColor = .sunnyYellow
     }
     
     @objc func callCodePopUp(sender:Clue, tag:Int) {

@@ -162,7 +162,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
             if let selectedClueView = findClueView(tag: tag) {
                 
                 selectedClueView.clueLb.text = selectedClue.desc!
-                
+                selectedClueView.clueButton.backgroundColor = .sunnyYellow
                 let factCheck = FactCheck()
                 factCheck.selectedClue = selectedClue.id
                 factCheck.selectedArticleId = article!.id
@@ -181,6 +181,8 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                     self.checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                 }
             }
+            
+//            stackView.getAllRows().filter({$0.tag == tag})
             
             
         }else{

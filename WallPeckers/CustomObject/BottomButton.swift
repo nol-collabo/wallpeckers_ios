@@ -15,7 +15,8 @@ class BottomButton:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .black
-        self.titleLabel?.font = UIFont.NotoSans(.bold, size: 20)
+        self.titleLabel?.font = UIFont.NotoSans(.bold, size: 18)
+        self.titleLabel?.adjustsFontSizeToFitWidth = true
         self.titleLabel?.textColor = .white
         if self.isEnabled {
             self.backgroundColor = .black
