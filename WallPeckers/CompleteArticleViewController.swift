@@ -114,7 +114,6 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             guard let vc = self.findBeforeVc(type: .topic) else {return}
             
             print(completeArticleView.indexRow + 1) // 선택된 사진 아이디값, 여기서 ArticleData 저장하는 API 호출
-            print("VVVVVVVVV")
             
             delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article?.section)!, direction: .backward)
         }

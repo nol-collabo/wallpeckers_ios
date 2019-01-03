@@ -77,7 +77,7 @@ final class BasicBubbleView:UIView, Tappable {
             make.height.equalTo(30)
             make.leading.equalTo(13)
             make.bottom.equalTo(-10)
-            make.trailing.equalTo(-20)
+            make.trailing.equalTo(-25)
         }
         clueDescLb.numberOfLines = 1
         

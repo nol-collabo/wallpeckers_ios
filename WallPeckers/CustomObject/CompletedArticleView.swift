@@ -221,8 +221,8 @@ final class CompletedArticleView:UIView {
         
         leftBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         rightBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        leftBtn.setAttributedTitle("<".makeAttrString(font: .NotoSans(.medium, size: 30), color: .white), for: .normal)
-        rightBtn.setAttributedTitle(">".makeAttrString(font: .NotoSans(.medium, size: 30), color: .white), for: .normal)
+        leftBtn.setImage(UIImage.init(named: "leftbtn")!, for: .normal)
+        rightBtn.setImage(UIImage.init(named: "rightbtn")!, for: .normal)
         leftBtn.tag = 1
         rightBtn.tag = 0
         leftBtn.addTarget(self, action: #selector(moveCollectionView(sender:)), for: .touchUpInside)
