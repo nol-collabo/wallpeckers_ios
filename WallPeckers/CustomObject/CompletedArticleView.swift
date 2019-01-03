@@ -55,6 +55,18 @@ final class CompletedArticleView:UIView {
     
         images = Album.findImages(articleId: article.id)
         
+        switch Standard.shared.getLocalized() {
+            
+        case .ENGLISH:
+            titleImageView.image = UIImage.init(named: "enLogo")
+        case .KOREAN:
+            titleImageView.image = UIImage.init(named: "krLogo")
+        case .GERMAN:
+            titleImageView.image = UIImage.init(named: "deLogo")
+        }
+
+        titleImageView.layoutIfNeeded()
+        
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let regionString = region == "GERMANY" ? "at the Berlin Wall".localized : "completearticle_korea".localized
@@ -109,6 +121,8 @@ final class CompletedArticleView:UIView {
         }
         titleImageView.contentMode = .scaleAspectFit
         
+
+        
         underLine1.snp.makeConstraints { (make) in
             make.height.equalTo(1.5)
             make.top.equalTo(titleImageView.snp.bottom).offset(20)
@@ -120,7 +134,7 @@ final class CompletedArticleView:UIView {
             make.top.equalTo(underLine1.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.leading.equalTo(15)
-            make.height.equalTo(80)
+//            make.height.equalTo(80)
         }
         titleLb.numberOfLines = 0
         underLine1.backgroundColor = .black

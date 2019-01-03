@@ -32,7 +32,7 @@
 "inputkey_codeguide" = "Gib deinen PRESS CODE ein und drücke auf ‚‚OK‘‘";
 "inputkey_errorguide" = "Überprüfe deinen PRESS CODE und versuch es noch einmal";
 
-"inputkeydialog_description" = "Du hast dein letztes Spiel beendet.\nWenn du auf OK klickst, werden deine Artikel\nvom letzten Spiel gelöscht und\nein neues Spiel wird gestartet.\nMöchtest du ein neues Spiel beginnen?";
+"inputkeydialog_description" = "Du hast dein letztes Spiel beendet.\nWenn du auf OK klickst, \nwerden deine Artikel\nvom letzten Spiel gelöscht\nund ein neues Spiel wird gestartet.\nMöchtest du ein \nneues Spiel beginnen?";
 
 "tutorial1_subtitle" = "WER, WAS, WANN,\nWO, WIE und WARUM?";
 "tutorial1" = "Solange die Mauer stand\nwar sie Teil unseres Alltags\nund wir vergaßen nach dem WARUM zu fragen.\n\nDIE MAUERSPECHTE\n- Journalisten mit dem Spezialgebiet Teilung -\nsuchen nach den Antworten auf die Frage WARUM.";
@@ -98,7 +98,7 @@
 "paireddialog_title" = "PARTIKELPAAR";
 
 "completearticle_title" = "ERTIGER ARTIKEL";
-"Go to MY PAGE" = "Go to MY PAGE";
+"Go to MY PAGE" = "Auf meine Seite gehen";
 "Go to START" = "Go to START";
 "Printing Press" = "Printing Press";
 "CONGRATULATIONS!" = "CONGRATULATIONS!";

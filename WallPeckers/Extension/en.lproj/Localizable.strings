@@ -33,7 +33,7 @@
 "inputkey_codeguide" = "Enter the PRESS CODE and press \'OK\'";
 "inputkey_errorguide" = "Check the PRESS CODE and Try again";
 
-"inputkeydialog_description" = "Your last game has been finished.\nIf you press \'OK\', your articles of last game\nwill be deleted and start a new game.\nWould you like to start a new one?";
+"inputkeydialog_description" = "Your last game has been finished.\nIf you press \'OK\',\nyour articles of last game\nwill be deleted and start a new game.\nWould you like to start a new one?";
 
 "tutorial1_subtitle" = "WHO, WHEN, WHER,\nWHAT, HOW and WHY?";
 "tutorial1" = "As the Wall stood strong,\nit became a part of everyday\nand you forgot WHY.\n\nThe WALLPECKERS\n- the journalist of the WALL -\nask WHY and find the truth.";
