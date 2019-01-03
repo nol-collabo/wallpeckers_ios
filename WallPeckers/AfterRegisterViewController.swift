@@ -158,9 +158,7 @@ class AfterRegisterViewController: UIViewController {
                     return
                 }
             }
-            
-            
-            
+
             UserDefaults.standard.set(true, forKey: "Playing")
             
             if UserDefaults.standard.bool(forKey: "Tutorial") {
@@ -176,6 +174,7 @@ class AfterRegisterViewController: UIViewController {
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
                 
                 CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
+                    
                     UserDefaults.standard.set(sessionId, forKey: "sessionId")
                     
                     vc.inputCode = _inputCode

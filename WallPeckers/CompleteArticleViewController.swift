@@ -11,6 +11,7 @@ import AloeStackView
 
 class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollViewDelegate {
     
+    var isCompletedFirst:Bool = false
     var bottomReached:Bool = false
     var topReached:Bool = false
     var article:Article?
@@ -113,13 +114,32 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
             try! realm.write {
                 if let _article = article {
-                    _article.selectedPictureId = completeArticleView.indexRow + 1
+                    _article.selectedPictureId = completeArticleView.indexRow
                 }
             }
             
-            print(completeArticleView.indexRow + 1) // 선택된 사진 아이디값, 여기서 ArticleData 저장하는 API 호출
+            guard let article = article else {return}
             
-            delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article?.section)!, direction: .backward)
+            
+            if isCompletedFirst {
+                CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: 1, photoId: article.selectedPictureId) { (result) in
+                    print(result)
+                    
+                    if result == "OK" {
+                        self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
+                    }else{
+                        self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
+                        
+                        print("오류")
+                    }
+                    
+                    
+                }
+            }else{
+                self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
+            }
+
+        
         }
     }
 

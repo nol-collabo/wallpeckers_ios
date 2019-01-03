@@ -449,7 +449,7 @@ struct Album {
         
         for i in 2...6 {
             
-            if let subImages = Bundle.main.path(forResource: "image_article_0\(articleId)_0\(i)", ofType: "jpg") {
+            if let subImages = Bundle.main.path(forResource: "image_article_0\(articleId)_0\(i)", ofType: "png") {
                 images.append(subImages)
             }
             

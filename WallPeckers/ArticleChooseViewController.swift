@@ -49,7 +49,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             
             if ar.isCompleted {
                 
-                let sendingData = (ar, ar.selectedHashtag, Array(ar.wrongQuestionsId))
+                let sendingData = (ar, ar.selectedHashtag, Array(ar.wrongQuestionsId), false)
                 
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
                 

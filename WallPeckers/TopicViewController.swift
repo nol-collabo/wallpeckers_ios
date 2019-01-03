@@ -112,10 +112,10 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
                 
             })
             
-            let starCount = a.map({
-                
-                $0.correctQuestionCount
-            }).reduce(0, +)
+            let starCount = a.filter({$0.isCompleted}).count
+            
+            print(starCount)
+            print("~~~~~")
             
             self.sectionStars.append(starCount)
             

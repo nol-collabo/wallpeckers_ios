@@ -286,7 +286,6 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
 
         CustomAPI.makePDF(email: sender as! String, headline: headline, main1: main1, main2: main2, others: others) { (result) in
 
-            print(result)
             let json = JSON(result)
             
             if json["result"].stringValue == "OK" {
@@ -304,9 +303,7 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
         UIView.animate(withDuration: 0.2) {
 
             if let pv = self.parent?.view.subviews.filter({$0 is EmailPopupView}).first as? EmailPopupView {
-                print(pv)
                 pv.popupView.center = .init(x:  pv.popupView.center.x, y: pv.popupView.center.y - 120)
-                
             }
             
         }
@@ -316,9 +313,7 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
         textField.resignFirstResponder()
         UIView.animate(withDuration: 0.2) {
             if let pv = self.parent?.view.subviews.filter({$0 is EmailPopupView}).first as? EmailPopupView {
-                
                 pv.popupView.center = .init(x:  pv.popupView.center.x, y: pv.popupView.center.y + 120)
-                
             }
             
         }

@@ -147,9 +147,10 @@ extension GameViewController:GameViewTransitionDelegate {
             
             if let vc = toVc as? CompleteArticleViewController {
                 
-                guard let _sendData = sendData as? (Article, Int, [Int]) else {return}
+                guard let _sendData = sendData as? (Article, Int, [Int], Bool) else {return}
                 
                 vc.setData(article: _sendData.0, hashTag: _sendData.1, wrongIds:_sendData.2)
+                vc.isCompletedFirst = _sendData.3
                 self.setChildVc(rootView: articleResultView, vc)
                 
                  horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 4, y: horizontalView.scrollView.contentOffset.y), animated: true)

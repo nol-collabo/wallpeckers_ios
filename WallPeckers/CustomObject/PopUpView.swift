@@ -411,7 +411,7 @@ class PairedArticleView:BasePopUpView {
         descLb.numberOfLines = 0
         
         self.popupView.setBorder(color: .black, width: 2.5)
-        okButton.setTitle("OK".localized, for: .normal)
+        okButton.setTitle("paireddialog_title".localized, for: .normal)
         okButton.snp.makeConstraints { (make) in
             make.top.equalTo(descLb.snp.bottom).offset(10)
             make.bottom.equalTo(-20)
@@ -616,6 +616,7 @@ class ArticleSubmitView:BasePopUpView {
         }
         popupView.addSubview([topStarView, centerInfoView, descLb, hashTagBtnView, publishButton])
         
+        
         topStarView.attributedText = "★  ☆  ★".makeAttrString(font: .NotoSans(.bold, size: 45), color: .black)
         topStarView.textAlignment = .center
         
@@ -729,7 +730,7 @@ class ArticleSubmitView:BasePopUpView {
         }
         
 //        publishButton.setTitle("PUBLISH THE ARTICLE", for: .normal)
-        publishButton.setAttributedTitle("PUBLISH THE ARTICLE".localized.makeAttrString(font: UIFont.AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .white), for: .normal)
+        publishButton.setAttributedTitle("factcheckdialog_reportbtn".localized.makeAttrString(font: .NotoSans(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .white), for: .normal)
 
         
         

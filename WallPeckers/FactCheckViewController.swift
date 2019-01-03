@@ -297,13 +297,13 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                         PopUp.callPairedPopUp(articleLink: articleLink, left: ar1, right: ar2, earnPoint: point, vc: self)
                         
                     }else{
-                        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
+                        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId, true), direction: .forward)
                     }
                 }else{
-                    delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
+                    delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId, true), direction: .forward)
                 }
             }else{
-                delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId), direction: .forward)
+                delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId, true), direction: .forward)
             }
         }
     }
@@ -314,8 +314,7 @@ extension FactCheckViewController:PairedPopupDelegate {
     func moveToNext(sender: UIButton) {
         
          guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
-        
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article,article?.selectedHashtag, wrongQuestionId), direction: .forward)
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article,article?.selectedHashtag, wrongQuestionId, true), direction: .forward)
     }
     
     

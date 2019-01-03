@@ -62,7 +62,7 @@ struct CustomAPI {
         }
     }
     
-    static func saveArticleData(articleId:Int, category:Int, playerId:Int, language:Language, sessionId:Int, tag:Int, count:Int, photoId:Int, completion:((Any)->())?) {
+    static func saveArticleData(articleId:Int, category:Int, playerId:Int, language:Language, sessionId:Int, tag:Int, count:Int, photoId:Int, completion:((String)->())?) {
         
         let params:Parameters = ["article_proto":articleId, "category":category, "player":playerId, "language":language.rawValue, "session":sessionId, "tag":tag, "num_of_check_fact":count, "photo":photoId]
         
@@ -72,11 +72,11 @@ struct CustomAPI {
                 
             case .success(let value):
                 
-                print(value)
+                let json = JSON(value)
                 
                 guard let _completion = completion else {return}
                 
-                _completion(value)
+                _completion(json["result"].stringValue)
                 
                 
             case .failure(let error):
@@ -118,7 +118,7 @@ struct CustomAPI {
         }
     }
     
-    static func updatePlayer(sessionId:Int, email:String, headline:Int, main1:Int, main2:Int, isShare:Bool, completion:((Any)->())?) {
+    static func updatePlayer(sessionId:Int, email:String, headline:Int, main1:Int, main2:Int, isShare:Bool, completion:((String)->())?) {
         
         var getBadges:[Bool] = []
         let lang = Standard.shared.getLocalized()
@@ -143,10 +143,11 @@ struct CustomAPI {
                 case .success(let value):
                     
                     print(value)
+                    let json = JSON(value)
                     
                     guard let _completion = completion else {return}
                     
-                    _completion(value)
+                    _completion(json["result"].stringValue)
                     
                     
                 case .failure(let error):
