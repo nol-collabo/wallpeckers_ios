@@ -118,17 +118,23 @@ struct CustomAPI {
         }
     }
     
-    static func updatePlayer(sessionId:Int, email:String, headline:Int, main1:Int, main2:Int, completion:((Any)->())?) {
+    static func updatePlayer(sessionId:Int, email:String, headline:Int, main1:Int, main2:Int, isShare:Bool, completion:((Any)->())?) {
+        
+        var getBadges:[Bool] = []
+        let lang = Standard.shared.getLocalized()
+        let uuid = UUID().uuidString
         
         func isBadge(tag:Int) -> Bool {
-            
-            return RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9
-            
+            return RealmArticle.shared.get(lang).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9
         }
-    
+        
+        for i in 1...6 {
+            getBadges.append(isBadge(tag: i))
+        }
+        
         if let userData = RealmUser.shared.getUserData() {
             
-            let params:Parameters = [:]
+            let params:Parameters = ["email":email, "session":sessionId, "language":lang.rawValue, "badge_politics":getBadges[0], "badge_economy":getBadges[1], "badge_general":getBadges[2], "badge_culture":getBadges[3], "badge_sports":getBadges[4], "badge_people":getBadges[5], "score":userData.score, "uid":uuid]
             
             
             Alamofire.request("\(domainUrl)update/player/\(userData.allocatedId)", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
