@@ -294,7 +294,11 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                             _a.setScore()
                         }
                         
-                        PopUp.callPairedPopUp(articleLink: articleLink, left: ar1, right: ar2, earnPoint: point, vc: self)
+                        if let local1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar1.id}).first, let local2 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == ar2.id}).first {
+                            PopUp.callPairedPopUp(articleLink: articleLink, left: local1, right:local2, earnPoint: point, vc: self)
+
+                        }
+                        
                         
                     }else{
                         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId, true), direction: .forward)
