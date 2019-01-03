@@ -46,9 +46,9 @@ final class ClueSelectView:UIView {
         clueLb.text = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized())?.desc
         
         if fact.isCorrect {
-            clueButton.backgroundColor = .sunnyYellow
+            clueButton.backgroundColor = .green
         }else{
-            clueButton.backgroundColor = .sunnyYellow
+            clueButton.backgroundColor = .red
         }
     }
     

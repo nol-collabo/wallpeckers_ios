@@ -34,8 +34,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         self.five_W_One_Hs = five
     }
     
-    
-    func setUI(){
+    private func setUI(){
         
         type = GameViewType.clue
 
@@ -71,15 +70,15 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         for v in five_W_One_Hs! {
             
             let view = ClueSelectView()
+            
             view.delegate = self
             
-            
             if let aa = RealmClue.shared.getLocalClue(id: v.clue, language: Standard.shared.getLocalized()) {
+                
                 view.setData(five: v, clue: aa)
                 view.tag = v.clue
                 
                 _ = checkedFactList.map({
-                    
                     
                     if view.tag == $0.correctClue {
                         view.indicatedWhenBeforeChecked($0)

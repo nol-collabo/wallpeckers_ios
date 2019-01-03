@@ -166,22 +166,36 @@ struct CustomAPI {
         
         guard let user = RealmUser.shared.getUserData() else {return}
         
-        var params:Parameters = ["email":email, "lang":Standard.shared.getLocalized().rawValue, "name":user.name!, "head":"1.1.1"]
+        let urlComps = NSURLComponents(string: "http://pdf.dmz.wallpeckers.kr/pdf/")!
+        var querys:[URLQueryItem] = []
+        
+        querys.append(URLQueryItem.init(name: "email", value: email.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+        querys.append(URLQueryItem.init(name: "lang", value: Standard.shared.getLocalized().rawValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+        querys.append(URLQueryItem.init(name: "name", value: user.name!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+        querys.append(URLQueryItem.init(name: "head", value: headline.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+        
+        if let _main1 = main1 {
+            querys.append(URLQueryItem.init(name: "main", value: _main1.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+        }
+        
+        if let _main2 = main2 {
+            querys.append(URLQueryItem.init(name: "main", value: _main2.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
 
+        }
         if let _others = others {
             
-
-//            params.updateValue(<#T##value: Any##Any#>, forKey: <#T##String#>)
-            
-            params.updateValue(_others[0], forKey: "other")
-//            params.
+            for i in _others {
+                 querys.append(URLQueryItem.init(name: "others", value: i.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+            }
         }
+        
+        urlComps.queryItems = querys
         
 //        param?
 
         
-        
-        Alamofire.request("http://pdf.dmz.wallpeckers.kr/pdf", method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+        print(urlComps.url!)
+        Alamofire.request(urlComps.url!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
                 
             case .success(let value):

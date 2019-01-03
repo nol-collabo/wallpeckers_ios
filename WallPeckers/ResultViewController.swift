@@ -171,8 +171,7 @@ class ResultViewController: UIViewController {
     } 
     
     @objc func moveToMain(sender:UIButton) {
-        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
-        sender.isUserInteractionEnabled = true
+
         
         guard let nvc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
         

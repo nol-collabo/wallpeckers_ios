@@ -43,9 +43,7 @@ class StartViewController: UIViewController {
             let articles = RealmArticle.shared.getAll()
             
             for i in 0...articles.count - 1{
-                
-//                let a = articles[i]
-//
+                //
                 if let ha = hashes[i].dictionary {
                     
                     let value = ha.mapValues({
@@ -55,7 +53,6 @@ class StartViewController: UIViewController {
                         
                         value
                     })
-                    print(value[0])
                     
                     let a = articles[i]
                     
@@ -65,7 +62,6 @@ class StartViewController: UIViewController {
                         
                         let hashes = value[0]
                         _ = hashes.map({
-                            print($0.intValue)
                             a.hashArray.append($0.intValue)
                         })
                     }
@@ -74,18 +70,13 @@ class StartViewController: UIViewController {
                     
                 }
                 
-//                if let hash1 = json["hashes"].array {
-//
-//
-//                }
-                
-//                try! realm.write {
-////                    a.has
-//                }
                 
             }
-//            for i in 0..
+
             
+            CustomAPI.makePDF(email: "zelatool@gmail.com", headline: "1.1.1", main1: "2.1.1", main2: "1.1.1", others: ["1.2.3", "2.3.1"], tag: 1, photoId: 1, completion: { (result) in
+                print(result)
+            })
             print("~~~~")
         }
 
