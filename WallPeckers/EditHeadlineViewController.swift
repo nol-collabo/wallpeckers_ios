@@ -69,7 +69,11 @@ class EditHeadlineViewController: UIViewController {
             make.centerY.equalTo(headLineLb.snp.centerY)
             make.leading.equalTo(arrowLb.snp.trailing).offset(20)
             make.width.equalTo(140)
+            make.trailing.equalTo(-10)
+
         }
+        featuredLb.numberOfLines = 0
+
         
         aStackView.setBorder(color: .black, width: 1.5)
         aStackView.separatorColor = .clear

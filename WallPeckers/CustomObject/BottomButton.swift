@@ -19,6 +19,7 @@ class BottomButton:UIButton {
         self.setTitleColor(.black, for: .highlighted)
         self.titleLabel?.font = UIFont.NotoSans(.bold, size: 18)
         self.titleLabel?.adjustsFontSizeToFitWidth = true
+//        self.titleLabel?.numberOfLines = 2
         self.setBorder(color: .black, width: 1.5)
         self.titleLabel?.textColor = .white
         if self.isEnabled {

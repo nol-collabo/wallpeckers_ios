@@ -130,7 +130,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             if let section = RealmSection.shared.get(Standard.shared.getLocalized()).filter({$0.id == article?.section}).first {
                 backArticleBtn.titleLabel?.numberOfLines = 2
                 backArticleBtn.titleLabel?.textAlignment = .center
-                backArticleBtn.setTitle(String(format: "selectotherarticle".localized, section.title!), for: .normal)
+                backArticleBtn.setTitle(String(format: "selectotherarticle".localized, section.title!.replacingOccurrences(of: "\n", with: "")), for: .normal)
 
             }
             

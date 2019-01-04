@@ -99,7 +99,7 @@
 "hash5" = "#verzweifelt";
 "factcheckdialog_reportbtn" = "ARTIKEL PUBLIZIEREN";
 
-"paireddialog_title" = "ARTIKELPAAR";
+"paireddialog_title" = "ARTIKEL\nPAAR";
 
 "completearticle_title" = "FERTIGER ARTIKEL";
 "Go to MY PAGE" = "MEINE SEITE";
@@ -152,4 +152,4 @@
 
 "timedialog_timeend" = "Die Zeit ist um!";
 "timedialog_timelimit" = "Du hast noch %@ Minuten.";
-"selectotherarticle" = "ZURÜCK ZU\n[%@]";
+"selectotherarticle" = "ZURÜCK ZU \n[%@]";

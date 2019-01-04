@@ -686,6 +686,8 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
         aString.append(articleString)
         aString.append(pointString)
         
+        self.centerLabel.numberOfLines = 4
+        self.centerLabel.adjustsFontSizeToFitWidth = true
         self.centerLabel.attributedText = aString
         
         collectionView.reloadData()
