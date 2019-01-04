@@ -12,6 +12,9 @@ import AloeStackView
 
 final class MyPageSectionView:UIView, ThumnailDelegate {
     
+    
+    let germanLevels:[String] = ["Prakti-\nkant*in", "Volon-\ntär*in", "Journa-\nlist*in", "Redak-\nteur*in", "Chefredak-\nteur*in"]
+    
     func moveToNext(id: Int) {
         delegate?.moveToCompleteArticle(id: id)
     }
@@ -166,7 +169,7 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
                 make.width.equalTo(66)
             }
             position4Lb.snp.makeConstraints { (make) in
-                make.leading.equalTo(position3Lb.snp.trailing).offset(0)
+                make.leading.equalTo(position3Lb.snp.trailing).offset(-10)
                 make.top.equalTo(levelImageView.snp.bottom).offset(-65)
                 make.width.equalTo(66)
             }
@@ -180,11 +183,20 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             
             let levels = RealmLevel.shared.get(Standard.shared.getLocalized()).sorted(by: {$0.id < $1.id})
             
-            position1Lb.setAmericanTyperWriterText(levels[0].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position2Lb.setAmericanTyperWriterText(levels[1].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position3Lb.setAmericanTyperWriterText(levels[2].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position4Lb.setAmericanTyperWriterText(levels[3].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
-            position5Lb.setAmericanTyperWriterText(levels[4].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            if Standard.shared.getLocalized() == .GERMAN {
+                position1Lb.setAmericanTyperWriterText(germanLevels[0], color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position2Lb.setAmericanTyperWriterText(germanLevels[1], color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position3Lb.setAmericanTyperWriterText(germanLevels[2], color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position4Lb.setAmericanTyperWriterText(germanLevels[3], color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position5Lb.setAmericanTyperWriterText(germanLevels[4], color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            }else{
+                position1Lb.setAmericanTyperWriterText(levels[0].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position2Lb.setAmericanTyperWriterText(levels[1].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position3Lb.setAmericanTyperWriterText(levels[2].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position4Lb.setAmericanTyperWriterText(levels[3].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+                position5Lb.setAmericanTyperWriterText(levels[4].grade!, color: .brownGrey, size: 12, textAlignment: .center, font: .bold)
+            }
+           
             
             for i in [position1Lb, position2Lb, position3Lb, position4Lb, position5Lb] {
                 i.numberOfLines = 2
