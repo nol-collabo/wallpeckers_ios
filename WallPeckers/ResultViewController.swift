@@ -173,9 +173,14 @@ class ResultViewController: UIViewController {
         guard let nvc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
         
         
-        self.removeFromParent()
+        CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: "", headline: nil, main1: nil, main2: nil) { (result) in
+            self.removeFromParent()
+            print(result)
+            
+            self.present(nvc, animated: true) // 완료 후 시작 페이지로, 아래꺼 누르면 안드로이드처럼 내 프로필로 가긴 하는데 이상해서 일단 주석처리 해놓음
+        }
         
-        self.present(nvc, animated: true) // 완료 후 시작 페이지로, 아래꺼 누르면 안드로이드처럼 내 프로필로 가긴 하는데 이상해서 일단 주석처리 해놓음
+       
 //        {
 //            nvc.pushViewController(vc, animated: true)
 //
