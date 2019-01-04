@@ -146,12 +146,12 @@ class PublishViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        descLb.attributedText = "publish_changedesc".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
+        descLb.attributedText = "publish_changedesc".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
         desc2Lb.adjustsFontSizeToFitWidth = true
         descLb.textAlignment = .center
         desc2Lb.textAlignment = .center
         descLb.adjustsFontSizeToFitWidth = true
-        desc2Lb.attributedText = "publish_gonews_verbose".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
+        desc2Lb.attributedText = "publish_gonews_verbose".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
         
         editButton.setTitle("titlearticlechange_title".localized, for: .normal)
         editButton.snp.makeConstraints { (make) in
