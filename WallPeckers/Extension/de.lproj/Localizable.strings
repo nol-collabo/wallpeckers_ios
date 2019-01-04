@@ -1,10 +1,10 @@
-/* 
-  Localizable.strings
-  WallPeckers
-
-  Created by Seongchan Kang on 29/11/2018.
-  Copyright © 2018 KimJimin and Company. All rights reserved.
-*/
+/*
+ Localizable.strings
+ WallPeckers
+ 
+ Created by Seongchan Kang on 29/11/2018.
+ Copyright © 2018 KimJimin and Company. All rights reserved.
+ */
 
 "WALLPECKERS" = "Mauerspechte";
 "selectlanguage_subtitle" = "Von der DMZ zur Berliner Mauer";
@@ -17,6 +17,7 @@
 "registration_age" = "ALTER";
 "registration_defaultage" = "Wähle deine Altersgruppe aus.";
 "registration_registbtn" = "Anmelden";
+
 "registrationdialog_title" = "Foto hinzufügen";
 "registrationdialog_camera" = "Kamera";
 "registrationdialog_album" = "Bildergalerie";
@@ -62,7 +63,6 @@
 "BACK" = "ZURÜCK";
 "Tap_Code" = "← Klicke hier um den Code einzugeben";
 "Tap_Code_inputed" = "Klick um zubearbeiten [%@]";
-
 "CODE" = "CODE:";
 "ENTER" = "EINGEBEN";
 "OK" = "OK";
@@ -98,9 +98,8 @@
 "hash4" = "#traurig";
 "hash5" = "#verzweifelt";
 "factcheckdialog_reportbtn" = "ARTIKEL PUBLIZIEREN";
-"titlearticlechange_title" = "Zeitung versenden";
 
-"paireddialog_title" = "PARTIKELPAAR";
+"paireddialog_title" = "ARTIKELPAAR";
 
 "completearticle_title" = "FERTIGER ARTIKEL";
 "Go to MY PAGE" = "MEINE SEITE";
@@ -121,6 +120,7 @@
 "publish_gomymenubtn" = "MEINE SEITE";
 "publish_gohomebtn" = "AUF DIE STARTSEITE GEHEN";
 
+"titlearticlechange_title" = "Meine Zeitung überarbeiten";
 "titlearticlechange_titleselect" = "1. Wähle die Schlagzeile aus";
 "titlearticlechange_subselect" = "2. Deine Leitartikel auswählen";
 "Next" = "Weiter";
