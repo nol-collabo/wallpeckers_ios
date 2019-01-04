@@ -161,25 +161,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         
         aStackView.addRow(profileBaseView)
         
-        if let _count = completedArticle?.count {
-            if _count > 0 {
-                if !fromGame {
-//                    print()
-                    print(RealmUser.shared.getUserData()?.playTime)
-                    print("VVVplaytimeV")
-                    if (RealmUser.shared.getUserData()?.playTime)! <= 0 {
-                        aStackView.addRow(publishView)
-                        publishView.snp.makeConstraints { (make) in
-                            make.edges.equalToSuperview()
-                            make.height.equalTo(320)
-                        }
-                        publishView.delegate = self
-                    }
-                    
 
-                }
-            }
-        }
         
         aStackView.addRow(scoreView)
         profileBaseView.addSubview(profileView)
@@ -203,7 +185,27 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
                 
                 credView.setData(content: .CREDIBILITY)
                 completedArticleView.setData(content: .COMPLETEDARTICLE)
-                aStackView.addRows([credView, completedArticleView])
+                
+                aStackView.addRow(credView)
+                if let _count = completedArticle?.count {
+                    if _count > 0 {
+                        if !fromGame {
+                            if (RealmUser.shared.getUserData()?.playTime)! <= 0 {
+                                aStackView.addRow(publishView)
+                                publishView.snp.makeConstraints { (make) in
+                                    make.edges.equalToSuperview()
+                                    make.height.equalTo(320)
+                                }
+                                publishView.delegate = self
+                            }
+                            
+                            
+                        }
+                    }
+                }
+                aStackView.addRow(completedArticleView)
+                
+//                aStackView.addRows([credView, completedArticleView])
             }
         }
        
