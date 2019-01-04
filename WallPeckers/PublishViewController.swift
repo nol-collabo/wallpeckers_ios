@@ -243,9 +243,12 @@ class PublishViewController: UIViewController {
             headline = defaultHeadlines[0]
         }
         if defaultHeadlines.count == 2 {
+            headline = defaultHeadlines[0]
             main1 = defaultHeadlines[1]
         }
         if defaultHeadlines.count == 3 {
+            headline = defaultHeadlines[0]
+            main1 = defaultHeadlines[1]
             main2 = defaultHeadlines[2]
         }
 

@@ -180,7 +180,17 @@ class AfterRegisterViewController: UIViewController {
                     
                     vc.inputCode = _inputCode
                     
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    CustomAPI.newPlayer(completion: { (id) in
+                        try! realm.write {
+                            RealmUser.shared.getUserData()?.allocatedId = id
+                            
+                            self.navigationController?.pushViewController(vc, animated: true)
+
+                        }
+                        
+                    })
+                    
+                    
                 }
                 
             }

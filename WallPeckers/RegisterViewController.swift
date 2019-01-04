@@ -267,18 +267,11 @@ class RegisterViewController: UIViewController {
         
         let user = User()
         
-        
-     
-        
 
-        
-        CustomAPI.newPlayer { (id) in
-            
-            
             user.name = myName
             user.age = self.myAge ?? 0
             user.profileImage = self.myImage ?? UIImage.init(named: "basicProfileImage")?.pngData()
-            user.allocatedId = id
+
             try! realm.write {
                 realm.add(user)
             }
@@ -288,7 +281,7 @@ class RegisterViewController: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
             
             
-        }
+        
         
         
         
