@@ -14,7 +14,18 @@ import Photos
 class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelegate {
     func moveToNext(sender: UIButton) {
         
-        self.dismiss(animated: true, completion: nil)
+        if fromResult {
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            guard let vc = UIStoryboard.init(name: "Publish", bundle: nil).instantiateViewController(withIdentifier: "Publish") as? UINavigationController else {return}
+            
+            if let mvc = vc.viewControllers.first as? PublishViewController {
+                mvc.fromMyPage = true
+            }
+            
+            sender.isUserInteractionEnabled = true
+            self.present(vc, animated: true, completion: nil)
+        }
 
     }
     
@@ -33,6 +44,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         }
         
     }
+    var fromGame:Bool = false
     let imagePicker = UIImagePickerController()
     let publishView = NewspaperPublishedView()
     var completedArticle: [Article]?
@@ -151,13 +163,20 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         
         if let _count = completedArticle?.count {
             if _count > 0 {
-                if fromResult {
-                    aStackView.addRow(publishView)
-                    publishView.snp.makeConstraints { (make) in
-                        make.edges.equalToSuperview()
-                        make.height.equalTo(320)
+                if !fromGame {
+//                    print()
+                    print(RealmUser.shared.getUserData()?.playTime)
+                    print("VVVplaytimeV")
+                    if (RealmUser.shared.getUserData()?.playTime)! <= 0 {
+                        aStackView.addRow(publishView)
+                        publishView.snp.makeConstraints { (make) in
+                            make.edges.equalToSuperview()
+                            make.height.equalTo(320)
+                        }
+                        publishView.delegate = self
                     }
-                    publishView.delegate = self
+                    
+
                 }
             }
         }

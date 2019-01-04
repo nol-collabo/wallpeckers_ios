@@ -50,6 +50,7 @@ final class NewspaperPublishedView:UIView {
         }
         
         publishButton.setTitle("PRESS".localized, for: .normal)
+        publishButton.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
     @objc func moveToNext(sender:UIButton) {

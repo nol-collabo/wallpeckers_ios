@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class PublishViewController: UIViewController {
     
+    var fromMyPage:Bool = false
     let baseView = BaseVerticalScrollView()
     let headerView = UIImageView()
     let articlesView = UIView()
@@ -90,7 +91,19 @@ class PublishViewController: UIViewController {
             
         }
         
-        headerView.image = UIImage.init(named: "logoSetWallpeckers06")
+        switch Standard.shared.getLocalized() {
+            
+        case .ENGLISH:
+            headerView.image = UIImage.init(named: "enLogo")
+
+        case .GERMAN:
+            headerView.image = UIImage.init(named: "deLogo")
+
+        case .KOREAN:
+            headerView.image = UIImage.init(named: "krLogo")
+
+        }
+        
         underLine1.snp.makeConstraints { (make) in
             make.top.equalTo(headerView.snp.bottom).offset(10)
             make.leading.equalTo(16)
@@ -220,15 +233,23 @@ class PublishViewController: UIViewController {
     
     @objc func moveToMyPage(sender:UIButton){
         sender.isUserInteractionEnabled = false
-        guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
-        sender.isUserInteractionEnabled = true
-        if let mvc = vc.viewControllers[0] as? MyPageViewController {
+        
+        
+        if fromMyPage {
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
+            sender.isUserInteractionEnabled = true
+            if let mvc = vc.viewControllers[0] as? MyPageViewController {
+                
+                mvc.fromResult = true
+            }
             
-            mvc.fromResult = true
+            
+            self.present(vc, animated: true, completion: nil)
         }
         
-        
-        self.present(vc, animated: true, completion: nil)
+
     }
     
     @objc func moveToStart(sender:UIButton) {
