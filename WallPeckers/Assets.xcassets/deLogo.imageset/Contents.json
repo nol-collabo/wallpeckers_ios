@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "delogo.png",
+      "filename" : "deLogo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "delogo@2x.png",
+      "filename" : "deLogo@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "delogo@3x.png",
+      "filename" : "deLogo@3x.png",
       "scale" : "3x"
     }
   ],

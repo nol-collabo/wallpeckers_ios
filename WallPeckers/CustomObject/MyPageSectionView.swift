@@ -217,7 +217,6 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
                     position5Lb.textColor = .black
                     
                 }
-                
             }
             
             print(myLevel)

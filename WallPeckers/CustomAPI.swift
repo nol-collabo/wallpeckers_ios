@@ -118,7 +118,7 @@ struct CustomAPI {
         }
     }
     
-    static func updatePlayer(sessionId:Int, email:String, headline:Int, main1:Int, main2:Int, isShare:Bool, completion:((String)->())?) {
+    static func updatePlayer(sessionId:Int, email:String, headline:Int, main1:Int?, main2:Int?, completion:((String)->())?) {
         
         var getBadges:[Bool] = []
         let lang = Standard.shared.getLocalized()
@@ -134,7 +134,29 @@ struct CustomAPI {
         
         if let userData = RealmUser.shared.getUserData() {
             
-            let params:Parameters = ["email":email, "session":sessionId, "language":lang.rawValue, "badge_politics":getBadges[0], "badge_economy":getBadges[1], "badge_general":getBadges[2], "badge_culture":getBadges[3], "badge_sports":getBadges[4], "badge_people":getBadges[5], "score":userData.score, "uid":uuid]
+            var userLevel = ""
+            let levels = RealmLevel.shared.get(lang).sorted(by: {$0.id < $1.id})
+
+            if userData.score < 2000{
+                userLevel = levels[0].grade!
+
+                
+            }else if userData.score < 4000 {
+                userLevel = levels[1].grade!
+            }else if userData.score < 8000 {
+                userLevel = levels[2].grade!
+
+            }else if userData.score < 12000 {
+                userLevel = levels[3].grade!
+
+            }else {
+                userLevel = levels[4].grade!
+
+            }
+            
+            
+            
+            let params:Parameters = ["email":email, "session":sessionId, "language":lang.rawValue, "badge_politics":getBadges[0], "badge_economy":getBadges[1], "badge_general":getBadges[2], "badge_culture":getBadges[3], "badge_sports":getBadges[4], "badge_people":getBadges[5], "score":userData.score, "uid":uuid, "level":userLevel, "num_of_complete_articles":RealmArticle.shared.get(lang).filter({$0.isCompleted}).count]
             
             
             Alamofire.request("\(domainUrl)update/player/\(userData.allocatedId)", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
