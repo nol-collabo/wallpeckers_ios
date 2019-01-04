@@ -51,17 +51,22 @@ final class CompletedArticleView:UIView {
     
     func setData(article:Article, wrongClue:[Int], region:String) {
         
-        dFormatter.dateFormat = "MM.dd.yyyy"
     
         images = Album.findImages(articleId: article.id)
         
         switch Standard.shared.getLocalized() {
             
         case .ENGLISH:
+            dFormatter.dateFormat = "MM.dd.yyyy"
             titleImageView.image = UIImage.init(named: "enLogo")
+
         case .KOREAN:
+            dFormatter.dateFormat = "yyyy.MM.dd"
+
             titleImageView.image = UIImage.init(named: "krLogo")
         case .GERMAN:
+            dFormatter.dateFormat = "dd.MM.yyyy"
+
             titleImageView.image = UIImage.init(named: "deLogo")
         }
 
@@ -77,7 +82,7 @@ final class CompletedArticleView:UIView {
 
         infoLb.attributedText = infoAString
         
-        let articleString:NSMutableAttributedString = article.result!.makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
+        let articleString:NSMutableAttributedString = article.result!.makeAttrString(font: .NotoSans(.medium, size: 15), color: .black)
         
 //        for clue in article.clues {
 //
@@ -97,7 +102,7 @@ final class CompletedArticleView:UIView {
 //            }
 //        }
         
-        articleString.addAttribute(NSAttributedString.Key.font, value: UIFont.NotoSans(.bold, size: 37), range: NSRange.init(location: 0, length: 1))
+//        articleString.addAttribute(NSAttributedString.Key.font, value: UIFont.NotoSans(.bold, size: 37), range: NSRange.init(location: 0, length: 1))
         
         let titleAstring = "".makeAttrString(font: .NotoSans(.regular, size: 13), color: .black)
         

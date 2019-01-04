@@ -22,18 +22,18 @@
 "registrationdialog_album" = "Bildergalerie";
 "registrationdialog_noprofile" = "Ohne Foto";
 
-"selectload_desc" = "Du hast das Spiel schon begonnen.\nUm das Spiel fortsetzen\noder das Ergebnis zu sehen,\nklicke auf ‚,Spiel fortsetzen‘‘.";
+"selectload_desc" = "Du hast das Spiel schon begonnen.\nUm das Spiel fortzusetzen\noder das Ergebnis zu sehen,\nklicke auf „Spiel fortsetzen“.";
 "selectload_newgame" = "Neues Spiel";
 "selectload_continuegame" = "Spiel fortsetzen";
 
 "inputkey_title" = "PRESS";
 "inputkey_mymenu" = "Auf meine Seite gehen";
 "inputkey_passcode" = "PRESS CODE";
-"inputkey_codeguide" = "Gib deinen PRESS CODE ein und drücke auf ‚‚OK‘‘";
+"inputkey_codeguide" = "Gib deinen PRESS CODE ein und drücke auf „OK“";
 "inputkey_errorguide" = "Überprüfe deinen PRESS CODE und versuch es noch einmal";
 "presscodedesc" = "Den PRESSE CODE findest du vor Ort.";
 
-"inputkeydialog_description" = "Du hast dein letztes Spiel beendet.\nWenn du auf OK klickst, \nwerden deine Artikel\nvom letzten Spiel gelöscht\nund ein neues Spiel wird gestartet.\nMöchtest du ein \nneues Spiel beginnen?";
+"inputkeydialog_description" = "Du hast dein letztes Spiel beendet.\nWenn du auf OK klickst,\nwerden deine Artikel\nvom letzten Spiel gelöscht\nund ein neues Spiel wird gestartet.\nMöchtest du ein\nneues Spiel beginnen?";
 
 "tutorial1_subtitle" = "WER, WAS, WANN,\nWO, WIE und WARUM?";
 "tutorial1" = "Solange die Mauer stand\nwar sie Teil unseres Alltags\nund wir vergaßen nach dem WARUM zu fragen.\n\nDIE MAUERSPECHTE\n- Journalisten mit dem Spezialgebiet Teilung -\nsuchen nach den Antworten auf die Frage WARUM.";
@@ -42,11 +42,12 @@
 "tutorial3_subtitle" = "Wie man einen Artikel schreibt";
 "tutorial3" = "Folge den 6 W-Fragen,\nsuche nach den Hinweisen\nund gebe den CODE ein.\n\nKontaktiere den Nachrichtendesk\nfür einen Faktencheck\nund publiziere danach deinen Artikel.";
 "tutorial4_subtitle" = "Spielziel";
-"tutorial4" = "Sammle bis Redaktionsschluss \nso viele Punkte wie möglich \nund werde Journalist des Jahres!";
+"tutorial4" = "Sammle bis Redaktionsschluss\nso viele Punkte wie möglich \nund werde Journalist des Jahres!";
 "tutorial_startBtn" = "START";
 
 
 "selectsection_title" = "WÄHLE EIN THEMA AUS";
+
 "selectarticle_title" = "WÄHLE EINEN ARTIKEL AUS";
 "selectarticle_desc" = "Sammle doppelt soviele Punkte,\nwenn du ein Artikelpaar richtig verbindest!";
 "CHANGE TOPIC" = "THEMA WECHSELN";
@@ -58,14 +59,14 @@
 "HOW" = "WIE";
 "WHY" = "WARUM";
 "FACT CHECK" = "FAKTENCHECK";
-"BACK" = "Zurück";
+"BACK" = "ZURÜCK";
 "Tap_Code" = "← Klicke hier um den Code einzugeben";
 "Tap_Code_inputed" = "Klick um zubearbeiten [%@]";
 
 "CODE" = "CODE:";
 "ENTER" = "EINGEBEN";
 "OK" = "OK";
-"CANCEL" = "Abbrechen";
+"CANCEL" = "ABBRECHEN";
 "REPORT" = "BERICHTEN";
 "COMMENT" = "KOMMENTAR";
 "HASHTAG" = "HASHTAG";
@@ -102,11 +103,11 @@
 "paireddialog_title" = "PARTIKELPAAR";
 
 "completearticle_title" = "FERTIGER ARTIKEL";
-"Go to MY PAGE" = "Auf meine Seite gehen";
-"Go to START" = "Go to START";
+"Go to MY PAGE" = "MEINE SEITE";
+"Go to START" = "AUF DIE STARTSEITE GEHEN";
 "Printing Press" = "Printing Press";
-"CONGRATULATIONS!" = "CONGRATULATIONS!";
-"timedialog_timeend" = "Time\'s up!";
+"CONGRATULATIONS!" = "HERZLICHEN GLÜCKWUNSCH!";
+"timedialog_timeend" = "Die Zeit ist um!";
 "completearticle_desk" = "Einige Teile deiner Artikel basierten nicht auf Fakten und deshalb habe ich sie bearbeitet.";
 
 "publish_title" = "Zeitungsdruck";
@@ -125,26 +126,26 @@
 "Next" = "Weiter";
 "titlearticlechange_guide" = "Wähle 2 Leitartikel aus";
 
-"newspublishdialog_title" = "Zeitung versende";
-"newspublishdialog_email" = "E-mail";
+"newspublishdialog_title" = "Zeitung versenden";
+"newspublishdialog_email" = "E-Mail";
 "newspublishdialog_print" = "Drucken";
 
-"inputemaildialog_email" = "E-mail Address";
+"inputemaildialog_email" = "E-Mail-Adresse";
 "Send" = "Senden";
 
 "emailsuccessdialog_desc" = "Die E-Mail wurde erfolgreich versendet.";
-"printsuccessdialog_desc" = "eine Zeitung wurde gedruckt.\nHol sie dir am Schalter ab!.";
+"printsuccessdialog_desc" = "Deine Zeitung wurde gedruckt.\nHol sie dir am Schalter ab!.";
 
-"Politics" = "POLITIK";
-"Economy" = "WIRTSCHAFT/\nAUSSENPOLITIK";
-"General" = "GESELLSCHAFT";
-"Art" = "FEUILLETON";
-"Sports" = "SPORT";
-"People" = "MENSCHEN";
+"Politics" = "Politik";
+"Economy" = "Wirtschaft/\nAußenpolitik";
+"General" = "Gesellschaft";
+"Art" = "Feuilleton";
+"Sports" = "Sport";
+"People" = "Menschen";
 
-"levelup" = "Du bist jetzt \n%@.";
-"getBadge" = "Herzlichen Glückwunsch! Du bekommst ein %@ geworden!";
-"getPrize" = "HERZLICHEN GLÜCKWUNSCH!\n Du bist der %@ bei Mauerspechte des Tages!";
+"levelup" = "Du bist %@\nvon Mauerspechte geworden.";
+"getBadge" = "Herzlichen Glückwunsch!\nDu bekommst ein Mauerspechte-Abzeichen im Ressourt %@!";
+"getPrize" = "HERZLICHEN GLÜCKWUNSCH!\n Du bist %@ von Mauerspechte des Tages geworden!";
 "badgeTitle" = "ABZEICHEN";
 "levelUpTitle" = "LEVEL UP";
 

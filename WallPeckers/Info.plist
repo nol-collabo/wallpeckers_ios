@@ -52,7 +52,14 @@
 		<string>notokr_thin.ttf</string>
 		<string>notokr_black.ttf</string>
 		<string>american_typewriter.ttf</string>
-		<string>notokr_demilight.ttf</string>
+		<string>notosans_black.ttf</string>
+        <string>notosans_bold.ttf</string>
+        <string>notosans_extrabold.ttf</string>
+        <string>notosans_light.ttf</string>
+        <string>notosans_medium.ttf</string>
+        <string>notosans_regular.ttf</string>
+        <string>notosans_semibold.ttf</string>
+
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

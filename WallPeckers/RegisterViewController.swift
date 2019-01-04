@@ -438,10 +438,10 @@ extension RegisterViewController:SelectPopupDelegate {
 
 enum NotoSansFontSize:String {
     
-    case bold = "NotoKR-Black"
-    case regular = "NotoKR-Regular"
-    case medium = "NotoKR-Medium"
-    case thin = "NotoKR-Thin"
+    case bold = "NotoSans-Bold"
+    case regular = "NotoSans-Regular"
+    case medium = "NotoSans-Medium"
+    case thin = "NotoSans-Light"
     
 }
 
