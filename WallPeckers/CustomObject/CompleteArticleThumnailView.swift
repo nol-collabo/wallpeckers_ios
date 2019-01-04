@@ -98,7 +98,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
             
             let region = article.region! == "GERMANY" ? "DEUTSCHLAND" : "KOREA"
             
-            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
+            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
             
         }
         
@@ -134,8 +134,10 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         
         if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
             
-            
-            hashTags = ["#" + "\(hash1)".localized, "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
+//            section.
+            print(hash1)
+            print("~~~~~")
+            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
             
         }
         
@@ -173,14 +175,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         }
         rightArrowImv.contentMode = .center
         titleLb.numberOfLines = 0
-//        hashView.snp.makeConstraints { (make) in
-//            make.leading.equalTo(10)
-//            make.top.equalTo(titleLb.snp.bottom).offset(10)
-////            make.height.equalTo(60)
-//            make.bottom.equalTo(-5)
-//            make.trailing.equalTo(-10)
-//        }
-//        hashView.addSubview(collectionView)
+
         collectionView.snp.makeConstraints { (make) in
            
             make.top.equalTo(titleLb.snp.bottom).offset(10)

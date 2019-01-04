@@ -58,8 +58,9 @@ final class TutorialView:UIView {
         descImv.contentMode = .scaleAspectFit
         descLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(descImv.snp.bottom).offset(DEVICEHEIGHT > 600 ? 50 : 30)
+            make.top.equalTo(descImv.snp.bottom).offset(DEVICEHEIGHT > 600 ? 20 : 10)
             make.leading.equalTo(10)
+            
         }
         descLb.textAlignment = .center
         descLb.numberOfLines = 0

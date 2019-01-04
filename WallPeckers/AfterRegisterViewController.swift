@@ -95,7 +95,8 @@ class AfterRegisterViewController: UIViewController {
         }
         confirmBtn.setTitle("OK".localized, for: .normal)
         pressCodeTf.delegate = self
-        confirmBtn.backgroundColor = .gray
+        confirmBtn.setTitleColor(.black, for: .normal)
+        confirmBtn.backgroundColor = .basicBackground
         confirmBtn.isUserInteractionEnabled = false
 
     }
@@ -289,10 +290,13 @@ extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDel
         if string.count > 0 {
             confirmBtn.isUserInteractionEnabled = true
             confirmBtn.backgroundColor = .black
+            confirmBtn.setTitleColor(.white, for: .normal)
         }else{
             confirmBtn.isUserInteractionEnabled = false
-            confirmBtn.backgroundColor = .gray
+            confirmBtn.backgroundColor = .basicBackground
+            confirmBtn.setTitleColor(.black, for: .normal)
         }
+        
         return true
     }
 }

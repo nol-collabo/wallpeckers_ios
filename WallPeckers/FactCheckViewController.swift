@@ -183,6 +183,20 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                 make.height.equalTo(50)
                 make.center.equalToSuperview()
             }
+            
+            if correctCount < 1  {
+                submitButton.backgroundColor = .basicBackground
+                submitButton.setTitleColor(.black, for: .normal)
+                submitButton.setBorder(color: .black, width: 1.5)
+            }
+            
+            
+            if wrongQuestionId.isEmpty {
+                backButton.isHidden = true
+            }else{
+                backButton.isHidden = false
+            }
+            
             aStackView.addRow(backButton)
             
         }

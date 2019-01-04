@@ -22,7 +22,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     var sectionString:String?
     var questionPoint:String?
     var checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -102,8 +102,8 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     }
     
     @objc func moveToFactCheck(sender:UIButton) {
-
         var sendingData:[FactCheck] = []
+
         
         _ = checkedFactList.map({
             

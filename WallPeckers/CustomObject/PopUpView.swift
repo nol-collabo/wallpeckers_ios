@@ -681,7 +681,7 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
         }
         
         let pointString = "\n\(point) P".makeAttrString(font: .AmericanTypeWriter(.bold, size: 49), color: .black)
-        let articleString = correctCount != questionCount ? "factcheckdialog_title".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 30 : 20), color: .black) : "factcheckdialog_perfecttitle".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 30 : 20), color: .black)
+        let articleString = correctCount != questionCount ? "factcheckdialog_title".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 26 : 20), color: .black) : "factcheckdialog_perfecttitle".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: DeviceSize.width > 320 ? 30 : 20), color: .black)
         let aString = "".makeAttrString(font: .AmericanTypeWriter(.bold, size: 36), color: .black)
         aString.append(articleString)
         aString.append(pointString)

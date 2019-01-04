@@ -75,14 +75,14 @@ final class CompletedArticleView:UIView {
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let regionString = region == "GERMANY" ? "at the Berlin Wall".localized : "completearticle_korea".localized
-        let userNameString = "by \(RealmUser.shared.getUserData()?.name! ?? "User")"
+        let userNameString = "\(Standard.shared.getLocalized() == .GERMAN ? "von" : "by") \(RealmUser.shared.getUserData()?.name! ?? "User")"
         infoAString.append(dString)
         infoAString.append("\n\(regionString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
         infoAString.append("\n\(userNameString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
 
         infoLb.attributedText = infoAString
         
-        let articleString:NSMutableAttributedString = article.result!.makeAttrString(font: .NotoSans(.medium, size: 15), color: .black)
+        let articleString:NSMutableAttributedString = article.prints!.makeAttrString(font: .NotoSans(.medium, size: 15), color: .black)
         
 //        for clue in article.clues {
 //
