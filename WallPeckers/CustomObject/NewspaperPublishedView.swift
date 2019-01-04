@@ -49,7 +49,7 @@ final class NewspaperPublishedView:UIView {
             newspaperImageView.image = UIImage.init(named: "germanNewsPaper")
         }
         
-        publishButton.setTitle("PRESS".localized, for: .normal)
+        publishButton.setTitle("Printing Press".localized, for: .normal)
         publishButton.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
     }
     
