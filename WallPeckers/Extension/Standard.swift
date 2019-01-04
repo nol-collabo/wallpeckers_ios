@@ -21,7 +21,7 @@ class Standard {
             
             delegate?.checkPlayTime(gamePlayTime)
 
-            if gamePlayTime <= 0 {
+            if gamePlayTime == 0 {
                 if sharedTimer != nil {
                     sharedTimer.invalidate()
                     sharedTimer = nil
@@ -47,6 +47,7 @@ class Standard {
                 if playTime != 0 {
                     gamePlayTime = playTime
                 }else{
+                    
                     gamePlayTime = 1800
                 }
             }else{
@@ -57,7 +58,14 @@ class Standard {
         if dePressCodes.contains(inputCode.lowercased()) {
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
-                    gamePlayTime = playTime
+                    if playTime < 0 {
+                        gamePlayTime = 1800
+                        
+                    }else{
+                        gamePlayTime = playTime
+                        
+                    }
+                    
                 }else{
                     gamePlayTime = 1800
                 }
@@ -73,8 +81,17 @@ class Standard {
 
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
-                    gamePlayTime = playTime
+                    print(playTime)
+                    print("REMAINPLAYTIME")
+                    if playTime < 0 {
+                        gamePlayTime = Int(inputCode)! * 60
+
+                    }else{
+                        gamePlayTime = playTime
+
+                    }
                 }else{
+      
                     gamePlayTime = Int(inputCode)! * 60
                 }
             }else{
@@ -87,7 +104,14 @@ class Standard {
             
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
-                    gamePlayTime = playTime
+                    if playTime < 0 {
+                        gamePlayTime = 1200
+                        
+                    }else{
+                        gamePlayTime = playTime
+                        
+                    }
+                    
                 }else{
                     gamePlayTime = 1200
                 }
