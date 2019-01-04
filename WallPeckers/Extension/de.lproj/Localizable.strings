@@ -60,6 +60,8 @@
 "FACT CHECK" = "FAKTENCHECK";
 "BACK" = "Zurück";
 "Tap_Code" = "← Klicke hier um den Code einzugeben";
+"Tap_Code_inputed" = "Klick um zubearbeiten [%@]";
+
 "CODE" = "CODE:";
 "ENTER" = "EINGEBEN";
 "OK" = "OK";
@@ -81,7 +83,7 @@
 "MY LEVEL" = "MEIN LEVEL";
 "MY BADGES" = "MEIN ABZEICHEN";
 
-"writearticleerrordialog_desc" = "The CODE\nDer eingegebene CODE existiert nicht.";
+"writearticleerrordialog_desc" = "Der eingegebene CODE existiert nicht.";
 "factcheck_deskrecheck" = "Überprüfe noch einmal, ob die folgende Information stimmt: ";
 "factcheck_deskperfect" = "PERFEKT!\nDein Arikel hat den Faktencheck erfolgreich bestanden.";
 
@@ -98,7 +100,7 @@
 
 "paireddialog_title" = "PARTIKELPAAR";
 
-"completearticle_title" = "ERTIGER ARTIKEL";
+"completearticle_title" = "FERTIGER ARTIKEL";
 "Go to MY PAGE" = "Auf meine Seite gehen";
 "Go to START" = "Go to START";
 "Printing Press" = "Printing Press";

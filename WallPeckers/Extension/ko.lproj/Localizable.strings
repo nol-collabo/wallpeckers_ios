@@ -61,6 +61,8 @@
 "FACT CHECK" = "팩트체크";
 "BACK" = "뒤로 가기";
 "Tap_Code" = "← 눌러서 코드 입력";
+"Tap_Code_inputed" = "눌러서 코드 수정 [%@]";
+
 "CODE" = "코드:";
 "ENTER" = "입력";
 "OK" = "확인";
@@ -83,7 +85,7 @@
 "MY BADGES" = "내 뱃지";
 
 
-"writearticleerrordialog_desc" = "The CODE\nyou entered does not exist.";
+"writearticleerrordialog_desc" = "입력하신 코드가\n존재하지 않습니다.";
 "factcheck_deskrecheck" = "다음 내용이 사실인지 다시 검토해 보세요: ";
 "factcheck_deskperfect" = "완벽하군요!\n당신의 기사는 팩트 체크를 무사 통과했습니다.";
 

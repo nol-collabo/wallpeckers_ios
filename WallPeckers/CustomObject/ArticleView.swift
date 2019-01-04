@@ -52,8 +52,7 @@ final class ArticleView:UIView {
             break
             
         }
-        
-        pathLb.attributedText = "\(section) > \(article.word!)".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
+        pathLb.attributedText = "\(section.replacingOccurrences(of: "\n", with: "")) > \(article.word!)".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
         pointLb.attributedText = "\(point)".makeAttrString(font: .NotoSans(.medium, size: 12), color: .black)
         titleLb.attributedText = article.title?.makeAttrString(font: .NotoSans(.bold, size: 20), color: .black)
         descLb.attributedText = article.title_sub?.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)

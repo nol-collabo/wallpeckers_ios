@@ -90,7 +90,7 @@ struct CustomAPI {
         }
     }
     
-    static func saveIncorrect(articleId:Int, playerId:Int, sessionId:Int, clue_type:String, code_incorrect:Int, code_correct:Int, completion:((Any)->())?) {
+    static func saveIncorrect(articleId:Int, playerId:Int, sessionId:Int, clue_type:String, code_incorrect:String, code_correct:String, completion:((String)->())?) {
         
         let params:Parameters = ["article_proto":articleId, "player":playerId, "session":sessionId, "clue_type":clue_type, "code_incorrect":code_incorrect, "code_correct":code_correct]
         
@@ -101,10 +101,11 @@ struct CustomAPI {
             case .success(let value):
                 
                 print(value)
+                let json = JSON(value)
                 
                 guard let _completion = completion else {return}
                 
-                _completion(value)
+                _completion(json["result"].stringValue)
                 
                 
             case .failure(let error):
@@ -157,6 +158,10 @@ struct CustomAPI {
             
             
             let params:Parameters = ["email":email, "session":sessionId, "language":lang.rawValue, "badge_politics":getBadges[0], "badge_economy":getBadges[1], "badge_general":getBadges[2], "badge_culture":getBadges[3], "badge_sports":getBadges[4], "badge_people":getBadges[5], "score":userData.score, "uid":uuid, "level":userLevel, "num_of_complete_articles":RealmArticle.shared.get(lang).filter({$0.isCompleted}).count]
+            
+            
+            print(params)
+            print("UPDATEPARAMETER")
             
             
             Alamofire.request("\(domainUrl)update/player/\(userData.allocatedId)", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in

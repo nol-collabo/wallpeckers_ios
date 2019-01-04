@@ -54,27 +54,27 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
             
             if score >= 2000 && score < 4000{
                 if !firstLevelUp {
-                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[0].grade!), image: UIImage.init(named: "level35")!, tag: topic, vc: self)
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[1].grade!), image: UIImage.init(named: "level35")!, tag: topic, vc: self)
                     firstLevelUp = true
                     UserDefaults.standard.set(true, forKey: "firstLevelUp")
                 }
             }else if score >= 4000 && score < 8000 {
                 if !secondLevelUp {
-                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[1].grade!), image: UIImage.init(named: "level36")!, tag: topic, vc: self)
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[2].grade!), image: UIImage.init(named: "level36")!, tag: topic, vc: self)
                     secondLevelUp = true
                     UserDefaults.standard.set(true, forKey: "secondLevelUp")
 
                 }
             }else if score >= 8000 && score < 12000 {
                 if !thirdLevelUp {
-                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[2].grade!), image: UIImage.init(named: "level37")!, tag: topic, vc: self)
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[3].grade!), image: UIImage.init(named: "level37")!, tag: topic, vc: self)
                     thirdLevelUp = true
                     UserDefaults.standard.set(true, forKey: "thirdLevelUp")
 
                 }
             }else if score >= 12000 {
                 if !fourthLevelUp {
-                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[3].grade!), image: UIImage.init(named: "level38")!, tag: topic, vc: self)
+                    PopUp.levelBadgePopup(type: .level, title: String(format:"levelup".localized, level[4].grade!), image: UIImage.init(named: "level38")!, tag: topic, vc: self)
                     fourthLevelUp = true
                     UserDefaults.standard.set(true, forKey: "fourthLevelUp")
 

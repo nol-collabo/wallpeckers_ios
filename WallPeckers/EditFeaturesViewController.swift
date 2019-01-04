@@ -86,8 +86,10 @@ class EditFeaturesViewController: UIViewController {
         featuredLb.snp.makeConstraints { (make) in
             make.centerY.equalTo(headLineLb.snp.centerY)
             make.leading.equalTo(arrowLb.snp.trailing).offset(20)
+            make.trailing.equalTo(-10)
             make.width.equalTo(120)
         }
+        featuredLb.numberOfLines = 0
         nextButton.setBackgroundColor(color: .init(white: 155/255, alpha: 1), forState: .disabled)
         
         aStackView.setBorder(color: .black, width: 1.5)
@@ -114,6 +116,7 @@ class EditFeaturesViewController: UIViewController {
             tv.backgroundColor = .white
             tv.setDataForPublish(article: ca)
             tv.delegate = self
+            tv.rightArrowImv.isHidden = true
             tv.selectButton.setBackgroundColor(color: .tangerine, forState: .selected)
             
             if RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count > 2 {

@@ -22,7 +22,7 @@ final class ClueSelectView:UIView {
         setUI()
     }
     
-    func setData(five:Five_W_One_Hs, clue:Clue) {
+    func setData(five:Five_W_One_Hs, clue:Clue, info:String) {
         
         self.clue = clue
         clueButton.setAttributedTitle("\(clue.type!.localized)".makeAttrString(font: .NotoSans(.bold, size: 20), color: .black), for: .normal)
@@ -38,18 +38,27 @@ final class ClueSelectView:UIView {
             infoLb.isHidden = true
         }
         
+        infoLb.attributedText = info.makeAttrString(font: .NotoSans(.bold, size: 19), color: .white)
+        infoLb.adjustsFontSizeToFitWidth = true
         
     }
     
     func indicatedWhenBeforeChecked(_ fact:FactCheck) {
         
-        clueLb.text = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized())?.desc
-        
-        if fact.isCorrect {
-            clueButton.backgroundColor = .green
-        }else{
-            clueButton.backgroundColor = .red
+        if let clue = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized()) {
+            
+            clueLb.text = clue.desc!
+            infoLb.attributedText = String(format:"Tap_COde_inputed".localized, "\(clue.identification!)").makeAttrString(font: .NotoSans(.bold, size: 19), color: .white)
+            infoLb.adjustsFontSizeToFitWidth = true
+            
         }
+
+//
+//        if fact.isCorrect {
+//            clueButton.backgroundColor = .sunny
+//        }else{
+//            clueButton.backgroundColor = .red
+//        }
     }
     
     @objc func callCodePopUp(sender:Clue, tag:Int) {

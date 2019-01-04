@@ -62,7 +62,8 @@
 "WHY" = "WHY";
 "FACT CHECK" = "FACT CHECK";
 "BACK" = "BACK";
-"Tap_Code" = "Tap to insert CODE";
+"Tap_Code" = " ← Tap to insert CODE";
+"Tap_Code_inputed" = "Tap to edit [%@]";
 "CODE" = "CODE:";
 "ENTER" = "ENTER";
 "OK" = "OK";

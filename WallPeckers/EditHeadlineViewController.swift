@@ -87,7 +87,8 @@ class EditHeadlineViewController: UIViewController {
             tv.backgroundColor = .white
             tv.setDataForPublish(article: ca)
             tv.delegate = self
-            
+            tv.rightArrowImv.isHidden = true
+
             if tv.tag == defaultHeadlines[0] {
                 tv.selectButton.isSelected = true
             }

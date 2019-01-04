@@ -373,7 +373,7 @@ class PairedArticleView:BasePopUpView {
         rightArticle.borderColor = .black
         okButton.addTarget(self, action: #selector(tapOkButton(sender:)), for: .touchUpInside)
         
-        infoLb.attributedText = "PAIRED\nARTICLES".makeAttrString(font: .AmericanTypeWriter(.bold, size: 32), color: .black)
+        infoLb.attributedText = "paireddialog_title".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: 32), color: .black)
         infoLb.numberOfLines = 0
         infoLb.adjustsFontSizeToFitWidth = true
         
@@ -411,7 +411,7 @@ class PairedArticleView:BasePopUpView {
         descLb.numberOfLines = 0
         
         self.popupView.setBorder(color: .black, width: 2.5)
-        okButton.setTitle("paireddialog_title".localized, for: .normal)
+        okButton.setTitle("OK".localized, for: .normal)
         okButton.snp.makeConstraints { (make) in
             make.top.equalTo(descLb.snp.bottom).offset(10)
             make.bottom.equalTo(-20)

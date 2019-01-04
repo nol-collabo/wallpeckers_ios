@@ -235,30 +235,28 @@ class PublishViewController: UIViewController {
         
         sender.isUserInteractionEnabled = false
 
-        let headline = defaultHeadlines[0]
+        var headline = 0
         var main1 = 0
         var main2 = 0
+        
+        if defaultHeadlines.count == 1 {
+            headline = defaultHeadlines[0]
+        }
         if defaultHeadlines.count == 2 {
             main1 = defaultHeadlines[1]
         }
         if defaultHeadlines.count == 3 {
             main2 = defaultHeadlines[2]
         }
-        
-//        if
-        
-        
-        
-        CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: email ?? "", headline: headline, main1: main1, main2: main2) { (result) in
+
+        CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: "zelatool@gmail.com", headline: headline, main1: main1, main2: main2) { (result) in
             print(result)
+            print("UPDATEPLAYER")
             guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
             self.present(vc, animated: true, completion: nil)
         }
         sender.isUserInteractionEnabled = true
 
-//        CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: email ?? "", headline: T##Int, main1: <#T##Int#>, main2: <#T##Int#>, isShare: <#T##Bool#>, completion: <#T##((String) -> ())?##((String) -> ())?##(String) -> ()#>)
-        
-       
     }
     
 }

@@ -75,7 +75,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             
             if let aa = RealmClue.shared.getLocalClue(id: v.clue, language: Standard.shared.getLocalized()) {
                 
-                view.setData(five: v, clue: aa)
+                view.setData(five: v, clue: aa, info: "Tap_Code".localized)
                 view.tag = v.clue
                 
                 _ = checkedFactList.map({
@@ -165,6 +165,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                 
                 selectedClueView.clueLb.text = selectedClue.desc!
                 selectedClueView.clueButton.backgroundColor = .sunnyYellow
+                selectedClueView.infoLb.attributedText = String(format:"Tap_Code_inputed".localized, "\(selectedClue.identification!)").makeAttrString(font: .NotoSans(.bold, size: 19), color: .white)
                 let factCheck = FactCheck()
                 factCheck.selectedClue = selectedClue.id
                 factCheck.selectedArticleId = article!.id
