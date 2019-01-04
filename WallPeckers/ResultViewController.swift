@@ -30,8 +30,7 @@ class ResultViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        UserDefaults.standard.set(0, forKey: "enterForeground")
-        UserDefaults.standard.set(0, forKey: "enterBackground")
+      
         
         let congLb = UILabel()
         

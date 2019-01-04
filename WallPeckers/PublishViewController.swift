@@ -256,6 +256,15 @@ class PublishViewController: UIViewController {
             print(result)
             print("UPDATEPLAYER")
             guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
+            
+            UserDefaults.standard.set(0, forKey: "enterForeground")
+            UserDefaults.standard.set(0, forKey: "enterBackground")
+        
+            
+            try! realm.write {
+                RealmUser.shared.getUserData()?.playTime = 0
+            }
+            
             self.present(vc, animated: true, completion: nil)
         }
         sender.isUserInteractionEnabled = true
