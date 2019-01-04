@@ -38,7 +38,11 @@ class Standard {
         let enPressCodes:[String] = ["peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape"]
         let dePressCodes:[String] = ["frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht"]
         
-        if enPressCodes.contains(inputCode) {
+        
+        print(inputCode)
+        print("~~~~")
+        
+        if enPressCodes.contains(inputCode.lowercased()) {
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
                     gamePlayTime = playTime
@@ -50,7 +54,7 @@ class Standard {
             }
         }
         
-        if dePressCodes.contains(inputCode) {
+        if dePressCodes.contains(inputCode.lowercased()) {
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
                     gamePlayTime = playTime
@@ -63,7 +67,7 @@ class Standard {
         }
         
         
-        switch inputCode {
+        switch inputCode.lowercased() {
             
         case "2", "5", "60" :
 

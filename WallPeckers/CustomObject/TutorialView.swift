@@ -36,7 +36,8 @@ final class TutorialView:UIView {
         topLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(DEVICEHEIGHT > 600 ? 70 : 30)
-            make.height.equalTo(50)
+            make.leading.equalTo(10)
+//            make.height.equalTo(50)
         }
         topLb.numberOfLines = 0
         descImv.contentMode = .scaleAspectFit

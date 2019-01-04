@@ -32,7 +32,7 @@
 "inputkey_passcode" = "PRESS CODE";
 "inputkey_codeguide" = "Gib deinen PRESS CODE ein und drücke auf „OK“";
 "inputkey_errorguide" = "Überprüfe deinen PRESS CODE und versuch es noch einmal";
-"presscodedesc" = "Den PRESSE CODE findest du vor Ort.";
+"presscodedesc" = "Den PRESS CODE findest du vor Ort.";
 
 "inputkeydialog_description" = "Du hast dein letztes Spiel beendet.\nWenn du auf OK klickst,\nwerden deine Artikel\nvom letzten Spiel gelöscht\nund ein neues Spiel wird gestartet.\nMöchtest du ein\nneues Spiel beginnen?";
 
@@ -152,3 +152,4 @@
 
 "timedialog_timeend" = "Die Zeit ist um!";
 "timedialog_timelimit" = "Du hast noch %@ Minuten.";
+"selectotherarticle" = "ZURÜCK ZU\n[%@]";

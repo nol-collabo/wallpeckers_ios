@@ -72,7 +72,7 @@ class ResultViewController: UIViewController {
             make.centerX.equalToSuperview()
 
         }
-        pressButton.setAttributedTitle("Printing Press".makeAttrString(font: .NotoSans(.bold, size: 18), color: .black), for: .normal)
+        pressButton.setAttributedTitle("Printing Press".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black), for: .normal)
         
         let completedArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
             

@@ -24,6 +24,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     let completeArticleView = CompletedArticleView()
     let deskView = DeskBubbleView()
     let hashView = HashTagGraphView()
+    let backArticleBtn = BottomButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +77,22 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 make.leading.equalTo(20)
                 make.trailing.equalTo(-20)
             }
-            okButton.setTitle("OK".localized, for: .normal)
+            
+            let middle = UIView()
+            aStackView.addRow(middle)
+            middle.snp.makeConstraints { (make) in
+                make.height.equalTo(10)
+                make.edges.equalToSuperview()
+            }
+            
+            aStackView.addRow(backArticleBtn)
+            backArticleBtn.snp.makeConstraints { (make) in
+                make.top.bottom.equalToSuperview()
+                make.height.equalTo(55)
+                make.leading.equalTo(20)
+                make.trailing.equalTo(-20)
+            }
+            
             let bottomV = UIView()
             aStackView.addRow(bottomV)
             bottomV.snp.makeConstraints { (make) in
@@ -108,15 +124,49 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         
         
         if isCompletedFirst {
-            // 버튼 두개 추가
+            okButton.setTitle("CHANGE TOPIC".localized, for: .normal)
+            backArticleBtn.isHidden = false
+            
+            if let section = RealmSection.shared.get(Standard.shared.getLocalized()).filter({$0.id == article?.section}).first {
+                backArticleBtn.titleLabel?.numberOfLines = 2
+                backArticleBtn.titleLabel?.textAlignment = .center
+                backArticleBtn.setTitle(String(format: "selectotherarticle".localized, section.title!), for: .normal)
+
+            }
+            
+            backArticleBtn.addTarget(self, action: #selector(moveToArticleChooseVc(sender:)), for: .touchUpInside)
+        }else{
+            backArticleBtn.isHidden = true
+            okButton.setTitle("OK".localized, for: .normal)
+
         }
         
         titleLb.attributedText = "completearticle_title".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .black)
         titleLb.textAlignment = .center
-        okButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)
+        okButton.addTarget(self, action: #selector(moveToTopicVc(sender:)), for: .touchUpInside)
     }
     
-    @objc func moveToBack(sender:UIButton) {
+    @objc func moveToArticleChooseVc(sender:UIButton) {
+        guard let article = article else {return}
+        
+        guard let vc = self.findBeforeVc(type: .article) else {return}
+        
+        if isCompletedFirst {
+            CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: article.tryCount, photoId: article.selectedPictureId) { (result) in
+                
+                if result == "OK" {
+                    self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
+                }else{
+                    
+                    self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
+                    
+                    print("오류")
+                }
+            }
+        }
+    }
+    
+    @objc func moveToTopicVc(sender:UIButton) {
         
         if let _ = fromMyPage {
             self.navigationController?.popViewController(animated: true)
@@ -143,8 +193,6 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                         
                         print("오류")
                     }
-                    
-                    
                 }
             }else{
                 self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)

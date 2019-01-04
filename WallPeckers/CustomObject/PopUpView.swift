@@ -563,7 +563,7 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
     let centerInfoView = UIStackView()
     let descLb = UILabel()
     let hashTagBtnView = UIView()
-    let coLayout = UICollectionViewLeftAlignedLayout()
+    let coLayout = CenterAlignedCollectionViewFlowLayout()
     lazy var collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: coLayout)
     let publishButton = BottomButton()
     var hashBtns:[HashTagBtn] = []

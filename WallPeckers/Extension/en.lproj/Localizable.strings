@@ -37,7 +37,7 @@
 
 "inputkeydialog_description" = "Your last game has been finished.\nIf you press \'OK\',\nyour articles of last game\nwill be deleted and start a new game.\nWould you like to start a new one?";
 
-"tutorial1_subtitle" = "WHO, WHEN, WHER,\nWHAT, HOW and WHY?";
+"tutorial1_subtitle" = "WHO, WHEN, WHERE,\nWHAT, HOW and WHY?";
 "tutorial1" = "As the Wall stood strong,\nit became a part of everyday\nand you forgot WHY.\n\nThe WALLPECKERS\n- the journalist of the WALL -\nask WHY and find the truth.";
 "tutorial2_subtitle" = "From the DMZ to the Berlin Wall";
 "tutorial2" = "Cover issues about\nthe Korean DMZ, still standing 65 years\nand the Berlin Wall, demolished in 1989.\n\nWrite as many articles as you can\nincluding PAIRED ones";
@@ -153,3 +153,4 @@
 
 "timedialog_timeend" = "Time's up!";
 "timedialog_timelimit" = "You have %@ minutes left.";
+"selectotherarticle" = "RETURN TO\n[%@]";

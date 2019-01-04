@@ -44,6 +44,7 @@
 "tutorial4_subtitle" = "게임 목표";
 "tutorial4" = "주어진 시간 동안 \n오늘의 기자상을 목표로 \n기사 점수를 쌓으세요!";
 "tutorial_startBtn" = "시작하기";
+"selectotherarticle" = "[%@]\n기사 작성하기";
 
 
 "selectsection_title" = "주제를 선택하세요";

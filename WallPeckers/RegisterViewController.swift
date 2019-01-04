@@ -184,7 +184,7 @@ class RegisterViewController: UIViewController {
             make.height.equalTo(DEVICEHEIGHT > 600 ? 50 : 30)
         }
         
-        cameraBtn.setImage(UIImage.init(named: "profile_btn")!, for: .normal)
+        cameraBtn.setImage(UIImage.init(named: "cameraButton")!, for: .normal)
         
         nameLb.setNotoText("registration_penname".localized, color: .black, size: 14, textAlignment: .right)
         ageLb.setNotoText("registration_age".localized, size: 14, textAlignment: .right)
@@ -420,7 +420,7 @@ extension RegisterViewController:SelectPopupDelegate {
                     self.present(self.imagePicker, animated: true, completion: nil)
 
         case 2:
-            profileImv.image = UIImage.init(named: "basicProfileImage")
+            profileImv.image = UIImage.init(named: "basic_profile")
             print("DEFAULT")
         default:
             break

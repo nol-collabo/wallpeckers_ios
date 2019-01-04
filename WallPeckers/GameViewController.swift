@@ -234,9 +234,54 @@ extension GameViewController:GameViewTransitionDelegate {
                     
                 }
                 
+                if let vc = toVc as? ArticleChooseViewController {
+                    
+                    let sectionTag = sendData as! Int
+                    
+                    vc.callLevelPopUp(topic: sectionTag)
+//                    var articleButtons:[ArticleSelectButton] = []
+//
+//                    for article in RealmArticle.shared.get(selectedLanguage).filter({
+//                        $0.section == sendData as! Int
+//                    }) {
+//
+//                        let btn = ArticleSelectButton()
+//
+//                        let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
+//
+//                            $0.point
+//                        }).reduce(0, +)
+//
+//
+//                        btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
+//                        articleButtons.append(btn)
+//
+//                    }
+//
+//                    vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
+//                        $0.section == sendData as! Int
+//                    }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
+                    vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+                    
+                    vc.changeColor()
+                    vc.view.layoutIfNeeded()
+                    vc.view.layoutSubviews()
+
+                    
+//                    self.setChildVc(rootView: articleView, vc)
+
+                    
+                    horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
+
+                }
+                
             }
 
             if let _ = fromVc as? ArticleChooseViewController {
+                
+                  if let vc = toVc as? TopicViewController {
+                    vc.setStars()
+                }
                 
                  horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }else if let _ = fromVc as? ClueSelectViewController {
