@@ -38,7 +38,7 @@ final class ClueSelectView:UIView {
             infoLb.isHidden = true
         }
         
-        infoLb.attributedText = info.makeAttrString(font: .NotoSans(.bold, size: 19), color: .white)
+        infoLb.attributedText = info.makeAttrString(font: .NotoSans(.bold, size: 15), color: .white)
         infoLb.adjustsFontSizeToFitWidth = true
         
     }
@@ -96,6 +96,7 @@ final class ClueSelectView:UIView {
             make.top.equalTo(clueButton.snp.bottom).offset(10)
             make.bottom.equalTo(-10)
         }
+        infoLb.numberOfLines = 2
         clueButton.addTarget(self, action: #selector(callCodePopUp(sender:tag:)), for: .touchUpInside)
         clueLb.numberOfLines = 0
         
