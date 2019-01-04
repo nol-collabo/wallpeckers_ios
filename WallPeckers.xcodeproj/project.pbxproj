@@ -31,7 +31,6 @@
 		230BD50121D37BA900503CD5 /* EditHeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD50021D37BA800503CD5 /* EditHeadlineViewController.swift */; };
 		230BD50321D37D4000503CD5 /* Publish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230BD50221D37D4000503CD5 /* Publish.storyboard */; };
 		230BD50521D3821E00503CD5 /* EditFeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BD50421D3821D00503CD5 /* EditFeaturesViewController.swift */; };
-		23419C5521DEF20800C05377 /* image_article_016_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 23419C5321DEF20700C05377 /* image_article_016_03.png */; };
 		23419C5621DEF20800C05377 /* image_article_038_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 23419C5421DEF20800C05377 /* image_article_038_02.png */; };
 		23419C5821DF172A00C05377 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 23419C5721DF172900C05377 /* data.json */; };
 		23419C6021DF277300C05377 /* notosans_black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23419C5921DF250700C05377 /* notosans_black.ttf */; };
@@ -156,6 +155,7 @@
 		23D86F3D21B50DE700CDC5B6 /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D86F3C21B50DE700CDC5B6 /* Game.storyboard */; };
 		27CF50B0274CFED5C6137941 /* Pods_WallPeckers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0997FD62F62E72A2ECCE9E /* Pods_WallPeckers.framework */; };
 		63F7705580BD0081C031FC36 /* Pods_WallPeckersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEDA8DB709A58CD1F5D0B019 /* Pods_WallPeckersTests.framework */; };
+		75112EF121DF2F0100DE755C /* image_article_016_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 75112EF021DF2F0000DE755C /* image_article_016_03.png */; };
 		75271F0521DE18D700109F6B /* data1111.json in Resources */ = {isa = PBXBuildFile; fileRef = 75271F0421DE18D700109F6B /* data1111.json */; };
 		75FBA91021DE0E9B009C66A0 /* image_article_013_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 75FBA8B921DE0E8A009C66A0 /* image_article_013_02.png */; };
 		75FBA91121DE0E9B009C66A0 /* image_article_035_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 75FBA8BA21DE0E8A009C66A0 /* image_article_035_04.png */; };
@@ -286,7 +286,6 @@
 		230BD50021D37BA800503CD5 /* EditHeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHeadlineViewController.swift; sourceTree = "<group>"; };
 		230BD50221D37D4000503CD5 /* Publish.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Publish.storyboard; sourceTree = "<group>"; };
 		230BD50421D3821D00503CD5 /* EditFeaturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFeaturesViewController.swift; sourceTree = "<group>"; };
-		23419C5321DEF20700C05377 /* image_article_016_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_article_016_03.png; path = ../../../Downloads/image_article_016_03.png; sourceTree = "<group>"; };
 		23419C5421DEF20800C05377 /* image_article_038_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_038_02.png; sourceTree = "<group>"; };
 		23419C5721DF172900C05377 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		23419C5921DF250700C05377 /* notosans_black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = notosans_black.ttf; sourceTree = "<group>"; };
@@ -421,6 +420,7 @@
 		23D86F3C21B50DE700CDC5B6 /* Game.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
 		49F5683513EC949641C5B431 /* Pods-WallPeckersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BDA4C6BCF9B2F1F789F276F /* Pods-WallPeckersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersUITests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersUITests/Pods-WallPeckersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		75112EF021DF2F0000DE755C /* image_article_016_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_016_03.png; sourceTree = "<group>"; };
 		75271F0421DE18D700109F6B /* data1111.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data1111.json; sourceTree = "<group>"; };
 		75FBA8B921DE0E8A009C66A0 /* image_article_013_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_013_02.png; sourceTree = "<group>"; };
 		75FBA8BA21DE0E8A009C66A0 /* image_article_035_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_035_04.png; sourceTree = "<group>"; };
@@ -683,7 +683,7 @@
 				23C045B821D60D8D003BFC3C /* image_article_08.png */,
 				23C045E621D60D92003BFC3C /* image_article_09.png */,
 				23C045E821D60D92003BFC3C /* image_article_010.png */,
-				23419C5321DEF20700C05377 /* image_article_016_03.png */,
+				75112EF021DF2F0000DE755C /* image_article_016_03.png */,
 				23419C5421DEF20800C05377 /* image_article_038_02.png */,
 				23C045AE21D60D8C003BFC3C /* image_article_011.png */,
 				23C045DF21D60D91003BFC3C /* image_article_012.png */,
@@ -1015,6 +1015,7 @@
 				75FBA92921DE0E9B009C66A0 /* image_article_042_02.png in Resources */,
 				23C0462E21D60D92003BFC3C /* image_article_03.png in Resources */,
 				75FBA95A21DE0E9B009C66A0 /* image_article_025_06.png in Resources */,
+				75112EF121DF2F0100DE755C /* image_article_016_03.png in Resources */,
 				75FBA92D21DE0E9B009C66A0 /* image_article_042_03.png in Resources */,
 				75FBA94321DE0E9B009C66A0 /* image_article_01_02.png in Resources */,
 				75FBA92421DE0E9B009C66A0 /* image_article_02_02.png in Resources */,
@@ -1094,7 +1095,6 @@
 				75FBA95421DE0E9B009C66A0 /* image_article_019_06.png in Resources */,
 				75FBA92821DE0E9B009C66A0 /* image_article_07_02.png in Resources */,
 				23C0460E21D60D92003BFC3C /* image_article_030.png in Resources */,
-				23419C5521DEF20800C05377 /* image_article_016_03.png in Resources */,
 				23C0460D21D60D92003BFC3C /* image_article_08.png in Resources */,
 				230BD47121BA102800503CD5 /* NotoSans-Regular.otf in Resources */,
 				75FBA93221DE0E9B009C66A0 /* image_article_052_03.png in Resources */,
