@@ -95,7 +95,7 @@ final class HashTagGraphView:UIView {
         
         hashTitleLb2.snp.makeConstraints { (make) in
             make.centerX.equalTo(secondView.snp.centerX)
-            make.top.equalTo(firstView.snp.bottom).offset(25)
+            make.top.equalTo(firstView.snp.bottom).offset(22)
         }
         thirdView.snp.makeConstraints { (make) in
             make.leading.equalTo(secondView.snp.trailing)
@@ -121,7 +121,7 @@ final class HashTagGraphView:UIView {
         
         hashTitleLb4.snp.makeConstraints { (make) in
             make.centerX.equalTo(fourthView.snp.centerX)
-            make.top.equalTo(firstView.snp.bottom).offset(25)
+            make.top.equalTo(firstView.snp.bottom).offset(22)
         }
         fifthView.snp.makeConstraints { (make) in
             make.top.equalTo(underLine1.snp.bottom).offset(20)
