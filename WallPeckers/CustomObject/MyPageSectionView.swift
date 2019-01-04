@@ -305,7 +305,7 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             articleStackView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
                 
-                make.height.equalTo((DeviceSize.width > 320 ? 150 : 180) * completedArticle.count)
+                make.height.equalTo((DeviceSize.width > 320 ? 190 : 210) * completedArticle.count)
             }
             self.layoutIfNeeded()
             self.layoutSubviews()

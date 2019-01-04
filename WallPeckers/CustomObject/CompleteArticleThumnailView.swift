@@ -74,12 +74,22 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         setUI()
         collectionView.delegate = self
         collectionView.dataSource = self
-        coLayout.estimatedItemSize = CGSize.init(width: 100, height: 20)
-        coLayout.itemSize = CGSize.init(width: 100, height: 20)
+        collectionView.alwaysBounceVertical = true
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .always
+        } else {
+            // Fallback on earlier versions
+        }
+        coLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        coLayout.itemSize = UICollectionViewFlowLayout.automaticSize
+//        coLayout.itemSize = CGSize.init(width: 100, height: 30)
         collectionView.collectionViewLayout = coLayout
+        collectionView.isScrollEnabled = false
         collectionView.register(HashtagCollectionViewCell.self, forCellWithReuseIdentifier: "HashtagCollectionViewCell")
         
     }
+    
+    
     
     func setData(article:Article) {
         
@@ -175,7 +185,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
            
             make.top.equalTo(titleLb.snp.bottom).offset(10)
             make.leading.equalTo(10)
-            make.height.equalTo(DeviceSize.width > 320 ?  60 : 90)
+            make.height.equalTo(90)
             make.bottom.equalTo(-10)
             make.trailing.equalTo(-35)
             
