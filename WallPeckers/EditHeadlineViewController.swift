@@ -105,7 +105,7 @@ class EditHeadlineViewController: UIViewController {
         }
         
         nextButton.addTarget(self, action: #selector(moveNext(sender:)), for: .touchUpInside)
-        nextButton.setTitle("NEXT", for: .normal)
+        nextButton.setTitle("Next".localized, for: .normal)
         dismissBtn.addTarget(self, action: #selector(touchDismiss(sender:)), for: .touchUpInside)
         
         

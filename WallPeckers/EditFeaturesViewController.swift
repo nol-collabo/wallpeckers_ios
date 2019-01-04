@@ -64,7 +64,7 @@ class EditFeaturesViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        titleLb.setNotoText("Edit My Newspaper", color: .black, size: 20, textAlignment: .center, font: .bold)
+        titleLb.setNotoText("titlearticlechange_title".localized, color: .black, size: 20, textAlignment: .center, font: .bold)
         
         
         arrowLb.snp.makeConstraints { (make) in

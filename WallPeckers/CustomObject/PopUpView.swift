@@ -220,6 +220,7 @@ class LevelBadgePopUpView:BasePopUpView {
     
     let bgImageView = UIImageView()
     let mainImageView = UIImageView()
+    let topLb = UILabel()
     let descLb = UILabel()
     let bottomButton = BottomButton()
     var delegate:CallBadgeDelegate?
@@ -243,6 +244,8 @@ class LevelBadgePopUpView:BasePopUpView {
                 make.width.equalTo(130)
                 make.height.equalTo(190)
             }
+            topLb.attributedText = "badgeTitle".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: 32), color: .black)
+            
         case .level:
             bgImageView.image = UIImage.init(named: "levelBackground")
             mainImageView.snp.remakeConstraints { (make) in
@@ -251,6 +254,8 @@ class LevelBadgePopUpView:BasePopUpView {
                 make.width.equalTo(88)
                 make.height.equalTo(88)
             }
+            topLb.attributedText = "levelUpTitle".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: 32), color: .black)
+
         }
         
         mainImageView.image = mainImage
@@ -261,7 +266,7 @@ class LevelBadgePopUpView:BasePopUpView {
     
     private func setUI() {
         
-        self.popupView.addSubview([bgImageView, mainImageView, descLb, bottomButton])
+        self.popupView.addSubview([bgImageView, mainImageView, descLb, bottomButton, topLb])
         self.popupView.setBorder(color: .black, width: 2.5)
         self.setPopUpViewHeight(450)
         
@@ -271,6 +276,12 @@ class LevelBadgePopUpView:BasePopUpView {
             make.centerX.equalToSuperview()
             make.height.equalTo(310)
         }
+       
+        topLb.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(60)
+        }
+        
         mainImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(100)
@@ -576,6 +587,7 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
     
     func setData(article:Article, correctCount:Int, questionCount:Int) {
         
+        self.popupView.setBorder(color: .black, width: 2.5)
         var point = 0
 
         switch questionCount {

@@ -97,6 +97,7 @@
 "hash4" = "#traurig";
 "hash5" = "#verzweifelt";
 "factcheckdialog_reportbtn" = "ARTIKEL PUBLIZIEREN";
+"titlearticlechange_title" = "Zeitung versenden";
 
 "paireddialog_title" = "PARTIKELPAAR";
 
@@ -119,9 +120,8 @@
 "publish_gomymenubtn" = "MEINE SEITE";
 "publish_gohomebtn" = "AUF DIE STARTSEITE GEHEN";
 
-"titlearticlechange_title" = "Meine Zeitung überarbeiten";
-"titlearticlechange_titleselect" = "Wähle die Schlagzeile aus";
-"titlearticlechange_subselect" = "Deine Leitartikel auswählen";
+"titlearticlechange_titleselect" = "1. Wähle die Schlagzeile aus";
+"titlearticlechange_subselect" = "2. Deine Leitartikel auswählen";
 "Next" = "Weiter";
 "titlearticlechange_guide" = "Wähle 2 Leitartikel aus";
 
@@ -145,6 +145,8 @@
 "levelup" = "Du bist jetzt \n%@.";
 "getBadge" = "Herzlichen Glückwunsch! Du bekommst ein %@ geworden!";
 "getPrize" = "HERZLICHEN GLÜCKWUNSCH!\n Du bist der %@ bei Mauerspechte des Tages!";
+"badgeTitle" = "ABZEICHEN";
+"levelUpTitle" = "LEVEL UP";
 
 "timedialog_timeend" = "Die Zeit ist um!";
 "timedialog_timelimit" = "Du hast noch %@ Minuten.";

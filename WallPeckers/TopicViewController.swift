@@ -86,10 +86,12 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
             
         
             if popupEmpty {
-                if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == topic}).first?.badge {
+                if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == topic}).first?.title {
                     
+                    print(badge)
+                    print("~~~")
                     
-                    if RealmArticle.shared.getAll().filter({$0.section == topic}).filter({$0.isCompleted}).count == 9 {
+                    if RealmArticle.shared.getAll().filter({$0.section == topic}).filter({$0.isCompleted}).count > 0 {
                         
                         PopUp.levelBadgePopup(type: .badge, title:String(format:"getBadge".localized, badge), image: UIImage.init(named: "getBadge\(topic)")!, tag: 10, vc: self)
                     }

@@ -162,7 +162,28 @@ class AfterRegisterViewController: UIViewController {
 
             UserDefaults.standard.set(true, forKey: "Playing")
             
+            if let previousPresscode = UserDefaults.standard.string(forKey: "presscode") {
+                
+                if previousPresscode == pressCodeTf.text ?? "" {
+                    
+                    
+                }else{ // 이미 시작했지만 presscode 가 다름
+                    RealmUser.shared.initializedUserInfo()
+
+//                    try! realm.write {
+//                        RealmUser.shared.getUserData()?.playTime = 0
+//                        UserDefaults.standard.set("false", forKey: "Tutorial")
+//                    }
+                }
+                
+            }
+            
+            
             if UserDefaults.standard.bool(forKey: "Tutorial") {
+                
+                
+                
+                
                 guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
 
                 if let gvc = vc.viewControllers.first as? GameViewController {
@@ -173,6 +194,9 @@ class AfterRegisterViewController: UIViewController {
                 
             }else{
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+                
+                UserDefaults.standard.set(pressCodeTf.text ?? "", forKey: "presscode")
+
                 
                 CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
                     

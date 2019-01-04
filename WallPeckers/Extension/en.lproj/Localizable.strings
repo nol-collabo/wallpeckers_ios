@@ -123,8 +123,8 @@
 "publish_gohomebtn" = "Go to START";
 
 "titlearticlechange_title" = "Edit My Newspaper";
-"titlearticlechange_titleselect" = "Select the Headline";
-"titlearticlechange_subselect" = "Your Featured Article";
+"titlearticlechange_titleselect" = "1. Select the Headline";
+"titlearticlechange_subselect" = "2. Your Featured Article";
 "Next" = "Next";
 "titlearticlechange_guide" = "Select 2 Fetured Articles.";
 
@@ -148,6 +148,8 @@
 "levelup" = "You're now\n%@.";
 "getBadge" = " Congratulations! You've got the %@!";
 "getPrize" = "Congratulations!\nYou're Wallpecker's\n %@ of the Day.";
+"badgeTitle" = "BADGE";
+"levelUpTitle" = "LEVEL UP";
 
 "timedialog_timeend" = "Time's up!";
 "timedialog_timelimit" = "You have %@ minutes left.";
