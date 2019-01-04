@@ -18,8 +18,8 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeDescLb = UILabel()
     var userInfo:User?
     let keyboardResigner = UITapGestureRecognizer()
-    let enPressCodes:[String] = ["berlin", "wall", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape"]
-    let dePressCodes:[String] = ["dmz", "dorasan", "2", "5", "60", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht"]
+    let enPressCodes:[String] = ["berlin", "wall","10", "20", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "dmz", "dorasan", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "베를린", "장벽"]
+    let dePressCodes:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,21 +132,21 @@ class AfterRegisterViewController: UIViewController {
                     moveToGame()
                 }else{
                     if let _inputCode = pressCodeTf.text {
-                        switch Standard.shared.getLocalized() {
-                            
-                        case .ENGLISH, .KOREAN:
+//                        switch Standard.shared.getLocalized() {
+                        
+//                        case .ENGLISH, .KOREAN:
                             if !enPressCodes.contains(_inputCode.lowercased()) {
                                 pressCodeTf.text = ""
                                 pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
                                 return
                             }
-                        case .GERMAN:
-                            if !dePressCodes.contains(_inputCode.lowercased()) {
-                                pressCodeTf.text = ""
-                                pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
-                                return
-                            }
-                        }
+//                        case .GERMAN:
+//                            if !dePressCodes.contains(_inputCode.lowercased()) {
+//                                pressCodeTf.text = ""
+//                                pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+//                                return
+//                            }
+//                        }
                         
                         PopUp.callTwoButtonAlert(vc:self)
 
@@ -166,21 +166,17 @@ class AfterRegisterViewController: UIViewController {
     func moveToGame(){
         
         if let _inputCode = pressCodeTf.text {
-            switch Standard.shared.getLocalized() {
-                
-            case .ENGLISH, .KOREAN:
+//            switch Standard.shared.getLocalized() {
+            
+//            case .ENGLISH, .KOREAN:
                 if !enPressCodes.contains(_inputCode.lowercased()) {
                     pressCodeTf.text = ""
                     pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
                     return
                 }
-            case .GERMAN:
-                if !dePressCodes.contains(_inputCode.lowercased()) {
-                    pressCodeTf.text = ""
-                    pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
-                    return
-                }
-            }
+//            case .GERMAN:
+
+//            }
 
             UserDefaults.standard.set(true, forKey: "Playing")
             
