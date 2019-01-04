@@ -22,7 +22,8 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     var sectionString:String?
     var questionPoint:String?
     var checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-
+    var articleTrycount:Int = 0
+//    var myTryCount = RealmArticle.shared.get
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -32,6 +33,11 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     func setData(article:Article, five:[Five_W_One_Hs]) {
         self.article = article
         self.five_W_One_Hs = five
+        if let a = RealmArticle.shared.getAll().filter({$0.id == article.id}).first {
+            articleTrycount = a.tryCount
+        }
+        factCheckBtnStatus()
+ 
     }
     
     private func setUI(){
@@ -54,6 +60,10 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         backButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)
         factCheckButton.addTarget(self, action: #selector(moveToFactCheck(sender:)), for: .touchUpInside)
         setStack()
+        
+
+        
+
         
     }
     
@@ -82,6 +92,9 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                     
                     if view.tag == $0.correctClue {
                         view.indicatedWhenBeforeChecked($0)
+                        factCheckButton.backgroundColor = .black
+                        factCheckButton.setTitleColor(.white, for: .normal)
+                        factCheckButton.isEnabled = true
                     }
                     
                 })
@@ -149,6 +162,18 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         sender.isUserInteractionEnabled = true
     }
     
+    func factCheckBtnStatus() {
+        if articleTrycount == 0 {
+            factCheckButton.backgroundColor = .basicBackground
+            factCheckButton.setTitleColor(.black, for: .normal)
+            factCheckButton.isEnabled = false
+        }else{
+            factCheckButton.backgroundColor = .black
+            factCheckButton.setTitleColor(.white, for: .normal)
+            factCheckButton.isEnabled = true
+        }
+    }
+    
 }
 
 extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
@@ -170,6 +195,9 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                 factCheck.selectedClue = selectedClue.id
                 factCheck.selectedArticleId = article!.id
                 factCheck.correctClue = selectedClueView.tag
+                factCheckButton.backgroundColor = .black
+                factCheckButton.setTitleColor(.white, for: .normal)
+                factCheckButton.isEnabled = true
                 
                 if let beforeSelected = RealmUser.shared.getUserData()?.factCheckList.filter("correctClue = \(selectedClueView.tag)").first {
                     if let idx = RealmUser.shared.getUserData()?.factCheckList.index(of: beforeSelected) {

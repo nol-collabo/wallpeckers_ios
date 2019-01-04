@@ -82,8 +82,10 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         }
         coLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         coLayout.itemSize = UICollectionViewFlowLayout.automaticSize
+        coLayout.minimumLineSpacing = 0
 //        coLayout.itemSize = CGSize.init(width: 100, height: 30)
         collectionView.collectionViewLayout = coLayout
+        
         collectionView.isScrollEnabled = false
         collectionView.register(HashtagCollectionViewCell.self, forCellWithReuseIdentifier: "HashtagCollectionViewCell")
         
@@ -105,11 +107,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         self.titleLb.attributedText = article.title!.makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
         self.tag = article.id
         
-
         collectionView.reloadData()
-        
-        print(self.frame.height, "FGGGG")
-
         
     }
     
@@ -133,10 +131,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         selectButton.setBorder(color: .init(white: 155/255, alpha: 1), width: 1, cornerRadius: 12)
         
         if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
-            
-//            section.
-            print(hash1)
-            print("~~~~~")
+
             hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
             
         }

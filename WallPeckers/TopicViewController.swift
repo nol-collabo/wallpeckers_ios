@@ -134,7 +134,6 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
     
     private func setUI() {
         self.view.backgroundColor = .basicBackground
-        self.setCustomNavigationBar()
         type = GameViewType.topic
         sections = RealmSection.shared.get(selectedLanguage)
         

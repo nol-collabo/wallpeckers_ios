@@ -27,7 +27,8 @@ extension UIView {
         
         self.addSubview(underBar)
         underBar.snp.makeConstraints { (make) in
-            make.bottom.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(4)
             make.height.equalTo(2)
         }
         

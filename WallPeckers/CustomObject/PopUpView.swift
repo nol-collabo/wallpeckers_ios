@@ -76,7 +76,7 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
         self.popupView.addSubview([titleLb, emailTf, okButton, cancelButton])
         
         titleLb.snp.makeConstraints { (make) in
-            make.top.left.equalTo(10)
+            make.top.left.equalTo(20)
             make.trailing.equalTo(-10)
             make.height.equalTo(55)
         }

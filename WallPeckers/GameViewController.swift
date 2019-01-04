@@ -210,6 +210,7 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 vc.setData(article: data.0, five: data.1)
                 vc.questionPoint = data.2
+//                vc.factCheckBtnStatus()
                 self.setChildVc(rootView: clueSelectView, vc)
                 print(vc)
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)

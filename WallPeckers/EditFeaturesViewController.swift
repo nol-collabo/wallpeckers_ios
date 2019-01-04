@@ -20,6 +20,7 @@ class EditFeaturesViewController: UIViewController {
     let aStackView = AloeStackView()
     let nextButton = BottomButton()
     var firstSelected:Int = 0
+    let scrollView = BaseVerticalScrollView()
     let backButton = BottomButton()
     let infoLb = UILabel()
     var selectedId:[Int] = [] {
@@ -50,11 +51,12 @@ class EditFeaturesViewController: UIViewController {
     func setUI() {
         dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
         
+        scrollView.setScrollView(vc: self)
         
-        self.view.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, infoLb, nextButton, backButton])
+        self.scrollView.contentView.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, infoLb, nextButton, backButton])
         self.view.backgroundColor = .basicBackground
         dismissBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeArea.top)
+            make.top.equalToSuperview()
             make.trailing.equalToSuperview()
             make.width.height.equalTo(DeviceSize.width > 320 ? 40 : 30)
         }
@@ -157,6 +159,7 @@ class EditFeaturesViewController: UIViewController {
             make.leading.equalTo(50)
             make.height.equalTo(DeviceSize.width > 320 ? 55 : 45)
             make.centerX.equalToSuperview()
+            make.bottom.equalTo(-10)
         }
         
         backButton.setTitle("BACK".localized, for: .normal)

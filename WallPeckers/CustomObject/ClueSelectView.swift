@@ -48,7 +48,7 @@ final class ClueSelectView:UIView {
         if let clue = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized()) {
             
             clueLb.text = clue.desc!
-            infoLb.attributedText = String(format:"Tap_COde_inputed".localized, "\(clue.identification!)").makeAttrString(font: .NotoSans(.bold, size: 19), color: .white)
+            infoLb.attributedText = String(format:"Tap_Code_inputed".localized, "\(clue.identification!)").makeAttrString(font: .NotoSans(.bold, size: 19), color: .white)
             infoLb.adjustsFontSizeToFitWidth = true
             
         }

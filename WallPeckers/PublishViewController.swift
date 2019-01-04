@@ -305,7 +305,14 @@ class PublishViewController: UIViewController {
                 RealmUser.shared.getUserData()?.playTime = 0
             }
             
-            self.present(vc, animated: true, completion: nil)
+            self.present(vc, animated: false) {
+                
+                
+                guard let nvc = vc.viewControllers.filter({$0 is AlreadyRegisterViewController}).first as? AlreadyRegisterViewController else {return}
+                
+                vc.pushViewController(nvc, animated: true)
+                
+            }
         }
         sender.isUserInteractionEnabled = true
 
