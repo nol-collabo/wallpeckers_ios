@@ -128,9 +128,29 @@ class AfterRegisterViewController: UIViewController {
             }else{
                 
                 if !UserDefaults.standard.bool(forKey: "Playing") {
+                    
                     moveToGame()
                 }else{
-                    PopUp.callTwoButtonAlert(vc:self)
+                    if let _inputCode = pressCodeTf.text {
+                        switch Standard.shared.getLocalized() {
+                            
+                        case .ENGLISH, .KOREAN:
+                            if !enPressCodes.contains(_inputCode.lowercased()) {
+                                pressCodeTf.text = ""
+                                pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                                return
+                            }
+                        case .GERMAN:
+                            if !dePressCodes.contains(_inputCode.lowercased()) {
+                                pressCodeTf.text = ""
+                                pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                                return
+                            }
+                        }
+                        
+                        PopUp.callTwoButtonAlert(vc:self)
+
+                    }
                 }
                 
 
@@ -172,10 +192,6 @@ class AfterRegisterViewController: UIViewController {
                 }else{ // 이미 시작했지만 presscode 가 다름
                     RealmUser.shared.initializedUserInfo()
 
-//                    try! realm.write {
-//                        RealmUser.shared.getUserData()?.playTime = 0
-//                        UserDefaults.standard.set("false", forKey: "Tutorial")
-//                    }
                 }
                 
             }
@@ -262,7 +278,7 @@ class AfterRegisterViewController: UIViewController {
 
 extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDelegate {
     func tapOk(sender: Any) {
-//        RealmUser.shared.initializedUserInfo()
+        RealmUser.shared.initializedUserInfo()
         moveToGame()
     }
     
