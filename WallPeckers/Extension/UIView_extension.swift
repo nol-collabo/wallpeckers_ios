@@ -197,6 +197,7 @@ extension UIFont {
     
     static func NotoSans(_ font:NotoSansFontSize, size:CGFloat) -> UIFont {
         
+  
         return UIFont.init(name: font.rawValue, size: size)!
         
     }
