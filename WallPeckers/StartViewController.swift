@@ -32,49 +32,7 @@ class StartViewController: UIViewController {
 
         setUI()
         
-        CustomAPI.getHashtag { (hashtags) in
-//            print(hashtags)
-            let json = JSON(hashtags)
-            
-//            print(json["hashes"].arrayValue)
-//
-            guard let hashes = json["hashes"].array else {return}
-            
-            let articles = RealmArticle.shared.getAll()
-            
-            for i in 0...articles.count - 1{
-                //
-                if let ha = hashes[i].dictionary {
-                    
-                    let value = ha.mapValues({
-                        
-                        $0.arrayValue
-                    }).map({key, value in
-                        
-                        value
-                    })
-                    
-                    let a = articles[i]
-                    
-                    try! realm.write {
-                        
-                        a.hashArray.removeAll()
-                        
-                        let hashes = value[0]
-                        _ = hashes.map({
-                            a.hashArray.append($0.intValue)
-                        })
-                    }
-   
-                    
-                    
-                }
-                
-                
-            }
 
-
-        }
 
     }
     

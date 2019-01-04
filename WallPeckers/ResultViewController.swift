@@ -180,12 +180,6 @@ class ResultViewController: UIViewController {
             self.present(nvc, animated: true) // 완료 후 시작 페이지로, 아래꺼 누르면 안드로이드처럼 내 프로필로 가긴 하는데 이상해서 일단 주석처리 해놓음
         }
         
-       
-//        {
-//            nvc.pushViewController(vc, animated: true)
-//
-//        }
-//        self.present(vc, animated: true, completion: nil)
     }
 
 }

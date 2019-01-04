@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class AfterRegisterViewController: UIViewController {
 
@@ -178,51 +179,80 @@ class AfterRegisterViewController: UIViewController {
                 
             }
             
-            
-            if UserDefaults.standard.bool(forKey: "Tutorial") {
+            CustomAPI.getHashtag { (hashtags) in
                 
-                
-                
-                
-                guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+                let json = JSON(hashtags!)
 
-                if let gvc = vc.viewControllers.first as? GameViewController {
-                    gvc.inputCode = _inputCode
+                guard let hashes = json["hashes"].array else {return}
+                
+                let articles = RealmArticle.shared.getAll()
+                
+                for i in 0...articles.count - 1{
+
+                    if let ha = hashes[i].dictionary {
+                        
+                        let value = ha.mapValues({
+                            
+                            $0.arrayValue
+                        }).map({key, value in
+                            
+                            value
+                        })
+                        
+                        let a = articles[i]
+                        
+                        try! realm.write {
+                            
+                            a.hashArray.removeAll()
+                            
+                            let hashes = value[0]
+                            _ = hashes.map({
+                                a.hashArray.append($0.intValue)
+                            })
+                        }
+                    }
                 }
                 
-                self.present(vc, animated: true, completion: nil)
-                
-            }else{
-                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
-                
-                UserDefaults.standard.set(pressCodeTf.text ?? "", forKey: "presscode")
+                if UserDefaults.standard.bool(forKey: "Tutorial") {
 
-                
-                CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
+                    guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
                     
-                    UserDefaults.standard.set(sessionId, forKey: "sessionId")
+                    if let gvc = vc.viewControllers.first as? GameViewController {
+                        gvc.inputCode = _inputCode
+                    }
                     
-                    vc.inputCode = _inputCode
+                    self.present(vc, animated: true, completion: nil)
                     
-                    CustomAPI.newPlayer(completion: { (id) in
-                        try! realm.write {
-                            RealmUser.shared.getUserData()?.allocatedId = id
-                            
-                            self.navigationController?.pushViewController(vc, animated: true)
-
-                        }
+                }else{
+                    guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+                    
+                    UserDefaults.standard.set(self.pressCodeTf.text ?? "", forKey: "presscode")
+                    
+                    
+                    CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
                         
-                    })
-                    
+                        UserDefaults.standard.set(sessionId, forKey: "sessionId")
+                        
+                        vc.inputCode = _inputCode
+                        
+                        CustomAPI.newPlayer(completion: { (id) in
+                            try! realm.write {
+                                RealmUser.shared.getUserData()?.allocatedId = id
+                                
+                                self.navigationController?.pushViewController(vc, animated: true)
+                                
+                            }
+                            
+                        })
+                        
+                        
+                    }
                     
                 }
                 
             }
             
         }
-        
-        
-
     }
     
 
