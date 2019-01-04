@@ -105,7 +105,12 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             make.centerX.equalToSuperview()
             
         }
-         
+        
+        
+        if isCompletedFirst {
+            // 버튼 두개 추가
+        }
+        
         titleLb.attributedText = "completearticle_title".localized.makeAttrString(font: .NotoSans(.medium, size: 25), color: .black)
         titleLb.textAlignment = .center
         okButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)

@@ -143,8 +143,9 @@
 "Sports" = "Sport";
 "People" = "Menschen";
 
-"levelup" = "Du bist %@\nvon Mauerspechte geworden.";
-"getBadge" = "Herzlichen Glückwunsch!\nDu bekommst ein Mauerspechte-Abzeichen im Ressourt %@!";
+
+"levelup" = "HERZLICHEN GLÜCKWUNSCH!\nDu bist %@\nvon Mauerspechte geworden.";
+"getBadge" = "HERZLICHEN GLÜCKWUNSCH!\nDu bekommst ein Mauerspechte-Abzeichen im Ressourt %@!";
 "getPrize" = "HERZLICHEN GLÜCKWUNSCH!\n Du bist %@ von Mauerspechte des Tages geworden!";
 "badgeTitle" = "ABZEICHEN";
 "levelUpTitle" = "LEVEL UP";
