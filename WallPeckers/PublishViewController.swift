@@ -292,7 +292,7 @@ class PublishViewController: UIViewController {
             main2 = defaultHeadlines[2]
         }
 
-        CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: "zelatool@gmail.com", headline: headline, main1: main1, main2: main2) { (result) in
+        CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: email, headline: headline, main1: main1, main2: main2) { (result) in
             print(result)
             print("UPDATEPLAYER")
             guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
@@ -305,11 +305,11 @@ class PublishViewController: UIViewController {
                 RealmUser.shared.getUserData()?.playTime = 0
             }
             
-            self.present(vc, animated: false) {
+            self.present(vc, animated: true) {
                 
                 
-                guard let nvc = vc.viewControllers.filter({$0 is AlreadyRegisterViewController}).first as? AlreadyRegisterViewController else {return}
-                
+                guard let nvc = vc.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+
                 vc.pushViewController(nvc, animated: true)
                 
             }
