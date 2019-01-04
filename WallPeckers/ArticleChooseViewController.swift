@@ -12,8 +12,21 @@ import Realm
 
 let iconWidth = DEVICEHEIGHT > 600 ? 93 : 85
 
-class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupViewDelegate, ArticleSelectDelegate {
+class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupViewDelegate, ArticleSelectDelegate, CallBadgeDelegate {
 
+    
+    func callCompleteBadge(tag: Int) {
+        
+        if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == tag}).first?.badge {
+            
+            if RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9 {
+                
+                PopUp.levelBadgePopup(type: .badge, title:String(format:"getBadge".localized, badge), image: UIImage.init(named: "getBadge\(tag)")!, tag: 10, vc: self)
+            }
+        }
+    }
+    
+    
     var firstLevelUp:Bool = UserDefaults.standard.bool(forKey: "firstLevelUp")
     var secondLevelUp:Bool = UserDefaults.standard.bool(forKey: "secondLevelUp")
     var thirdLevelUp:Bool = UserDefaults.standard.bool(forKey: "thirdLevelUp")
