@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class PublishViewController: UIViewController {
     
+    let circleBackBtn = UIButton()
     var fromMyPage:Bool = false
     let baseView = BaseVerticalScrollView()
     let headerView = UIImageView()
@@ -91,6 +92,21 @@ class PublishViewController: UIViewController {
             
         }
         
+            myPageButton.isHidden = fromMyPage
+            startButton.isHidden = fromMyPage
+        
+        if fromMyPage {
+            baseView.contentView.addSubview(circleBackBtn)
+            circleBackBtn.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)
+            circleBackBtn.setImage(UIImage.init(named: "backButton"), for: .normal)
+            
+            circleBackBtn.snp.makeConstraints { (make) in
+                make.centerX.equalToSuperview()
+                make.bottom.equalTo(-50)
+                make.width.height.equalTo(100)
+            }
+        }
+        
         switch Standard.shared.getLocalized() {
             
         case .ENGLISH:
@@ -146,12 +162,12 @@ class PublishViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
-        descLb.attributedText = "publish_changedesc".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
+        descLb.attributedText = "publish_changedesc".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
         desc2Lb.adjustsFontSizeToFitWidth = true
         descLb.textAlignment = .center
         desc2Lb.textAlignment = .center
         descLb.adjustsFontSizeToFitWidth = true
-        desc2Lb.attributedText = "publish_gonews_verbose".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
+        desc2Lb.attributedText = "publish_gonews_verbose".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
         
         editButton.setTitle("titlearticlechange_title".localized, for: .normal)
         editButton.snp.makeConstraints { (make) in
@@ -162,6 +178,7 @@ class PublishViewController: UIViewController {
 
         }
         editButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
+  
         sendButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
         
         editButton.setBorder(color: .black, width: 1.5)
@@ -193,7 +210,9 @@ class PublishViewController: UIViewController {
             make.height.equalTo(55)
             make.centerX.equalToSuperview()
         }
-        sendButton.setTitle("publish_gonews".localized, for: .normal)
+        sendButton.setAttributedTitle("publish_gonews".localized.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black), for: .normal)
+        editButton.setAttributedTitle("publish_changebtn".localized.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black), for: .normal)
+
         myPageButton.setTitle("publish_gomymenubtn".localized, for: .normal)
         startButton.setTitle("publish_gohomebtn".localized, for: .normal)
         startButton.snp.makeConstraints { (make) in
