@@ -119,7 +119,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         }
         
         if let ar = articles?.filter({$0.id == sender.tag}).first {
-            
+            print(ar)
             if ar.isCompleted {
                 
                 let sendingData = (ar, ar.selectedHashtag, Array(ar.wrongQuestionsId), false)

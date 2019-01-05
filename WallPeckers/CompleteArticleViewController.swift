@@ -176,6 +176,12 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         
         guard let vc = self.findBeforeVc(type: .article) else {return}
         
+        try! realm.write {
+//            if let _article = article {
+                article.isCompleted = true
+//            }
+        }
+        
         if isCompletedFirst {
             CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: article.tryCount, photoId: article.selectedPictureId) { (result) in
                 
@@ -200,7 +206,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
             try! realm.write {
                 if let _article = article {
-//                    _article.selectedPictureId = completeArticleView.indexRow
+                    _article.isCompleted = true
                 }
             }
             
