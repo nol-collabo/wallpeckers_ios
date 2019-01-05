@@ -50,10 +50,10 @@ class HeadlineView:UIView {
         
     }
     
-    func setData(header:String, thumnail:String) {
+    func setData(header:String, thumnail:String, isHeadline:Bool = false) {
         
-        self.titleLb.attributedText = header.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
-        self.thumnailLb.attributedText = thumnail.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black)
+        self.titleLb.attributedText = header.makeAttrString(font: .NotoSans(.bold, size: 20), color: .black)
+        self.thumnailLb.attributedText = thumnail.makeAttrString(font: .NotoSans(.bold, size: isHeadline ? 22 : 18), color: .black)
         
     }
     

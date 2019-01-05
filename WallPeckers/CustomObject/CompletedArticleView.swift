@@ -11,7 +11,8 @@ import UIKit
 import Kingfisher
 
 final class CompletedArticleView:UIView {
-    
+    var article:Article?
+    var delegate:GetPictureIdDelegate?
     let titleImageView = UIImageView.init(image: UIImage.init(named: "completeArticleLogo")!)
     let underLine1 = UIView()
     let titleLb = UILabel()
@@ -52,6 +53,7 @@ final class CompletedArticleView:UIView {
     func setData(article:Article, wrongClue:[Int], region:String) {
         
     
+        self.article = article
         images = Album.findImages(articleId: article.id)
         
         switch Standard.shared.getLocalized() {
@@ -261,11 +263,23 @@ final class CompletedArticleView:UIView {
             
             indexRow += 1
             
+            try! realm.write {
+                article?.selectedPictureId = indexRow
+            }
+            
+            delegate?.pictureId = indexRow
             if indexRow < images.count {
                let nextIndex = IndexPath.init(row: indexRow, section: 0)
+                delegate?.pictureId = indexRow
+                try! realm.write {
+                    article?.selectedPictureId = indexRow
+                }
                 imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
             }else{
                 indexRow = 0
+                try! realm.write {
+                    article?.selectedPictureId = indexRow
+                }
                 let nextIndex = IndexPath.init(row: indexRow, section: 0)
                 imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
             }
@@ -277,10 +291,20 @@ final class CompletedArticleView:UIView {
         }else{
             if indexRow > 0 {
                 indexRow -= 1
+                try! realm.write {
+                    article?.selectedPictureId = indexRow
+                }
+//                try! artic
                 let nextIndex = IndexPath.init(row: indexRow, section: 0)
+                delegate?.pictureId = indexRow
+
                 imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
             }else{
                 indexRow = images.count - 1
+                try! realm.write {
+                    article?.selectedPictureId = indexRow
+                }
+                delegate?.pictureId = indexRow
                 let nextIndex = IndexPath.init(row: indexRow, section: 0)
                 imageCollectionView.scrollToItem(at: nextIndex, at: .centeredHorizontally, animated: false)
             }
@@ -322,6 +346,11 @@ extension CompletedArticleView:UICollectionViewDelegate, UICollectionViewDataSou
         
     }
     
+}
+
+protocol GetPictureIdDelegate {
+    
+    var pictureId:Int {get set}
 }
 
 

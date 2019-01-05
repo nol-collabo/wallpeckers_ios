@@ -54,7 +54,7 @@ class PublishViewController: UIViewController {
         
         if let headLine = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[0]}).first {
             
-            headlineView.setData(header: "publish_titlearticle".localized, thumnail: headLine.title!)
+            headlineView.setData(header: "publish_titlearticle".localized, thumnail: headLine.title!, isHeadline: true)
             
             if defaultHeadlines.count == 1 {
                 feature1View.setData(header: "publish_subarticle1".localized, thumnail: "")

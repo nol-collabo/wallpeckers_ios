@@ -34,7 +34,7 @@ final class NewspaperPublishedView:UIView {
         
         publishButton.snp.makeConstraints { (make) in
             make.top.equalTo(newspaperImageView.snp.bottom).offset(10)
-            make.width.equalToSuperview().multipliedBy(0.6)
+            make.width.equalToSuperview().multipliedBy(0.7)
             make.height.equalTo(55)
             make.centerX.equalToSuperview()
         }
@@ -51,6 +51,8 @@ final class NewspaperPublishedView:UIView {
         
         publishButton.setTitle("Printing Press".localized, for: .normal)
         publishButton.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
+        publishButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
+        publishButton.setTitleColor(.black, for: .normal)
     }
     
     @objc func moveToNext(sender:UIButton) {

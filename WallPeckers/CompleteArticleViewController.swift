@@ -9,8 +9,9 @@
 import UIKit
 import AloeStackView
 
-class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollViewDelegate {
+class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollViewDelegate, GetPictureIdDelegate {
     
+    var pictureId: Int = 0
     var isCompletedFirst:Bool = false
     var bottomReached:Bool = false
     var topReached:Bool = false
@@ -30,8 +31,11 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         super.viewDidLoad()
         
         setUI()
+//        print
         
         if let _hash = hashTag, let _article = article {
+            
+            print(_article.selectedPictureId, "MYPICUTREID")
             
             if let a = article?.hashArray {
 
@@ -61,6 +65,16 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             }
             
             completeArticleView.setData(article: _article, wrongClue: wrongIds, region: _article.region!)
+            completeArticleView.delegate = self
+            if !isCompletedFirst {
+                print(_article.selectedPictureId, "MYPICTUREID")
+              
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                     self.completeArticleView.imageCollectionView.scrollToItem(at: IndexPath.init(row: _article.selectedPictureId, section: 0), at: .centeredHorizontally, animated: false)
+                }
+
+                
+            }
             aStackView.addRow(titleLb)
             aStackView.addRow(completeArticleView)
             aStackView.delegate = self
@@ -175,7 +189,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
             try! realm.write {
                 if let _article = article {
-                    _article.selectedPictureId = completeArticleView.indexRow
+//                    _article.selectedPictureId = completeArticleView.indexRow
                 }
             }
             
@@ -190,8 +204,6 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                     }else{
                         
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
-                        
-                        print("오류")
                     }
                 }
             }else{
