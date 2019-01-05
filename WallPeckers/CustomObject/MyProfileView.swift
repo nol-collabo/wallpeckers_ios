@@ -57,14 +57,10 @@ class MyProfileView:UIView, UITextFieldDelegate {
             
         case .ENGLISH:
             self.backgroundColor = .paleOliveGreen
-            
         case .KOREAN:
             self.backgroundColor = .babyBlue
-            
         case .GERMAN :
             self.backgroundColor = .paleOrange
-            
-            
         }
         
         profileImageView.setBorder(color: .black, width: 3.5)
@@ -72,7 +68,7 @@ class MyProfileView:UIView, UITextFieldDelegate {
             make.top.equalTo(profileImageView.snp.bottom).offset(DeviceSize.width > 320 ? 20 : 10)
             make.centerX.equalToSuperview()
             make.height.equalTo(30)
-            make.width.greaterThanOrEqualTo(50)
+            make.width.greaterThanOrEqualTo(100)
             make.width.lessThanOrEqualToSuperview().multipliedBy(0.8)
         }
         nameTf.textAlignment = .center

@@ -217,14 +217,16 @@ extension GameViewController:GameViewTransitionDelegate {
         case .backward:
             fromVc.removeFromParent()
             
-            if let _ = fromVc as? CompleteArticleViewController {
+            if let fvc = fromVc as? CompleteArticleViewController {
                 
                 
                 if let vc = toVc as? TopicViewController {
                     
                     let sectionTag = sendData as! Int
                     
-                    vc.callLevelPopUp(topic: sectionTag)
+                    if fvc.isCompletedFirst {
+                        vc.callLevelPopUp(topic: sectionTag)
+                    }
                     
                     vc.setStars()
                     vc.view.layoutIfNeeded()
@@ -246,7 +248,10 @@ extension GameViewController:GameViewTransitionDelegate {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
                         
                         self.setChildVc(rootView: self.articleView, vc)
-                        vc.callLevelPopUp(topic: sectionTag)
+                        
+                        if fvc.isCompletedFirst {
+                            vc.callLevelPopUp(topic: sectionTag)
+                        }
                         
                         vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                         vc.changeColor()
