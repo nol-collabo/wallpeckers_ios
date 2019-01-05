@@ -84,7 +84,18 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 deskView.setDataForCompleteArticle(region: _article.region!, desc: "completearticle_desk".localized)
             }
             aStackView.addRow(hashView)
+            
+            let emptyView = UIView()
+            
+            aStackView.addRow(emptyView)
+            
+            emptyView.snp.makeConstraints { (make) in
+                make.edges.equalToSuperview()
+                make.height.equalTo(10)
+            }
+            
             aStackView.addRow(okButton)
+            
             okButton.snp.makeConstraints { (make) in
                 make.top.bottom.equalToSuperview()
                 make.height.equalTo(55)

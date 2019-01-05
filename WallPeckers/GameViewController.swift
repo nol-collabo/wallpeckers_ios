@@ -237,18 +237,25 @@ extension GameViewController:GameViewTransitionDelegate {
                     
                     let sectionTag = sendData as! Int
                     
-                    vc.callLevelPopUp(topic: sectionTag)
-                    
-                    vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+
                     
                     
-                    vc.changeColor()
-                    self.setChildVc(rootView: articleView, vc)
+                 
                     
-                    vc.view.layoutIfNeeded()
-                    vc.view.layoutSubviews()
                     
-                    horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+                        
+                        self.setChildVc(rootView: self.articleView, vc)
+                        vc.callLevelPopUp(topic: sectionTag)
+                        
+                        vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+                        vc.changeColor()
+                        vc.view.layoutIfNeeded()
+                        vc.view.layoutSubviews()
+                        
+                        self.horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: self.horizontalView.scrollView.contentOffset.y), animated: true)
+                    }
+
                     
                 }
                 

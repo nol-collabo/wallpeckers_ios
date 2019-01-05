@@ -247,7 +247,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         
         print(factCheckList)
         print("CHECK")
-//        factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
 
 
         _ = articles?.map({
@@ -256,7 +255,9 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             
             factCheckList.map({
                 
-                if $0.selectedArticleId == ar.id {
+                fact in
+                
+                if fact.selectedArticleId == ar.id {
                     
                     _ = articleButtons.map({
                     
@@ -266,7 +267,8 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                             _ = links.map({
                                 
                                 if btn.tag == $0.leftTag || btn.tag == $0.rightTag {
-                                    if ar.isCompleted {
+                                    if fact.isSubmit {
+                                        
                                         btn.backgroundColor = $0.backgroundColor
                                         btn.pointTitleLb.textColor = UIColor.white
                                         btn.titleLb.textColor = UIColor.white

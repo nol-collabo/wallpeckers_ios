@@ -384,7 +384,7 @@ class PairedArticleView:BasePopUpView {
         rightArticle.borderColor = .black
         okButton.addTarget(self, action: #selector(tapOkButton(sender:)), for: .touchUpInside)
         
-        infoLb.attributedText = "paireddialog_title".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: 32), color: .black)
+        infoLb.attributedText = "paireddialog_title".localized.makeAttrString(font: .AmericanTypeWriter(.bold, size: DeviceSize.width > 320  ? 32 : 28), color: .black)
         infoLb.numberOfLines = 0
         infoLb.adjustsFontSizeToFitWidth = true
         
@@ -548,7 +548,7 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashtagCollectionViewCell", for: indexPath) as? HashtagCollectionViewCell {
             
-            cell.lbl.attributedText = hashTags[indexPath.item].makeAttrString(font: .AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 18 : 15), color: .black)
+            cell.lbl.attributedText = hashTags[indexPath.item].makeAttrString(font: .AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 16 : 14), color: .black)
             
             return cell
         }else{

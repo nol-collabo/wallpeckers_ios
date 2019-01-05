@@ -21,9 +21,9 @@
 "registrationdialog_title" = "Add Photo";
 "registrationdialog_camera" = "Camera";
 "registrationdialog_album" = "Gallery";
-"registrationdialog_noprofile" = "Default Iamge";
+"registrationdialog_noprofile" = "Default Image";
 
-"selectload_desc" = "You have already played this game.\nIf you want to continue the game or see the result of it\nPress \'Continue the Last Game\'.";
+"selectload_desc" = "You have already played this game.\nIf you want to continue the game or \nsee the result of it,\nPress \'Continue the Last Game\'.";
 "selectload_newgame" = "Start a New Game";
 "selectload_continuegame" = "Continue the Last Game";
 
@@ -40,7 +40,7 @@
 "tutorial1_subtitle" = "WHO, WHEN, WHERE,\nWHAT, HOW and WHY?";
 "tutorial1" = "As the Wall stood strong,\nit became a part of everyday\nand you forgot WHY.\n\nThe WALLPECKERS\n- the journalist of the WALL -\nask WHY and find the truth.";
 "tutorial2_subtitle" = "From the DMZ to the Berlin Wall";
-"tutorial2" = "Cover issues about\nthe Korean DMZ, still standing 65 years\nand the Berlin Wall, demolished in 1989.\n\nWrite as many articles as you can\nincluding PAIRED ones";
+"tutorial2" = "Cover issues about\nthe Korean DMZ, still standing 65 years\nand the Berlin Wall, demolished in 1989.\n\nWrite as many articles as you can\nincluding PAIRED ones!";
 "tutorial3_subtitle" = "INTO THE PRESSROOM";
 "tutorial3" = "Collect clues by 5W1H\naround you in the pressroom\nand enter the CODE of them.\n\nGet a FACT-CHECK\nby the desk of WALLPECKERS\nand publish the article.";
 "tutorial4_subtitle" = "GOAL";
@@ -94,11 +94,11 @@
 "factcheckdialog_perfecttitle" = "A PERFECT ARTICLE";
 "factcheckdialog_hashguide" = "Pick your emotional #hashtag\nabout the article";
 
-"hash1" = " #happy ";
-"hash2" = " #hopeful ";
-"hash3" = " #don\'t care ";
-"hash4" = " #sad ";
-"hash5" = " #frustrated ";
+"hash1" = " #happy";
+"hash2" = " #hopeful";
+"hash3" = " #don\'t care";
+"hash4" = " #sad";
+"hash5" = " #frustrated";
 "factcheckdialog_reportbtn" = "PUBLISH THE ARTICLE";
 
 "paireddialog_title" = "PAIRED\nARTICLES";

@@ -112,7 +112,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
                 }
             }
             
-            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
+            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point)P X2" :  "#\(article.point) P"]
             
         }
         
@@ -160,7 +160,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
             }
             
             
-            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
+            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point)P X2" :  "#\(article.point) P"]
             
         }
         
