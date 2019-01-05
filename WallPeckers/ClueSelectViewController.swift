@@ -69,6 +69,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     
     func setStack() {
         
+        stackView.removeAllRows()
         stackView.backgroundColor = .basicBackground
         
         let articleView = ArticleView()
@@ -118,7 +119,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     func changeColor() {
         if let csv = stackView.getAllRows().filter({$0 is ClueSelectView}) as? [ClueSelectView] {
             
-            let selected = Array((RealmUser.shared.getUserData()?.factCheckList)!)
+            let selected = Array((RealmUser.shared.getUserData()?.factCheckList)!).filter({$0.selectedArticleId == article?.id})
             
             _ = selected.map({
                 fact in
@@ -126,10 +127,22 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                     id in
                     if id.tag == fact.correctClue {
                         id.indicatedWhenBeforeChecked(fact, tryCount:1)
-                        id.infoLb.text = "DHDHDHDHDHDHDH"
                         print("correctAnswer")
                         id.layoutSubviews()
                         id.layoutIfNeeded()
+                    }else{
+                        _ = five_W_One_Hs!.map({
+                            
+                            if !$0.given {
+                                
+                                if $0.clue == id.tag {
+                                    print("EMPTY!!!")
+                                    id.clueButton.setTitleColor(.red, for: .normal)
+//                                    id.indicatedWhenBeforeChecked(fact, tryCount:1)
+                                }
+                                
+                            }
+                        })
                     }
                 })
             })
@@ -212,7 +225,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
             if let selectedClueView = findClueView(tag: tag) {
                 
                 selectedClueView.clueLb.text = selectedClue.desc!
-                selectedClueView.clueButton.backgroundColor = .sunnyYellow
+                selectedClueView.clueButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
                 selectedClueView.clueButton.setTitleColor(.black, for: .normal)
                 selectedClueView.infoLb.attributedText = String(format:"Tap_Code_inputed".localized, "\(selectedClue.identification!)").makeAttrString(font: .NotoSans(.bold, size: 15), color: .white)
                 let factCheck = FactCheck()

@@ -13,9 +13,14 @@ import AloeStackView
 
 class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleViewDelegate {
     func tapToBack() {
+        
+        
+        
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+//        print((article, five, questionPoint)) /
+        print("~~~~~")
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article!, five! , questionPoint!), direction: .backward)
     }
     
     
@@ -237,7 +242,7 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
         
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData:  (article!, five! , questionPoint!), direction: .backward)
 
         sender.isUserInteractionEnabled = true
     }

@@ -167,7 +167,7 @@ extension GameViewController:GameViewTransitionDelegate {
                 guard let _sendData = sendData as? ([FactCheck], Article, [Five_W_One_Hs], String) else {return}
                 vc.setData(_sendData.0, article: _sendData.1, five: _sendData.2, questionPoint: _sendData.3)
                 self.setChildVc(rootView: factCheckView, vc)
-                
+                clueSelectView.subviews.first?.removeFromSuperview()
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 3, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
             
@@ -210,9 +210,7 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 vc.setData(article: data.0, five: data.1)
                 vc.questionPoint = data.2
-                //                vc.factCheckBtnStatus()
                 self.setChildVc(rootView: clueSelectView, vc)
-                print(vc)
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
             
@@ -240,7 +238,7 @@ extension GameViewController:GameViewTransitionDelegate {
                     let sectionTag = sendData as! Int
                     
                     vc.callLevelPopUp(topic: sectionTag)
-        
+                    
                     vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                     
                     
@@ -277,15 +275,22 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 if let _toVc = toVc as? ClueSelectViewController {
                     
-
-
-//                    _toVc.setStack()
+                    
+                    let data = sendData as! (Article, [Five_W_One_Hs], String)
                     
                     self.setChildVc(rootView: clueSelectView, _toVc)
 
-                        
-                         horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
-   
+                    _toVc.setData(article: data.0, five: data.1)
+                    _toVc.questionPoint = data.2
+                    _toVc.checkedFactList = Array((RealmUser.shared.getUserData()?.factCheckList)!).filter({$0.selectedArticleId == data.0.id})
+//                    _toVc.changeColor()
+                    
+                    print(clueSelectView.subviews.first?.subviews)
+                    print("CLUESELES")
+                    _toVc.setStack()
+                    
+                    horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                    
                     
                 }
                 
@@ -308,6 +313,7 @@ extension GameViewController:GameViewTransitionDelegate {
             make.edges.equalToSuperview()
         }
         vc.delegate = self
+        vc.view.layoutSubviews()
         
         
         
