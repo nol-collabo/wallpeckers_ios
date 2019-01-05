@@ -327,10 +327,10 @@ extension MyPageViewController:SelectPopupDelegate {
             self.present(self.imagePicker, animated: true, completion: nil)
 
         case 2:
-            profileView.profileImageView.image = UIImage.init(named: "basicProfileImage")
+            profileView.profileImageView.image = UIImage.init(named: "basic_profile")
             
             try! realm.write {
-                RealmUser.shared.getUserData()?.profileImage = UIImage.init(named: "basicProfileImage")!.jpegData(compressionQuality: 0.5)
+                RealmUser.shared.getUserData()?.profileImage = UIImage.init(named: "basic_profile")!.jpegData(compressionQuality: 0.5)
             }
             
         default:

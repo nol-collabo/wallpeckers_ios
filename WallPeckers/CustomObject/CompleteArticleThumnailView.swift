@@ -168,6 +168,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         self.tag = article.id
         collectionView.backgroundColor = .white
         collectionView.reloadData()
+//        collectionView.
         
     }
     
@@ -203,7 +204,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
            
             make.top.equalTo(titleLb.snp.bottom).offset(10)
             make.leading.equalTo(10)
-            make.height.equalTo(90)
+            
+//            make.height.equalTo(90)
             make.bottom.equalTo(-10)
             make.trailing.equalTo(-35)
             

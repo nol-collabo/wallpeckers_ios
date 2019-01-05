@@ -60,7 +60,7 @@ class AfterRegisterViewController: UIViewController {
         
         
         pressCodeTf.snp.makeConstraints { (make) in
-            make.top.equalTo(mainProfileView.snp.bottom).offset(DeviceSize.width > 320 ? 46 : 26)
+            make.top.equalTo(mainProfileView.snp.bottom).offset(DeviceSize.width > 320 ? 30 : 20)
             make.centerX.equalToSuperview()
             make.leading.equalTo(35)
             make.height.equalTo(30)

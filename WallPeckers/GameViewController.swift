@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 class GameViewController: UIViewController {
-
+    
     let selectedLanguage = Standard.shared.getLocalized()
     var timerView:NavigationCustomView?
     var scoreView:NavigationCustomView?
@@ -35,7 +35,7 @@ class GameViewController: UIViewController {
         self.scoreView = self.findScoreView()
         Standard.shared.delegate = self
         Standard.shared.timerInit(inputCode: inputCode)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +96,7 @@ class GameViewController: UIViewController {
 
 extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, AlerPopupViewDelegate {
     func tapBottomButton(sender: AlertPopUpView) {
-
+        
         if sender.tag == 2 {
             sender.removeFromSuperview()
         }else{
@@ -132,7 +132,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
             
         }else if time == 300 { // 1분 남았을 때
             PopUp.callAlert(time: "05:00", desc: String(format:"timedialog_timelimit".localized, "5"), vc: self, tag: 2)
-                        
+            
         }else if time == 120 {
             PopUp.callAlert(time: "02:00", desc: String(format:"timedialog_timelimit".localized, "2"), vc: self, tag: 2)
         }
@@ -158,7 +158,7 @@ extension GameViewController:GameViewTransitionDelegate {
                 vc.isCompletedFirst = _sendData.3
                 self.setChildVc(rootView: articleResultView, vc)
                 
-                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 4, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 4, y: horizontalView.scrollView.contentOffset.y), animated: true)
                 
             }
             
@@ -168,49 +168,49 @@ extension GameViewController:GameViewTransitionDelegate {
                 vc.setData(_sendData.0, article: _sendData.1, five: _sendData.2, questionPoint: _sendData.3)
                 self.setChildVc(rootView: factCheckView, vc)
                 
-                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 3, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 3, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
             
             if let vc = toVc as? ArticleChooseViewController {
-            
-            var articleButtons:[ArticleSelectButton] = []
                 
-            for article in RealmArticle.shared.get(selectedLanguage).filter({
-                $0.section == sendData as! Int
-            }) {
+                var articleButtons:[ArticleSelectButton] = []
                 
-                let btn = ArticleSelectButton()
-                
-                let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
+                for article in RealmArticle.shared.get(selectedLanguage).filter({
+                    $0.section == sendData as! Int
+                }) {
                     
-                    $0.point
-                }).reduce(0, +)
+                    let btn = ArticleSelectButton()
+                    
+                    let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
+                        
+                        $0.point
+                    }).reduce(0, +)
+                    
+                    vc.changeColor()
+                    btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
+                    articleButtons.append(btn)
+                    
+                }
                 
-                vc.changeColor()
-                btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
-                articleButtons.append(btn)
+                vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
+                    $0.section == sendData as! Int
+                }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
                 
-            }
-            
-            vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
-                $0.section == sendData as! Int
-            }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
-
                 
                 self.setChildVc(rootView: articleView, vc)
-            
-            horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                
+                horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
             
             
             if let vc = toVc as? ClueSelectViewController {
-
+                
                 let data = sendData as! (Article, [Five_W_One_Hs], String)
                 
                 
                 vc.setData(article: data.0, five: data.1)
                 vc.questionPoint = data.2
-//                vc.factCheckBtnStatus()
+                //                vc.factCheckBtnStatus()
                 self.setChildVc(rootView: clueSelectView, vc)
                 print(vc)
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
@@ -240,63 +240,55 @@ extension GameViewController:GameViewTransitionDelegate {
                     let sectionTag = sendData as! Int
                     
                     vc.callLevelPopUp(topic: sectionTag)
-//                    var articleButtons:[ArticleSelectButton] = []
-//
-//                    for article in RealmArticle.shared.get(selectedLanguage).filter({
-//                        $0.section == sendData as! Int
-//                    }) {
-//
-//                        let btn = ArticleSelectButton()
-//
-//                        let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
-//
-//                            $0.point
-//                        }).reduce(0, +)
-//
-//
-//                        btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
-//                        articleButtons.append(btn)
-//
-//                    }
-//
-//                    vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
-//                        $0.section == sendData as! Int
-//                    }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
+        
                     vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                     
+                    
                     vc.changeColor()
+                    self.setChildVc(rootView: articleView, vc)
+                    
                     vc.view.layoutIfNeeded()
                     vc.view.layoutSubviews()
-
-                    
-//                    self.setChildVc(rootView: articleView, vc)
-
                     
                     horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
-
+                    
                 }
                 
             }
-
+            
             if let _ = fromVc as? ArticleChooseViewController {
                 
-                  if let vc = toVc as? TopicViewController {
+                if let vc = toVc as? TopicViewController {
                     vc.setStars()
                 }
                 
-                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }else if let _ = fromVc as? ClueSelectViewController {
                 
                 
                 if let _ac = toVc as? ArticleChooseViewController {
                     
                     _ac.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-
+                    
                 }
                 
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }else if let _ = fromVc as? FactCheckViewController {
-                horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
+                
+                if let _toVc = toVc as? ClueSelectViewController {
+                    
+
+
+//                    _toVc.setStack()
+                    
+                    self.setChildVc(rootView: clueSelectView, _toVc)
+
+                        
+                         horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
+   
+                    
+                }
+                
             }
         }
     }

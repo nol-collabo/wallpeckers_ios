@@ -22,15 +22,21 @@ final class ClueSelectView:UIView {
         setUI()
     }
     
-    func setData(five:Five_W_One_Hs, clue:Clue, info:String) {
+    func setData(five:Five_W_One_Hs, clue:Clue, info:String, tryCount:Int = 0) {
         
         self.clue = clue
-        clueButton.setAttributedTitle("\(clue.type!.localized)".makeAttrString(font: .NotoSans(.bold, size: 20), color: .black), for: .normal)
-        
+//        clueButton.setAttributedTitle("\(clue.type!.localized)".makeAttrString(font: .NotoSans(.bold, size: 20), color: .black), for: .normal)
+        clueButton.setTitle("\(clue.type!.localized)", for: .normal)
+        clueButton.titleLabel?.font = UIFont.NotoSans(.bold, size: 20)
+        clueButton.setTitleColor(.black, for: .normal)
         if !five.given {
             clueLb.text = ""
             infoLb.isHidden = false
             clueButton.backgroundColor = .white
+            
+            if tryCount > 0 {
+                clueButton.setTitleColor(.darkPeach, for: .normal)
+            }
         }else {
             clueButton.backgroundColor = .basicBackground
             clueLb.text = clue.desc
@@ -43,7 +49,7 @@ final class ClueSelectView:UIView {
         
     }
     
-    func indicatedWhenBeforeChecked(_ fact:FactCheck) {
+    func indicatedWhenBeforeChecked(_ fact:FactCheck, tryCount:Int = 0) {
         
         if let clue = RealmClue.shared.getLocalClue(id: fact.selectedClue, language: Standard.shared.getLocalized()) {
             
@@ -53,12 +59,16 @@ final class ClueSelectView:UIView {
             
         }
 
-//
-//        if fact.isCorrect {
-//            clueButton.backgroundColor = .sunny
-//        }else{
-//            clueButton.backgroundColor = .red
-//        }
+        if tryCount > 0 {
+            if fact.isCorrect {
+                clueButton.setBackgroundColor(color: .white, forState: .normal)
+                clueButton.setTitleColor(.turtleGreen, for: .normal)
+            }else{
+                clueButton.setBackgroundColor(color: .white, forState: .normal)
+                clueButton.setTitleColor(.darkPeach, for: .normal)
+            }
+        }
+
     }
     
     @objc func callCodePopUp(sender:Clue, tag:Int) {

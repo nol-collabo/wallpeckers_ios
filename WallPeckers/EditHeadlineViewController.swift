@@ -10,7 +10,7 @@ import UIKit
 import AloeStackView
 
 class EditHeadlineViewController: UIViewController {
-
+    let scrollView = BaseVerticalScrollView()
     let dismissBtn = UIButton()
     let titleLb = UILabel()
     let headLineLb = UILabel()
@@ -31,8 +31,9 @@ class EditHeadlineViewController: UIViewController {
         
         dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
         
-        
-        self.view.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, nextButton])
+        scrollView.setScrollView(vc: self)
+
+        self.scrollView.contentView.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, nextButton])
         self.view.backgroundColor = .basicBackground
         dismissBtn.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top)
@@ -106,6 +107,7 @@ class EditHeadlineViewController: UIViewController {
             make.leading.equalTo(50)
             make.height.equalTo(55)
             make.centerX.equalToSuperview()
+            make.bottom.equalTo(-20)
         }
         
         nextButton.addTarget(self, action: #selector(moveNext(sender:)), for: .touchUpInside)

@@ -85,20 +85,21 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             
             if let aa = RealmClue.shared.getLocalClue(id: v.clue, language: Standard.shared.getLocalized()) {
                 
-                view.setData(five: v, clue: aa, info: "Tap_Code".localized)
+                view.setData(five: v, clue: aa, info: "Tap_Code".localized, tryCount: articleTrycount)
                 view.tag = v.clue
                 
                 _ = checkedFactList.map({
                     
                     if view.tag == $0.correctClue {
-                        view.indicatedWhenBeforeChecked($0)
+                        view.indicatedWhenBeforeChecked($0, tryCount:articleTrycount)
                         factCheckButton.backgroundColor = .black
                         factCheckButton.setTitleColor(.white, for: .normal)
                         factCheckButton.isEnabled = true
+                        print("VV")
                     }
-                    
                 })
-                
+//                clueViews?.append(view)
+
                 stackView.addRow(view)
             }
   
@@ -112,6 +113,28 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             
         }
 
+    }
+    
+    func changeColor() {
+        if let csv = stackView.getAllRows().filter({$0 is ClueSelectView}) as? [ClueSelectView] {
+            
+            let selected = Array((RealmUser.shared.getUserData()?.factCheckList)!)
+            
+            _ = selected.map({
+                fact in
+                _ = csv.map({
+                    id in
+                    if id.tag == fact.correctClue {
+                        id.indicatedWhenBeforeChecked(fact, tryCount:1)
+                        id.infoLb.text = "DHDHDHDHDHDHDH"
+                        print("correctAnswer")
+                        id.layoutSubviews()
+                        id.layoutIfNeeded()
+                    }
+                })
+            })
+//            stackView.
+        }
     }
     
     @objc func moveToFactCheck(sender:UIButton) {
@@ -190,7 +213,8 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                 
                 selectedClueView.clueLb.text = selectedClue.desc!
                 selectedClueView.clueButton.backgroundColor = .sunnyYellow
-                selectedClueView.infoLb.attributedText = String(format:"Tap_Code_inputed".localized, "\(selectedClue.identification!)").makeAttrString(font: .NotoSans(.bold, size: 19), color: .white)
+                selectedClueView.clueButton.setTitleColor(.black, for: .normal)
+                selectedClueView.infoLb.attributedText = String(format:"Tap_Code_inputed".localized, "\(selectedClue.identification!)").makeAttrString(font: .NotoSans(.bold, size: 15), color: .white)
                 let factCheck = FactCheck()
                 factCheck.selectedClue = selectedClue.id
                 factCheck.selectedArticleId = article!.id

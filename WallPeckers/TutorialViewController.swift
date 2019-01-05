@@ -95,7 +95,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
         
         
         navView.snp.makeConstraints { (make) in
-            make.top.equalTo(KEYWINDOW!.safeArea.top).offset(DeviceSize.width > 320 ? 30 : 25)
+            make.top.equalTo(KEYWINDOW!.safeArea.top).offset(DeviceSize.width > 320 ? 30 : 20)
             make.centerX.equalToSuperview()
             make.height.equalTo(DeviceSize.width > 320 ? 16 : 10)
         }
@@ -107,21 +107,30 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
 
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if scrollView.contentOffset.x == 0 {
+        
+        let origin = scrollView.contentOffset.x
+        let frameWith = scrollView.frame.width
+        
+        if origin == 0 {
             navView.setHighlight(currentIndex: 0)
         }
-        else if scrollView.contentOffset.x == scrollView.frame.width {
+        else if origin <= frameWith  && origin > frameWith - 80 {
             navView.setHighlight(currentIndex: 1)
         }
-        else if scrollView.contentOffset.x == (scrollView.frame.width * 2) {
+        else if origin <= frameWith * 2  && origin > (frameWith * 2) - 80 {
             navView.setHighlight(currentIndex: 2)
         }
-        else if scrollView.contentOffset.x == (scrollView.frame.width * 3) {
+        else if origin <= frameWith * 3  && origin > (frameWith * 3) - 80 {
             navView.setHighlight(currentIndex: 3)
         }
     }
+    
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//
+//
+//    }
 
     
     override func viewWillAppear(_ animated: Bool) {
