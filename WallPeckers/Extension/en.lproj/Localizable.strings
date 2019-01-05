@@ -146,7 +146,7 @@
 "People" = "People";
 
 "levelup" = "You're now\n%@.";
-"getBadge" = " Congratulations! You've got the %@!";
+"getBadge" = " Congratulations! You've got the %@ Badge!";
 "getPrize" = "Congratulations!\nYou're Wallpecker's\n %@ of the Day.";
 "badgeTitle" = "BADGE";
 "levelUpTitle" = "LEVEL UP";
