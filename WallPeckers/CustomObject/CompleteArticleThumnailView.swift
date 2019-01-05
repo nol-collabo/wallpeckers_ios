@@ -97,8 +97,20 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         
         if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
             
-            
-            let region = article.region! == "GERMANY" ? "DEUTSCHLAND" : "KOREA"
+            var region:String {
+                
+                switch Standard.shared.getLocalized() {
+                    
+                case .ENGLISH:
+                    return article.region! == "GERMANY" ? "GERMANY" : "KOREA"
+
+                case .GERMAN:
+                    return article.region! == "GERMANY" ? "DEUTSCHLAND" : "KOREA"
+
+                case .KOREAN:
+                    return article.region! == "GERMANY" ? "독일" : "한국"
+                }
+            }
             
             hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
             
@@ -132,7 +144,23 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         
         if let hash1 = TopicSection.init(rawValue: article.section - 1), let hash2 = article.word, let hash4 = HashSection.init(rawValue: article.selectedHashtag), let hash5 = article.hashes {
 
-            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(article.region!.localized)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
+            var region:String {
+                
+                switch Standard.shared.getLocalized() {
+                    
+                case .ENGLISH:
+                    return article.region! == "GERMANY" ? "GERMANY" : "KOREA"
+                    
+                case .GERMAN:
+                    return article.region! == "GERMANY" ? "DEUTSCHLAND" : "KOREA"
+                    
+                case .KOREAN:
+                    return article.region! == "GERMANY" ? "독일" : "한국"
+                }
+            }
+            
+            
+            hashTags = ["#" + "\(hash1)".localized.replacingOccurrences(of: "\n", with: ""), "#\(hash2)", "#\(region)", "\(hash4)".localized, article.isPairedArticle ? "#\(article.point) P X 2" :  "#\(article.point) P"]
             
         }
         

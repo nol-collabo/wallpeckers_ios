@@ -5,7 +5,7 @@
   Created by Seongchan Kang on 29/11/2018.
   Copyright © 2018 KimJimin and Company. All rights reserved.
 */
-"WALLPECKERS" = "WALLPECKERS";
+"WALLPECKERS" = "월페커즈";
 "selectlanguage_subtitle" = "FDMZ에서 베를린장벽까지";
 "selectlanguage_playbtn" = "PLAY";
 
@@ -62,7 +62,7 @@
 "FACT CHECK" = "팩트체크";
 "BACK" = "뒤로 가기";
 "Tap_Code" = "← 눌러서 코드 입력";
-"Tap_Code_inputed" = "눌러서 코드 수정 [%@]";
+"Tap_Code_inputed" = "← 눌러서 코드 수정 [%@]";
 
 "CODE" = "코드:";
 "ENTER" = "입력";

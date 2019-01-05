@@ -205,13 +205,13 @@ class PublishViewController: UIViewController {
         }
         
         myPageButton.snp.makeConstraints { (make) in
-            make.top.equalTo(desc2Lb.snp.bottom).offset(20)
+            make.top.equalTo(desc2Lb.snp.bottom).offset(30)
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(55)
             make.centerX.equalToSuperview()
         }
-        sendButton.setAttributedTitle("publish_gonews".localized.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black), for: .normal)
-        editButton.setAttributedTitle("publish_changebtn".localized.makeAttrString(font: .NotoSans(.bold, size: 15), color: .black), for: .normal)
+        sendButton.setAttributedTitle("publish_gonews".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black), for: .normal)
+        editButton.setAttributedTitle("publish_changebtn".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black), for: .normal)
 
         myPageButton.setTitle("publish_gomymenubtn".localized, for: .normal)
         startButton.setTitle("publish_gohomebtn".localized, for: .normal)

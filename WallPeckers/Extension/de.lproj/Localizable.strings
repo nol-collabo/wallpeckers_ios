@@ -62,7 +62,7 @@
 "FACT CHECK" = "FAKTENCHECK";
 "BACK" = "ZURÜCK";
 "Tap_Code" = "← Klicke hier um den Code einzugeben";
-"Tap_Code_inputed" = "Klicke hier um zubearbeiten [%@]";
+"Tap_Code_inputed" = "← Klicke hier um zubearbeiten [%@]";
 "CODE" = "CODE:";
 "ENTER" = "EINGEBEN";
 "OK" = "OK";

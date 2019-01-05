@@ -59,7 +59,7 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
     let okButton = BottomButton()
     let cancelButton = BottomButton()
     var delegate:TwobuttonAlertViewDelegate?
-    var emailTf = UITextField()
+    var emailTf = LeftPaddedTextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,7 +70,7 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
     
     private func setUI() {
 //        emailTf.delegate = se
-        
+//        emailTf.textAlignment = .cent
         self.setPopUpViewHeight(300)
         self.popupView.setBorder(color: .black, width: 3.5)
         self.popupView.addSubview([titleLb, emailTf, okButton, cancelButton])

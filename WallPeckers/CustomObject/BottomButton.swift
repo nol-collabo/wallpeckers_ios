@@ -15,8 +15,8 @@ class BottomButton:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .black
-        self.setBackgroundColor(color: .sunnyYellow, forState: .highlighted)
-        self.setTitleColor(.black, for: .highlighted)
+//        self.setBackgroundColor(color: .sunnyYellow, forState: .highlighted)
+//        self.setTitleColor(.black, for: .highlighted)
         self.titleLabel?.font = UIFont.NotoSans(.bold, size: 18)
         self.titleLabel?.adjustsFontSizeToFitWidth = true
 //        self.titleLabel?.numberOfLines = 2
