@@ -311,18 +311,36 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
                 vv.delegate = self
                 vv.setData(article: completedArticle[i])
                 articleStackView.addRow(vv)
-                print(vv.frame.height, "FRAMEHHH")
+                vv.titleLb.setNeedsLayout()
+                vv.titleLb.lineBreakMode = NSLineBreakMode.byWordWrapping
+
+                let hhh = heightForView(text: completedArticle[i].title!, font: .NotoSans(.bold, size: 18), width: DeviceSize.width - 50)
+                print(hhh, "~hhh~~~")
+                 heights += hhh + 90
+
                 self.layoutIfNeeded()
             }
             articleStackView.snp.makeConstraints { (make) in
                 make.edges.equalToSuperview()
                 
-                make.height.equalTo((DeviceSize.width > 320 ? 190 : 210) * completedArticle.count)
+                make.height.equalTo(heights)
             }
             self.layoutIfNeeded()
             self.layoutSubviews()
             articleStackView.isScrollEnabled = false
         }
+    }
+    
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
+//            UILabel(frame: CGRect(0, 0, width, CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.height
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -363,4 +381,19 @@ enum TopicSection:Int {
 
 enum HashSection:Int {
     case hash1, hash2, hash3, hash4, hash5
+}
+
+extension String {
+    
+    func heightForWithFont(font: UIFont, width: CGFloat, insets: UIEdgeInsets) -> CGFloat {
+//        (0, 0, , CGFloat.))
+        let label:UILabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: width + insets.left + insets.right, height: .greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = self
+        
+        label.sizeToFit()
+        return label.frame.height + insets.top + insets.bottom
+    }
 }

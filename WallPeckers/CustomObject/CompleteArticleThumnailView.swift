@@ -44,7 +44,13 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashtagCollectionViewCell", for: indexPath) as? HashtagCollectionViewCell {
             
             if let _hash = hashTags {
-                cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 14), color: UIColor.deepSkyBlue)
+                
+                if Standard.shared.getLocalized() == .KOREAN {
+                    cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 16), color: UIColor.deepSkyBlue)
+                }else{
+                       cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 14), color: UIColor.deepSkyBlue)
+                }
+             
                 return cell
             }else{
                 return UICollectionViewCell()
@@ -116,7 +122,10 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
             
         }
         
-        self.titleLb.attributedText = article.title!.makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
+        self.titleLb.text = article.title!
+        self.titleLb.font = UIFont.NotoSans(.bold, size: 17)
+//            .makeAttrString(font: .NotoSans(.bold, size: 17), color: .black)
+        titleLb.sizeToFit()
         self.tag = article.id
         
         collectionView.reloadData()
@@ -127,7 +136,8 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         
         self.backgroundColor = .white
         
-        
+        titleLb.sizeToFit()
+
         selectButton.addTarget(self, action: #selector(selectArticle(sender:)), for: .touchUpInside)
         self.addSubview(selectButton)
         
@@ -204,8 +214,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
            
             make.top.equalTo(titleLb.snp.bottom).offset(10)
             make.leading.equalTo(10)
-            
-//            make.height.equalTo(90)
+            make.height.equalTo(50)
             make.bottom.equalTo(-10)
             make.trailing.equalTo(-35)
             
