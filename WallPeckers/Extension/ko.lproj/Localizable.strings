@@ -148,7 +148,7 @@
 "People" = "사람들";
 
 "levelup" = "축하합니다!\n월페커즈 %@ 이/가 되었습니다!";
-"getBadge" = "축하합니다! %@ 뱃지를 획득했습니다!";
+"getBadge" = "축하합니다!\n 월페커즈 %@ 뱃지를 획득했습니다!";
 "getPrize" = "축하합니다!\n오늘의 월페커즈 %@상을\n받았습니다!";
 "badgeTitle" = "BADGE";
 "levelUpTitle" = "LEVEL UP";

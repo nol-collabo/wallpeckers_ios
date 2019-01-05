@@ -285,7 +285,6 @@ extension GameViewController:GameViewTransitionDelegate {
                     _toVc.checkedFactList = Array((RealmUser.shared.getUserData()?.factCheckList)!).filter({$0.selectedArticleId == data.0.id})
 //                    _toVc.changeColor()
                     
-                    print(clueSelectView.subviews.first?.subviews)
                     print("CLUESELES")
                     _toVc.setStack()
                     

@@ -22,7 +22,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     var sectionString:String?
     var questionPoint:String?
     var checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-    var articleTrycount:Int = 0
+    var articleTrycount:Int?
 //    var myTryCount = RealmArticle.shared.get
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,11 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     func setData(article:Article, five:[Five_W_One_Hs]) {
         self.article = article
         self.five_W_One_Hs = five
-        if let a = RealmArticle.shared.getAll().filter({$0.id == article.id}).first {
-            articleTrycount = a.tryCount
+        if let a = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == article.id}).first {
+            
+            
+            articleTrycount = article.tryCount
+//            articleTrycount = 1
         }
         factCheckBtnStatus()
  
@@ -86,13 +89,13 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             
             if let aa = RealmClue.shared.getLocalClue(id: v.clue, language: Standard.shared.getLocalized()) {
                 
-                view.setData(five: v, clue: aa, info: "Tap_Code".localized, tryCount: articleTrycount)
+                view.setData(five: v, clue: aa, info: "Tap_Code".localized, tryCount: articleTrycount ?? 0)
                 view.tag = v.clue
                 
                 _ = checkedFactList.map({
                     
                     if view.tag == $0.correctClue {
-                        view.indicatedWhenBeforeChecked($0, tryCount:articleTrycount)
+                        view.indicatedWhenBeforeChecked($0, tryCount:articleTrycount ?? 0)
                         factCheckButton.backgroundColor = .black
                         factCheckButton.setTitleColor(.white, for: .normal)
                         factCheckButton.isEnabled = true
@@ -171,10 +174,10 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "FactCheckViewController") as? FactCheckViewController else {return}
         
-        try! realm.write {
+        realm.beginWrite()
             article!.tryCount += 1
-        }
-        
+        try! realm.commitWrite()
+
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (sendingData, article, five_W_One_Hs, questionPoint), direction: .forward)
        
 
