@@ -264,6 +264,13 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                         btn in
                         
                         if btn.tag == ar.id {
+                            
+                            if fact.isSubmit {
+//                                btn.pointTitleLb.textColor = UIColor.white
+//                                btn.titleLb.textColor = UIColor.white
+                                btn.starImageView.isHidden = false
+                            }
+                            
                             _ = links.map({
                                 
                                 if btn.tag == $0.leftTag || btn.tag == $0.rightTag {
@@ -275,11 +282,8 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                                         btn.starImageView.isHidden = false
                                     }else{
                                         btn.backgroundColor = $0.backgroundColor?.withAlphaComponent(0.5)
-
                                     }
                                 }
-                                
-                                
                             })
                         }
                     })
