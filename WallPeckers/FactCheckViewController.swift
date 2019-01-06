@@ -35,6 +35,16 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
     var correctCount:Int = 0
     var wrongQuestionId:[Int] = []
     var questionPoint:String?
+    var wrongQuestions:[(Int, String)] = [] {
+        
+        didSet {
+
+
+            print("CALL API!")
+
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,15 +154,27 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                 for data in _data {
                     
                     if b.tag == data.correctClue { // 정답 검증 구간, b.tag 가 correctClue 임
-
+                        
                         if let selectedClue = RealmClue.shared.getLocalClue(id: data.selectedClue, language: Standard.shared.getLocalized()) {
                             
                             if data.selectedClue != data.correctClue {
 
                                 wrongQuestionId.append((b.clue?.id)!)
                                 wrongs.append(b.clue!.type!)
-                                b.setDataCheck(clue: selectedClue, type: .wrong)
+                                
+                                
+                                
+                                
+                                wrongQuestions.append(((b.clue?.id)!, b.clue!.type!))
 
+//                                case .ENGLISH:
+                                    
+
+//                                }
+                                print(b.clue?.type)
+                                print("TYPEYEPEPEPEPE1")
+                                
+                                b.setDataCheck(clue: selectedClue, type: .wrong)
 
                             }else{
                                 if !wrongQuestionId.contains((b.clue?.id)!) {
@@ -170,6 +192,10 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
 
                     wrongs.append(b.clue!.type!)
                     wrongQuestionId.append((b.clue?.id)!)
+                    wrongQuestions.append(((b.clue?.id)!, b.clue!.type!))
+
+                    print(b.clue?.type)
+                    print("TYPEYEPEPEPEPE")
 
                     b.bubbleBaseView.image = UIImage.init(named: "balloonFail")
                     
