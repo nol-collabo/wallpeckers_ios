@@ -242,24 +242,24 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     func hashTagGraphAnimation() {
         if let _hash = hashTag, let _article = article {
             
-            if let a = _article.hashes?.components(separatedBy: "/") {
+             let a = Array(_article.hashArray)
                 
-                let ints = a.map({Int($0)!})
+//                let ints = a.map({Int($0)!})
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                    self.hashView.startAnimation(heights: ints)
+                    self.hashView.startAnimation(heights: a)
                 }
-                for i in 0...ints.count - 1 {
+                for i in 0...a.count - 1 {
                     
                     if let gps = self.hashView.subviews.filter({$0 is GraphView}) as? [GraphView] {
                         
                         _ = gps.map({
                             if $0.tag == i {
-                                $0.initData(percent: ints[i], myTag: _hash)
+                                $0.initData(percent: a[i], myTag: _hash)
                             }
                         })
                     }
                 }
-            }
+            
         }
     }
     

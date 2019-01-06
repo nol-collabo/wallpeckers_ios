@@ -214,7 +214,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
            
             make.top.equalTo(titleLb.snp.bottom).offset(10)
             make.leading.equalTo(10)
-            make.height.equalTo(50)
+            make.height.equalTo(70)
             make.bottom.equalTo(-10)
             make.trailing.equalTo(-35)
             

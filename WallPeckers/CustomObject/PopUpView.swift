@@ -445,8 +445,8 @@ class PairedArticleView:BasePopUpView {
         let color = LineColor.init(rawValue: articleLink.color!)
         
         
-        self.leftArticle.setData(point: "\(left.point) P", textColor: .black, title: left.title!, isStar: true, tag: 0)
-        self.rightArticle.setData(point: "\(right.point) P", textColor: .black, title: right.title!, isStar: true, tag: 0)
+        self.leftArticle.setData(point: "\(left.point) P", textColor: .black, title: left.word!, isStar: true, tag: 0)
+        self.rightArticle.setData(point: "\(right.point) P", textColor: .black, title: right.word!, isStar: true, tag: 0)
         self.leftArticle.isUserInteractionEnabled = false
         self.rightArticle.isUserInteractionEnabled = false
         

@@ -316,7 +316,7 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
 
                 let hhh = heightForView(text: completedArticle[i].title!, font: .NotoSans(.bold, size: 18), width: DeviceSize.width - 50)
                 print(hhh, "~hhh~~~")
-                 heights += hhh + 90
+                 heights += hhh + 110
 
                 self.layoutIfNeeded()
             }

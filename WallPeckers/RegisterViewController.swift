@@ -16,6 +16,8 @@ let DEVICEHEIGHT = UIWindow().bounds.height
 
 class RegisterViewController: UIViewController {
     
+    
+    var pictureTag:Int = 0
     let scrollView = BaseVerticalScrollView()
     let topLb = UILabel()
     let profileImv = UIImageView()
@@ -270,7 +272,14 @@ class RegisterViewController: UIViewController {
 
             user.name = myName
             user.age = self.myAge ?? 0
-            user.profileImage = self.myImage ?? UIImage.init(named: "basicProfileImage")?.pngData()
+        
+        if pictureTag == 2 {
+            user.profileImage = UIImage.init(named: "basic_profile")?.pngData()
+
+        }else{
+            user.profileImage = self.myImage ?? UIImage.init(named: "basic_profile")?.pngData()
+
+        }
 
             try! realm.write {
                 realm.add(user)
@@ -420,6 +429,8 @@ extension RegisterViewController:SelectPopupDelegate {
                     self.present(self.imagePicker, animated: true, completion: nil)
 
         case 2:
+            
+            pictureTag = 2
             profileImv.image = UIImage.init(named: "basic_profile")
             print("DEFAULT")
         default:
