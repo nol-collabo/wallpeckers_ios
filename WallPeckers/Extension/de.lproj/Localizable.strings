@@ -111,6 +111,7 @@
 
 "publish_title" = "Zeitungsdruck";
 "publish_titlearticle" = "SCHLAGZEILE";
+"publish_subarticle3" = "LEITARTIKEL";
 "publish_subarticle1" = "LEITARTIKEL 1";
 "publish_subarticle2" = "LEITARTIKEL 2";
 "publish_changedesc" = "Wähle 1 Schlagzeile und 2 Leitartikel aus.";
@@ -134,6 +135,7 @@
 "Send" = "Senden";
 
 "emailsuccessdialog_desc" = "Die E-Mail wurde erfolgreich versendet.";
+"erroremessage" = "네트워크가 불안정하여, 이메일 전송을 실패했습니다! 다시 시도해 주세요.";
 "printsuccessdialog_desc" = "Deine Zeitung wurde gedruckt.\nHol sie dir am Schalter ab!.";
 
 "Politics" = "Politik";

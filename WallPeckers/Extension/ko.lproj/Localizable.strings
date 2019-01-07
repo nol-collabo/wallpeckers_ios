@@ -115,6 +115,7 @@
 
 "publish_title" = "신문 출력소";
 "publish_titlearticle" = "헤드라인";
+"publish_subarticle3" = "주요기사";
 "publish_subarticle1" = "주요기사 1";
 "publish_subarticle2" = "주요기사 2";
 "publish_changedesc" = "헤드라인 1개와 주요기사 2개를 선택하세요.";
@@ -138,6 +139,7 @@
 "Send" = "보내기";
 
 "emailsuccessdialog_desc" = "메일이 성공적으로\n발송되었습니다.";
+"erroremessage" = "네트워크가 불안정하여, 이메일 전송을 실패했습니다! 다시 시도해 주세요.";
 "printsuccessdialog_desc" = "성공적으로 인쇄되었습니다.\n신문 배포처로 이동하여 신문을 수령하세요.";
 
 "Politics" = "정치";

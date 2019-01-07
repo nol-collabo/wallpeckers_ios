@@ -113,6 +113,7 @@
 
 "publish_title" = "Printing Press";
 "publish_titlearticle" = "HEADLINE";
+"publish_subarticle3" = "FEATURED";
 "publish_subarticle1" = "FEATURED 1";
 "publish_subarticle2" = "FEATURED 2";
 "publish_changedesc" = "Select a Headline & 2 Featured Articles.";
@@ -136,6 +137,8 @@
 "Send" = "Send";
 
 "emailsuccessdialog_desc" = "The e-mail successfully has been sent.";
+"erroremessage" = "네트워크가 불안정하여, 이메일 전송을 실패했습니다! 다시 시도해 주세요.";
+
 "printsuccessdialog_desc" = "The newspaper successfully has been printed out.\nGo Get your newspaper at the Printer.";
 
 "Politics" = "Politics";

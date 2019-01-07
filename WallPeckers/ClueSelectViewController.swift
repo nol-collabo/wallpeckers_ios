@@ -33,7 +33,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     func setData(article:Article, five:[Five_W_One_Hs]) {
         self.article = article
         self.five_W_One_Hs = five
-        if let a = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == article.id}).first {
+        if let _ = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == article.id}).first {
             
             
             articleTrycount = article.tryCount

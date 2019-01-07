@@ -59,10 +59,11 @@ class PublishViewController: UIViewController {
             if defaultHeadlines.count == 1 {
                 feature1View.setData(header: "publish_subarticle1".localized, thumnail: "")
                 feature2View.setData(header: "publish_subarticle2".localized, thumnail: "")
+                
 
             }else if defaultHeadlines.count == 2 {
                 if let feature1 = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[1]}).first {
-                    feature1View.setData(header: "publish_subarticle1".localized, thumnail: feature1.title!)
+                    feature1View.setData(header: "publish_subarticle3".localized, thumnail: feature1.title!)
                     feature2View.setData(header: "publish_subarticle2".localized, thumnail: "")
                     
                 }
@@ -140,21 +141,46 @@ class PublishViewController: UIViewController {
             make.top.left.right.equalToSuperview()
             make.height.equalTo(150)
         }
-        feature1View.snp.makeConstraints { (make) in
-            make.top.equalTo(headlineView.snp.bottom).offset(4)
-            make.leading.equalToSuperview()
-            make.width.equalTo(headlineView.snp.width).multipliedBy(0.48)
-            make.height.equalTo(150)
-            make.bottom.equalToSuperview()
-        }
-        feature2View.snp.makeConstraints { (make) in
-            make.top.equalTo(headlineView.snp.bottom).offset(4)
-            make.trailing.equalToSuperview()
-            make.leading.equalTo(feature1View.snp.trailing).offset(-10)
-            make.width.equalTo(feature1View.snp.width)
-            make.height.equalTo(150)
+        
+        if defaultHeadlines.count == 3 {
+            feature1View.snp.makeConstraints { (make) in
+                make.top.equalTo(headlineView.snp.bottom).offset(4)
+                make.leading.equalToSuperview()
+                make.width.equalTo(headlineView.snp.width).multipliedBy(0.48)
+                make.height.equalTo(150)
+                make.bottom.equalToSuperview()
+            }
+            feature2View.snp.makeConstraints { (make) in
+                make.top.equalTo(headlineView.snp.bottom).offset(4)
+                make.trailing.equalToSuperview()
+                make.leading.equalTo(feature1View.snp.trailing).offset(-10)
+                make.width.equalTo(feature1View.snp.width)
+                make.height.equalTo(150)
+                
+            }
+            descLb.isHidden = false
 
+        }else if defaultHeadlines.count == 2 {
+            feature1View.snp.makeConstraints { (make) in
+                make.top.equalTo(headlineView.snp.bottom).offset(4)
+                make.leading.equalToSuperview()
+                make.width.equalTo(headlineView.snp.width)
+//                make.width.equalTo(headlineView.snp.width).multipliedBy(0.48)
+                make.height.equalTo(150)
+                make.bottom.equalToSuperview()
+            }
+            descLb.isHidden = true
+        }else {
+            headlineView.snp.remakeConstraints { (make) in
+                make.top.left.right.equalToSuperview()
+                make.height.equalTo(150)
+                make.bottom.equalToSuperview()
+            }
+            descLb.isHidden = true
+
+            
         }
+
         
         descLb.snp.makeConstraints { (make) in
             make.top.equalTo(articlesView.snp.bottom).offset(20)
@@ -370,7 +396,7 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
             if json["result"].stringValue == "OK" {
                 PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
             }else{
-                PopUp.callAlert(time: "", desc: "전송실패", vc: self, tag: 99)
+                PopUp.callAlert(time: "", desc: "erroremessage".localized, vc: self, tag: 99)
             }
 
         }
