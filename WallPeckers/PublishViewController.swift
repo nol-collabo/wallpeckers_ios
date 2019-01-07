@@ -350,6 +350,7 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
     func tapOk(sender: Any) {
         print(sender)
         
+
         var headline:String!
         var main1:String?
         var main2:String?
@@ -397,6 +398,11 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
             
             if !emailAdd.contains("@") && !emailAdd.contains(".") {
                 PopUp.callAlert(time: "", desc: "errorinputemail".localized, vc: self, tag: 99)
+                
+                
+                if let epv = self.view.subviews.filter({$0 is AlertPopUpView}).first {
+                    view.bringSubviewToFront(epv)
+                }
 
                 return
             }
@@ -404,6 +410,10 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
             CustomAPI.makePDF(email: emailAdd, headline: headline, main1: main1, main2: main2, others: others) { (result) in
                 
                 let json = JSON(result)
+                
+                if let epv = self.parent?.view.subviews.filter({$0 is EmailPopupView}).first {
+                    epv.removeFromSuperview()
+                }
                 
                 if json["result"].stringValue == "OK" {
                     PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)

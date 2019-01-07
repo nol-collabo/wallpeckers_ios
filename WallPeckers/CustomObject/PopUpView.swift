@@ -121,7 +121,6 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
         
         if emailTf.text != "" {
             delegate?.tapOk(sender: emailTf.text ?? "")
-            self.removeFromSuperview()
         }
         
         sender.isUserInteractionEnabled = true
@@ -1403,7 +1402,7 @@ struct PopUp {
         
         let popUpView = AlertPopUpView()
         
-        vc.view.addSubview(popUpView)
+        KEYWINDOW!.addSubview(popUpView)
         popUpView.setData(title: time, desc: desc)
         popUpView.delegate = vc as? AlerPopupViewDelegate
         popUpView.tag = tag
