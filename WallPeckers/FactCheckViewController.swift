@@ -41,20 +41,17 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
         
         didSet {
 
-
-            print("CALLINCORRECTAPI!")
-            
-            for wrong in wrongQuestions {
-                
-                CustomAPI.saveIncorrect(articleId: article!.id, clue_type: wrong.2, code_incorrect: wrong.1, code_correct: wrong.0) { (result) in
-                    print(result)
-                    print(wrong)
+            if wrongQuestions.count > 0 {
+                for wrong in wrongQuestions {
+                    
+                    CustomAPI.saveIncorrect(articleId: article!.id, clue_type: wrong.2, code_incorrect: wrong.1, code_correct: wrong.0) { (result) in
+                        print(result)
+                        print(wrong)
+                    }
+                    
                 }
-                
             }
-
         }
-        
     }
     
     override func viewDidLoad() {
