@@ -96,69 +96,7 @@ class RegisterViewController: UIViewController {
         super.viewDidDisappear(animated)
         self.allButtonUserIteraction(true)
     }
-    
-    func checkPermission(completion:@escaping ((String)->())) {
-        
-//        PHPhotoLibrary.authorizationStatus().
-        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        switch photoAuthorizationStatus {
-        case .authorized:
-            print("Access is granted by user")
-            completion("authorized")
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization({
-                (newStatus) in
-                print("status is \(newStatus)")
-                if newStatus ==  PHAuthorizationStatus.authorized {
-                    /* do stuff here */
-                    completion("notDetermined")
 
-                    print("success")
-                }
-            })
-            print("It is not determined until now")
-        case .restricted:
-            // same same
-            completion("restricted")
-
-            print("User do not have access to photo album.")
-        case .denied:
-            // same same
-            completion("denied")
-
-            print("User has denied the permission.")
-        }
-    }
-    
-    func checkPermission() {
-        
-        
-        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        switch photoAuthorizationStatus {
-        case .authorized:
-            print("Access is granted by user")
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization({
-                (newStatus) in
-                print("status is \(newStatus)")
-                if newStatus ==  PHAuthorizationStatus.authorized {
-                    /* do stuff here */
-                    
-                    print("success")
-                }
-            })
-            print("It is not determined until now")
-        case .restricted:
-            // same same
-            
-            print("User do not have access to photo album.")
-        case .denied:
-            // same same
-            
-            print("User has denied the permission.")
-        }
-    }
-    
     private func setUI() {
         
         
@@ -304,7 +242,6 @@ class RegisterViewController: UIViewController {
         
         self.ageSelectPickerView.isHidden = !(self.ageSelectPickerView.isHidden)
         self.nameTf.resignFirstResponder()
-//        self.removeKeyboard()
         
     }
     
@@ -418,17 +355,60 @@ extension RegisterViewController:SelectPopupDelegate {
         
         switch tag {
         case 0:
+            
+ 
             imagePicker.sourceType = .camera
-//            checkPermission()
 
-                self.present(self.imagePicker, animated: true, completion: nil)
+
+            AVCaptureDevice.requestAccess(for: .video) { (response) in
+                if response {
+                    
+                    self.present(self.imagePicker, animated: true, completion: nil)
+
+                }else {
+                    
+                    print("XX")
+                    
+                }
+            }
+            
+
 
         case 1:
             imagePicker.sourceType = .photoLibrary
-            imagePicker.viewWillLayoutSubviews()
-            checkPermission()
 
-                    self.present(self.imagePicker, animated: true, completion: nil)
+
+            let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+            switch photoAuthorizationStatus {
+            case .authorized:
+                print("Access is granted by user")
+                self.present(self.imagePicker, animated: true, completion: nil)
+                
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization({
+                    (newStatus) in
+                    print("status is \(newStatus)")
+                    if newStatus ==  PHAuthorizationStatus.authorized {
+                        /* do stuff here */
+                        self.present(self.imagePicker, animated: true, completion: nil)
+                        
+                  
+                        print(self.imagePicker.navigationItem.rightBarButtonItem)
+
+                        print("success")
+                    }
+                })
+                print("It is not determined until now")
+            case .restricted:
+                // same same
+                
+                print("User do not have access to photo album.")
+            case .denied:
+                // same same
+                
+                print("User has denied the permission.")
+            }
+
 
         case 2:
             
@@ -443,11 +423,20 @@ extension RegisterViewController:SelectPopupDelegate {
 
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+
+    
+//        picker.removeFromParent()
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func albumDismiss(sender:UIImagePickerController) {
+        
+        sender.dismiss(animated: true, completion: nil)
+    }
+    
     
 }
-
-
-
 
 enum NotoSansFontSize:String {
     
@@ -464,12 +453,4 @@ enum AmericanTypeWriterFontSize:String {
     case regular = "AmericanTypewriter"
     case light = "AmericanTypewriter-Light"
     
-}
-
-extension UIImagePickerController {
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.navigationBar.topItem?.rightBarButtonItem?.tintColor = UIColor.black
-        self.navigationBar.topItem?.rightBarButtonItem?.isEnabled = true
-    }
 }
