@@ -63,11 +63,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         backButton.addTarget(self, action: #selector(moveToBack(sender:)), for: .touchUpInside)
         factCheckButton.addTarget(self, action: #selector(moveToFactCheck(sender:)), for: .touchUpInside)
         setStack()
-        
 
-        
-
-        
     }
     
     func setStack() {

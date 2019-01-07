@@ -135,8 +135,8 @@
 "Send" = "Senden";
 
 "emailsuccessdialog_desc" = "Die E-Mail wurde erfolgreich versendet.";
-"erroremessage" = "Please enter a valid email address.";
-"errorinputemail" = "Please enter a valid email address.";
+"erroremessage" = "Netzwerkfehler. Bitte versuche es später noch einmal.";
+"errorinputemail" = "Bitte gib eine gültige E-Mail-Adresse ein.";
 "printsuccessdialog_desc" = "Deine Zeitung wurde gedruckt.\nHol sie dir am Schalter ab!.";
 
 "Politics" = "Politik";
