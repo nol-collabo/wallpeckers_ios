@@ -283,49 +283,56 @@ extension MyPageViewController:SelectPopupDelegate {
         self.removePopUpView()
         
     }
-    
-    func checkPermission() {
-        
-        
-        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        switch photoAuthorizationStatus {
-        case .authorized:
-            print("Access is granted by user")
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization({
-                (newStatus) in
-                print("status is \(newStatus)")
-                if newStatus ==  PHAuthorizationStatus.authorized {
-                    /* do stuff here */
-                    
-                    print("success")
-                }
-            })
-            print("It is not determined until now")
-        case .restricted:
-            // same same
-            
-            print("User do not have access to photo album.")
-        case .denied:
-            // same same
-            
-            print("User has denied the permission.")
-        }
-    }
+
     
     func selectButtonTouched(tag: Int) {
         
         switch tag {
         case 0:
             imagePicker.sourceType = .camera
-            checkPermission()
-            self.present(self.imagePicker, animated: true, completion: nil)
-
+            AVCaptureDevice.requestAccess(for: .video) { (response) in
+                if response {
+                    
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                    
+                }else {
+                    
+                    print("XX")
+                    
+                }
+            }
+            
         case 1:
             imagePicker.sourceType = .photoLibrary
-            checkPermission()
-            self.present(self.imagePicker, animated: true, completion: nil)
 
+            let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+            switch photoAuthorizationStatus {
+            case .authorized:
+                print("Access is granted by user")
+                self.present(self.imagePicker, animated: true, completion: nil)
+                
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization({
+                    (newStatus) in
+                    print("status is \(newStatus)")
+                    if newStatus ==  PHAuthorizationStatus.authorized {
+                        
+                        self.present(self.imagePicker, animated: true)
+                        
+                        print("success")
+                    }
+                })
+                print("It is not determined until now")
+            case .restricted:
+                // same same
+                
+                print("User do not have access to photo album.")
+            case .denied:
+                // same same
+                
+                print("User has denied the permission.")
+            }
+            
         case 2:
             profileView.profileImageView.image = UIImage.init(named: "basic_profile")
             
