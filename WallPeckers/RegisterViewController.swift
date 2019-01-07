@@ -389,12 +389,9 @@ extension RegisterViewController:SelectPopupDelegate {
                     (newStatus) in
                     print("status is \(newStatus)")
                     if newStatus ==  PHAuthorizationStatus.authorized {
-                        /* do stuff here */
-                        self.present(self.imagePicker, animated: true, completion: nil)
+ 
+                        self.present(self.imagePicker, animated: true)
                         
-                  
-                        print(self.imagePicker.navigationItem.rightBarButtonItem)
-
                         print("success")
                     }
                 })
@@ -425,8 +422,6 @@ extension RegisterViewController:SelectPopupDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 
-    
-//        picker.removeFromParent()
         picker.dismiss(animated: true, completion: nil)
     }
     

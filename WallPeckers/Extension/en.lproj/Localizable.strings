@@ -138,6 +138,8 @@
 
 "emailsuccessdialog_desc" = "The e-mail successfully has been sent.";
 "erroremessage" = "Network error, please try again later.";
+"errorinputemail" = "Please enter a valid email address.";
+
 "printsuccessdialog_desc" = "The newspaper successfully has been printed out.\nGo Get your newspaper at the Printer.";
 
 "Politics" = "Politics";

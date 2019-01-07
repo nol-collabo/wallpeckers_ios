@@ -388,18 +388,34 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
         others = RealmArticle.shared.getAll().filter({$0.isCompleted}).filter({!defaultHeadlines.contains($0.id)}).map({
             return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
         })
-
-        CustomAPI.makePDF(email: sender as! String, headline: headline, main1: main1, main2: main2, others: others) { (result) in
-
-            let json = JSON(result)
+        
+        
+//        if !email?.contains("@")
+        
+        if let emailAdd = sender as? String {
             
-            if json["result"].stringValue == "OK" {
-                PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
-            }else{
-                PopUp.callAlert(time: "", desc: "erroremessage".localized, vc: self, tag: 99)
-            }
+            
+            if !emailAdd.contains("@") && !emailAdd.contains(".") {
+                PopUp.callAlert(time: "", desc: "errorinputemail".localized, vc: self, tag: 99)
 
+                return
+            }
+            
+            CustomAPI.makePDF(email: emailAdd, headline: headline, main1: main1, main2: main2, others: others) { (result) in
+                
+                let json = JSON(result)
+                
+                if json["result"].stringValue == "OK" {
+                    PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
+                }else{
+                    PopUp.callAlert(time: "", desc: "erroremessage".localized, vc: self, tag: 99)
+                }
+                
+            }
         }
+        
+
+
         
         
     }
