@@ -11,6 +11,8 @@ import Realm
 import RealmSwift
 import AloeStackView
 
+typealias wrongClueTuple = (String, String, String) // (CorrectId, IncorrectId, ClueType)
+
 class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleViewDelegate {
     func tapToBack() {
         
@@ -35,12 +37,21 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
     var correctCount:Int = 0
     var wrongQuestionId:[Int] = []
     var questionPoint:String?
-    var wrongQuestions:[(Int, String)] = [] {
+    var wrongQuestions:[wrongClueTuple] = [] { // (CorrectId, IncorrectId, ClueType)
         
         didSet {
 
 
-            print("CALL API!")
+            print("CALLINCORRECTAPI!")
+            
+            for wrong in wrongQuestions {
+                
+                CustomAPI.saveIncorrect(articleId: article!.id, clue_type: wrong.2, code_incorrect: wrong.1, code_correct: wrong.0) { (result) in
+                    print(result)
+                    print(wrong)
+                }
+                
+            }
 
         }
         
@@ -137,6 +148,7 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
             
             let bubbles = [whoV, whenV, whereV, whatV, howV, whyV]
             var wrongs:[String] = []
+            var wrongC:[wrongClueTuple] = []
             
             for b in bubbles {
                 
@@ -165,7 +177,7 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                                 
                                 
                                 
-                                wrongQuestions.append(((b.clue?.id)!, b.clue!.type!))
+                                wrongC.append(("\(b.tag)", "\(data.selectedClue)", "\(b.clue!.type!)"))
 
 //                                case .ENGLISH:
                                     
@@ -192,9 +204,8 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
 
                     wrongs.append(b.clue!.type!)
                     wrongQuestionId.append((b.clue?.id)!)
-                    wrongQuestions.append(((b.clue?.id)!, b.clue!.type!))
+                    wrongC.append(("\(b.tag)", "", "\(b.clue!.type!)"))
 
-                    print(b.clue?.type)
                     print("TYPEYEPEPEPEPE")
 
                     b.bubbleBaseView.image = UIImage.init(named: "balloonFail")
@@ -202,6 +213,9 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                 }
                 
             }
+            
+            self.wrongQuestions = wrongC
+
             
             deskView.setData(region: _article.region ?? "GERMANY", wrongParts: wrongs)
             

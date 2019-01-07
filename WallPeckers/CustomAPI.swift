@@ -14,6 +14,7 @@ import Alamofire
 
 struct CustomAPI {
     
+    static let header = ["Content-Type":"application/json"]
     static let domainUrl = "http://api.dmz.wallpeckers.kr/"
     
     static func newPlayer(completion:@escaping ((Int)->Void)) {
@@ -67,12 +68,15 @@ struct CustomAPI {
         let params:Parameters = ["article_proto":articleId, "category":category, "player":playerId, "language":language.rawValue, "session":sessionId, "tag":tag, "num_of_check_fact":count, "photo":photoId]
         
         
-        Alamofire.request("\(domainUrl)new/article/", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+        Alamofire.request("\(domainUrl)new/article/", method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
                 
             case .success(let value):
                 
                 let json = JSON(value)
+                
+                print(json)
+                print("~~~~~~~~~")
                 
                 guard let _completion = completion else {return}
                 
@@ -90,12 +94,14 @@ struct CustomAPI {
         }
     }
     
-    static func saveIncorrect(articleId:Int, playerId:Int, sessionId:Int, clue_type:String, code_incorrect:String, code_correct:String, completion:((String)->())?) {
+    static func saveIncorrect(articleId:Int, clue_type:String, code_incorrect:String, code_correct:String, completion:((String)->())?) {
         
-        let params:Parameters = ["article_proto":articleId, "player":playerId, "session":sessionId, "clue_type":clue_type, "code_incorrect":code_incorrect, "code_correct":code_correct]
+        let params:Parameters = ["article_proto":articleId, "player":RealmUser.shared.getUserData()!.allocatedId, "session":UserDefaults.standard.integer(forKey: "sessionId"), "clue_type":clue_type, "code_incorrect":code_incorrect, "code_correct":code_correct]
         
         
-        Alamofire.request("\(domainUrl)", method: .get, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+        print(params)
+        
+        Alamofire.request("\(domainUrl)new/answer/", method: .post, parameters: params, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
             switch response.result {
                 
             case .success(let value):
