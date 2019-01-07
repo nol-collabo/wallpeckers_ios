@@ -250,29 +250,38 @@ extension EditFeaturesViewController:ThumnailDelegate {
         //하나 선택되어있을때는 아래 조건 땜에 초기화가 안됨 ~ 이건 내일 처리 ㄱ
    
         if selectedId.count == 2 {
+            
+            let beforeSelected = selectedId.removeFirst()
+            
             if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
-                
+                //마지막 선택한 것 추가
                 if let aaa = aa.filter({$0.tag == id}).first {
-                    aaa.selectButton.isSelected = false
+                    aaa.selectButton.isSelected = true
+                    selectedId.append(id)
                 }
-                
+                // 기존것 지우고 선택 해제
                 _ = aa.map({
                     
-                    if selectedId.contains(id) {
-                        
-                        if $0.tag == id {
-                            
-                            $0.selectButton.isSelected = false
-                            if let idx = selectedId.firstIndex(of: $0.tag) {
-                                selectedId.remove(at: idx)
-                            }
-                        }
-                        
+                    if $0.tag == beforeSelected {
+                       $0.selectButton.isSelected = false
                     }
+                    
                 })
-                
-                
-                
+                //기존 로직, 2개 선택되어있을때는 추가 선택 불가, 누르면 해제하게
+//                _ = aa.map({
+//
+//                    if selectedId.contains(id) {
+//
+//                        if $0.tag == id {
+//
+//                            $0.selectButton.isSelected = false
+//                            if let idx = selectedId.firstIndex(of: $0.tag) {
+//                                selectedId.remove(at: idx)
+//                            }
+//                        }
+//
+//                    }
+//                })
             }
             return
         }else{
@@ -280,10 +289,7 @@ extension EditFeaturesViewController:ThumnailDelegate {
                 selectedId.append(id)
             }
         }
-        
     }
-    
-    
 }
 
 extension EditFeaturesViewController:EditHeadlineProtocol {
