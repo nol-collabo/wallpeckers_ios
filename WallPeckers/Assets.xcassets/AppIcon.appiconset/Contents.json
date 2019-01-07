@@ -39,7 +39,7 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Icon-120.png",
+      "filename" : "Icon-60@2x.png",
       "scale" : "2x"
     },
     {
@@ -51,7 +51,7 @@
     {
       "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "Icon-20.png",
+      "filename" : "Icon-20 (1).png",
       "scale" : "1x"
     },
     {
@@ -99,13 +99,13 @@
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "Icon-83.5@2x.png",
+      "filename" : "Icon-167.png",
       "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "iTunesArtworkIcon1.png",
+      "filename" : "iTunesArtwork@2xq.png",
       "scale" : "1x"
     }
   ],

@@ -256,14 +256,18 @@ extension EditFeaturesViewController:ThumnailDelegate {
             if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
                 //마지막 선택한 것 추가
                 if let aaa = aa.filter({$0.tag == id}).first {
-                    aaa.selectButton.isSelected = true
-                    selectedId.append(id)
+                    if !selectedId.contains(id) {
+                        aaa.selectButton.isSelected = true
+                        selectedId.append(id)
+                    }
                 }
                 // 기존것 지우고 선택 해제
                 _ = aa.map({
                     
                     if $0.tag == beforeSelected {
-                       $0.selectButton.isSelected = false
+                        if id != beforeSelected {
+                            $0.selectButton.isSelected = false
+                        }
                     }
                     
                 })
