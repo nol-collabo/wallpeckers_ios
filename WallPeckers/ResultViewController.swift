@@ -170,6 +170,20 @@ class ResultViewController: UIViewController {
     @objc func moveToMain(sender:UIButton) {
 
         
+        if RealmUser.shared.getUserData()?.allocatedId == 0 {
+            
+            guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
+            
+            self.present(vc, animated: true) {
+                
+                guard let nvc = vc.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+                
+                vc.pushViewController(nvc, animated: true)
+                
+            }
+            return
+        }
+        
         guard let nvc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
         
         

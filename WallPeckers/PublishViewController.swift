@@ -317,6 +317,22 @@ class PublishViewController: UIViewController {
             main1 = defaultHeadlines[1]
             main2 = defaultHeadlines[2]
         }
+        
+        if RealmUser.shared.getUserData()?.allocatedId == 0 {
+            
+            guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
+
+            self.present(vc, animated: true) {
+                
+                guard let nvc = vc.storyboard?.instantiateViewController(withIdentifier: "AfterRegisterViewController") as? AfterRegisterViewController else {return}
+                
+                vc.pushViewController(nvc, animated: true)
+                
+            }
+            return
+        }
+    
+        
 
         CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: email, headline: headline, main1: main1, main2: main2) { (result) in
             print(result)
@@ -416,6 +432,7 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
                 }
                 
                 if json["result"].stringValue == "OK" {
+                    self.email = emailAdd
                     PopUp.callAlert(time: "", desc: "emailsuccessdialog_desc".localized, vc: self, tag: 99)
                 }else{
                     PopUp.callAlert(time: "", desc: "erroremessage".localized, vc: self, tag: 99)

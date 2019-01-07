@@ -67,12 +67,7 @@ struct CustomAPI {
         
         let params:Parameters = ["article_proto":articleId, "category":category, "player":playerId, "language":language.rawValue, "session":sessionId, "tag":tag, "num_of_check_fact":count, "photo":photoId]
         
-//        Alamofire
-        
         print(params)
-//        Alamofire.upload
-        
-//        Alamofire.upload
         
         Alamofire.request("\(domainUrl)new/article/", method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
@@ -80,9 +75,6 @@ struct CustomAPI {
             case .success(let value):
                 
                 let json = JSON(value)
-                
-                print(json)
-                print("~~~~~~~~~")
                 
                 guard let _completion = completion else {return}
                 
@@ -161,63 +153,18 @@ struct CustomAPI {
 
             }else if userData.score < 12000 {
                 userLevel = levels[3].grade!
-
             }else {
                 userLevel = levels[4].grade!
-
             }
             
             
             
-            let params:Parameters = ["email":email, "session":sessionId, "language":lang.rawValue, "badge_politics":getBadges[0], "badge_economy":getBadges[1], "badge_general":getBadges[2], "badge_culture":getBadges[3], "badge_sports":getBadges[4], "badge_people":getBadges[5], "score":userData.score, "uid":uuid, "level":userLevel, "num_of_complete_articles":RealmArticle.shared.get(lang).filter({$0.isCompleted}).count, "headline":headline, "main_article1":main1, "main_article2":main2]
+            let params:Parameters = ["email":email, "session":sessionId == 0 ? nil  : sessionId, "language":lang.rawValue, "badge_politics":getBadges[0], "badge_economy":getBadges[1], "badge_general":getBadges[2], "badge_culture":getBadges[3], "badge_sports":getBadges[4], "badge_people":getBadges[5], "score":userData.score, "uid":uuid, "level":userLevel, "num_of_complete_articles":RealmArticle.shared.get(lang).filter({$0.isCompleted}).count, "headline":headline, "main_article1":main1, "main_article2":main2]
             
             
             print(params)
             print("UPDATEPARAMETER")
-            
-//            Alamofire.upload(multipartFormData: { (data) in
-//                data.append((email ?? "").data(using: .utf8)!, withName: "email")
-////                data.append(sessionId, withName: "session")
-//
-//            }, usingThreshold: UInt64(), to: "\(domainUrl)update/player/\(userData.allocatedId)", method: .post, headers: nil) { (result) in
-//                print(result)
-//
-//                switch result {
-//
-//                case .success(request: let upload, streamingFromDisk: _, streamFileURL: _):
-//
-//                    upload.responseJSON(completionHandler: { (response) in
-//                        print(response)
-//
-//                        switch response.result {
-//
-//                        case .success(let value):
-//
-//                            print(value)
-//                            let json = JSON(value)
-//
-//                            guard let _completion = completion else {return}
-//
-//                            _completion(json["result"].stringValue)
-//
-//
-//                        case .failure(let error):
-//
-//                            guard let _completion = completion else {return}
-//
-//                            _completion(error.localizedDescription)
-//                            print(error.localizedDescription)
-//
-//                        }
-//
-//                    })
-//
-//                case .failure(let error):
-//                    print(error)
-//
-//                }
-//
-//            }
+
             Alamofire.request("\(domainUrl)update/player/\(userData.allocatedId)/", method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
                 switch response.result {
                     
