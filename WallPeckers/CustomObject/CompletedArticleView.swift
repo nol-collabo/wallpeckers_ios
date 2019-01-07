@@ -77,7 +77,21 @@ final class CompletedArticleView:UIView {
         let dString = dFormatter.string(from: Date()).makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let infoAString = "".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black)
         let regionString = region == "GERMANY" ? "at the Berlin Wall".localized : "completearticle_korea".localized
-        let userNameString = "\(Standard.shared.getLocalized() == .GERMAN ? "von" : "by") \(RealmUser.shared.getUserData()?.name! ?? "User")"
+        var userNameString:String {
+            
+            switch Standard.shared.getLocalized() {
+                
+            case .ENGLISH:
+                return "by \(RealmUser.shared.getUserData()?.name! ?? "User")"
+            case .KOREAN:
+                return "\(RealmUser.shared.getUserData()?.name! ?? "User") 기자"
+            case .GERMAN:
+                return "von \(RealmUser.shared.getUserData()?.name! ?? "User")"
+         
+            }
+
+        }
+
         infoAString.append(dString)
         infoAString.append("\n\(regionString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))
         infoAString.append("\n\(userNameString)".makeAttrString(font: .NotoSans(.medium, size: 19), color: .black))

@@ -153,6 +153,14 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
     func touchMove(sender: UIButton) {
         sender.isUserInteractionEnabled = false
         navView.removeFromSuperview()
+        
+        for i in KEYWINDOW!.subviews {
+            
+            if i is TopDotView {
+                i.removeFromSuperview()
+            }
+            
+        }
         guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
         
     

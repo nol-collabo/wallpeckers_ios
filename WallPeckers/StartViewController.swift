@@ -186,13 +186,21 @@ extension StartViewController:SelectPopupDelegate {
         
         if tag == 0 {
             Standard.shared.changeLocalized(Language.GERMAN.rawValue)
+            
+            UserDefaults.standard.set([Language.GERMAN.rawValue], forKey: "AppleLanguages")
+            UserDefaults.standard.synchronize()
+
 
         }else if tag == 1 {
+            UserDefaults.standard.set([Language.KOREAN.rawValue], forKey: "AppleLanguages")
+            UserDefaults.standard.synchronize()
+
             Standard.shared.changeLocalized(Language.KOREAN.rawValue)
 
         }else {
             Standard.shared.changeLocalized(Language.ENGLISH.rawValue)
-
+            UserDefaults.standard.set([Language.ENGLISH.rawValue], forKey: "AppleLanguages")
+            UserDefaults.standard.synchronize()
         }
 
         

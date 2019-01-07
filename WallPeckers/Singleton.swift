@@ -85,6 +85,10 @@ class RealmUser {
         UserDefaults.standard.set(false, forKey: "Tutorial")
         UserDefaults.standard.set(false, forKey: "Playing")
         UserDefaults.standard.set(0, forKey: "sessionId")
+        UserDefaults.standard.set(false, forKey: "firstLevelUp")
+        UserDefaults.standard.set(false, forKey: "secondLevelUp")
+        UserDefaults.standard.set(false, forKey: "thirdLevelUp")
+        UserDefaults.standard.set(false, forKey: "fourthLevelUp")
         
         try! realm.write {
             user.factCheckList.removeAll()

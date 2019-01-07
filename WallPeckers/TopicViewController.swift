@@ -8,6 +8,11 @@
 
 import UIKit
 
+var firstLevelUp:Bool = UserDefaults.standard.bool(forKey: "firstLevelUp")
+var secondLevelUp:Bool = UserDefaults.standard.bool(forKey: "secondLevelUp")
+var thirdLevelUp:Bool = UserDefaults.standard.bool(forKey: "thirdLevelUp")
+var fourthLevelUp:Bool = UserDefaults.standard.bool(forKey: "fourthLevelUp")
+
 class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
     func callCompleteBadge(tag: Int) {
         
@@ -33,10 +38,7 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
     let selectedLanguage = Standard.shared.getLocalized()
     var sections:[Section]?
     var sectionStars:[Int] = []
-    var firstLevelUp:Bool = UserDefaults.standard.bool(forKey: "firstLevelUp")
-    var secondLevelUp:Bool = UserDefaults.standard.bool(forKey: "secondLevelUp")
-    var thirdLevelUp:Bool = UserDefaults.standard.bool(forKey: "thirdLevelUp")
-    var fourthLevelUp:Bool = UserDefaults.standard.bool(forKey: "fourthLevelUp")
+ 
     
     lazy var buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
     

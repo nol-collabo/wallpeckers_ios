@@ -53,6 +53,7 @@
 		2357819221ABF2DA00338CB9 /* BaseVerticalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357818E21ABF2DA00338CB9 /* BaseVerticalScrollView.swift */; };
 		2357819321ABF2DA00338CB9 /* UIView_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357818F21ABF2DA00338CB9 /* UIView_extension.swift */; };
 		2357819521ABF47A00338CB9 /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2357819421ABF47A00338CB9 /* PopUpView.swift */; };
+		2369E54221E30FF100DCD17F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2369E54421E30FF100DCD17F /* InfoPlist.strings */; };
 		23C045EF21D60D92003BFC3C /* image_article_038.png in Resources */ = {isa = PBXBuildFile; fileRef = 23C0459A21D60D89003BFC3C /* image_article_038.png */; };
 		23C045F121D60D92003BFC3C /* image_article_014.png in Resources */ = {isa = PBXBuildFile; fileRef = 23C0459C21D60D8A003BFC3C /* image_article_014.png */; };
 		23C045F221D60D92003BFC3C /* image_article_021.png in Resources */ = {isa = PBXBuildFile; fileRef = 23C0459D21D60D8A003BFC3C /* image_article_021.png */; };
@@ -315,6 +316,9 @@
 		2357818E21ABF2DA00338CB9 /* BaseVerticalScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVerticalScrollView.swift; sourceTree = "<group>"; };
 		2357818F21ABF2DA00338CB9 /* UIView_extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView_extension.swift; sourceTree = "<group>"; };
 		2357819421ABF47A00338CB9 /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
+		2369E54321E30FF100DCD17F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2369E54521E30FF200DCD17F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2369E54621E30FF300DCD17F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23C0459A21D60D89003BFC3C /* image_article_038.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_038.png; sourceTree = "<group>"; };
 		23C0459C21D60D8A003BFC3C /* image_article_014.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_014.png; sourceTree = "<group>"; };
 		23C0459D21D60D8A003BFC3C /* image_article_021.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_021.png; sourceTree = "<group>"; };
@@ -601,6 +605,7 @@
 			children = (
 				2357818B21ABF2DA00338CB9 /* Extension */,
 				2357815921ABF28F00338CB9 /* AppDelegate.swift */,
+				2369E54421E30FF100DCD17F /* InfoPlist.strings */,
 				230BD4CA21C0B47D00503CD5 /* CustomObject */,
 				230BD48221BF543400503CD5 /* Singleton.swift */,
 				235520D621DC58460029290D /* CustomAPI.swift */,
@@ -1180,6 +1185,7 @@
 				75FBA92E21DE0E9B009C66A0 /* image_article_049_03.png in Resources */,
 				75FBA91021DE0E9B009C66A0 /* image_article_013_02.png in Resources */,
 				23C0460821D60D92003BFC3C /* image_article_045.png in Resources */,
+				2369E54221E30FF100DCD17F /* InfoPlist.strings in Resources */,
 				75FBA93121DE0E9B009C66A0 /* image_article_052_02.png in Resources */,
 				75FBA94A21DE0E9B009C66A0 /* image_article_051_03.png in Resources */,
 				23C0462721D60D92003BFC3C /* image_article_028.png in Resources */,
@@ -1417,6 +1423,16 @@
 				23D86F0621AFF44000CDC5B6 /* de */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		2369E54421E30FF100DCD17F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2369E54321E30FF100DCD17F /* en */,
+				2369E54521E30FF200DCD17F /* ko */,
+				2369E54621E30FF300DCD17F /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		23D86F0121AFF40900CDC5B6 /* Localizable.strings */ = {

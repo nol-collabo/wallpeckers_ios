@@ -27,10 +27,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     }
     
     
-    var firstLevelUp:Bool = UserDefaults.standard.bool(forKey: "firstLevelUp")
-    var secondLevelUp:Bool = UserDefaults.standard.bool(forKey: "secondLevelUp")
-    var thirdLevelUp:Bool = UserDefaults.standard.bool(forKey: "thirdLevelUp")
-    var fourthLevelUp:Bool = UserDefaults.standard.bool(forKey: "fourthLevelUp")
     let selectedLanguage = Standard.shared.getLocalized()
 
     

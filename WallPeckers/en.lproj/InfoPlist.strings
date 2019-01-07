@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  WallPeckers
+
+  Created by Seongchan Kang on 07/01/2019.
+  Copyright © 2019 KimJimin and Company. All rights reserved.
+*/
+
+
+NSPhotoLibraryUsageDescription = "en";
+
+
