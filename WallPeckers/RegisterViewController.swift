@@ -99,7 +99,7 @@ class RegisterViewController: UIViewController {
     
     func checkPermission(completion:@escaping ((String)->())) {
         
-        
+//        PHPhotoLibrary.authorizationStatus().
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         switch photoAuthorizationStatus {
         case .authorized:
@@ -311,6 +311,7 @@ class RegisterViewController: UIViewController {
     @objc func callProfileImageOption(sender:UIButton) {
 
         imagePicker.delegate = self
+        imagePicker.modalPresentationStyle = UIModalPresentationStyle.currentContext
         PopUp.call(mainTitle: "registrationdialog_title".localized, selectButtonTitles: ["registrationdialog_camera".localized, "registrationdialog_album".localized, "registrationdialog_noprofile".localized], bottomButtonTitle: "CANCEL".localized, bottomButtonType: 0, self, buttonImages: nil)
     }
     
@@ -418,12 +419,13 @@ extension RegisterViewController:SelectPopupDelegate {
         switch tag {
         case 0:
             imagePicker.sourceType = .camera
-            checkPermission()
+//            checkPermission()
 
                 self.present(self.imagePicker, animated: true, completion: nil)
 
         case 1:
             imagePicker.sourceType = .photoLibrary
+            imagePicker.viewWillLayoutSubviews()
             checkPermission()
 
                     self.present(self.imagePicker, animated: true, completion: nil)
@@ -462,4 +464,12 @@ enum AmericanTypeWriterFontSize:String {
     case regular = "AmericanTypewriter"
     case light = "AmericanTypewriter-Light"
     
+}
+
+extension UIImagePickerController {
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationBar.topItem?.rightBarButtonItem?.tintColor = UIColor.black
+        self.navigationBar.topItem?.rightBarButtonItem?.isEnabled = true
+    }
 }

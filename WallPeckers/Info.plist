@@ -39,8 +39,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>프로필 사진 촬영을 위한 카메라 접근에 동의합니다.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>프로필 사진 등록을 위한 사진첩 접근에 동의합니다.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>프로필 사진 등록을 위한 사진첩 접근에 동의합니다.</string>
 	<key>UIAppFonts</key>

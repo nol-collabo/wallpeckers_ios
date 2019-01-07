@@ -7,7 +7,6 @@
 */
 
 
-NSPhotoLibraryUsageDescription = "en";
-NSCameraUsageDescription = "";
-NSPhotoLibraryAddUsageDescription = "";
+NSPhotoLibraryUsageDescription = "Setting your profile photo requires access to your album.";
+NSCameraUsageDescription = "Taking your profile photo requires access to your camera.";
 

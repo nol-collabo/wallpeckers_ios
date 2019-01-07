@@ -137,8 +137,7 @@
 "Send" = "Send";
 
 "emailsuccessdialog_desc" = "The e-mail successfully has been sent.";
-"erroremessage" = "네트워크가 불안정하여, 이메일 전송을 실패했습니다! 다시 시도해 주세요.";
-
+"erroremessage" = "Network error, please try again later.";
 "printsuccessdialog_desc" = "The newspaper successfully has been printed out.\nGo Get your newspaper at the Printer.";
 
 "Politics" = "Politics";

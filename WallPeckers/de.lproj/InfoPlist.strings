@@ -7,4 +7,3 @@
 */
 NSPhotoLibraryUsageDescription = "de";
 NSCameraUsageDescription = "";
-NSPhotoLibraryAddUsageDescription = "";
