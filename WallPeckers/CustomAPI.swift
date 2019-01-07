@@ -14,7 +14,7 @@ import Alamofire
 
 struct CustomAPI {
     
-    static let header = ["Content-Type":"application/json"]
+//    static let header = ["Content-Type":"application/json"]
     static let domainUrl = "http://api.dmz.wallpeckers.kr/"
     
     static func newPlayer(completion:@escaping ((Int)->Void)) {
@@ -67,6 +67,12 @@ struct CustomAPI {
         
         let params:Parameters = ["article_proto":articleId, "category":category, "player":playerId, "language":language.rawValue, "session":sessionId, "tag":tag, "num_of_check_fact":count, "photo":photoId]
         
+//        Alamofire
+        
+        print(params)
+//        Alamofire.upload
+        
+//        Alamofire.upload
         
         Alamofire.request("\(domainUrl)new/article/", method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
@@ -101,7 +107,7 @@ struct CustomAPI {
         
         print(params)
         
-        Alamofire.request("\(domainUrl)new/answer/", method: .post, parameters: params, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+        Alamofire.request("\(domainUrl)new/answer/", method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
                 
             case .success(let value):
