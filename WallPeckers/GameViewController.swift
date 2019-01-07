@@ -236,7 +236,8 @@ extension GameViewController:GameViewTransitionDelegate {
                 }
                 
                 if let vc = toVc as? ArticleChooseViewController {
-                    
+                    articleView.subviews.first?.removeFromSuperview()
+
                     let sectionTag = sendData as! Int
 
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
@@ -246,7 +247,8 @@ extension GameViewController:GameViewTransitionDelegate {
                         if fvc.isCompletedFirst {
                             vc.callLevelPopUp(topic: sectionTag)
                         }
-                        
+ 
+                        vc.sectionId = sectionTag
                         vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                         vc.changeColor()
                         vc.view.layoutIfNeeded()

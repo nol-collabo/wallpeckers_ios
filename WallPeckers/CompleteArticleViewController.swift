@@ -185,6 +185,10 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         if isCompletedFirst {
             CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: article.tryCount, photoId: article.selectedPictureId) { (result) in
                 
+                print(article.section)
+                print("ARTICLESECTION")
+
+                
                 if result == "OK" {
                     self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                 }else{
