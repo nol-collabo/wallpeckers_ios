@@ -33,5 +33,7 @@ class FactCheck:Object {
     @objc dynamic var correctClue:Int = 0
     @objc dynamic var isSubmit:Bool = false
     @objc dynamic var type:String = ""
+    @objc dynamic var selectedIdentication:String = ""
+
     
 }

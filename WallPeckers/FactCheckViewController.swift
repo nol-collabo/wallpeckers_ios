@@ -151,6 +151,8 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                 
                 b.delegate = self
                 
+                guard let correctClueIdentification = RealmClue.shared.getClue(id: b.tag)?.identification else {return}
+                
                 for f in _five {
                     if f.id == b.tag {
                         if !f.given {
@@ -172,16 +174,9 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                                 wrongs.append(b.clue!.type!)
                                 
                                 
-                                
-                                
-                                wrongC.append(("\(b.tag)", "\(data.selectedClue)", "\(b.clue!.type!)"))
 
-//                                case .ENGLISH:
-                                    
+                                wrongC.append((correctClueIdentification, "\(data.selectedIdentication)", "\(b.clue!.type!)"))
 
-//                                }
-                                print(b.clue?.type)
-                                print("TYPEYEPEPEPEPE1")
                                 
                                 b.setDataCheck(clue: selectedClue, type: .wrong)
 
@@ -201,7 +196,7 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
 
                     wrongs.append(b.clue!.type!)
                     wrongQuestionId.append((b.clue?.id)!)
-                    wrongC.append(("\(b.tag)", "", "\(b.clue!.type!)"))
+                    wrongC.append((correctClueIdentification, "", "\(b.clue!.type!)"))
 
                     print("TYPEYEPEPEPEPE")
 

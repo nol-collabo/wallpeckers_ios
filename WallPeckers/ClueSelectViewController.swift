@@ -234,6 +234,7 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                 let factCheck = FactCheck()
                 factCheck.selectedClue = selectedClue.id
                 factCheck.selectedArticleId = article!.id
+                factCheck.selectedIdentication = selectedClue.identification!
                 factCheck.correctClue = selectedClueView.tag
                 factCheckButton.backgroundColor = .black
                 factCheckButton.setTitleColor(.white, for: .normal)

@@ -219,15 +219,12 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                     if result == "OK" {
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                     }else{
-                        
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                     }
                 }
             }else{
                 self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
             }
-
-        
         }
     }
 
