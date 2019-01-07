@@ -16,12 +16,8 @@ typealias wrongClueTuple = (String, String, String) // (CorrectId, IncorrectId, 
 class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleViewDelegate {
     func tapToBack() {
         
-        
-        
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
-//        print((article, five, questionPoint)) /
-        print("~~~~~")
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article!, five! , questionPoint!), direction: .backward)
     }
     
@@ -40,15 +36,13 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
     var wrongQuestions:[wrongClueTuple] = [] { // (CorrectId, IncorrectId, ClueType)
         
         didSet {
-
             if wrongQuestions.count > 0 {
                 for wrong in wrongQuestions {
-                    
+            
                     CustomAPI.saveIncorrect(articleId: article!.id, clue_type: wrong.2, code_incorrect: wrong.1, code_correct: wrong.0) { (result) in
                         print(result)
                         print(wrong)
                     }
-                    
                 }
             }
         }
@@ -100,6 +94,15 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
         
         print(_data)
         print("~~~~~~")
+
+//        if aStackView.c
+//        if aStackView.
+//        aStackView.
+        
+        if view.subviews.filter({$0 is AloeStackView}).count == 2 {
+            return
+        }
+
         
         if let whoC = clues.filter({
             $0.type == "WHO"

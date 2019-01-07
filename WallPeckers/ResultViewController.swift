@@ -169,7 +169,6 @@ class ResultViewController: UIViewController {
     
     @objc func moveToMain(sender:UIButton) {
 
-        
         if RealmUser.shared.getUserData()?.allocatedId == 0 {
             
             guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}

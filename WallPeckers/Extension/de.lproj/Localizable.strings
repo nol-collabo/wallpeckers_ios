@@ -135,7 +135,8 @@
 "Send" = "Senden";
 
 "emailsuccessdialog_desc" = "Die E-Mail wurde erfolgreich versendet.";
-"erroremessage" = "네트워크가 불안정하여, 이메일 전송을 실패했습니다! 다시 시도해 주세요.";
+"erroremessage" = "Please enter a valid email address.";
+"errorinputemail" = "Please enter a valid email address.";
 "printsuccessdialog_desc" = "Deine Zeitung wurde gedruckt.\nHol sie dir am Schalter ab!.";
 
 "Politics" = "Politik";
