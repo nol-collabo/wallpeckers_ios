@@ -6,3 +6,5 @@
   Copyright © 2019 KimJimin and Company. All rights reserved.
 */
 NSPhotoLibraryUsageDescription = "de";
+NSCameraUsageDescription = "";
+NSPhotoLibraryAddUsageDescription = "";

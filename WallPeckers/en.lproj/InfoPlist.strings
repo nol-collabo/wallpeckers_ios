@@ -8,5 +8,6 @@
 
 
 NSPhotoLibraryUsageDescription = "en";
-
+NSCameraUsageDescription = "";
+NSPhotoLibraryAddUsageDescription = "";
 
