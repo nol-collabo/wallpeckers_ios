@@ -233,7 +233,6 @@ extension TopicViewController:TopicButtonDelegate {
         
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: tag, direction: .forward)
 
-        
     }
     
     

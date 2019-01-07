@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class AfterRegisterViewController: UIViewController {
-
+    
     let mainProfileView = MyProfileView()
     let pressCodeTf = UITextField()
     let pressCodeLb = UILabel()
@@ -23,7 +23,7 @@ class AfterRegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUI()
         addAction()
         // Do any additional setup after loading the view.
@@ -32,7 +32,7 @@ class AfterRegisterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainProfileView.setData(userData: realm.objects(User.self).last!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: true)
-
+        
     }
     
     func addAction() {
@@ -55,7 +55,7 @@ class AfterRegisterViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.leading.equalTo(DEVICEHEIGHT > 600 ? 64 : 32)
             make.height.equalTo(DEVICEHEIGHT > 600 ? 410 : 320)
-
+            
         }
         
         
@@ -67,7 +67,7 @@ class AfterRegisterViewController: UIViewController {
         }
         
         pressCodeTf.autocorrectionType = .no
-
+        
         pressCodeLb.snp.makeConstraints { (make) in
             make.top.equalTo(pressCodeTf.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
@@ -98,7 +98,7 @@ class AfterRegisterViewController: UIViewController {
         confirmBtn.setTitleColor(.black, for: .normal)
         confirmBtn.backgroundColor = .basicBackground
         confirmBtn.isUserInteractionEnabled = false
-
+        
     }
     
     @objc func moveToMaPage(sender:UIButton) {
@@ -107,7 +107,7 @@ class AfterRegisterViewController: UIViewController {
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
-
+        
         self.present(vc, animated: true, completion: nil)
         
     }
@@ -121,10 +121,10 @@ class AfterRegisterViewController: UIViewController {
             if playTime > 0 {
                 
                 moveToGame()
-
+                
                 sender.isUserInteractionEnabled = true
-
- 
+                
+                
             }else{
                 
                 if !UserDefaults.standard.bool(forKey: "Playing") {
@@ -132,52 +132,42 @@ class AfterRegisterViewController: UIViewController {
                     moveToGame()
                 }else{
                     if let _inputCode = pressCodeTf.text {
-//                        switch Standard.shared.getLocalized() {
+                        //                        switch Standard.shared.getLocalized() {
                         
-//                        case .ENGLISH, .KOREAN:
-                            if !enPressCodes.contains(_inputCode.lowercased()) {
-                                pressCodeTf.text = ""
-                                pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
-                                return
-                            }
-//                        case .GERMAN:
-//                            if !dePressCodes.contains(_inputCode.lowercased()) {
-//                                pressCodeTf.text = ""
-//                                pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
-//                                return
-//                            }
-//                        }
+                        //                        case .ENGLISH, .KOREAN:
+                        if !enPressCodes.contains(_inputCode.lowercased()) {
+                            pressCodeTf.text = ""
+                            pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                            return
+                        }
+    
                         
                         PopUp.callTwoButtonAlert(vc:self)
-
+                        
                     }
                 }
                 
-
+                
                 sender.isUserInteractionEnabled = true
-
+                
                 // 팝업
             }
             
         }
-     
+        
     }
     
     func moveToGame(){
         
         if let _inputCode = pressCodeTf.text {
-//            switch Standard.shared.getLocalized() {
             
-//            case .ENGLISH, .KOREAN:
-                if !enPressCodes.contains(_inputCode.lowercased()) {
-                    pressCodeTf.text = ""
-                    pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
-                    return
-                }
-//            case .GERMAN:
-
-//            }
-
+            if !enPressCodes.contains(_inputCode.lowercased()) {
+                pressCodeTf.text = ""
+                pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                return
+            }
+            
+            
             UserDefaults.standard.set(true, forKey: "Playing")
             
             if let previousPresscode = UserDefaults.standard.string(forKey: "presscode") {
@@ -187,21 +177,81 @@ class AfterRegisterViewController: UIViewController {
                     
                 }else{ // 이미 시작했지만 presscode 가 다름
                     RealmUser.shared.initializedUserInfo()
-
+                    
                 }
                 
             }
             
-            CustomAPI.getHashtag { (hashtags) in
+            
+            if UserDefaults.standard.bool(forKey: "Tutorial") {
                 
-                let json = JSON(hashtags!)
-
-                guard let hashes = json["hashes"].array else {return}
+                guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
+                getHashTag()
+                
+                if let gvc = vc.viewControllers.first as? GameViewController {
+                    gvc.inputCode = _inputCode
+                }
+                
+                self.present(vc, animated: true, completion: nil)
+                
+            }else{
+                guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+                getHashTag()
+                
+                UserDefaults.standard.set(self.pressCodeTf.text ?? "", forKey: "presscode")
+                
+                
+                CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
+                    
+                    UserDefaults.standard.set(sessionId, forKey: "sessionId")
+                    
+                    vc.inputCode = _inputCode
+                    
+                    CustomAPI.newPlayer(completion: { (id) in
+                        
+                        if id != 0 {
+                            
+                            try! realm.write {
+                                RealmUser.shared.getUserData()?.allocatedId = id
+                                
+                                self.navigationController?.pushViewController(vc, animated: true)
+                                
+                            }
+                        }
+                        
+                    })
+                    
+                    if sessionId == -1 {
+                        
+                        UserDefaults.standard.set(0, forKey: "sessionId")
+                        
+                        try! realm.write {
+                            RealmUser.shared.getUserData()?.allocatedId = 0
+                            self.navigationController?.pushViewController(vc, animated: true)
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+    }
+    
+    func getHashTag() {
+        
+        CustomAPI.getHashtag { (hashtags) in
+            
+            let json = JSON(hashtags!)
+            
+            if let hashes = json["hashes"].array {
                 
                 let articles = RealmArticle.shared.getAll()
                 
                 for i in 0...articles.count - 1{
-
+                    
                     if let ha = hashes[i].dictionary {
                         
                         let value = ha.mapValues({
@@ -217,7 +267,6 @@ class AfterRegisterViewController: UIViewController {
                         try! realm.write {
                             
                             a.hashArray.removeAll()
-                            
                             let hashes = value[0]
                             _ = hashes.map({
                                 a.hashArray.append($0.intValue)
@@ -225,50 +274,39 @@ class AfterRegisterViewController: UIViewController {
                         }
                     }
                 }
-                
-                if UserDefaults.standard.bool(forKey: "Tutorial") {
+            }else{
+                let articles = RealmArticle.shared.getAll()
 
-                    guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "GameNav") as? UINavigationController else {return}
-                    
-                    if let gvc = vc.viewControllers.first as? GameViewController {
-                        gvc.inputCode = _inputCode
-                    }
-                    
-                    self.present(vc, animated: true, completion: nil)
-                    
-                }else{
-                    guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
-                    
-                    UserDefaults.standard.set(self.pressCodeTf.text ?? "", forKey: "presscode")
+                
+                
+                
+                
+                for i in 0...articles.count - 1 {
                     
                     
-                    CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
-                        
-                        UserDefaults.standard.set(sessionId, forKey: "sessionId")
-                        
-                        vc.inputCode = _inputCode
-                        
-                        CustomAPI.newPlayer(completion: { (id) in
+                    
+                    let articleHash = (articles[i].hashArray)
+                    
+                    
+                    if articleHash.count == 5 {
+                        print("XX")
+                        break
+                    }else{
+                        for _ in 0...4 {
                             try! realm.write {
-                                RealmUser.shared.getUserData()?.allocatedId = id
-                                
-                                self.navigationController?.pushViewController(vc, animated: true)
-                                
+                                articleHash.append(10)
                             }
-                            
-                        })
-                        
-                        
+                        }
                     }
                     
+
                 }
                 
             }
-            
         }
     }
     
-
+    
 }
 
 
@@ -278,18 +316,18 @@ extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDel
         moveToGame()
     }
     
-
+    
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-            UIView.animate(withDuration: 0.2) {
-                self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 120)
+        UIView.animate(withDuration: 0.2) {
+            self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 120)
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-            UIView.animate(withDuration: 0.2) {
-                self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 120)
+        UIView.animate(withDuration: 0.2) {
+            self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 120)
         }
     }
     
