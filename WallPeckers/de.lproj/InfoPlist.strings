@@ -5,5 +5,5 @@
   Created by Seongchan Kang on 07/01/2019.
   Copyright © 2019 KimJimin and Company. All rights reserved.
 */
-NSPhotoLibraryUsageDescription = "de";
-NSCameraUsageDescription = "";
+NSPhotoLibraryUsageDescription = "Um Fotos aus deiner Bildergalerie als Profilbild auszuwählen.";
+NSCameraUsageDescription = "Um dein Profilbild aufzunehmen.";
