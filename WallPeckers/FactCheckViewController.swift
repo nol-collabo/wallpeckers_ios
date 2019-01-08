@@ -338,7 +338,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                             ar1.isPairedArticle = true
                             ar2.isPairedArticle = true
 
-                        let point = (ar1.point + ar2.point) * 2
+                        let point = (ar1.point + ar2.point)
                         
                         RealmUser.shared.getUserData()?.score += point
                         

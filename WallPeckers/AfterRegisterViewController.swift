@@ -132,9 +132,7 @@ class AfterRegisterViewController: UIViewController {
                     moveToGame()
                 }else{
                     if let _inputCode = pressCodeTf.text {
-                        //                        switch Standard.shared.getLocalized() {
-                        
-                        //                        case .ENGLISH, .KOREAN:
+
                         if !enPressCodes.contains(_inputCode.lowercased()) {
                             pressCodeTf.text = ""
                             pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
@@ -207,6 +205,17 @@ class AfterRegisterViewController: UIViewController {
                     
                     vc.inputCode = _inputCode
                     
+                    if sessionId == -1 {
+                        
+                        UserDefaults.standard.set(0, forKey: "sessionId")
+                        
+                        try! realm.write {
+                            RealmUser.shared.getUserData()?.allocatedId = 0
+                            self.navigationController?.pushViewController(vc, animated: true)
+                            
+                        }
+                        
+                    }else{
                     CustomAPI.newPlayer(completion: { (id) in
                         
                         if id != 0 {
@@ -220,18 +229,9 @@ class AfterRegisterViewController: UIViewController {
                         }
                         
                     })
-                    
-                    if sessionId == -1 {
-                        
-                        UserDefaults.standard.set(0, forKey: "sessionId")
-                        
-                        try! realm.write {
-                            RealmUser.shared.getUserData()?.allocatedId = 0
-                            self.navigationController?.pushViewController(vc, animated: true)
-                            
-                        }
-                        
                     }
+                    
+
                     
                 }
                 

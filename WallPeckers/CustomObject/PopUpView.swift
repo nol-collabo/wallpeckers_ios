@@ -107,7 +107,7 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
             make.height.equalTo(cancelButton.snp.height)
         }
         
-        okButton.setTitle("OK".localized, for: .normal)
+        okButton.setTitle("Send".localized, for: .normal)
         cancelButton.setAttributedTitle("CANCEL".localized.makeAttrString(font: .NotoSans(.bold, size: 20), color: .white), for: .normal)
         cancelButton.setBorder(color: .black, width: 1.5)
         okButton.addTarget(self, action: #selector(touchOk(sender:)), for: .touchUpInside)
@@ -1241,7 +1241,7 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
-        okButton.setTitle("OK".localized, for: .normal)
+        okButton.setTitle("ENTER".localized, for: .normal)
         titleLb.snp.makeConstraints { (make) in
             make.top.equalTo(20)
             make.leading.equalTo(30)
