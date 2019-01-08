@@ -66,12 +66,17 @@ class TopicButton:UIView {
         titleLb.adjustsFontSizeToFitWidth = true
     }
     
+
+    
     func setStar(count:Int) {
         
         if count > 0 {
             starImageView.isHidden = false
             starCountLb.isHidden = false
             starCountLb.attributedText = "x \(count)".makeAttrString(font: .NotoSans(.regular, size: 15), color: .black)
+        }
+        if count == 9 {
+            self.backgroundColor = .sunnyYellow
         }
 
     }

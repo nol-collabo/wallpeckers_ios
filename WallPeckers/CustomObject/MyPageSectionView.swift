@@ -93,10 +93,13 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             }
             
             if let _ = delegate?.completedBadges.filter({$0 == 2}).first {
-                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "Economy".localized, tag: 2, isCompleted: true)
                 
+                
+                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle:                 Standard.shared.getLocalized() == .KOREAN
+                    ? "Economy".localized.replacingOccurrences(of: "\n", with: "") : "Economy".localized, tag: 2, isCompleted: true)
             }else{
-                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle: "Economy".localized, tag: 2)
+                economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle:                 Standard.shared.getLocalized() == .KOREAN
+                    ? "Economy".localized.replacingOccurrences(of: "\n", with: "") : "Economy".localized, tag: 2, isCompleted: false)
             }
             
             if let _ = delegate?.completedBadges.filter({$0 == 3}).first {

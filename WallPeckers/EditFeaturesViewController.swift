@@ -108,7 +108,7 @@ class EditFeaturesViewController: UIViewController {
             make.top.equalTo(aStackView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
-        infoLb.attributedText = "titlearticlechange_guide".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .white)
+        infoLb.attributedText = "titlearticlechange_guide".localized.makeAttrString(font: .NotoSans(.bold, size: 18), color: .black)
         infoLb.textAlignment = .center
         
         for ca in RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}) {
@@ -189,7 +189,7 @@ class EditFeaturesViewController: UIViewController {
         }
         //
         nextButton.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
-        nextButton.setTitle("OK", for: .normal)
+        nextButton.setTitle("OK".localized, for: .normal)
         dismissBtn.addTarget(self, action: #selector(touchDismiss(sender:)), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(moveBack(sender:)), for: UIControl.Event.touchUpInside)
         //

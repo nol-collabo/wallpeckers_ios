@@ -205,13 +205,11 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
                 }
                 aStackView.addRow(completedArticleView)
                 
-//                aStackView.addRows([credView, completedArticleView])
             }
         }
        
         
 
-        //엔딩페이지에서만 보이는 신문
         
         aStackView.addRows([levelView, badgeView])
         
