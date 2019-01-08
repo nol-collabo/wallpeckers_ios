@@ -262,8 +262,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                         if btn.tag == ar.id {
                             
                             if fact.isSubmit {
-//                                btn.pointTitleLb.textColor = UIColor.white
-//                                btn.titleLb.textColor = UIColor.white
                                 btn.backgroundColor = .sunnyYellow
                                 btn.starImageView.isHidden = false
                             }else{
