@@ -12,7 +12,7 @@ import AloeStackView
 
 final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    
+    var alreadySelected:Bool = false
     class HashtagCollectionViewCell:UICollectionViewCell {
         
         
@@ -40,15 +40,23 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
         }
     }
     
+    func selected() {
+        
+        titleLb.textColor = UIColor.brownGrey
+        alreadySelected = true
+        
+        collectionView.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashtagCollectionViewCell", for: indexPath) as? HashtagCollectionViewCell {
             
             if let _hash = hashTags {
                 
                 if Standard.shared.getLocalized() == .KOREAN {
-                    cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 16), color: UIColor.deepSkyBlue)
+                    cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 16), color: alreadySelected ? UIColor.brownGrey : UIColor.deepSkyBlue)
                 }else{
-                       cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 14), color: UIColor.deepSkyBlue)
+                       cell.lbl.attributedText = "\(_hash[indexPath.row])".makeAttrString(font: .NotoSans(.medium, size: 14), color: alreadySelected ? UIColor.brownGrey : UIColor.deepSkyBlue)
                 }
              
                 return cell

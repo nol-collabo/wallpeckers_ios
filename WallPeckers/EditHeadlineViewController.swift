@@ -46,6 +46,8 @@ class EditHeadlineViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
+        
+        
         titleLb.setNotoText("titlearticlechange_title".localized, color: .black, size: 20, textAlignment: .center, font: .bold)
         
         
@@ -75,7 +77,6 @@ class EditHeadlineViewController: UIViewController {
         }
         featuredLb.numberOfLines = 0
 
-        
         aStackView.setBorder(color: .black, width: 1.5)
         aStackView.separatorColor = .clear
         aStackView.snp.makeConstraints { (make) in
@@ -85,7 +86,17 @@ class EditHeadlineViewController: UIViewController {
             make.height.equalTo(DeviceSize.width > 320 ? 400 : 300)
         }
         
-        for ca in RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}) {
+        let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
+        
+        if totalArticle.count > 3 {
+            nextButton.setBackgroundColor(color: .basicBackground, forState: .disabled)
+            nextButton.setBackgroundColor(color: .black, forState: .normal)
+            nextButton.isEnabled = false
+        }else{
+            nextButton.isEnabled = true
+        }
+        
+        for ca in totalArticle {
             
             let tv = CompleteArticleThumnailView()
             
@@ -94,8 +105,11 @@ class EditHeadlineViewController: UIViewController {
             tv.delegate = self
             tv.rightArrowImv.isHidden = true
 
+            if totalArticle.count <= 3 {
+            
             if tv.tag == defaultHeadlines[0] {
                 tv.selectButton.isSelected = true
+                }
             }
             
             aStackView.addRow(tv)
@@ -148,6 +162,8 @@ class EditHeadlineViewController: UIViewController {
         }else{
             guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditFeaturesViewController") as? EditFeaturesViewController else {return}
             
+            print(defaultHeadlines)
+            print("DDDDD")
             vc.defaultHeadlines = defaultHeadlines
             
             self.navigationController?.pushViewController(vc, animated: true)
@@ -175,8 +191,18 @@ extension EditHeadlineViewController:ThumnailDelegate, EditHeadlineProtocol {
                 }
             })
         }
-        defaultHeadlines[0] = id
-        print(id)
+        
+        let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
+
+        if totalArticle.count <= 3 {
+            defaultHeadlines[0] = id
+
+        }else{
+            defaultHeadlines.removeAll()
+            defaultHeadlines.append(id)
+            nextButton.isEnabled = true
+
+        }
     }
     
     

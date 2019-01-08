@@ -126,6 +126,7 @@ class EditFeaturesViewController: UIViewController {
             if totalCount == 3 {
                 if tv.tag == defaultHeadlines[0] {
                     tv.selectButton.isEnabled = false
+                    tv.selected()
                 }else if tv.tag == defaultHeadlines[1] {
                     tv.selectButton.isSelected = true
                     selectedId.append(tv.tag)
@@ -137,6 +138,7 @@ class EditFeaturesViewController: UIViewController {
             }else if totalCount == 2{
                     if tv.tag == defaultHeadlines[0] {
                         tv.selectButton.isEnabled = false
+                        tv.selected()
                     }else if tv.tag == defaultHeadlines[1] {
                         tv.selectButton.isSelected = true
                         selectedId.append(tv.tag)
@@ -144,7 +146,9 @@ class EditFeaturesViewController: UIViewController {
                 infoLb.isHidden = true
             }else {
                 if tv.tag == defaultHeadlines[0] {
+                    tv.selected()
                     tv.selectButton.isEnabled = false
+                    
                 }
 //                defaultHeadlines.remove(at: 1)
 //                defaultHeadlines.remove(at: 1)
@@ -229,8 +233,18 @@ class EditFeaturesViewController: UIViewController {
 //                defaultHeadlines.remove(at: 1)
             }
         }else{
-            defaultHeadlines[1] = selectedId[0]
-            defaultHeadlines[2] = selectedId[1]
+            
+            let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
+
+            if totalArticle.count <= 3 {
+                defaultHeadlines[1] = selectedId[0]
+                defaultHeadlines[2] = selectedId[1]
+            }else{
+                defaultHeadlines.append(selectedId[0])
+                defaultHeadlines.append(selectedId[1])
+
+            }
+          
         }
  
         vc.delegate = self

@@ -271,7 +271,14 @@ class PublishViewController: UIViewController {
         sender.isUserInteractionEnabled = false
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditHeadlineViewController") as? EditHeadlineViewController else {return}
         sender.isUserInteractionEnabled = true
-        vc.defaultHeadlines = defaultHeadlines
+        
+        let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
+
+        if totalArticle.count <= 3 {
+            vc.defaultHeadlines = defaultHeadlines
+        }else{
+            vc.defaultHeadlines = []
+        }
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
