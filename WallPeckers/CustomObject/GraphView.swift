@@ -21,7 +21,7 @@ final class GraphView:UIView {
         setUI()
     }
     
-    func initData(percent:Int, myTag:Int) {
+    func initData(percent:Int, myTag:Int, top:Bool = false) {
         self.percentLb.font = UIFont.NotoSans(.bold, size: 14)
         self.percentLb.text = "\(percent)"
         self.titleLb.text = ""
@@ -37,7 +37,7 @@ final class GraphView:UIView {
             self.graphV.backgroundColor = .white
         }
         
-        if percent == 100 {
+        if top {
             if self.titleLb.text != "" {
                 self.titleLb.font = UIFont.NotoSans(.bold, size: 14)
                 self.titleLb.text?.append("\n\("MOST".localized)")

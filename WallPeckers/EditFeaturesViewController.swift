@@ -121,7 +121,9 @@ class EditFeaturesViewController: UIViewController {
             tv.rightArrowImv.isHidden = true
             tv.selectButton.setBackgroundColor(color: .tangerine, forState: .selected)
             
-            if RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count > 2 {
+            let totalCount = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count
+            
+            if totalCount == 3 {
                 if tv.tag == defaultHeadlines[0] {
                     tv.selectButton.isEnabled = false
                 }else if tv.tag == defaultHeadlines[1] {
@@ -132,7 +134,7 @@ class EditFeaturesViewController: UIViewController {
                     selectedId.append(tv.tag)
                 }
                 infoLb.isHidden = false
-            }else{
+            }else if totalCount == 2{
                     if tv.tag == defaultHeadlines[0] {
                         tv.selectButton.isEnabled = false
                     }else if tv.tag == defaultHeadlines[1] {
@@ -140,6 +142,14 @@ class EditFeaturesViewController: UIViewController {
                         selectedId.append(tv.tag)
                     }
                 infoLb.isHidden = true
+            }else {
+                if tv.tag == defaultHeadlines[0] {
+                    tv.selectButton.isEnabled = false
+                }
+//                defaultHeadlines.remove(at: 1)
+//                defaultHeadlines.remove(at: 1)
+
+                print(defaultHeadlines)
             }
             aStackView.addRow(tv)
         }
