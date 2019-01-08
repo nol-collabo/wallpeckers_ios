@@ -19,7 +19,8 @@ class EditHeadlineViewController: UIViewController {
     let aStackView = AloeStackView()
     let nextButton = BottomButton()
     var defaultHeadlines:[Int] = []
-    
+    let topCircle = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +34,7 @@ class EditHeadlineViewController: UIViewController {
         
         scrollView.setScrollView(vc: self)
 
-        self.scrollView.contentView.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, nextButton])
+        self.scrollView.contentView.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, nextButton, topCircle])
         self.view.backgroundColor = .basicBackground
         dismissBtn.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top)
@@ -85,6 +86,15 @@ class EditHeadlineViewController: UIViewController {
             make.top.equalTo(arrowLb.snp.bottom).offset(30)
             make.height.equalTo(DeviceSize.width > 320 ? 400 : 300)
         }
+        
+        topCircle.snp.makeConstraints { (make) in
+            make.width.height.equalTo(10)
+            make.centerX.equalTo(headLineLb.snp.centerX).offset(-25)
+            make.bottom.equalTo(headLineLb.snp.top).offset(-10)
+        }
+        
+        topCircle.backgroundColor = .tangerine
+        topCircle.setBorder(color: .clear, width: 0.1, cornerRadius: 5)
         
         let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
         

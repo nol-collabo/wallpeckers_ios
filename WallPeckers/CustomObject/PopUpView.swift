@@ -727,7 +727,8 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
         
         centerInfoView.snp.makeConstraints { (make) in
             make.top.equalTo(topStarView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalTo(5)
+            make.centerX.equalToSuperview()
             make.height.equalTo(140)
         }
         centerInfoView.axis = .horizontal

@@ -60,7 +60,6 @@ class TopicButton:UIView {
         
         starImageView.isHidden = true
         starCountLb.isHidden = true
-//        starCountLb.text = "asd"
         
         titleLb.numberOfLines = 0
         titleLb.adjustsFontSizeToFitWidth = true

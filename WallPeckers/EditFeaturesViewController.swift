@@ -23,6 +23,7 @@ class EditFeaturesViewController: UIViewController {
     let scrollView = BaseVerticalScrollView()
     let backButton = BottomButton()
     let infoLb = UILabel()
+    let topCircle = UIView()
     var selectedId:[Int] = [] {
         didSet {
 
@@ -53,7 +54,7 @@ class EditFeaturesViewController: UIViewController {
         
         scrollView.setScrollView(vc: self)
         
-        self.scrollView.contentView.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, infoLb, nextButton, backButton])
+        self.scrollView.contentView.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, infoLb, nextButton, backButton, topCircle])
         self.view.backgroundColor = .basicBackground
         dismissBtn.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
@@ -75,6 +76,8 @@ class EditFeaturesViewController: UIViewController {
             make.width.height.equalTo(24)
             
         }
+        
+        
         arrowLb.setNotoText(">", color: .init(white: 155/255, alpha: 1), size: 20, textAlignment: .center, font: .bold)
         
         headLineLb.snp.makeConstraints { (make) in
@@ -82,6 +85,16 @@ class EditFeaturesViewController: UIViewController {
             make.top.equalTo(titleLb.snp.bottom).offset(20)
             make.width.equalTo(120)
         }
+        
+        topCircle.snp.makeConstraints { (make) in
+            make.width.height.equalTo(10)
+            make.centerX.equalTo(featuredLb.snp.centerX).offset(-25)
+            make.bottom.equalTo(featuredLb.snp.top).offset(-10)
+        }
+        
+        topCircle.backgroundColor = .sunnyYellow
+        topCircle.setBorder(color: .clear, width: 0.1, cornerRadius: 5)
+        
         headLineLb.numberOfLines = 2
         headLineLb.attributedText = "titlearticlechange_titleselect".localized.makeAttrString(font: .NotoSans(.medium, size: 14), color: .init(white: 155/255, alpha: 1))
         featuredLb.attributedText = "titlearticlechange_subselect".localized.makeAttrString(font: .NotoSans(.medium, size: 14), color: .black)
