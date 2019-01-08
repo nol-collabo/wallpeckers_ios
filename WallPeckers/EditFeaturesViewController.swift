@@ -26,7 +26,7 @@ class EditFeaturesViewController: UIViewController {
     let topCircle = UIView()
     var selectedId:[Int] = [] {
         didSet {
-
+            
             let count = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count
             
             if count >= 3 {
@@ -149,13 +149,13 @@ class EditFeaturesViewController: UIViewController {
                 }
                 infoLb.isHidden = false
             }else if totalCount == 2{
-                    if tv.tag == defaultHeadlines[0] {
-                        tv.selectButton.isEnabled = false
-                        tv.selected()
-                    }else if tv.tag == defaultHeadlines[1] {
-                        tv.selectButton.isSelected = true
-                        selectedId.append(tv.tag)
-                    }
+                if tv.tag == defaultHeadlines[0] {
+                    tv.selectButton.isEnabled = false
+                    tv.selected()
+                }else if tv.tag == defaultHeadlines[1] {
+                    tv.selectButton.isSelected = true
+                    selectedId.append(tv.tag)
+                }
                 infoLb.isHidden = true
             }else {
                 if tv.tag == defaultHeadlines[0] {
@@ -163,17 +163,17 @@ class EditFeaturesViewController: UIViewController {
                     tv.selectButton.isEnabled = false
                     
                 }
-//                defaultHeadlines.remove(at: 1)
-//                defaultHeadlines.remove(at: 1)
-
+                //                defaultHeadlines.remove(at: 1)
+                //                defaultHeadlines.remove(at: 1)
+                
                 print(defaultHeadlines)
             }
             aStackView.addRow(tv)
         }
-
         
         
-    
+        
+        
         nextButton.snp.makeConstraints { (make) in
             make.top.equalTo(aStackView.snp.bottom).offset(DeviceSize.width > 320 ? 50 : 30)
             make.leading.equalTo(50)
@@ -243,23 +243,23 @@ class EditFeaturesViewController: UIViewController {
             if selectedId.count > 0 {
                 defaultHeadlines[1] = selectedId[0]
             }else{
-//                defaultHeadlines.remove(at: 1)
+                //                defaultHeadlines.remove(at: 1)
             }
         }else{
             
             let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
-
+            
             if totalArticle.count <= 3 {
                 defaultHeadlines[1] = selectedId[0]
                 defaultHeadlines[2] = selectedId[1]
             }else{
                 defaultHeadlines.append(selectedId[0])
                 defaultHeadlines.append(selectedId[1])
-
+                
             }
-          
+            
         }
- 
+        
         vc.delegate = self
         
         try! realm.write {
@@ -272,20 +272,13 @@ class EditFeaturesViewController: UIViewController {
         
     }
     
-
+    
     
 }
 
 extension EditFeaturesViewController:ThumnailDelegate {
     func moveToNext(id: Int) {
-        print(id)
-    }
-    
-    func selectNewspaper(id: Int) {
         
-        
-        //하나 선택되어있을때는 아래 조건 땜에 초기화가 안됨 ~ 이건 내일 처리 ㄱ
-   
         if selectedId.count == 2 {
             
             let beforeSelected = selectedId.removeFirst()
@@ -309,27 +302,38 @@ extension EditFeaturesViewController:ThumnailDelegate {
                     
                 })
                 //기존 로직, 2개 선택되어있을때는 추가 선택 불가, 누르면 해제하게
-//                _ = aa.map({
-//
-//                    if selectedId.contains(id) {
-//
-//                        if $0.tag == id {
-//
-//                            $0.selectButton.isSelected = false
-//                            if let idx = selectedId.firstIndex(of: $0.tag) {
-//                                selectedId.remove(at: idx)
-//                            }
-//                        }
-//
-//                    }
-//                })
+                //                _ = aa.map({
+                //
+                //                    if selectedId.contains(id) {
+                //
+                //                        if $0.tag == id {
+                //
+                //                            $0.selectButton.isSelected = false
+                //                            if let idx = selectedId.firstIndex(of: $0.tag) {
+                //                                selectedId.remove(at: idx)
+                //                            }
+                //                        }
+                //
+                //                    }
+                //                })
             }
             return
         }else{
             if !selectedId.contains(id) {
                 selectedId.append(id)
+                
+                if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
+                    if let sv = aa.filter({$0.tag == id}).first {
+                        sv.selectButton.isSelected = true
+                    }
+                }
             }
         }
+    }
+    
+    func selectNewspaper(id: Int) {
+        
+        print(id)
     }
 }
 

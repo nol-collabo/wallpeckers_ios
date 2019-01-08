@@ -188,31 +188,32 @@ extension EditHeadlineViewController:ThumnailDelegate, EditHeadlineProtocol {
     }
     
     func moveToNext(id: Int) {
-        print(id)
-    }
-    
-    func selectNewspaper(id: Int) {
-        
         if let sv = self.aStackView.getAllRows() as? [CompleteArticleThumnailView] {
             _ = sv.map({
                 
                 if $0.tag != id {
                     $0.selectButton.isSelected = false
+                }else{
+                    $0.selectButton.isSelected = true
                 }
             })
         }
         
         let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
-
+        
         if totalArticle.count <= 3 {
             defaultHeadlines[0] = id
-
+            
         }else{
             defaultHeadlines.removeAll()
             defaultHeadlines.append(id)
             nextButton.isEnabled = true
+            
+        }    }
+    
+    func selectNewspaper(id: Int) {
+        print(id)
 
-        }
     }
     
     

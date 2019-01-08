@@ -241,7 +241,7 @@ extension GameViewController:GameViewTransitionDelegate {
 
                     let sectionTag = sendData as! Int
 
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
                         
                         self.setChildVc(rootView: self.articleView, vc)
                         

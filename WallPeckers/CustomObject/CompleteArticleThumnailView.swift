@@ -148,7 +148,7 @@ final class CompleteArticleThumnailView:UIView, Tappable, UICollectionViewDelega
 
         selectButton.addTarget(self, action: #selector(selectArticle(sender:)), for: .touchUpInside)
         self.addSubview(selectButton)
-        
+        selectButton.isUserInteractionEnabled = false
         selectButton.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.width.height.equalTo(24)
