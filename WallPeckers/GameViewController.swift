@@ -237,8 +237,11 @@ extension GameViewController:GameViewTransitionDelegate {
                 }
                 
                 if let vc = toVc as? ArticleChooseViewController {
-                    articleView.subviews.first?.removeFromSuperview()
 
+                    _ = articleView.subviews.map({$0.removeFromSuperview()})
+                    
+                    print(articleView.subviews)
+                    print("ARTICLESUBVIEWLIST")
                     let sectionTag = sendData as! Int
 
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
