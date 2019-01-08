@@ -245,17 +245,13 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
              let a = Array(_article.hashArray)
                 
-//                let ints = a.map({Int($0)!})
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
                     self.hashView.startAnimation(heights: a)
                 }
-            
-                print(a.max())
-            print("~~~~")
+
                 for i in 0...a.count - 1 {
                     
                     if let gps = self.hashView.subviews.filter({$0 is GraphView}) as? [GraphView] {
-                        
                         
                         _ = gps.map({
                             if $0.tag == i {
@@ -263,7 +259,6 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                                     $0.initData(percent: a[i], myTag: _hash, top: true)
                                 }else{
                                     $0.initData(percent: a[i], myTag: _hash)
-
                                 }
                             }
                         })

@@ -264,7 +264,10 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                             if fact.isSubmit {
 //                                btn.pointTitleLb.textColor = UIColor.white
 //                                btn.titleLb.textColor = UIColor.white
+                                btn.backgroundColor = .sunnyYellow
                                 btn.starImageView.isHidden = false
+                            }else{
+                                btn.backgroundColor = .darkCream
                             }
                             
                             _ = links.map({
@@ -278,6 +281,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                                         btn.starImageView.isHidden = false
                                     }else{
                                         btn.backgroundColor = $0.backgroundColor?.withAlphaComponent(0.5)
+                                        
                                     }
                                 }
                             })

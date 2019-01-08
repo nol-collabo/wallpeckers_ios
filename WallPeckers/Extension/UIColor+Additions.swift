@@ -75,4 +75,7 @@ extension UIColor {
     @nonobjc class var turtleGreen: UIColor {
         return UIColor(red: 104.0 / 255.0, green: 184.0 / 255.0, blue: 76.0 / 255.0, alpha: 1.0)
     }
+    @nonobjc class var darkCream: UIColor {
+        return UIColor(red: 1.0, green: 247.0 / 255.0, blue: 150.0 / 255.0, alpha: 1.0)
+    }
 }
