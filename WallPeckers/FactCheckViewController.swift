@@ -57,7 +57,6 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setStack()
     }
     
     func setUI() {
@@ -80,6 +79,9 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
         submitButton.setTitle("REPORT".localized, for: .normal)
         backButton.addTarget(self, action: #selector(touchBackButton(sender:)), for: .touchUpInside)
         submitButton.addTarget(self, action: #selector(touchSubmitButton(sender:)), for: UIControl.Event.touchUpInside)
+        
+        setStack()
+
     }
     
     func setStack() {

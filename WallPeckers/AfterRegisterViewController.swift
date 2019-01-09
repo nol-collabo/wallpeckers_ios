@@ -132,13 +132,13 @@ class AfterRegisterViewController: UIViewController {
                     moveToGame()
                 }else{
                     if let _inputCode = pressCodeTf.text {
-
+                        
                         if !enPressCodes.contains(_inputCode.lowercased()) {
                             pressCodeTf.text = ""
                             pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
                             return
                         }
-    
+                        
                         
                         PopUp.callTwoButtonAlert(vc:self)
                         
@@ -216,27 +216,22 @@ class AfterRegisterViewController: UIViewController {
                         }
                         
                     }else{
-                    CustomAPI.newPlayer(completion: { (id) in
-                        
-                        if id != 0 {
+                        CustomAPI.newPlayer(completion: { (id) in
                             
-                            try! realm.write {
-                                RealmUser.shared.getUserData()?.allocatedId = id
+                            if id != 0 {
                                 
-                                self.navigationController?.pushViewController(vc, animated: true)
-                                
+                                try! realm.write {
+                                    RealmUser.shared.getUserData()?.allocatedId = id
+                                    
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                    
+                                }
                             }
-                        }
-                        
-                    })
+                            
+                        })
                     }
-                    
-
-                    
                 }
-                
             }
-            
         }
     }
     
@@ -276,7 +271,7 @@ class AfterRegisterViewController: UIViewController {
                 }
             }else{
                 let articles = RealmArticle.shared.getAll()
-
+                
                 
                 
                 
@@ -299,7 +294,7 @@ class AfterRegisterViewController: UIViewController {
                         }
                     }
                     
-
+                    
                 }
                 
             }

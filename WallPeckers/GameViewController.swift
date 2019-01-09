@@ -244,10 +244,12 @@ extension GameViewController:GameViewTransitionDelegate {
                     print("ARTICLESUBVIEWLIST")
                     let sectionTag = sendData as! Int
 
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                         
                         self.setChildVc(rootView: self.articleView, vc)
-                        
+                        print(self.articleView.subviews)
+                        print("VVVVAAAAQQQQ")
+
                         if fvc.isCompletedFirst {
                             vc.callLevelPopUp(topic: sectionTag)
                         }
@@ -255,10 +257,9 @@ extension GameViewController:GameViewTransitionDelegate {
                         vc.sectionId = sectionTag
                         vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                         vc.changeColor()
-                        vc.view.layoutIfNeeded()
-                        vc.view.layoutSubviews()
+                   
                         
-                        self.horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: self.horizontalView.scrollView.contentOffset.y), animated: true)
+                        self.horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: self.horizontalView.scrollView.contentOffset.y), animated: false)
                     }
 
                     

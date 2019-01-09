@@ -105,15 +105,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                 
             }
         }
-        
-        
-        let myList = Array((RealmUser.shared.getUserData()?.factCheckList)!)
-        
-        
-        if myList.count == 0 {
-            moveToArticlePage()
-        }
-        
+
         if let ar = articles?.filter({$0.id == sender.tag}).first {
             print(ar)
             if ar.isCompleted {
@@ -126,7 +118,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                 
             }else{
                 moveToArticlePage()
-
             }
             
         }

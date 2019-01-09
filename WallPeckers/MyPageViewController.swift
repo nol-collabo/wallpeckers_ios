@@ -207,12 +207,8 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
                 
             }
         }
-       
-        
-
         
         aStackView.addRows([levelView, badgeView])
-        
         aStackView.backgroundColor = .basicBackground
 
 

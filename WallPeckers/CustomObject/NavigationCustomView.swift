@@ -31,7 +31,7 @@ class NavigationCustomView:UIView {
         
         textLb.snp.makeConstraints { (make) in
             make.trailing.equalTo(-8)
-            make.bottom.equalTo(-2)
+            make.bottom.equalTo(-1)
             
         }
         

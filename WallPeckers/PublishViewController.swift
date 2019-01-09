@@ -34,11 +34,7 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        
 
-//        RealmUser.shared.getUserData()?.playTime = 0
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +46,11 @@ class PublishViewController: UIViewController {
         setHeadline()
     }
     
-    func setHeadline() {
+    private func setHeadline() {
+        
+        if defaultHeadlines.count == 0 {
+            return
+        }
         
         if let headLine = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == defaultHeadlines[0]}).first {
             
@@ -447,11 +447,6 @@ extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelega
                 
             }
         }
-        
-
-
-        
-        
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

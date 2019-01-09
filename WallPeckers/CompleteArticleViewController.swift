@@ -11,6 +11,7 @@ import AloeStackView
 
 class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollViewDelegate, GetPictureIdDelegate {
     
+    let loadingIndicator = UIActivityIndicatorView()
     var pictureId: Int = 0
     var isCompletedFirst:Bool = false
     var bottomReached:Bool = false
@@ -132,6 +133,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         
         self.view.backgroundColor = .basicBackground
         self.view.addSubview(aStackView)
+        self.view.addSubview(loadingIndicator)
+//        loadingIndicator
         aStackView.backgroundColor = .basicBackground
         aStackView.snp.makeConstraints { (make) in
         
@@ -147,6 +150,10 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             
         }
         
+        loadingIndicator.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        loadingIndicator.hidesWhenStopped = true
         
         if isCompletedFirst {
             okButton.setTitle("CHANGE TOPIC".localized, for: .normal)
@@ -177,14 +184,15 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     
     @objc func moveToArticleChooseVc(sender:UIButton) {
         guard let article = article else {return}
-        
+        sender.isUserInteractionEnabled = false
+        loadingIndicator.startAnimating()
         guard let vc = self.findBeforeVc(type: .article) else {return}
         
-        try! realm.write {
-//            if let _article = article {
-                article.isCompleted = true
-//            }
-        }
+        
+        realm.beginWrite()
+        article.isCompleted = true
+        try! realm.commitWrite()
+        
         
         if isCompletedFirst {
             CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: article.tryCount, photoId: article.selectedPictureId) { (result) in
@@ -193,14 +201,18 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 print("ARTICLESECTION")
 
                 
-                if result == "OK" {
-                    self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
-                }else{
-                    
-                    self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
-                    
-                    print("오류")
-                }
+//                if result == "OK" {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
+                        sender.isUserInteractionEnabled = true
+                        self.loadingIndicator.stopAnimating()
+                        self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
+                    })
+                   
+//                }else{
+//                    sender.isUserInteractionEnabled = true
+//                    self.loadingIndicator.stopAnimating()
+//                    self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
+//                }
             }
         }
     }
@@ -211,7 +223,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             self.navigationController?.popViewController(animated: true)
         }else{
             guard let vc = self.findBeforeVc(type: .topic) else {return}
-            
+            loadingIndicator.startAnimating()
             try! realm.write {
                 if let _article = article {
                     _article.isCompleted = true
@@ -224,6 +236,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             if isCompletedFirst {
                 CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: article.tryCount, photoId: article.selectedPictureId) { (result) in
                     
+                    self.loadingIndicator.stopAnimating()
                     if result == "OK" {
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                     }else{
@@ -231,6 +244,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                     }
                 }
             }else{
+                self.loadingIndicator.stopAnimating()
                 self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
             }
         }
