@@ -530,11 +530,6 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
 
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize.init(width: 100, height: 40)
-//    }
-
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -556,9 +551,6 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
                 
                 cell.lbl.attributedText = hashTags[indexPath.item].makeAttrString(font: .AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 16 : 14), color: .black)
             }
-            
-            
-            
             
             return cell
         }else{
@@ -682,7 +674,6 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
         
         try! realm.write {
             RealmUser.shared.getUserData()?.score += point
-//            article.point = point
             
             if let saved = RealmArticle.shared.getAll().filter({$0.id == article.id}).first {
                 saved.point = point
@@ -708,7 +699,6 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
     private func setUI() {
         
         popupView.snp.remakeConstraints { (make) in
-//            make.top.equalTo(60)
             make.leading.equalTo(30)
             make.height.equalTo(450)
             make.center.equalToSuperview()
@@ -789,19 +779,11 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
             make.height.equalTo(43)
         }
         
-//        publishButton.setTitle("PUBLISH THE ARTICLE", for: .normal)
         publishButton.isEnabled = false
-        
         publishButton.setAttributedTitle("factcheckdialog_reportbtn".localized.makeAttrString(font: .NotoSans(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .black), for: .disabled)
         publishButton.setBackgroundColor(color: .sunnyYellow, forState: .disabled)
         publishButton.setBackgroundColor(color: .black, forState: .normal)
-        
         publishButton.setAttributedTitle("factcheckdialog_reportbtn".localized.makeAttrString(font: .NotoSans(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .white), for: .normal)
-
-
-        
-        
-//        centerInfoView.adda
         publishButton.addTarget(self, action: #selector(removeView), for: .touchUpInside)
         
         
@@ -957,7 +939,6 @@ class SelectPopUpView:BasePopUpView {
 
         }
         buttonView.isScrollEnabled = false
-//        buttonView.al
 
         self.layoutIfNeeded()
         for i in 0...selectedButton.count - 1 {
@@ -1072,11 +1053,9 @@ class AlertPopUpView:BasePopUpView {
         descLb.snp.makeConstraints { (make) in
             make.top.equalTo(timeLb.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
-//                make.centerY.equalToSuperview().offset(-10)
             make.leading.equalTo(32)
         }
         bottomButton.snp.makeConstraints { (make) in
-//            make.top.equalTo(descLb.snp.bottom).offset(10)
             make.width.equalTo(200)
             make.height.equalTo(43)
             make.centerX.equalToSuperview()
