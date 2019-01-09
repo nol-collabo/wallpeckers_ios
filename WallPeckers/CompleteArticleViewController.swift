@@ -218,8 +218,9 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     }
     
     @objc func moveToTopicVc(sender:UIButton) {
-        
+        sender.isUserInteractionEnabled = false
         if let _ = fromMyPage {
+            sender.isUserInteractionEnabled = true
             self.navigationController?.popViewController(animated: true)
         }else{
             guard let vc = self.findBeforeVc(type: .topic) else {return}
@@ -237,6 +238,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 CustomAPI.saveArticleData(articleId: article.id, category: article.section, playerId: (RealmUser.shared.getUserData()?.allocatedId)!, language: Standard.shared.getLocalized(), sessionId: UserDefaults.standard.integer(forKey: "sessionId"), tag: article.selectedHashtag, count: article.tryCount, photoId: article.selectedPictureId) { (result) in
                     
                     self.loadingIndicator.stopAnimating()
+                    sender.isUserInteractionEnabled = true
+
                     if result == "OK" {
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                     }else{
@@ -245,6 +248,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 }
             }else{
                 self.loadingIndicator.stopAnimating()
+                sender.isUserInteractionEnabled = true
                 self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
             }
         }

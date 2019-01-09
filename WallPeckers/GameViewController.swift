@@ -246,8 +246,7 @@ extension GameViewController:GameViewTransitionDelegate {
 
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                         
-                        self.setChildVc(rootView: self.articleView, vc)
-                        print(self.articleView.subviews)
+//                        print(self.articleView.subviews.first?.tag)
                         print("VVVVAAAAQQQQ")
 
                         if fvc.isCompletedFirst {
@@ -257,7 +256,8 @@ extension GameViewController:GameViewTransitionDelegate {
                         vc.sectionId = sectionTag
                         vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
                         vc.changeColor()
-                   
+                        self.setChildVc(rootView: self.articleView, vc)
+
                         
                         self.horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: self.horizontalView.scrollView.contentOffset.y), animated: false)
                     }
