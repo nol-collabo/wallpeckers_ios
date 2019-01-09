@@ -134,7 +134,7 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         self.view.backgroundColor = .basicBackground
         self.view.addSubview(aStackView)
         self.view.addSubview(loadingIndicator)
-//        loadingIndicator
+
         aStackView.backgroundColor = .basicBackground
         aStackView.snp.makeConstraints { (make) in
         
@@ -200,19 +200,12 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
                 print(article.section)
                 print("ARTICLESECTION")
 
-                
-//                if result == "OK" {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
                         sender.isUserInteractionEnabled = true
                         self.loadingIndicator.stopAnimating()
                         self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
                     })
-                   
-//                }else{
-//                    sender.isUserInteractionEnabled = true
-//                    self.loadingIndicator.stopAnimating()
-//                    self.delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article.section), direction: .backward)
-//                }
+
             }
         }
     }

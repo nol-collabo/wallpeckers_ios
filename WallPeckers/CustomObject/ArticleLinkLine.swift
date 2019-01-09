@@ -24,7 +24,7 @@ final class ArticleLinkLine:UIView {
     
     
     func setLine(color:LineColor, leftButton:ArticleSelectButton, rightButton:ArticleSelectButton, vc:UIViewController) {
-        
+                
         vc.view.addSubview(self)
         
         leftTag = leftButton.tag

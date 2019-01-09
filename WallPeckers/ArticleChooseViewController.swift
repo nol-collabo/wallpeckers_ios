@@ -138,11 +138,12 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         }
     }
     
-    var factCheckList:[FactCheck] = [] {
-        didSet {
-            self.changeColor()
-        }
-    }
+    var factCheckList:[FactCheck] = []
+//    {
+////        didSet {
+////            self.changeColor()
+////        }
+//    }
     var links:[ArticleLinkLine] = []
     var timerView:NavigationCustomView?
     let backButton = UIButton()
@@ -167,15 +168,28 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
     
     func setData(localData:Results<LocalArticle>?, articles:[Article], articleBtns:[ArticleSelectButton], articleLinks:[ArticleLink]) {
         
-        self.localArticles = localData
+        self.articleButtons.removeAll()
+        self.articleLinks?.removeAll()
+        self.links.removeAll()
+        self.articles?.removeAll()
+        self.view.subviews.map({$0.removeFromSuperview()})
+        
         self.articles = articles
         self.articleButtons = articleBtns
         self.articleLinks = articleLinks
+        factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+
+        
+        setUI()
+        self.changeColor()
+
         
     }
     
     func drawLine() {
-        
+
+                _ = self.view.subviews.filter({$0 is ArticleLinkLine}).map({$0.removeFromSuperview()})
+
         var ids:[Int] = []
         for ar in articles! {
              ids.append(ar.id)
@@ -219,14 +233,13 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+        print(sectionId)
+        print("~~~~~~")
 
     }
     
@@ -284,6 +297,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
 
     private func setUI() {
         self.view.backgroundColor = .basicBackground
+        
         type = GameViewType.article
         backButton.setImage(UIImage.init(named: "backButton")!, for: .normal)
         self.view.addSubview(backButton)

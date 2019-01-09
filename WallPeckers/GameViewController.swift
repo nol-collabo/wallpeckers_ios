@@ -223,6 +223,8 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 if let vc = toVc as? TopicViewController {
                     
+                    _ = articleView.subviews.map({$0.removeFromSuperview()})
+
                     let sectionTag = sendData as! Int
                     
                     if fvc.isCompletedFirst {
@@ -246,18 +248,11 @@ extension GameViewController:GameViewTransitionDelegate {
 
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                         
-//                        print(self.articleView.subviews.first?.tag)
-                        print("VVVVAAAAQQQQ")
-
                         if fvc.isCompletedFirst {
                             vc.callLevelPopUp(topic: sectionTag)
                         }
- 
-                        vc.sectionId = sectionTag
-                        vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-                        vc.changeColor()
-                        self.setChildVc(rootView: self.articleView, vc)
-
+                        
+                        self.setArticleVc(vc, sectionTag: sectionTag)
                         
                         self.horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: self.horizontalView.scrollView.contentOffset.y), animated: false)
                     }
@@ -279,7 +274,13 @@ extension GameViewController:GameViewTransitionDelegate {
                 
                 if let _ac = toVc as? ArticleChooseViewController {
                     
-                    _ac.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+                    _ = articleView.subviews.map({$0.removeFromSuperview()})
+
+                    let sectionTag = sendData as! Int
+
+                    self.setArticleVc(_ac, sectionTag: sectionTag)
+//                    _ac.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+//                    self.setChildVc(rootView: self.articleView, _ac)
                     
                 }
                 
@@ -327,6 +328,32 @@ extension GameViewController:GameViewTransitionDelegate {
         vc.delegate = self
         vc.view.layoutSubviews()
         
+        
+        
+    }
+    
+    func setArticleVc(_ vc:ArticleChooseViewController, sectionTag:Int) {
+        
+        vc.sectionId = sectionTag
+        vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
+        self.setChildVc(rootView: self.articleView, vc)
+        
+        var articleButtons:[ArticleSelectButton] = []
+        
+        for article in RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.section == sectionTag}) {
+            
+            let btn = ArticleSelectButton()
+            
+            let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({$0.point}).reduce(0, +)
+            
+            btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
+            articleButtons.append(btn)
+            
+        }
+        
+        vc.setData(localData: nil, articles: RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.section == sectionTag}), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
+        
+        vc.view.layoutIfNeeded()
         
         
     }

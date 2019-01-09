@@ -35,9 +35,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         self.five_W_One_Hs = five
         if let _ = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == article.id}).first {
             
-            
             articleTrycount = article.tryCount
-//            articleTrycount = 1
         }
         factCheckBtnStatus()
  
@@ -187,7 +185,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             
             _vc.changeColor()
             
-            delegate?.moveTo(fromVc: self, toVc: _vc, sendData: nil, direction: .backward)
+            delegate?.moveTo(fromVc: self, toVc: _vc, sendData: article?.section, direction: .backward)
 
         }
         

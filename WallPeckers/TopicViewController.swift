@@ -211,27 +211,18 @@ extension TopicViewController:TopicButtonDelegate {
         
         var articleButtons:[ArticleSelectButton] = []
         
-        for article in RealmArticle.shared.get(selectedLanguage).filter({
-            $0.section == tag
-        }) {
+        for article in RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}) {
             
             let btn = ArticleSelectButton()
             
-            let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
-                
-                $0.point
-            }).reduce(0, +)
-            
-            //            print(aa)
+            let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({$0.point}).reduce(0, +)
             
             btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: false, tag: article.id)
             articleButtons.append(btn)
             
         }
         
-        vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
-            $0.section == tag
-        }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
+        vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
         
         delegate?.moveTo(fromVc: self, toVc: vc, sendData: tag, direction: .forward)
 
