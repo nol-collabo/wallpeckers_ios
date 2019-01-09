@@ -541,6 +541,7 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
+        publishButton.isEnabled = true
         selectedHashTag = indexPath.item
     }
     
@@ -741,16 +742,6 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
             centerInfoView.addArrangedSubview(v)
             
         }
-//
-//        for i in 0...hashTags.count - 1 {
-//
-//            let hashbtn = HashTagBtn()
-//            hashbtn.setTitle("\(hashTags[i])", for: .normal)
-//            hashbtn.tag = i
-//            hashbtn.addTarget(self, action: #selector(touchHashtag(sender:)), for: .touchUpInside)
-//            hashBtns.append(hashbtn)
-////            hashTagBtnView.addSubview(hashbtn)
-//        }
         
         leftWingImv.snp.makeConstraints { (make) in
             make.width.equalTo(50)
@@ -771,7 +762,6 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
         }
-//        descLb.setBorder(color: .black, width: 1)
         descLb.text = "factcheckdialog_hashguide".localized
         descLb.textAlignment = .center
         descLb.numberOfLines = 2
@@ -791,43 +781,6 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
             make.bottom.equalToSuperview()
         }
         
-//        for i in hashb
-//
-//        hashBtns[0].snp.makeConstraints { (make) in
-//            make.leading.equalTo(10)
-//            make.top.equalToSuperview()
-//            make.width.equalTo(DeviceSize.width > 320 ? 82 : 62)
-//            make.height.equalTo(42)
-//        }
-//
-//        hashBtns[2].snp.makeConstraints { (make) in
-//            make.trailing.equalTo(-10)
-//            make.height.equalTo(42)
-//            make.top.equalToSuperview()
-//            make.width.equalTo(DeviceSize.width > 320 ? 115 : 80)
-//        }
-//
-//
-//        hashBtns[1].snp.makeConstraints { (make) in
-//            make.top.equalToSuperview()
-//            make.height.equalTo(42)
-//            make.leading.equalTo(hashBtns[0].snp.trailing).offset(10)
-//            make.trailing.equalTo(hashBtns[2].snp.leading).offset(-10)
-//        }
-//
-//        hashBtns[3].snp.makeConstraints { (make) in
-//            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
-//            make.width.equalTo(80)
-//            make.height.equalTo(42)
-//            make.leading.equalTo(DeviceSize.width > 320 ? 60 : 30)
-//        }
-//        hashBtns[4].snp.makeConstraints { (make) in
-//            make.trailing.equalTo(DeviceSize.width > 320 ? -60 : -20)
-//            make.top.equalTo(hashBtns[0].snp.bottom).offset(10)
-//            make.leading.equalTo(hashBtns[3].snp.trailing).offset(10)
-//            make.height.equalTo(42)
-//        }
-        
         publishButton.snp.makeConstraints { (make) in
             make.top.equalTo(hashTagBtnView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
@@ -837,7 +790,14 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
         }
         
 //        publishButton.setTitle("PUBLISH THE ARTICLE", for: .normal)
+        publishButton.isEnabled = false
+        
+        publishButton.setAttributedTitle("factcheckdialog_reportbtn".localized.makeAttrString(font: .NotoSans(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .black), for: .disabled)
+        publishButton.setBackgroundColor(color: .sunnyYellow, forState: .disabled)
+        publishButton.setBackgroundColor(color: .black, forState: .normal)
+        
         publishButton.setAttributedTitle("factcheckdialog_reportbtn".localized.makeAttrString(font: .NotoSans(.bold, size: DeviceSize.width > 320 ? 19 : 16), color: .white), for: .normal)
+
 
         
         
