@@ -135,11 +135,9 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                             if !$0.given {
                                 
                                 if $0.clue == id.tag {
-                                    print("EMPTY!!!")
                                     id.clueButton.setTitleColor(.red, for: .normal)
-//                                    id.indicatedWhenBeforeChecked(fact, tryCount:1)
                                 }
-                                
+            
                             }
                         })
                     }

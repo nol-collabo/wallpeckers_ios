@@ -132,6 +132,7 @@ final class CompletedArticleView:UIView {
     
     private func setUI() {
         
+        self.backgroundColor = .white
         self.setBorder(color: .black, width: 1.5)
         self.addSubview([titleImageView, underLine1, titleLb, imageContainerView, infoLb, articleTv, underLine2, commentTitleLb, thumbImgView, commentProfileImv, commentTv])
         titleImageView.snp.makeConstraints { (make) in
@@ -185,7 +186,7 @@ final class CompletedArticleView:UIView {
         articleTv.isScrollEnabled = false
         articleTv.isEditable = false
         articleTv.isSelectable = false
-        articleTv.backgroundColor = .basicBackground
+        articleTv.backgroundColor = .white
         
         underLine2.snp.makeConstraints { (make) in
             make.top.equalTo(articleTv.snp.bottom).offset(20)
@@ -220,7 +221,7 @@ final class CompletedArticleView:UIView {
         commentTv.isScrollEnabled = false
         commentTv.isEditable = false
         commentTv.isSelectable = false
-        commentTv.backgroundColor = .basicBackground
+        commentTv.backgroundColor = .white
         
         commentTv.snp.makeConstraints { (make) in
             make.top.equalTo(commentProfileImv.snp.top)
@@ -264,7 +265,7 @@ final class CompletedArticleView:UIView {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         imageCollectionView.register(CompleteThumnailImageCell.self, forCellWithReuseIdentifier: "CompleteThumnailImageCell")
-        imageContainerView.backgroundColor = .basicBackground
+        imageContainerView.backgroundColor = .white
         imageCollectionView.isUserInteractionEnabled = false
         
         
@@ -378,7 +379,7 @@ class CompleteThumnailImageCell:UICollectionViewCell {
         imv.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        self.backgroundColor = UIColor.basicBackground
+        self.backgroundColor = UIColor.white
     }
     
     func setData(imageUrl:String) {

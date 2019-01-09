@@ -150,6 +150,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
         
         if isCompletedFirst {
             okButton.setTitle("CHANGE TOPIC".localized, for: .normal)
+            okButton.setBackgroundColor(color: .white, forState: .normal)
+            okButton.setTitleColor(.black, for: .normal)
             backArticleBtn.isHidden = false
             
             if let section = RealmSection.shared.get(Standard.shared.getLocalized()).filter({$0.id == article?.section}).first {
@@ -162,6 +164,8 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
             backArticleBtn.addTarget(self, action: #selector(moveToArticleChooseVc(sender:)), for: .touchUpInside)
         }else{
             backArticleBtn.isHidden = true
+            okButton.setBackgroundColor(color: .black, forState: .normal)
+            okButton.setTitleColor(.white, for: .normal)
             okButton.setTitle("OK".localized, for: .normal)
 
         }
