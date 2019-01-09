@@ -313,7 +313,9 @@ class AfterRegisterViewController: UIViewController {
 extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDelegate {
     func tapOk(sender: Any) {
         RealmUser.shared.initializedUserInfo()
-        moveToGame()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            self.moveToGame()
+        }
     }
     
     
