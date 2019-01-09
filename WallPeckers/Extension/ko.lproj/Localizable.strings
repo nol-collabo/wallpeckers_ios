@@ -94,11 +94,11 @@
 "factcheckdialog_perfecttitle" = "A PERFECT ARTICLE";
 "factcheckdialog_hashguide" = "기사에 대한 나의 감정 태그를\n골라주세요";
 
-"hash1" = " #행복 ";
-"hash2" = " #희망적 ";
-"hash3" = " #관심없음 ";
-"hash4" = " #슬픔 ";
-"hash5" = " #절망적 ";
+"hash1" = "  #행복  ";
+"hash2" = "  #희망적  ";
+"hash3" = "  #관심없음 ";
+"hash4" = "  #슬픔 ";
+"hash5" = "  #절망적  ";
 "factcheckdialog_reportbtn" = "기사 발행하기";
 
 "paireddialog_title" = "짝 기사 완성";

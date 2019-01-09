@@ -348,7 +348,6 @@ class PairedArticleView:BasePopUpView {
         popupView.snp.remakeConstraints { (make) in
             make.center.equalToSuperview()
             make.leading.equalTo(30)
-//            make.height.equalTo(popUpViewHeight)
         }
         self.popupView.addSubview([topStackView, leftArticle, rightArticle, linkView, pointLb, descLb, okButton])
         
@@ -551,7 +550,7 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
             
             if Standard.shared.getLocalized() == .KOREAN {
                 
-                cell.lbl.attributedText = hashTags[indexPath.item].makeAttrString(font: .AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 18 : 16), color: .black)
+                cell.lbl.attributedText = hashTags[indexPath.item].makeAttrString(font: .AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 18 : 14), color: .black)
             }else{
                 
                 cell.lbl.attributedText = hashTags[indexPath.item].makeAttrString(font: .AmericanTypeWriter(.regular, size: DeviceSize.width > 320 ? 16 : 14), color: .black)
@@ -708,10 +707,10 @@ class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionVie
     private func setUI() {
         
         popupView.snp.remakeConstraints { (make) in
-            make.top.equalTo(60)
+//            make.top.equalTo(60)
             make.leading.equalTo(30)
             make.height.equalTo(450)
-            make.centerX.equalToSuperview()
+            make.center.equalToSuperview()
         }
         popupView.addSubview([topStarView, centerInfoView, descLb, hashTagBtnView, publishButton])
         

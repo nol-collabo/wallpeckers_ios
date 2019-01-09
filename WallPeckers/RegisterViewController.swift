@@ -13,6 +13,8 @@ import Photos
 
 let realm = try! Realm()
 let DEVICEHEIGHT = UIWindow().bounds.height
+let SETTINGURL = URL(string: UIApplication.openSettingsURLString)!
+
 
 class RegisterViewController: UIViewController {
     
@@ -360,18 +362,29 @@ extension RegisterViewController:SelectPopupDelegate {
             imagePicker.sourceType = .camera
 
 
-            AVCaptureDevice.requestAccess(for: .video) { (response) in
-                if response {
-                    
-                    self.present(self.imagePicker, animated: true, completion: nil)
 
-                }else {
-                    
-                    print("XX")
-                    
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+                
+                
+            case .authorized:
+                self.present(self.imagePicker, animated: true, completion: nil)
+
+            case .denied:
+                UIApplication.shared.open(SETTINGURL)
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) { (response) in
+                    if response {
+                        
+                        self.present(self.imagePicker, animated: true, completion: nil)
+                        
+                    }else {
+                        print(response)
+                    }
                 }
+            case .restricted:
+                UIApplication.shared.open(SETTINGURL)
+                
             }
-            
 
 
         case 1:
@@ -398,12 +411,13 @@ extension RegisterViewController:SelectPopupDelegate {
                 print("It is not determined until now")
             case .restricted:
                 // same same
-                
+                UIApplication.shared.open(SETTINGURL)
+
                 print("User do not have access to photo album.")
             case .denied:
                 // same same
-                
-                print("User has denied the permission.")
+                UIApplication.shared.open(SETTINGURL)
+
             }
 
 

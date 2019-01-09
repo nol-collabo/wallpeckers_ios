@@ -35,12 +35,8 @@ class Standard {
     
     func timerInit(inputCode:String) {
         
-        let enPressCodes:[String] = ["peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출"]
-//        let dePressCodes:[String] = ["frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht"]
-//        
-        
-        print(inputCode)
-        print("~~~~")
+        let enPressCodes:[String] = ["peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "berlin", "wall", "베를린", "장벽"]
+
         
         if enPressCodes.contains(inputCode.lowercased()) {
             if let playTime = RealmUser.shared.getUserData()?.playTime {
@@ -61,26 +57,7 @@ class Standard {
                 gamePlayTime = 1800
             }
         }
-        
-//        if dePressCodes.contains(inputCode.lowercased()) {
-//            if let playTime = RealmUser.shared.getUserData()?.playTime {
-//                if playTime != 0 {
-//                    if playTime < 0 {
-//                        gamePlayTime = 1800
-//
-//                    }else{
-//                        gamePlayTime = playTime
-//
-//                    }
-//
-//                }else{
-//                    gamePlayTime = 1800
-//                }
-//            }else{
-//                gamePlayTime = 1800
-//            }
-//        }
-        
+
         
         switch inputCode.lowercased() {
             
@@ -106,8 +83,7 @@ class Standard {
             }
             
             
-            
-        case "berlin", "wall", "dmz", "dorasan", "베를린", "장벽":
+        case "dmz", "dorasan":
             
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
@@ -140,32 +116,6 @@ class Standard {
         
     }
     
-    
-//    func startTimer(gameMode:GameMode) {
-//        
-//        switch gameMode {
-//            
-//        case .long:
-//            gamePlayTime = 1800
-//        case .short:
-//            if let playTime = RealmUser.shared.getUserData()?.playTime {
-//                if playTime != 0 {
-//                    gamePlayTime = playTime
-//                }else{
-//                    gamePlayTime = 500
-//                }
-//            }else{
-//                gamePlayTime = 500
-//            }
-//        }
-//        
-//        sharedTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
-//
-//            self.gamePlayTime -= 1
-//        })
-//        
-//        
-//    }
     
     func changeLocalized(_ countryCode:String) {
 
