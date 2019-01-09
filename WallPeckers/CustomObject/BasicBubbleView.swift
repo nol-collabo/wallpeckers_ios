@@ -100,12 +100,12 @@ final class BasicBubbleView:UIView, Tappable {
             
         case .correct:
             bubbleBaseView.image = UIImage.init(named: "balloonCorrect")
-//            clueTypeLb.textColor = .white
-//            clueDescLb.textColor = .white
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
             
         case .wrong:
-//            clueTypeLb.textColor = .white
-//            clueDescLb.textColor = .white
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
             bubbleBaseView.image = UIImage.init(named: "balloonFail")
             
         case .empty:
@@ -127,12 +127,12 @@ final class BasicBubbleView:UIView, Tappable {
             
         case .correct:
             bubbleBaseView.image = UIImage.init(named: "balloonCorrect")
-//            clueTypeLb.textColor = .white
-//            clueDescLb.textColor = .white
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
             
         case .wrong:
-//            clueTypeLb.textColor = .white
-//            clueDescLb.textColor = .white
+            clueTypeLb.textColor = .white
+            clueDescLb.textColor = .white
             bubbleBaseView.image = UIImage.init(named: "balloonFail")
             
         case .empty:
