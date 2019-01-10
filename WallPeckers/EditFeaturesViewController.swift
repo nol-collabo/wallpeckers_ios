@@ -281,26 +281,49 @@ extension EditFeaturesViewController:ThumnailDelegate {
         
         if selectedId.count == 2 {
             
-            let beforeSelected = selectedId.removeFirst()
             
             if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
                 //마지막 선택한 것 추가
                 if let aaa = aa.filter({$0.tag == id}).first {
                     if !selectedId.contains(id) {
+                        let before = selectedId.removeFirst()
+                        
+                        if let beforeV = aa.filter({$0.tag == before}).first {
+                            beforeV.selectButton.isSelected = false
+                        }
+                        
                         aaa.selectButton.isSelected = true
                         selectedId.append(id)
+                    }else{
+                        aaa.selectButton.isSelected = false
+                        if let idx = selectedId.firstIndex(of: id) {
+                            selectedId.remove(at: idx)
+                        }
                     }
                 }
                 // 기존것 지우고 선택 해제
-                _ = aa.map({
-                    
-                    if $0.tag == beforeSelected {
-                        if id != beforeSelected {
-                            $0.selectButton.isSelected = false
-                        }
-                    }
-                    
-                })
+                
+                
+//                _ = aa.map({
+//
+//                    if $0.tag == id {
+//
+//                        if let idx = selectedId.firstIndex(of: $0.tag) {
+//                            selectedId.remove(at: idx)
+//                        }
+//                        $0.selectButton.isSelected = !($0.selectButton.isSelected)
+//
+//                    }else{
+//
+//                        let beforeSelected = selectedId.removeFirst()
+//
+////                        if id == beforeSelected {
+//                            $0.selectButton.isSelected = true
+////                        }
+//
+//                    }
+//
+//                })
                 //기존 로직, 2개 선택되어있을때는 추가 선택 불가, 누르면 해제하게
                 //                _ = aa.map({
                 //
@@ -319,15 +342,22 @@ extension EditFeaturesViewController:ThumnailDelegate {
             }
             return
         }else{
-            if !selectedId.contains(id) {
-                selectedId.append(id)
-                
+          
                 if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
                     if let sv = aa.filter({$0.tag == id}).first {
-                        sv.selectButton.isSelected = true
+                        if !selectedId.contains(id) {
+                            selectedId.append(id)
+                            sv.selectButton.isSelected = true
+                        }else{
+                            sv.selectButton.isSelected = false
+                            if let idx = selectedId.firstIndex(of: id) {
+                                selectedId.remove(at: idx)
+                            }
+                        }
                     }
+                    
                 }
-            }
+            
         }
     }
     

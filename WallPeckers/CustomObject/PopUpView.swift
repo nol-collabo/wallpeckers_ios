@@ -1118,6 +1118,7 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
     let okButton = BottomButton()
     var delegate:CluePopUpViewDelegate?
     let keyboardResigner = UITapGestureRecognizer()
+    let viewRemover = UITapGestureRecognizer()
     override init(frame: CGRect) {
         super.init(frame: frame)
         codeTf.delegate = self
@@ -1128,6 +1129,13 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
         codeTf.resignFirstResponder()
     }
     
+    
+    @objc func removePopup(){
+        
+        codeTf.resignFirstResponder()
+        self.removeFromSuperview()
+        
+    }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         UIView.animate(withDuration: 0.5) {
@@ -1136,10 +1144,7 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
                 
             }
             self.layoutIfNeeded()
-            
         }
-        
-        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -1157,6 +1162,8 @@ final class CluePopUpView:UIView, UITextFieldDelegate {
         
         keyboardResigner.addTarget(self, action: #selector(keyboardRemove))
         self.addSubview([baseView, popupView])
+        viewRemover.addTarget(self, action: #selector(removePopup))
+        baseView.addGestureRecognizer(viewRemover)
         self.addGestureRecognizer(keyboardResigner)
         baseView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -1334,7 +1341,10 @@ struct PopUp {
         popupView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+            popupView.codeTf.becomeFirstResponder()
+        }
+
         
     }
     

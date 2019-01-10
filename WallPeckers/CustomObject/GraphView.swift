@@ -39,11 +39,11 @@ final class GraphView:UIView {
         
         if top {
             if self.titleLb.text != "" {
-                self.titleLb.font = UIFont.NotoSans(.bold, size: 14)
+                self.titleLb.font = UIFont.NotoSans(.bold, size: 12)
                 self.titleLb.text?.append("\n\("MOST".localized)")
                 
             }else{
-                self.titleLb.font = UIFont.NotoSans(.bold, size: 14)
+                self.titleLb.font = UIFont.NotoSans(.bold, size: 12)
                 self.titleLb.text?.append("MOST".localized)
                 
             }
