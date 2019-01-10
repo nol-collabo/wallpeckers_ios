@@ -174,18 +174,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RealmUser.shared.savePlayTime()
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterBackground")
         print(UserDefaults.standard.integer(forKey: "enterBackground"))
-//        print(self.window?.rootViewController as)
 
         if let av = self.window?.rootViewController as? UINavigationController {
-            print(av.viewControllers)
             
             if let arv = av.viewControllers.filter({$0 is AfterRegisterViewController}).first as? AfterRegisterViewController{
-                
                 arv.keyboardResign()
             }
         }
-
-        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -200,6 +195,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         RealmUser.shared.savePlayTime()
         
+        if let av = self.window?.rootViewController as? UINavigationController {
+            
+            if let arv = av.viewControllers.filter({$0 is AfterRegisterViewController}).first as? AfterRegisterViewController{
+                arv.keyboardResign()
+            }
+        }
         
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
