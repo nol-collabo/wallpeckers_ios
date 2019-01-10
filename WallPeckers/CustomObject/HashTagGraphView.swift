@@ -139,12 +139,15 @@ final class HashTagGraphView:UIView {
     }
     
     func initAnimation() {
-        for i in [firstView, secondView, thirdView, fourthView, fifthView] {
-            
-            i.graphV.snp.updateConstraints { (make) in
-                make.height.equalTo(0)
+        
+        UIView.animate(withDuration: 0.1) {
+            for i in [self.firstView, self.secondView, self.thirdView, self.fourthView, self.fifthView] {
+                
+                i.graphV.snp.updateConstraints { (make) in
+                    make.height.equalTo(0)
+                }
+                self.layoutIfNeeded()
             }
-            self.layoutIfNeeded()
         }
     }
     
@@ -152,7 +155,7 @@ final class HashTagGraphView:UIView {
         
         
         
-        UIView.animate(withDuration: 5) {
+        UIView.animate(withDuration: 2) {
             self.firstView.graphV.snp.updateConstraints { (make) in
                 make.height.equalTo(heights[0])
             }

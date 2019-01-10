@@ -69,7 +69,7 @@ final class GraphView:UIView {
         }
         titleLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.height.equalTo(20)
+//            make.height.equalTo(20)
             make.bottom.equalTo(percentLb.snp.top).offset(-5)
         }
         

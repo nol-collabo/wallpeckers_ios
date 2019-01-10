@@ -42,9 +42,9 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
 
                 let aa = Array(a)
                 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                    self.hashView.startAnimation(heights: aa)
-                }
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+//                    self.hashView.startAnimation(heights: aa)
+//                }
                 
                 for i in 0...aa.count - 1 {
                     
@@ -285,17 +285,17 @@ class CompleteArticleViewController: GameTransitionBaseViewController, UIScrollV
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
   
-        if (scrollView.contentOffset.y + 100) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+        if (scrollView.contentOffset.y + 150) >= (scrollView.contentSize.height - scrollView.frame.size.height) {
             //reach bottom
             if !bottomReached {
                 bottomReached = true
                 topReached = false
                 self.hashTagGraphAnimation()
-                
             }
         }
         
-        if (scrollView.contentOffset.y <= 0){
+        if (scrollView.contentOffset.y <= 300){
+//            self.hashView.initAnimation()
             if !topReached {
                 topReached = true
                 bottomReached = false
