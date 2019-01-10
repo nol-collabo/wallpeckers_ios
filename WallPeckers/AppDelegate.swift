@@ -174,10 +174,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RealmUser.shared.savePlayTime()
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterBackground")
         print(UserDefaults.standard.integer(forKey: "enterBackground"))
-//        application.
-//        application.
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//        print(self.window?.rootViewController as)
+
+        if let av = self.window?.rootViewController as? UINavigationController {
+            print(av.viewControllers)
+            
+            if let arv = av.viewControllers.filter({$0 is AfterRegisterViewController}).first as? AfterRegisterViewController{
+                
+                arv.keyboardResign()
+            }
+        }
+
+        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
