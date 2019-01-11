@@ -175,6 +175,9 @@ class ResultViewController: UIViewController {
 
         UserDefaults.standard.set(false, forKey: "Tutorial")
         UserDefaults.standard.set(true, forKey: "Playing")
+        UserDefaults.standard.set(0, forKey: "enterForeground")
+        UserDefaults.standard.set(0, forKey: "enterBackground")
+  
 
         if RealmUser.shared.getUserData()?.allocatedId == 0 {
             
