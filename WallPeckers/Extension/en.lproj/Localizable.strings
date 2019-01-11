@@ -149,7 +149,7 @@
 "Sports" = "Sports";
 "People" = "People";
 
-"levelup" = "You're now\n%@.";
+"levelup" = "Congratulations!\nYou've become \na WALLPECKERS %@.";
 "getBadge" = " Congratulations!\nYou've got the %@ Badge!";
 "getPrize" = "Congratulations!\nYou're Wallpecker's\n %@ of the Day.";
 "badgeTitle" = "BADGE";

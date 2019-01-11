@@ -92,7 +92,7 @@ class EditFeaturesViewController: UIViewController {
             make.bottom.equalTo(featuredLb.snp.top).offset(-10)
         }
         
-        topCircle.backgroundColor = .sunnyYellow
+        topCircle.backgroundColor = .tangerine
         topCircle.setBorder(color: .clear, width: 0.1, cornerRadius: 5)
         
         headLineLb.numberOfLines = 2
