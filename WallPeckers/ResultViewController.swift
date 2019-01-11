@@ -174,7 +174,8 @@ class ResultViewController: UIViewController {
         
 
         UserDefaults.standard.set(false, forKey: "Tutorial")
-        
+        UserDefaults.standard.set(true, forKey: "Playing")
+
         if RealmUser.shared.getUserData()?.allocatedId == 0 {
             
             guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}

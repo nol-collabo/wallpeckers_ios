@@ -308,6 +308,7 @@ class PublishViewController: UIViewController {
         
         sender.isUserInteractionEnabled = false
         UserDefaults.standard.set(false, forKey: "Tutorial")
+        UserDefaults.standard.set(true, forKey: "Playing")
 
         var headline = 0
         var main1 = 0
