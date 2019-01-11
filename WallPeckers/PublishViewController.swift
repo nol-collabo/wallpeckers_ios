@@ -307,6 +307,7 @@ class PublishViewController: UIViewController {
     @objc func moveToStart(sender:UIButton) {
         
         sender.isUserInteractionEnabled = false
+        UserDefaults.standard.set(false, forKey: "Tutorial")
 
         var headline = 0
         var main1 = 0

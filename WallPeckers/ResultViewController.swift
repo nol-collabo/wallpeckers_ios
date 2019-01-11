@@ -171,7 +171,10 @@ class ResultViewController: UIViewController {
     } 
     
     @objc func moveToMain(sender:UIButton) {
+        
 
+        UserDefaults.standard.set(false, forKey: "Tutorial")
+        
         if RealmUser.shared.getUserData()?.allocatedId == 0 {
             
             guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
@@ -203,7 +206,6 @@ class ResultViewController: UIViewController {
                 
             }
             
-//            self.present(nvc, animated: true) // 완료 후 시작 페이지로, 아래꺼 누르면 안드로이드처럼 내 프로필로 가긴 하는데 이상해서 일단 주석처리 해놓음
         }
         
     }

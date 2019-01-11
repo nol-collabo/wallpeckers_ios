@@ -130,7 +130,6 @@ class AfterRegisterViewController: UIViewController {
             }else{
                 
                 if !UserDefaults.standard.bool(forKey: "Playing") {
-                    
                     moveToGame()
                 }else{
                     if let _inputCode = pressCodeTf.text {
@@ -146,10 +145,7 @@ class AfterRegisterViewController: UIViewController {
                         
                     }
                 }
-                
-                
                 sender.isUserInteractionEnabled = true
-                
                 // 팝업
             }
             
