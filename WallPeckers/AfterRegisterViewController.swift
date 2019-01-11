@@ -24,6 +24,8 @@ class AfterRegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusbarColor(UIColor.clear)
+
         setUI()
         addAction()
         // Do any additional setup after loading the view.

@@ -18,9 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if let statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
-            statusBar.backgroundColor = UIColor.basicBackground
-        }
+
         
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterForeground")
         

@@ -24,6 +24,9 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusbarColor(UIColor.basicBackground)
+        
+
         self.view.backgroundColor = .basicBackground
         self.view.addSubview(aloeStackView)
         aloeStackView.snp.makeConstraints { (make) in

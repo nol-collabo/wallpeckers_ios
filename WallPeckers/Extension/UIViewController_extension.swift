@@ -12,6 +12,15 @@ import UIKit
 
 extension UIViewController {
     
+    func setStatusbarColor(_ color:UIColor) {
+        
+        if let statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
+            statusBar.backgroundColor = color
+        }
+        
+        
+    }
+    
     func findTimerView() -> NavigationCustomView {
         if let vv = self.view.subviews.filter({
             

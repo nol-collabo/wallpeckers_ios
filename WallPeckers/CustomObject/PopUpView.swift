@@ -41,7 +41,7 @@ class BasePopUpView:UIView {
         popUpViewHeight = height
         popupView.snp.remakeConstraints { (make) in
             make.center.equalToSuperview()
-            make.leading.equalTo(40)
+            make.leading.equalTo(DeviceSize.width > 320 ? 40 : 20)
             make.height.equalTo(popUpViewHeight)
         }
     }
@@ -268,19 +268,21 @@ class LevelBadgePopUpView:BasePopUpView {
         
         self.popupView.addSubview([bgImageView, mainImageView, descLb, bottomButton, topLb])
         self.popupView.setBorder(color: .black, width: 2.5)
-        self.setPopUpViewHeight(450)
+        
+        self.setPopUpViewHeight(DeviceSize.width > 320 ? 450 : 480)
         
         bgImageView.snp.makeConstraints { (make) in
             make.leading.equalTo(15)
             make.top.equalTo(10)
             make.centerX.equalToSuperview()
-            make.height.equalTo(310)
+            make.height.equalTo(270)
         }
        
         topLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(60)
         }
+        bgImageView.contentMode = .scaleAspectFit
         
         mainImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -300,7 +302,8 @@ class LevelBadgePopUpView:BasePopUpView {
         }
         
         descLb.snp.makeConstraints { (make) in
-            make.bottom.equalTo(bottomButton.snp.top).offset(-20)
+            make.top.greaterThanOrEqualTo(mainImageView.snp.bottom).offset(5)
+            make.bottom.greaterThanOrEqualTo(bottomButton.snp.top).offset(-20)
             make.leading.equalTo(20)
             make.centerX.equalToSuperview()
         }
