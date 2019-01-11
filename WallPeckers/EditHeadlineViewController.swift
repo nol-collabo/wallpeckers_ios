@@ -93,7 +93,7 @@ class EditHeadlineViewController: UIViewController {
             make.bottom.equalTo(headLineLb.snp.top).offset(-10)
         }
         
-        topCircle.backgroundColor = .tangerine
+        topCircle.backgroundColor = .sunnyYellow
         topCircle.setBorder(color: .clear, width: 0.1, cornerRadius: 5)
         
         let totalArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
