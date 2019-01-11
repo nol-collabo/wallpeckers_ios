@@ -138,6 +138,7 @@ class EditFeaturesViewController: UIViewController {
             
             if totalCount == 3 {
                 if tv.tag == defaultHeadlines[0] {
+                    tv.isUserInteractionEnabled = false
                     tv.selectButton.isEnabled = false
                     tv.selected()
                 }else if tv.tag == defaultHeadlines[1] {
@@ -150,6 +151,7 @@ class EditFeaturesViewController: UIViewController {
                 infoLb.isHidden = false
             }else if totalCount == 2{
                 if tv.tag == defaultHeadlines[0] {
+                    tv.isUserInteractionEnabled = false
                     tv.selectButton.isEnabled = false
                     tv.selected()
                 }else if tv.tag == defaultHeadlines[1] {
@@ -161,7 +163,7 @@ class EditFeaturesViewController: UIViewController {
                 if tv.tag == defaultHeadlines[0] {
                     tv.selected()
                     tv.selectButton.isEnabled = false
-                    
+                    tv.isUserInteractionEnabled = false
                 }
                 //                defaultHeadlines.remove(at: 1)
                 //                defaultHeadlines.remove(at: 1)
@@ -279,11 +281,22 @@ class EditFeaturesViewController: UIViewController {
 extension EditFeaturesViewController:ThumnailDelegate {
     func moveToNext(id: Int) {
         
+        if let aa = self.aStackView.getAllRows().filter({$0 is CompletedArticleView}) as? [CompletedArticleView] {
+            
+            
+//            defaultHeadlines
+            
+            
+        }
+        
         if selectedId.count == 2 {
             
             
             if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
                 //마지막 선택한 것 추가
+                
+            
+                
                 if let aaa = aa.filter({$0.tag == id}).first {
                     if !selectedId.contains(id) {
                         let before = selectedId.removeFirst()
