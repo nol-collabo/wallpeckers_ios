@@ -29,7 +29,9 @@ class StartViewController: UIViewController {
         
         
         super.viewDidLoad()
-
+        
+        self.view.backgroundColor = UIColor.basicBackground
+        self.navigationController?.isNavigationBarHidden = true
         
         transformToRealm { (_) in
             
