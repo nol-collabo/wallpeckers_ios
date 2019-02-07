@@ -18,7 +18,7 @@ class GameTransitionBaseViewController: UIViewController {
 
     }
     
-    func findBeforeVc(type:GameViewType) -> GameTransitionBaseViewController? {
+    func findBeforeVc(type:GameViewType) -> GameTransitionBaseViewController? { // 이전 뷰컨트롤러 찾기
 
         if let vcs = self.parent?.children as? [GameTransitionBaseViewController] {
             
@@ -37,3 +37,12 @@ class GameTransitionBaseViewController: UIViewController {
     }
 }
 
+protocol GameViewTransitionDelegate {
+    
+    func moveTo(fromVc:GameTransitionBaseViewController, toVc:GameTransitionBaseViewController, sendData:Any?, direction:TransitionDirection)
+    
+}
+
+enum TransitionDirection:String {
+    case forward, backward
+}

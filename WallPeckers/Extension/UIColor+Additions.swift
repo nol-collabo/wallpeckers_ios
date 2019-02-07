@@ -8,8 +8,6 @@
 
 import UIKit
 
-// Color palette
-
 extension UIColor {
     
     @nonobjc class var basicBackground: UIColor {

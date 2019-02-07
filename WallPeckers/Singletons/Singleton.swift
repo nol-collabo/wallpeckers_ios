@@ -10,7 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RealmUser {
+class RealmUser { // 렘에 저장된 유저데이터
     
     static var shared = RealmUser()
     private var user:User?
@@ -54,7 +54,6 @@ class RealmUser {
     }
     
     func getUserLevel() -> String {
-//        get {
             let levels = RealmLevel.shared.get(Standard.shared.getLocalized()).sorted(by: {$0.id < $1.id})
             
             if let myPoint = RealmUser.shared.getUserData()?.score {
@@ -72,12 +71,11 @@ class RealmUser {
                 }
             }
             return "Intern"
-//        }
     }
     
     
     
-    func initializedUserInfo() {
+    func initializedUserInfo() { // 유저데이터 생성
         guard let user = user else {return}
         
         UserDefaults.standard.set(0, forKey: "enterForeground")
@@ -110,7 +108,6 @@ class RealmUser {
                 $0.point = 0
                 $0.tryCount = 0
                 $0.selectedPictureId = 0
-//                $0.isPairedArticle
                 
             })
             
@@ -134,7 +131,7 @@ protocol LevelUpDelegate {
     func levelupPopUp(score:Int)
 }
 
-class RealmLevel {
+class RealmLevel { // 레벨 데이터
     
     static var shared = RealmLevel()
     
@@ -189,7 +186,7 @@ class RealmLevel {
     
 }
 
-class RealmArticle {
+class RealmArticle { // 기사데이터
     
     static var shared = RealmArticle()
     
@@ -222,7 +219,6 @@ class RealmArticle {
 
         _ = originalArticles.map({
             
-            
             for local in localArticles {
                 
                 if $0.id == local.article {
@@ -234,18 +230,12 @@ class RealmArticle {
                     translateArticles.append(translate)
                 }
             }
-            
         })
-        
         return translateArticles
-
     }
-    
-    
-    
 }
 
-class RealmArticleLink {
+class RealmArticleLink { // 연결기사 데이터
     
     static var shared = RealmArticleLink()
     
@@ -295,7 +285,7 @@ class RealmArticleLink {
     }
 }
 
-class RealmSection {
+class RealmSection { // 토픽
     
     static var shared = RealmSection()
     
@@ -347,7 +337,7 @@ class RealmSection {
     }
 }
 
-class RealmClue {
+class RealmClue { // 증거
     
     static var shared = RealmClue()
     
@@ -403,10 +393,6 @@ class RealmClue {
         
     }
     
-//    func getClueAsIdentifcation() -> Clue? {
-//
-//    }
-    
     func getLocalClue(id:Int, language:Language) -> Clue? {
         
         var lanInt = 0
@@ -446,7 +432,7 @@ class RealmClue {
     
 }
 
-struct Album {
+struct Album { // 폴더 안에 있는 기사이미지 찾아올때 사용
     //
     static func findImages(articleId:Int)-> [String]{
         

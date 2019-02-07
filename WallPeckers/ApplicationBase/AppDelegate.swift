@@ -16,10 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { //앱이 최초 켜질 때 타이머 시간 확인
 
-        
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterForeground")
         
         let fore = UserDefaults.standard.integer(forKey: "enterForeground")
@@ -32,13 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func applicationWillResignActive(_ application: UIApplication) {
-        //        RealmUser.shared.savePlayTime()
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
     
-    func applicationDidEnterBackground(_ application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) { // 앱이 백그라운드로 나갈 시 시간 저장
         RealmUser.shared.savePlayTime()
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterBackground")
         print(UserDefaults.standard.integer(forKey: "enterBackground"))
@@ -51,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) { // 앱이 다시 켜질 때 타이머 상의 시간을 갱신함
         
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterForeground")
         
@@ -77,10 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
-    func applicationWillTerminate(_ application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) { // 앱이 꺼질 때 타이머 상의 시간을 저장
         RealmUser.shared.savePlayTime()
         UserDefaults.standard.set(Int(Date().timeIntervalSince1970), forKey: "enterBackground")
         print(Standard.shared.gamePlayTime)

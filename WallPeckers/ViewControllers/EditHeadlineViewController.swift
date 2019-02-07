@@ -10,6 +10,7 @@ import UIKit
 import AloeStackView
 
 class EditHeadlineViewController: UIViewController {
+    
     let scrollView = BaseVerticalScrollView()
     let dismissBtn = UIButton()
     let titleLb = UILabel()
@@ -25,15 +26,13 @@ class EditHeadlineViewController: UIViewController {
         super.viewDidLoad()
         
         setUI()
-        
+        addAction()
     }
     
     private func setUI() {
         
         dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
-        
         scrollView.setScrollView(vc: self)
-
         self.scrollView.contentView.addSubview([titleLb, dismissBtn, headLineLb, arrowLb, featuredLb, aStackView, nextButton, topCircle])
         self.view.backgroundColor = .basicBackground
         dismissBtn.snp.makeConstraints { (make) in
@@ -46,12 +45,9 @@ class EditHeadlineViewController: UIViewController {
             make.top.equalTo(dismissBtn.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
         }
-        
-        
-        
+
         titleLb.setNotoText("titlearticlechange_title".localized, color: .black, size: 20, textAlignment: .center, font: .bold)
-        
-        
+
         arrowLb.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLb.snp.bottom).offset(20)
@@ -59,7 +55,7 @@ class EditHeadlineViewController: UIViewController {
 
         }
         arrowLb.setNotoText(">", color: .init(white: 155/255, alpha: 1), size: 20, textAlignment: .center, font: .bold)
-        
+
         headLineLb.snp.makeConstraints { (make) in
             make.trailing.equalTo(arrowLb.snp.leading)
             make.top.equalTo(titleLb.snp.bottom).offset(20)
@@ -133,22 +129,19 @@ class EditHeadlineViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-20)
         }
-        
-        nextButton.addTarget(self, action: #selector(moveNext(sender:)), for: .touchUpInside)
         nextButton.setTitle("Next".localized, for: .normal)
+
+    }
+    
+    private func addAction() {
+        nextButton.addTarget(self, action: #selector(moveNext(sender:)), for: .touchUpInside)
         dismissBtn.addTarget(self, action: #selector(touchDismiss(sender:)), for: .touchUpInside)
-        
-        
     }
     
     @objc func touchDismiss(sender:UIButton) {
-    
         sender.isUserInteractionEnabled = false
-        
         self.navigationController?.popViewController(animated: true)
-        
         sender.isUserInteractionEnabled = true
-        
     }
     
     @objc func moveNext(sender:UIButton) {
@@ -169,11 +162,9 @@ class EditHeadlineViewController: UIViewController {
             self.navigationController?.popToViewController(vc, animated: true)
             
             
-        }else{
+        }else{ // 완료된 기사가 2개 이상이어서 메인기사를 선택해야 할 때
             guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditFeaturesViewController") as? EditFeaturesViewController else {return}
-            
-            print(defaultHeadlines)
-            print("DDDDD")
+
             vc.defaultHeadlines = defaultHeadlines
             
             self.navigationController?.pushViewController(vc, animated: true)
@@ -187,10 +178,9 @@ extension EditHeadlineViewController:ThumnailDelegate, EditHeadlineProtocol {
         return defaultHeadlines
     }
     
-    func moveToNext(id: Int) {
+    func moveToNext(id: Int) { // 메인기사 선택으로 넘어갈 때 헤드라인 선택된 부분 체크
         if let sv = self.aStackView.getAllRows() as? [CompleteArticleThumnailView] {
             _ = sv.map({
-                
                 if $0.tag != id {
                     $0.selectButton.isSelected = false
                 }else{
@@ -203,13 +193,13 @@ extension EditHeadlineViewController:ThumnailDelegate, EditHeadlineProtocol {
         
         if totalArticle.count <= 3 {
             defaultHeadlines[0] = id
-            
         }else{
             defaultHeadlines.removeAll()
             defaultHeadlines.append(id)
             nextButton.isEnabled = true
             
-        }    }
+        }
+    }
     
     func selectNewspaper(id: Int) {
         print(id)

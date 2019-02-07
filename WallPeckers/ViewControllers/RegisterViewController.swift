@@ -446,20 +446,3 @@ extension RegisterViewController:SelectPopupDelegate {
     
     
 }
-
-enum NotoSansFontSize:String {
-    
-    case bold = "NotoSans-Bold"
-    case regular = "NotoSans-Regular"
-    case medium = "NotoSans-Medium"
-    case thin = "NotoSans-Light"
-    
-}
-
-enum AmericanTypeWriterFontSize:String {
-    
-    case bold = "AmericanTypewriter-Bold"
-    case regular = "AmericanTypewriter"
-    case light = "AmericanTypewriter-Light"
-    
-}

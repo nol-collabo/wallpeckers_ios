@@ -13,9 +13,25 @@ import Realm
 let iconWidth = DEVICEHEIGHT > 600 ? 93 : 85
 
 class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupViewDelegate, ArticleSelectDelegate, CallBadgeDelegate {
-
     
-    func callCompleteBadge(tag: Int) {
+    
+    let selectedLanguage = Standard.shared.getLocalized()
+    let topConstraint = DeviceSize.width > 320 ? 30 : 20
+    var factCheckList:[FactCheck] = []
+    var links:[ArticleLinkLine] = []
+    var timerView:NavigationCustomView?
+    let backButton = UIButton()
+    let articleTitleLb = UILabel()
+    var sectionId:Int = 0
+    var articles:[Article]?
+    var articleLinks:[ArticleLink]?
+    var localArticleLinks:Results<LocalArticleLink>?
+    var localArticles:Results<LocalArticle>?
+    var articleButtons:[ArticleSelectButton] = []
+    let infoLb = UILabel()
+    
+    
+    func callCompleteBadge(tag: Int) { // 뱃지 획득 팝업
         
         if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == tag}).first?.badge {
             
@@ -26,11 +42,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         }
     }
     
-    
-    let selectedLanguage = Standard.shared.getLocalized()
-
-    
-    func callLevelPopUp(topic:Int) {
+    func callLevelPopUp(topic:Int) { // 레벨업 팝업
         
         if let score = RealmUser.shared.getUserData()?.score {
             
@@ -68,12 +80,8 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         
         if let popupEmpty = self.parent?.view.subviews.filter({$0 is LevelBadgePopUpView}).isEmpty {
             
-            
             if popupEmpty {
                 if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == topic}).first?.title {
-                    
-                    print(badge)
-                    print("~~~")
                     
                     if RealmArticle.shared.getAll().filter({$0.section == topic}).filter({$0.isCompleted}).count == 9 {
                         
@@ -83,10 +91,9 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             }
         }
     }
-
-    let topConstraint = DeviceSize.width > 320 ? 30 : 20
     
-    func tapArticle(sender: ArticleSelectButton) {
+    
+    func tapArticle(sender: ArticleSelectButton) { // 버튼 눌렀을 때의 액션
         
         func moveToArticlePage() {
             guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ClueSelectViewController") as? ClueSelectViewController else {return}
@@ -105,10 +112,10 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                 
             }
         }
-
+        
         if let ar = articles?.filter({$0.id == sender.tag}).first {
-            print(ar)
-            if ar.isCompleted {
+            
+            if ar.isCompleted { // 완료할 기사일 시 바로 완료기사 뷰로 이동
                 
                 let sendingData = (ar, ar.selectedHashtag, Array(ar.wrongQuestionsId), false)
                 
@@ -116,48 +123,30 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                 
                 delegate?.moveTo(fromVc: self, toVc: vc, sendData: sendingData, direction: .forward)
                 
-            }else{
+            }else{ // 아니면 다음 페이지로
                 moveToArticlePage()
             }
             
         }
-
+        
     }
     
-    func tapBottomButton(sender: AlertPopUpView) {
-        if sender.tag == 1 {
+    func tapBottomButton(sender: AlertPopUpView) { // 완료 팝업 관련
+        if sender.tag == 1 { // 타이머가 0일때
             
             guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ResultViewController") as? ResultViewController else {return}
             
             sender.removeFromSuperview()
-
             self.navigationController?.pushViewController(vc, animated: true)
             
-                        }else {
+        }else {
+            
             sender.removeFromSuperview()
         }
     }
+
     
-    var factCheckList:[FactCheck] = []
-//    {
-////        didSet {
-////            self.changeColor()
-////        }
-//    }
-    var links:[ArticleLinkLine] = []
-    var timerView:NavigationCustomView?
-    let backButton = UIButton()
-    let articleTitleLb = UILabel()
-    var sectionId:Int = 0
-    var articles:[Article]?
-    var articleLinks:[ArticleLink]?
-    var localArticleLinks:Results<LocalArticleLink>?
-    var localArticles:Results<LocalArticle>?
-    
-    var articleButtons:[ArticleSelectButton] = []
-    let infoLb = UILabel()
-    
-    func touchMoveToMyPage(sender: UIButton) {
+    func touchMoveToMyPage(sender: UIButton) { // 상단 마이페이지 눌렀을 때
         sender.isUserInteractionEnabled = false
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
         sender.isUserInteractionEnabled = true
@@ -172,29 +161,26 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         self.articleLinks?.removeAll()
         self.links.removeAll()
         self.articles?.removeAll()
-        self.view.subviews.map({$0.removeFromSuperview()})
-        
         self.articles = articles
         self.articleButtons = articleBtns
         self.articleLinks = articleLinks
         factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-
-        
+        _  = self.view.subviews.map({$0.removeFromSuperview()})
         setUI()
         self.changeColor()
-
+        
         
     }
     
-    func drawLine() {
-
-                _ = self.view.subviews.filter({$0 is ArticleLinkLine}).map({$0.removeFromSuperview()})
-
+    func drawLine() { // 연결된 라인 그리는 함수
+        
+        _ = self.view.subviews.filter({$0 is ArticleLinkLine}).map({$0.removeFromSuperview()})
+        
         var ids:[Int] = []
         for ar in articles! {
-             ids.append(ar.id)
+            ids.append(ar.id)
         }
-  
+        
         var filtered:[ArticleLink] = []
         
         for al in self.articleLinks! {
@@ -207,61 +193,38 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             }
         }
         
-        let removeDuplicated = Array(Set(filtered)).sorted(by: {
-            
-            $0.id < $1.id
-        })
+        let removeDuplicated = Array(Set(filtered)).sorted(by: {$0.id < $1.id})
         
         for i in removeDuplicated {
             
             let line = ArticleLinkLine()
             let color = LineColor.init(rawValue: i.color!)
             
-            if let left = articleButtons.filter({
-                $0.tag == i.articles[0]
-            }).first, let right = articleButtons.filter({
-                $0.tag == i.articles[1]
-            }).first {
+            if let left = articleButtons.filter({$0.tag == i.articles[0]}).first, let right = articleButtons.filter({$0.tag == i.articles[1]}).first {
                 line.setLine(color: color!, leftButton: left, rightButton: right, vc: self)
-
                 links.append(line)
             }
-
         }
-
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(sectionId)
-        print("~~~~~~")
-
     }
     
-    func changeColor() {
+    func changeColor() { // 버튼 색상 변경
         
-        print(factCheckList)
-        print("CHECK")
-
-
-        _ = articles?.map({
+        _ = articles?.map({ar in
             
-            ar in
-            
-            factCheckList.map({
-                
-                fact in
+            factCheckList.map({fact in
                 
                 if fact.selectedArticleId == ar.id {
                     
-                    _ = articleButtons.map({
-                    
-                        btn in
+                    _ = articleButtons.map({btn in
                         
                         if btn.tag == ar.id {
                             
@@ -276,7 +239,6 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
                                 
                                 if btn.tag == $0.leftTag || btn.tag == $0.rightTag {
                                     if fact.isSubmit {
-                                        
                                         btn.backgroundColor = $0.backgroundColor
                                         btn.pointTitleLb.textColor = UIColor.white
                                         btn.titleLb.textColor = UIColor.white
@@ -294,7 +256,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         })
     }
     
-
+    
     private func setUI() {
         self.view.backgroundColor = .basicBackground
         
@@ -309,11 +271,8 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             make.bottom.equalTo(DeviceSize.width > 320 ? -60 : -25)
         }
         
-        
-        
-        
         articleTitleLb.setNotoText("selectarticle_title".localized, color: .black, size: 24, textAlignment: .center, font: .medium)
-                
+        
         articleTitleLb.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeArea.top).offset(70)
             make.height.equalTo(35)
@@ -322,7 +281,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         
         for i in articleButtons {
             self.view.addSubview(i)
-
+            
             i.delegate = self
         }
         
@@ -331,7 +290,7 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
             make.centerX.equalToSuperview()
             make.width.height.equalTo(iconWidth)
         }
-
+        
         articleButtons[0].snp.makeConstraints { (make) in
             make.top.equalTo(articleTitleLb.snp.bottom).offset(topConstraint)
             make.width.height.equalTo(iconWidth)
@@ -396,10 +355,8 @@ class ArticleChooseViewController: GameTransitionBaseViewController, AlerPopupVi
         sender.isUserInteractionEnabled = false
         
         guard let vc = self.findBeforeVc(type: .topic) else {return}
-
-     
-        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
         
+        delegate?.moveTo(fromVc: self, toVc: vc, sendData: nil, direction: .backward)
         
         sender.isUserInteractionEnabled = true
         

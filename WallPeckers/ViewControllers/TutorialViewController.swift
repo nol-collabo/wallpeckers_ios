@@ -25,13 +25,12 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
     let navView = TopDotView()
     var currentIndex = 0
     var inputCode = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUI()
-        
-        
-    
+
     }
     
     private func setUI() {
@@ -87,8 +86,6 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
             images3 = [UIImage.init(named: "de3tuto1")!, UIImage.init(named: "de3tuto2")!]
 
         }
-//        UIWindow().vie
-      
         
         
         KEYWINDOW!.addSubview(navView)
@@ -101,9 +98,6 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
         }
         
         navView.setHighlight(currentIndex: 0)
-        
-
-
 
     }
     
@@ -127,17 +121,9 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
         }
     }
     
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//
-//
-//    }
-
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-        
+
         if let _images1 = images1, let _images2 = images2, let _images3 = images3 {
             t1View.setData(title: "tutorial1_subtitle".localized, desc: "tutorial1".localized, images: _images1)
             t2View.setData(title: "tutorial2_subtitle".localized, desc: "tutorial2".localized, images:  _images2)
@@ -150,7 +136,8 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
         t4View.delegate = self
     }
     
-    func touchMove(sender: UIButton) {
+    func touchMove(sender: UIButton) { // 마지막 튜토리얼에서 게임페이지로 이동하는 함수
+        
         sender.isUserInteractionEnabled = false
         navView.removeFromSuperview()
         
@@ -173,7 +160,7 @@ class TutorialViewController: UIViewController, TutorialViewDelegate, UIScrollVi
 }
 
 
-final class TopDotView:UIView {
+final class TopDotView:UIView { // 튜토리얼 상단 네비게이션 화면
     
     private let stackView = UIStackView()
     private let firstView = UIView()
@@ -192,8 +179,6 @@ final class TopDotView:UIView {
         stackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-      
-//        stackView.addar([firstView, secondView, thirdView, fourthView])
         
     
         for v in [firstView, secondView, thirdView, fourthView] {
@@ -209,7 +194,6 @@ final class TopDotView:UIView {
         secondView.tag = 1
         thirdView.tag = 2
         fourthView.tag = 3
-        
         stackView.axis = .horizontal
         stackView.spacing = 15
         stackView.distribution = .fillEqually
@@ -230,16 +214,10 @@ final class TopDotView:UIView {
                     
                 }
             }
-            
-
-            
         }
-
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 
-class TopicButton:UIView {
+class TopicButton:UIView { // 토픽 선택하는 버튼
     
     let selectGesture:UITapGestureRecognizer = UITapGestureRecognizer()
     let titleImageView = UIImageView()
@@ -40,7 +40,6 @@ class TopicButton:UIView {
             make.leading.equalTo(3)
             make.trailing.equalTo(-3)
             make.top.equalTo(titleImageView.snp.bottom).offset(5)
-//            make.height.equalTo(50)
             make.bottom.equalTo(-3)
             
         }

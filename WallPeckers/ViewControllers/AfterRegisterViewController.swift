@@ -18,14 +18,12 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeDescLb = UILabel()
     var userInfo:User?
     let keyboardResigner = UITapGestureRecognizer()
-    let enPressCodes:[String] = ["berlin", "wall","10", "20", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "dmz", "dorasan", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "베를린", "장벽"]
+    let pressCodes:[String] = ["berlin", "wall","10", "20", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "dmz", "dorasan", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "베를린", "장벽"]
     let dePressCodes:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setStatusbarColor(UIColor.clear)
-
         setUI()
         addAction()
         // Do any additional setup after loading the view.
@@ -33,12 +31,12 @@ class AfterRegisterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mainProfileView.setData(userData: realm.objects(User.self).last!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: true)
+        mainProfileView.setData(userData: realm.objects(User.self).last!, level: RealmUser.shared.getUserLevel(), camera: false, nameEdit: false, myPage: true) // 뷰를 다시 불러올 때마다 메인프로필 뷰 정보 갱신
         
     }
     
-    func addAction() {
-        mainProfileView.setAction(vc: self, #selector(moveToMaPage(sender:)))
+    private func addAction() {
+        mainProfileView.setAction(vc: self, #selector(moveToMyPage(sender:)))
         confirmBtn.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
         keyboardResigner.addTarget(self, action: #selector(keyboardResign))
     }
@@ -47,8 +45,9 @@ class AfterRegisterViewController: UIViewController {
         pressCodeTf.resignFirstResponder()
     }
     
-    func setUI() {
+    private func setUI() {
         
+        self.setStatusbarColor(UIColor.clear)
         self.view.addSubview([mainProfileView, pressCodeLb, pressCodeTf, confirmBtn, pressCodeDescLb])
         self.view.backgroundColor = .basicBackground
         self.view.addGestureRecognizer(keyboardResigner)
@@ -59,8 +58,7 @@ class AfterRegisterViewController: UIViewController {
             make.height.equalTo(DEVICEHEIGHT > 600 ? 410 : 320)
             
         }
-        
-        
+
         pressCodeTf.snp.makeConstraints { (make) in
             make.top.equalTo(mainProfileView.snp.bottom).offset(DeviceSize.width > 320 ? 30 : 20)
             make.centerX.equalToSuperview()
@@ -103,7 +101,7 @@ class AfterRegisterViewController: UIViewController {
         
     }
     
-    @objc func moveToMaPage(sender:UIButton) {
+    @objc func moveToMyPage(sender:UIButton) {
         
         sender.isUserInteractionEnabled = false
         
@@ -134,21 +132,18 @@ class AfterRegisterViewController: UIViewController {
                 }else{
                     if let _inputCode = pressCodeTf.text {
                         
-                        if !enPressCodes.contains(_inputCode.lowercased()) {
+                        if !pressCodes.contains(_inputCode.lowercased()) {
                             pressCodeTf.text = ""
                             pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
                             return
                         }
-                        
                         
                         PopUp.callTwoButtonAlert(vc:self)
                         
                     }
                 }
                 sender.isUserInteractionEnabled = true
-                // 팝업
             }
-            
         }
         
     }
@@ -157,7 +152,7 @@ class AfterRegisterViewController: UIViewController {
         
         if let _inputCode = pressCodeTf.text {
             
-            if !enPressCodes.contains(_inputCode.lowercased()) {
+            if !pressCodes.contains(_inputCode.lowercased()) {
                 pressCodeTf.text = ""
                 pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
                 return
@@ -192,6 +187,7 @@ class AfterRegisterViewController: UIViewController {
                 
             }else{
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController else {return}
+                
                 getHashTag()
                 
                 UserDefaults.standard.set(self.pressCodeTf.text ?? "", forKey: "presscode")
@@ -233,7 +229,7 @@ class AfterRegisterViewController: UIViewController {
         }
     }
     
-    func getHashTag() {
+    func getHashTag() { // 해시태그 데이터 불러오기
         
         CustomAPI.getHashtag { (hashtags) in
             
@@ -270,10 +266,6 @@ class AfterRegisterViewController: UIViewController {
             }else{
                 let articles = RealmArticle.shared.getAll()
                 
-                
-                
-                
-                
                 for i in 0...articles.count - 1 {
                     
                     
@@ -282,7 +274,6 @@ class AfterRegisterViewController: UIViewController {
                     
                     
                     if articleHash.count == 5 {
-                        print("XX")
                         break
                     }else{
                         for _ in 0...4 {
@@ -291,15 +282,10 @@ class AfterRegisterViewController: UIViewController {
                             }
                         }
                     }
-                    
-                    
                 }
-                
             }
         }
     }
-    
-    
 }
 
 
@@ -310,10 +296,7 @@ extension AfterRegisterViewController:UITextFieldDelegate, TwobuttonAlertViewDel
             self.moveToGame()
         }
     }
-    
-    
-    
-    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         UIView.animate(withDuration: 0.2) {
             self.view.center = .init(x: self.view.center.x, y: self.view.center.y - 120)

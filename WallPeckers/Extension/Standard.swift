@@ -35,10 +35,10 @@ class Standard {
     
     func timerInit(inputCode:String) {
         
-        let enPressCodes:[String] = ["peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "berlin", "wall", "베를린", "장벽"]
+        let pressCodes:[String] = ["peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "berlin", "wall", "베를린", "장벽"]
 
         
-        if enPressCodes.contains(inputCode.lowercased()) {
+        if pressCodes.contains(inputCode.lowercased()) {
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
                     if playTime < 0 {
@@ -65,8 +65,7 @@ class Standard {
 
             if let playTime = RealmUser.shared.getUserData()?.playTime {
                 if playTime != 0 {
-                    print(playTime)
-                    print("REMAINPLAYTIME")
+
                     if playTime < 0 {
                         gamePlayTime = Int(inputCode)! * 60
 
@@ -157,6 +156,24 @@ class Standard {
     
 }
 
+enum NotoSansFontSize:String {
+    
+    case bold = "NotoSans-Bold"
+    case regular = "NotoSans-Regular"
+    case medium = "NotoSans-Medium"
+    case thin = "NotoSans-Light"
+    
+}
+
+enum AmericanTypeWriterFontSize:String {
+    
+    case bold = "AmericanTypewriter-Bold"
+    case regular = "AmericanTypewriter"
+    case light = "AmericanTypewriter-Light"
+    
+}
+
+
 enum Language:String {
     
     case KOREAN = "ko"
@@ -168,6 +185,7 @@ enum Language:String {
 enum GameMode:String {
     case long, short
 }
+
 
 protocol GamePlayTimeDelegate {
     

@@ -12,38 +12,7 @@ import AloeStackView
 import Photos
 
 class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelegate {
-    func moveToNext(sender: UIButton) {
-        
-        if fromResult {
-            self.dismiss(animated: true, completion: nil)
-        }else{
-            guard let vc = UIStoryboard.init(name: "Publish", bundle: nil).instantiateViewController(withIdentifier: "Publish") as? UINavigationController else {return}
-            
-            if let mvc = vc.viewControllers.first as? PublishViewController {
-                mvc.fromMyPage = true
-            }
-            
-            sender.isUserInteractionEnabled = true
-            self.present(vc, animated: true, completion: nil)
-        }
-
-    }
     
-    func moveToCompleteArticle(id: Int) {
-        
-        guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
-        
-        if let ar = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
-            
-            $0.id == id
-        }).first {
-            vc.setData(article: ar, hashTag: ar.selectedHashtag, wrongIds: Array(ar.wrongQuestionsId))
-            vc.fromMyPage = true
-            
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
-    }
     var fromGame:Bool = false
     let imagePicker = UIImagePickerController()
     let publishView = NewspaperPublishedView()
@@ -65,7 +34,34 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
     var titleLb = UILabel()
     let selectedLanguage = Standard.shared.getLocalized()
     let keyboardResigner = UITapGestureRecognizer()
+    
+    func moveToNext(sender: UIButton) {
+        
+        if fromResult {
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            guard let vc = UIStoryboard.init(name: "Publish", bundle: nil).instantiateViewController(withIdentifier: "Publish") as? UINavigationController else {return}
+            
+            if let mvc = vc.viewControllers.first as? PublishViewController {
+                mvc.fromMyPage = true
+            }
+            
+            sender.isUserInteractionEnabled = true
+            self.present(vc, animated: true, completion: nil)
+        }
 
+    }
+    
+    func moveToCompleteArticle(id: Int) {
+        
+        guard let vc = UIStoryboard.init(name: "Game", bundle: nil).instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
+        
+        if let ar = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.id == id}).first {
+            vc.setData(article: ar, hashTag: ar.selectedHashtag, wrongIds: Array(ar.wrongQuestionsId))
+            vc.fromMyPage = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     @objc func keyboardResign() {
 
@@ -90,30 +86,18 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scoreView.delegate = self
-        badgeView.delegate = self
-        levelView.delegate = self
-        profileView.delegate = self
-        keyboardResigner.addTarget(self, action: #selector(keyboardResign))
-        self.view.addGestureRecognizer(keyboardResigner)
-
-        //내 점수
+        setDelegate()
+        setAction()
+        setInitData()
+        setUI()
+    }
+    
+    private func setInitData() {
         currentPoint = RealmUser.shared.getUserData()?.score
         myLevel = 10
         
-        if let _currentPoint = currentPoint {
-            if _currentPoint > 0 {
-                credView.delegate = self
-                completedArticleView.delegate = self
-            }
-        }
-
-       completedArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({
-            
-            $0.isCompleted
-        })
+        completedArticle = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted})
         
-
         if let corec = completedArticle?.map({Double($0.correctQuestionCount)}), let total = completedArticle?.map({Double($0.totalQuestionCount)}) {
             
             if corec.count > 0 {
@@ -124,8 +108,25 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         for i in 1...6 {
             addBadge(tag: i)
         }
-
-        setUI()
+    }
+    
+    private func setDelegate() {
+        scoreView.delegate = self
+        badgeView.delegate = self
+        levelView.delegate = self
+        profileView.delegate = self
+        if let _currentPoint = currentPoint {
+            if _currentPoint > 0 {
+                credView.delegate = self
+                completedArticleView.delegate = self
+            }
+        }
+    }
+    
+    private func setAction() {
+        self.view.addGestureRecognizer(keyboardResigner)
+        keyboardResigner.addTarget(self, action: #selector(keyboardResign))
+        dismissBtn.addTarget(self, action: #selector(dismissTouched(sender:)), for: .touchUpInside)
 
     }
     
@@ -177,7 +178,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
         profileView.setData(userData: RealmUser.shared.getUserData()!, level: RealmUser.shared.getUserLevel(), camera: true, nameEdit: true, myPage: false)
         
         
-        //완료된 거 없으면 히든처리할 놈들
+        //완료된 기사가 없으면 숨김 처리할 것에 대한 부분
         
         if let _completedArticle = completedArticle {
             
@@ -198,21 +199,16 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
                                 }
                                 publishView.delegate = self
                             }
-                            
-                            
                         }
                     }
                 }
                 aStackView.addRow(completedArticleView)
-                
             }
         }
         
         aStackView.addRows([levelView, badgeView])
         aStackView.backgroundColor = .basicBackground
 
-
-        dismissBtn.addTarget(self, action: #selector(dismissTouched(sender:)), for: .touchUpInside)
 
     }
     
@@ -224,7 +220,7 @@ class MyPageViewController: UIViewController, SectionViewDelegate, PublishDelega
     }
 }
 
-extension MyPageViewController:MyPageDelegate {
+extension MyPageViewController:MyPageDelegate { // 내 정보 뷰 관련 델리게이트
     
     
     func isbecomeKeyboard(sender: UITextField) {
@@ -233,7 +229,7 @@ extension MyPageViewController:MyPageDelegate {
         }
     }
     
-    func isresignKeyboard(sender: UITextField) {
+    func isresignKeyboard(sender: UITextField) { // 닉네임 수정 시 불리는 함수
         sender.resignFirstResponder()
         UIView.animate(withDuration: 0.2) {
             self.view.center = .init(x: self.view.center.x, y: self.view.center.y + 120)
@@ -253,9 +249,9 @@ extension MyPageViewController:MyPageDelegate {
     
 }
 
-extension MyPageViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension MyPageViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate { // 프로필 이미지 선택 관련 델리게이트
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) { // 프로필 이미지 선택
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
@@ -350,9 +346,8 @@ extension MyPageViewController:SelectPopupDelegate {
         default:
             break
         }
-        
+    
         self.removePopUpView()
-        
     }
 
 }

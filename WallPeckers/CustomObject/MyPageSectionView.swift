@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import AloeStackView
 
-final class MyPageSectionView:UIView, ThumnailDelegate {
+final class MyPageSectionView:UIView, ThumnailDelegate { //마이페이지 뷰컨트롤러에서 나오는 항목들에 대한 뷰
     
     
     let germanLevels:[String] = ["Prakti-\nkant*in", "Volon-\ntär*in", "Journa-\nlist*in", "Redak-\nteur*in", "Chefredak-\nteur*in"]
@@ -93,22 +93,18 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             }
             
             if let _ = delegate?.completedBadges.filter({$0 == 2}).first {
-                
-                
                 economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle:                 Standard.shared.getLocalized() == .KOREAN
                     ? "Economy".localized.replacingOccurrences(of: "\n", with: "") : "Economy".localized, tag: 2, isCompleted: true)
             }else{
                 economyBadgeV.setData(badgeImage: "economyBadge", badgeTitle:                 Standard.shared.getLocalized() == .KOREAN
                     ? "Economy".localized.replacingOccurrences(of: "\n", with: "") : "Economy".localized, tag: 2, isCompleted: false)
             }
-            
             if let _ = delegate?.completedBadges.filter({$0 == 3}).first {
                 generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "General".localized, tag: 3, isCompleted: true)
                 
             }else{
                 generalBadgeV.setData(badgeImage: "generalBadge", badgeTitle: "General".localized, tag: 3)
             }
-            
             if let _ = delegate?.completedBadges.filter({$0 == 4}).first {
                 artBadgeV.setData(badgeImage: "artcultureBadge", badgeTitle: "Art".localized, tag: 4, isCompleted: true)
             }else{
@@ -119,7 +115,6 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             }else{
                 sportsBadgeV.setData(badgeImage: "sportsBadge", badgeTitle: "Sports".localized, tag: 5)
             }
-            
             if let _ = delegate?.completedBadges.filter({$0 == 6}).first {
                 peopleBadgeV.setData(badgeImage: "peopleBadge", badgeTitle: "People".localized, tag: 6, isCompleted: true)
             }else{
@@ -235,10 +230,7 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             }
             
             print(myLevel)
-            
-            
-            
-            
+
         case .Score:
             
             let starImv = UIImageView.init(image: UIImage.init(named: "ArticleStar")!)
@@ -262,7 +254,6 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             pointLb.accessibilityIdentifier = "point"
             
         case .CREDIBILITY:
-            print("XX")
             let emptyView = UIView()
             let fulfillView = UIView()
             let percentLb = UILabel()
@@ -298,7 +289,6 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
             
         case .COMPLETEDARTICLE:
             
-            
             let articleStackView = AloeStackView()
             articleStackView.backgroundColor = .basicBackground
             articleStackView.separatorHeight = 0
@@ -318,7 +308,6 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
                 vv.titleLb.lineBreakMode = NSLineBreakMode.byWordWrapping
 
                 let hhh = heightForView(text: completedArticle[i].title!, font: .NotoSans(.bold, size: 18), width: DeviceSize.width - 50)
-                print(hhh, "~hhh~~~")
                  heights += hhh + 110
 
                 self.layoutIfNeeded()
@@ -336,7 +325,6 @@ final class MyPageSectionView:UIView, ThumnailDelegate {
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
-//            UILabel(frame: CGRect(0, 0, width, CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
@@ -363,8 +351,6 @@ protocol SectionViewDelegate {
     
 }
 
-
-
 enum ContentType:String {
     
     case Score = "ARTICLE POINTS"
@@ -372,11 +358,7 @@ enum ContentType:String {
     case Badge = "MY BADGES"
     case CREDIBILITY = "ARTICLE CREDIBILITY"
     case COMPLETEDARTICLE = "COMPLETED ARTICLES"
-    //    , Level, Badge
 }
-
-
-
 
 enum TopicSection:Int {
     case Politics, Economy, General, Art, Sports, People
@@ -384,19 +366,4 @@ enum TopicSection:Int {
 
 enum HashSection:Int {
     case hash1, hash2, hash3, hash4, hash5
-}
-
-extension String {
-    
-    func heightForWithFont(font: UIFont, width: CGFloat, insets: UIEdgeInsets) -> CGFloat {
-//        (0, 0, , CGFloat.))
-        let label:UILabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: width + insets.left + insets.right, height: .greatestFiniteMagnitude))
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = font
-        label.text = self
-        
-        label.sizeToFit()
-        return label.frame.height + insets.top + insets.bottom
-    }
 }

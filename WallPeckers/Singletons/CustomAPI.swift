@@ -14,10 +14,9 @@ import Alamofire
 
 struct CustomAPI {
     
-//    static let header = ["Content-Type":"application/json"]
     static let domainUrl = "http://api.dmz.wallpeckers.kr/"
     
-    static func newPlayer(completion:@escaping ((Int)->Void)) {
+    static func newPlayer(completion:@escaping ((Int)->Void)) { // 신규 유저 생성
         
         Alamofire.request("\(domainUrl)new/player", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
@@ -39,7 +38,7 @@ struct CustomAPI {
         }
     }
     
-    static func getSessionID(passcode:String, completion:@escaping ((Int)->Void)) {
+    static func getSessionID(passcode:String, completion:@escaping ((Int)->Void)) { // 세션아이디 획득
         
         Alamofire.request("\(domainUrl)session/\(passcode)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
@@ -63,7 +62,7 @@ struct CustomAPI {
         }
     }
     
-    static func saveArticleData(articleId:Int, category:Int, playerId:Int, language:Language, sessionId:Int, tag:Int, count:Int, photoId:Int, completion:((String)->())?) {
+    static func saveArticleData(articleId:Int, category:Int, playerId:Int, language:Language, sessionId:Int, tag:Int, count:Int, photoId:Int, completion:((String)->())?) { // 기사 데이터 저장
         
         let params:Parameters = ["article_proto":articleId, "category":category, "player":playerId, "language":language.rawValue, "session":sessionId, "tag":tag, "num_of_check_fact":count, "photo":photoId]
         
@@ -92,12 +91,9 @@ struct CustomAPI {
         }
     }
     
-    static func saveIncorrect(articleId:Int, clue_type:String, code_incorrect:String, code_correct:String, completion:((String)->())?) {
+    static func saveIncorrect(articleId:Int, clue_type:String, code_incorrect:String, code_correct:String, completion:((String)->())?) { // 오답정보 전송
         
         let params:Parameters = ["article_proto":articleId, "player":RealmUser.shared.getUserData()!.allocatedId, "session":UserDefaults.standard.integer(forKey: "sessionId"), "clue_type":clue_type, "code_incorrect":code_incorrect, "code_correct":code_correct]
-        
-        
-        print(params)
         
         Alamofire.request("\(domainUrl)new/answer/", method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
@@ -123,7 +119,7 @@ struct CustomAPI {
         }
     }
     
-    static func updatePlayer(sessionId:Int, email:String?, headline:Int?, main1:Int?, main2:Int?, completion:((String)->())?) {
+    static func updatePlayer(sessionId:Int, email:String?, headline:Int?, main1:Int?, main2:Int?, completion:((String)->())?) { //플레이어 정보 업데이트
         
         var getBadges:[Bool] = []
         let lang = Standard.shared.getLocalized()
@@ -160,37 +156,30 @@ struct CustomAPI {
             
             
             let params:Parameters = ["email":email, "session":sessionId == 0 ? nil  : sessionId, "language":lang.rawValue, "badge_politics":getBadges[0], "badge_economy":getBadges[1], "badge_general":getBadges[2], "badge_culture":getBadges[3], "badge_sports":getBadges[4], "badge_people":getBadges[5], "score":userData.score, "uid":uuid, "level":userLevel, "num_of_complete_articles":RealmArticle.shared.get(lang).filter({$0.isCompleted}).count, "headline":headline, "main_article1":main1, "main_article2":main2]
-            
-            
-            print(params)
-            print("UPDATEPARAMETER")
+    
 
             Alamofire.request("\(domainUrl)update/player/\(userData.allocatedId)/", method: .post, parameters: params, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
                 switch response.result {
                     
                 case .success(let value):
                     
-                    print(value)
                     let json = JSON(value)
                     
                     guard let _completion = completion else {return}
                     
                     _completion(json["result"].stringValue)
                     
-                    
                 case .failure(let error):
                     
                     guard let _completion = completion else {return}
                     
                     _completion(error.localizedDescription)
-                    print(error.localizedDescription)
-                    
                 }
             }
         }
     }
     
-    static func makePDF(email:String, headline:String, main1:String?, main2:String?, others:[String]?, completion:((Any?)->())?) {
+    static func makePDF(email:String, headline:String, main1:String?, main2:String?, others:[String]?, completion:((Any?)->())?) { // pdf 파일 메일로 전송
         
         
         guard let user = RealmUser.shared.getUserData() else {return}
@@ -220,10 +209,6 @@ struct CustomAPI {
         
         urlComps.queryItems = querys
         
-//        param?
-
-        
-        print(urlComps.url!)
         Alamofire.request(urlComps.url!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
                 
@@ -247,7 +232,7 @@ struct CustomAPI {
         }
     }
     
-    static func getHashtag(completion:((Any?)->())?){
+    static func getHashtag(completion:((Any?)->())?){ // 해시태그 정보 획득
         
         Alamofire.request("\(domainUrl)article/hashes/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {

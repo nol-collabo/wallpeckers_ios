@@ -28,4 +28,16 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: bundleName!, value: "", comment: "")
         
     }
+    
+    func heightForWithFont(font: UIFont, width: CGFloat, insets: UIEdgeInsets) -> CGFloat {
+        let label:UILabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: width + insets.left + insets.right, height: .greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = self
+        
+        label.sizeToFit()
+        return label.frame.height + insets.top + insets.bottom
+    }
+
 }

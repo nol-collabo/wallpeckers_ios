@@ -12,7 +12,7 @@ import UIKit
 
 extension UIViewController {
     
-    func setStatusbarColor(_ color:UIColor) {
+    func setStatusbarColor(_ color:UIColor) { // 스테이터스바 색상 변경
         
         if let statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView {
             statusBar.backgroundColor = color
@@ -21,7 +21,7 @@ extension UIViewController {
         
     }
     
-    func findTimerView() -> NavigationCustomView {
+    func findTimerView() -> NavigationCustomView { // 상단 타이머 확인
         if let vv = self.view.subviews.filter({
             
             $0 is GameNavigationBar
@@ -32,7 +32,6 @@ extension UIViewController {
                 $0.tag == 99
                 
             }).first as? NavigationCustomView {
-//                self.timerView = _timerView
                 
                 return _timerView
             }
@@ -44,7 +43,7 @@ extension UIViewController {
     }
     
     
-    func  findScoreView() -> NavigationCustomView {
+    func  findScoreView() -> NavigationCustomView { // 상단 점수 뷰 확인
         
         if let vv = self.view.subviews.filter({
             
@@ -67,7 +66,7 @@ extension UIViewController {
         
     }
     
-    func setCustomNavigationBar() {
+    func setCustomNavigationBar() { // 상단 네비게이션바 커스텀
         
         let navBar = GameNavigationBar()
 
@@ -85,7 +84,7 @@ extension UIViewController {
         
     }
     
-    func allButtonUserIteraction(_ bool:Bool) {
+    func allButtonUserIteraction(_ bool:Bool) { // 버튼 유저인터랙션
         
         let btns = self.view.subviews.filter({
             
@@ -104,7 +103,7 @@ extension UIViewController {
         
     }
     
-    var findPopUpView:SelectPopUpView? {
+    var findPopUpView:SelectPopUpView? { // 현재 뷰의 팝업뷰를 찾는 함수
         get {
             if let pView = self.view.subviews.filter({
                 
@@ -119,7 +118,7 @@ extension UIViewController {
         }
     }
     
-    func removePopUpView() {
+    func removePopUpView() { // 현재 뷰의 팝업뷰 제거
         
         if let pView = self.view.subviews.filter({
             

@@ -10,7 +10,7 @@ import UIKit
 import Realm
 import RealmSwift
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController { // 게임페이지 내에서의 이동은 모두 여기서 처리함
     
     let selectedLanguage = Standard.shared.getLocalized()
     var timerView:NavigationCustomView?
@@ -77,8 +77,6 @@ class GameViewController: UIViewController {
             make.width.equalTo(DeviceSize.width)
             make.trailing.equalToSuperview()
         }
-        topicView.backgroundColor = .red
-        articleView.backgroundColor = .blue
         topicView.addSubview(topicViewController.view)
         topicViewController.delegate = self
         topicViewController.view.snp.makeConstraints { (make) in
@@ -95,7 +93,7 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, AlerPopupViewDelegate {
-    func tapBottomButton(sender: AlertPopUpView) {
+    func tapBottomButton(sender: AlertPopUpView) { // 타이머 얼럿뷰 제어
         
         if sender.tag == 2 {
             sender.removeFromSuperview()
@@ -109,7 +107,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
     
     
     
-    func touchMoveToMyPage(sender: UIButton) {
+    func touchMoveToMyPage(sender: UIButton) { // 마이페이지로 이동
         sender.isUserInteractionEnabled = false
         
         guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyPage") as? UINavigationController else {return}
@@ -124,7 +122,7 @@ extension GameViewController:GamePlayTimeDelegate, GameNavigationBarDelegate, Al
         self.present(vc, animated: true, completion: nil)
     }
     
-    func checkPlayTime(_ time: Int) {
+    func checkPlayTime(_ time: Int) { // 타이머 얼럿 띄우는 시기 체크
         
         timerView?.updateTime(time)
         if time <= 0 { //완료 됐을떄
@@ -151,7 +149,7 @@ extension GameViewController:GameViewTransitionDelegate {
             
         case .forward:
             
-            if let vc = toVc as? CompleteArticleViewController {
+            if let vc = toVc as? CompleteArticleViewController { // 기사완료페이지로 이동할때
                 
                 guard let _sendData = sendData as? (Article, Int, [Int], Bool) else {return}
                 
@@ -163,7 +161,7 @@ extension GameViewController:GameViewTransitionDelegate {
                 
             }
             
-            if let vc = toVc as? FactCheckViewController {
+            if let vc = toVc as? FactCheckViewController { // 팩트체크페이지로 이동할때
                 
                 guard let _sendData = sendData as? ([FactCheck], Article, [Five_W_One_Hs], String) else {return}
                 vc.setData(_sendData.0, article: _sendData.1, five: _sendData.2, questionPoint: _sendData.3)
@@ -172,31 +170,21 @@ extension GameViewController:GameViewTransitionDelegate {
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 3, y: horizontalView.scrollView.contentOffset.y), animated: true)
             }
             
-            if let vc = toVc as? ArticleChooseViewController {
+            if let vc = toVc as? ArticleChooseViewController { // 기사선택 페이지로 이동할때
                 
                 var articleButtons:[ArticleSelectButton] = []
                 
-                for article in RealmArticle.shared.get(selectedLanguage).filter({
-                    $0.section == sendData as! Int
-                }) {
+                for article in RealmArticle.shared.get(selectedLanguage).filter({$0.section == sendData as! Int}) {
                     
                     let btn = ArticleSelectButton()
-                    
-                    let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({
-                        
-                        $0.point
-                    }).reduce(0, +)
-                    
+                    let aa = realm.objects(Five_W_One_Hs.self).filter("article = \(article.id)").map({$0.point}).reduce(0, +)
                     vc.changeColor()
                     btn.setData(point: "\(aa)P", textColor: .black, title: article.word!, isStar: article.isCompleted, tag: article.id)
                     articleButtons.append(btn)
                     
                 }
                 
-                vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({
-                    $0.section == sendData as! Int
-                }), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
-                
+                vc.setData(localData: nil, articles: RealmArticle.shared.get(selectedLanguage).filter({$0.section == sendData as! Int}), articleBtns: articleButtons, articleLinks: RealmArticleLink.shared.getAll())
                 
                 self.setChildVc(rootView: articleView, vc)
                 
@@ -204,7 +192,7 @@ extension GameViewController:GameViewTransitionDelegate {
             }
             
             
-            if let vc = toVc as? ClueSelectViewController {
+            if let vc = toVc as? ClueSelectViewController { // 증거 선택 페이지로 이동할 때
                 
                 let data = sendData as! (Article, [Five_W_One_Hs], String)
                 
@@ -218,10 +206,10 @@ extension GameViewController:GameViewTransitionDelegate {
         case .backward:
             fromVc.removeFromParent()
             
-            if let fvc = fromVc as? CompleteArticleViewController {
+            if let fvc = fromVc as? CompleteArticleViewController { // 기사 완료 페이지에서 뒤로가기 누를때
                 
                 
-                if let vc = toVc as? TopicViewController {
+                if let vc = toVc as? TopicViewController { // 주제 페이지로 이동할 때
                     
                     _ = articleView.subviews.map({$0.removeFromSuperview()})
 
@@ -238,7 +226,7 @@ extension GameViewController:GameViewTransitionDelegate {
                     
                 }
                 
-                if let vc = toVc as? ArticleChooseViewController {
+                if let vc = toVc as? ArticleChooseViewController { // 기사 선택 페이지로 이동할 때
 
                     _ = articleView.subviews.map({$0.removeFromSuperview()})
                     
@@ -262,32 +250,30 @@ extension GameViewController:GameViewTransitionDelegate {
                 
             }
             
-            if let _ = fromVc as? ArticleChooseViewController {
+            if let _ = fromVc as? ArticleChooseViewController { // 기사 선택페이지에서 뒤로 가기 누를 때
                 
-                if let vc = toVc as? TopicViewController {
+                if let vc = toVc as? TopicViewController { // 주제 선택 페이지로 돌아올 때
                     vc.setStars()
                 }
                 
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: 0, y: horizontalView.scrollView.contentOffset.y), animated: true)
-            }else if let _ = fromVc as? ClueSelectViewController {
+            }else if let _ = fromVc as? ClueSelectViewController { // 증거선택 페이지에서 뒤로 누를 때
                 
                 
-                if let _ac = toVc as? ArticleChooseViewController {
+                if let _ac = toVc as? ArticleChooseViewController { // 기사 선택 페이지로 돌아올 때
                     
                     _ = articleView.subviews.map({$0.removeFromSuperview()})
 
                     let sectionTag = sendData as! Int
 
                     self.setArticleVc(_ac, sectionTag: sectionTag)
-//                    _ac.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
-//                    self.setChildVc(rootView: self.articleView, _ac)
                     
                 }
                 
                 horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width, y: horizontalView.scrollView.contentOffset.y), animated: true)
-            }else if let _ = fromVc as? FactCheckViewController {
+            }else if let _ = fromVc as? FactCheckViewController { // 팩트체크 페이지에서 뒤로 가기 누를 때
                 
-                if let _toVc = toVc as? ClueSelectViewController {
+                if let _toVc = toVc as? ClueSelectViewController { // 증거선택 페이지로 돌아올때
                     
                     
                     let data = sendData as! (Article, [Five_W_One_Hs], String)
@@ -297,9 +283,6 @@ extension GameViewController:GameViewTransitionDelegate {
                     _toVc.setData(article: data.0, five: data.1)
                     _toVc.questionPoint = data.2
                     _toVc.checkedFactList = Array((RealmUser.shared.getUserData()?.factCheckList)!).filter({$0.selectedArticleId == data.0.id})
-//                    _toVc.changeColor()
-                    
-                    print("CLUESELES")
                     _toVc.setStack()
                     
                     horizontalView.scrollView.setContentOffset(CGPoint.init(x: DeviceSize.width * 2, y: horizontalView.scrollView.contentOffset.y), animated: true)
@@ -311,7 +294,7 @@ extension GameViewController:GameViewTransitionDelegate {
         }
     }
     
-    func setChildVc(rootView:UIView, _ vc:GameTransitionBaseViewController) {
+    func setChildVc(rootView:UIView, _ vc:GameTransitionBaseViewController) { // 비어있는 컨테이너뷰에 각각의 뷰컨트롤러 할당
         
         if rootView.subviews.count > 0 {
             
@@ -332,7 +315,7 @@ extension GameViewController:GameViewTransitionDelegate {
         
     }
     
-    func setArticleVc(_ vc:ArticleChooseViewController, sectionTag:Int) {
+    func setArticleVc(_ vc:ArticleChooseViewController, sectionTag:Int) { // 기사선택페이지 데이터 설정 함수
         
         vc.sectionId = sectionTag
         vc.factCheckList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())

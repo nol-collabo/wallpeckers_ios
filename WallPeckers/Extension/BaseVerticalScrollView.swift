@@ -74,8 +74,6 @@ class BaseHorizontalScrollView:UIView {
             make.centerY.leading.trailing.equalToSuperview()
         }
         scrollView.isPagingEnabled = true
-//        scrollView.isUserInteractionEnabled = true
-//        scrollView.isScrollEnabled = true
         scrollView.delegate = vc as? UIScrollViewDelegate
         
     }
@@ -83,9 +81,7 @@ class BaseHorizontalScrollView:UIView {
     func setScrollViewMiddle(vc:UIViewController) {
         vc.view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
-            
-            
-            
+
             make.height.equalTo(UIWindow().bounds.height > 800 ? 300 : 230)
             make.centerY.equalToSuperview().offset(50)
             make.leading.trailing.equalToSuperview()
@@ -98,8 +94,6 @@ class BaseHorizontalScrollView:UIView {
             make.centerY.leading.trailing.equalToSuperview()
         }
         scrollView.isPagingEnabled = true
-        //        scrollView.isUserInteractionEnabled = true
-        //        scrollView.isScrollEnabled = true
         scrollView.delegate = vc as? UIScrollViewDelegate
     }
     

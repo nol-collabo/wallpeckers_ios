@@ -14,7 +14,7 @@ import AloeStackView
 typealias wrongClueTuple = (String, String, String) // (CorrectId, IncorrectId, ClueType)
 
 class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleViewDelegate {
-    func tapToBack() {
+    func tapToBack() { // 뒤로가기
         
         guard let vc = self.findBeforeVc(type: .clue) else {return}
         
@@ -94,43 +94,27 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
             
         })
         
-        print(_data)
-        print("~~~~~~")
-
-//        if aStackView.c
-//        if aStackView.
-//        aStackView.
-        
         if view.subviews.filter({$0 is AloeStackView}).count == 2 {
             return
         }
 
         
-        if let whoC = clues.filter({
-            $0.type == "WHO"
-        }).first, let whenC = clues.filter({
-            $0.type == "WHEN"
-        }).first, let whereC = clues.filter({
-            $0.type == "WHERE"
-        }).first, let whatC = clues.filter({
-            $0.type == "WHAT"
-        }).first, let howC = clues.filter({
-            $0.type == "HOW"
-        }).first, let whyC = clues.filter({
-            $0.type == "WHY"
-        }).first {
+        if let whoC = clues.filter({$0.type == "WHO"}).first,
+            let whenC = clues.filter({$0.type == "WHEN"}).first,
+            let whereC = clues.filter({$0.type == "WHERE"}).first,
+            let whatC = clues.filter({$0.type == "WHAT"}).first,
+            let howC = clues.filter({$0.type == "HOW"}).first,
+            let whyC = clues.filter({$0.type == "WHY"}).first {
             
             aStackView.backgroundColor = .basicBackground
             
             let articleView = ArticleView()
             articleView.forFactCheck()
             
-            
             if let _questionPoint = questionPoint, let _article = article {
                 articleView.setData(article: _article, point: _questionPoint)
 
             }
-            
 
             aStackView.addRow(articleView)
             
@@ -177,12 +161,7 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
 
                                 wrongQuestionId.append((b.clue?.id)!)
                                 wrongs.append(b.clue!.type!)
-                                
-                                
-
                                 wrongC.append((correctClueIdentification, "\(data.selectedIdentication)", "\(b.clue!.type!)"))
-
-                                
                                 b.setDataCheck(clue: selectedClue, type: .wrong)
 
                             }else{
@@ -202,9 +181,6 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                     wrongs.append(b.clue!.type!)
                     wrongQuestionId.append((b.clue?.id)!)
                     wrongC.append((correctClueIdentification, "", "\(b.clue!.type!)"))
-
-                    print("TYPEYEPEPEPEPE")
-
                     b.bubbleBaseView.image = UIImage.init(named: "balloonFail")
                     
                 }
@@ -244,15 +220,13 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
         }
     }
     
-    @objc func touchSubmitButton(sender:UIButton) {
+    @objc func touchSubmitButton(sender:UIButton) { // 제출 버튼 선택 시 불리는 함수
         
-        if correctCount > 0 {
+        if correctCount > 0 { // 정답이 하나라도 있을때 선택 가능
             
             let myList = Array((RealmUser.shared.getUserData()?.factCheckList)!)
 
-            _ = myList.map({
-                
-                fc in
+            _ = myList.map({fc in
                 
                 if let _checkdata = checkData {
                     
@@ -264,7 +238,6 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
                             }
                         }
                     })
-                    
                 }
                 
             })
@@ -296,7 +269,7 @@ class FactCheckViewController: GameTransitionBaseViewController, BasicBubbleView
 }
 
 extension FactCheckViewController:ArticleSubmitDelegate {
-    func publishArticlewith(hashtag: Int) {
+    func publishArticlewith(hashtag: Int) { // 마지막 제출하기 전 팝업 띄우기
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompleteArticleViewController") as? CompleteArticleViewController else {return}
         
@@ -308,22 +281,16 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 saved.selectedHashtag = hashtag
                 saved.totalQuestionCount = questionCount
                 saved.correctQuestionCount = correctCount
-                _ = wrongQuestionId.map({
-                    
-                    saved.wrongQuestionsId.append($0)
-                })
+                _ = wrongQuestionId.map({saved.wrongQuestionsId.append($0)})
                 
             }
-
             
             if let _a = self.parent as? GameViewController {
                 
                 _a.setScore()
             }
         
-        
-            
-            
+
             // 이 시점에서 paired article 여부 체크해서 한번 더 띄워야함
             
             let unpairedCompletedIds = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({!($0.isPairedArticle) && $0.isCompleted}).map({$0.id})
@@ -333,7 +300,7 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                 let ar = Array(articleLink.articles)
                 
                 if unpairedCompletedIds.contains(ar[0]) && unpairedCompletedIds.contains(ar[1]) {
-                    print("Time To Paired Popup")
+
                     if let ar1 = RealmArticle.shared.getAll().filter({$0.id == ar[0]}).first,
                         let ar2 = RealmArticle.shared.getAll().filter({$0.id == ar[1]}).first {
                         
@@ -354,7 +321,6 @@ extension FactCheckViewController:ArticleSubmitDelegate {
                             PopUp.callPairedPopUp(articleLink: articleLink, left: local1, right:local2, earnPoint: point, vc: self)
 
                         }
-                        
                         
                     }else{
                         delegate?.moveTo(fromVc: self, toVc: vc, sendData: (article, hashtag, wrongQuestionId, true), direction: .forward)

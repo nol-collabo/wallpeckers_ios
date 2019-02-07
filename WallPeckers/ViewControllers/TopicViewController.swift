@@ -13,17 +13,7 @@ var secondLevelUp:Bool = UserDefaults.standard.bool(forKey: "secondLevelUp")
 var thirdLevelUp:Bool = UserDefaults.standard.bool(forKey: "thirdLevelUp")
 var fourthLevelUp:Bool = UserDefaults.standard.bool(forKey: "fourthLevelUp")
 
-class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
-    func callCompleteBadge(tag: Int) {
-        
-        if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == tag}).first?.badge {
-
-            if RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9 {
-                
-                PopUp.levelBadgePopup(type: .badge, title:String(format:"getBadge".localized, badge), image: UIImage.init(named: "getBadge\(tag)")!, tag: 10, vc: self)
-            }
-        }
-    }
+class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate { // 주제 선택하는 뷰컨트롤러
     
     let iconWidth = DEVICEHEIGHT > 600 ? 90 : 80
     let iconHeight = DEVICEHEIGHT > 600 ? 180 : 150
@@ -38,17 +28,30 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
     let selectedLanguage = Standard.shared.getLocalized()
     var sections:[Section]?
     var sectionStars:[Int] = []
- 
     
     lazy var buttons = [politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton]
+    
+
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
     }
     
+    func callCompleteBadge(tag: Int) { // 9개를 모두 클리어 했을 때 뱃지 선택 팝업 띄우는 함수
+        
+        if let badge = RealmSection.shared.get(selectedLanguage).filter({$0.id == tag}).first?.badge {
+            
+            if RealmArticle.shared.get(selectedLanguage).filter({$0.section == tag}).filter({$0.isCompleted}).count == 9 {
+                
+                PopUp.levelBadgePopup(type: .badge, title:String(format:"getBadge".localized, badge), image: UIImage.init(named: "getBadge\(tag)")!, tag: 10, vc: self)
+            }
+        }
+    }
     
-    func callLevelPopUp(topic:Int) {
+    func callLevelPopUp(topic:Int) { // 점수에 따라 레벨업 팝업 띄우는 함수
         
         if let score = RealmUser.shared.getUserData()?.score {
             
@@ -130,6 +133,16 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
         
     }
     
+    private func setDelegate() {
+        politicsButton.delegate = self
+        economyButton.delegate = self
+        generalButton.delegate = self
+        artButton.delegate = self
+        sportsButton.delegate = self
+        peopleButton.delegate = self
+        
+    }
+    
     
     private func setUI() {
         self.view.backgroundColor = .basicBackground
@@ -139,14 +152,8 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
         self.view.addSubview([topicTitleLb, politicsButton, economyButton, generalButton, artButton, sportsButton, peopleButton])
         
         setStars()
-        
-        politicsButton.delegate = self
-        economyButton.delegate = self
-        generalButton.delegate = self
-        artButton.delegate = self
-        sportsButton.delegate = self
-        peopleButton.delegate = self
-        
+        setDelegate()
+      
         topicTitleLb.setNotoText("selectsection_title".localized, color: .black, size: 24, textAlignment: .center, font: .medium)
         
         topicTitleLb.snp.makeConstraints { (make) in
@@ -203,7 +210,7 @@ class TopicViewController: GameTransitionBaseViewController, CallBadgeDelegate {
 }
 
 extension TopicViewController:TopicButtonDelegate {
-    func tap(tag: Int) {
+    func tap(tag: Int) { // 토픽 버튼 눌렀을 때 이동하는 함수
         print("TAG", tag)
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "ArticleChooseViewController") as? ArticleChooseViewController else {return}
         
@@ -231,13 +238,4 @@ extension TopicViewController:TopicButtonDelegate {
     
 }
 
-protocol GameViewTransitionDelegate {
-    
-    func moveTo(fromVc:GameTransitionBaseViewController, toVc:GameTransitionBaseViewController, sendData:Any?, direction:TransitionDirection)
-    
-}
-
-enum TransitionDirection:String {
-    case forward, backward
-}
 

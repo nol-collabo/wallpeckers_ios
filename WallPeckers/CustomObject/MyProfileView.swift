@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyProfileView:UIView, UITextFieldDelegate {
+class MyProfileView:UIView, UITextFieldDelegate { //프로필 화면 뷰
     
     let titleLb = UILabel()
     let profileImageView = UIImageView()

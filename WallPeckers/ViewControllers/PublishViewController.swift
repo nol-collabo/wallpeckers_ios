@@ -34,7 +34,7 @@ class PublishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-
+        addAction()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +46,7 @@ class PublishViewController: UIViewController {
         setHeadline()
     }
     
-    private func setHeadline() {
+    private func setHeadline() { // 헤드라인 데이터 설정
         
         if defaultHeadlines.count == 0 {
             return
@@ -165,7 +165,6 @@ class PublishViewController: UIViewController {
                 make.top.equalTo(headlineView.snp.bottom).offset(4)
                 make.leading.equalToSuperview()
                 make.width.equalTo(headlineView.snp.width)
-//                make.width.equalTo(headlineView.snp.width).multipliedBy(0.48)
                 make.height.equalTo(150)
                 make.bottom.equalToSuperview()
             }
@@ -177,11 +176,9 @@ class PublishViewController: UIViewController {
                 make.bottom.equalToSuperview()
             }
             descLb.isHidden = true
-
             
         }
 
-        
         descLb.snp.makeConstraints { (make) in
             make.top.equalTo(articlesView.snp.bottom).offset(20)
             make.leading.equalTo(10)
@@ -204,9 +201,7 @@ class PublishViewController: UIViewController {
 
         }
         editButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
-  
         sendButton.setBackgroundColor(color: .sunnyYellow, forState: .normal)
-        
         editButton.setBorder(color: .black, width: 1.5)
         sendButton.setBorder(color: .black, width: 1.5)
         underLine2.snp.makeConstraints { (make) in
@@ -248,25 +243,26 @@ class PublishViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(-20)
         }
+      
+        
+    }
+    
+    private func addAction() {
         sendButton.addTarget(self, action: #selector(callSendOption(sender:)), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(moveToEdit(sender:)), for: .touchUpInside)
         myPageButton.addTarget(self, action: #selector(moveToMyPage(sender:)), for: .touchUpInside)
         startButton.addTarget(self, action: #selector(moveToStart(sender:)), for: .touchUpInside)
-        
     }
     
-    @objc func callSendOption(sender:UIButton) {
+    @objc func callSendOption(sender:UIButton) { // 이메일 전송 팝업
         
         sender.isUserInteractionEnabled = false
-        
         PopUp.callEmailPopUp(vc: self)
-        
-//        PopUp.call(mainTitle: "뉴스", selectButtonTitles: ["이메일", "인쇄하기"], bottomButtonTitle: "확인", bottomButtonType: 0, self, buttonImages: nil)
         sender.isUserInteractionEnabled = true
         
     }
     
-    @objc func moveToEdit(sender:UIButton) {
+    @objc func moveToEdit(sender:UIButton) { // 헤드라인기사 수정 페이지로 이동
         
         sender.isUserInteractionEnabled = false
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditHeadlineViewController") as? EditHeadlineViewController else {return}
@@ -283,7 +279,7 @@ class PublishViewController: UIViewController {
         
     }
     
-    @objc func moveToMyPage(sender:UIButton){
+    @objc func moveToMyPage(sender:UIButton){ // 마이페이지로 이동
         sender.isUserInteractionEnabled = false
         
         
@@ -304,16 +300,15 @@ class PublishViewController: UIViewController {
 
     }
     
-    @objc func moveToStart(sender:UIButton) {
+    @objc func moveToStart(sender:UIButton) { // 최초 화면으로 이동
         
         sender.isUserInteractionEnabled = false
         UserDefaults.standard.set(false, forKey: "Tutorial")
         UserDefaults.standard.set(true, forKey: "Playing")
 
-
-        var headline = 0
-        var main1 = 0
-        var main2 = 0
+        var headline = 0 // 헤드라인 id
+        var main1 = 0 // 메인기사1 id
+        var main2 = 0 // 메인기사2 id
         
         if defaultHeadlines.count == 1 {
             headline = defaultHeadlines[0]
@@ -345,8 +340,7 @@ class PublishViewController: UIViewController {
         
 
         CustomAPI.updatePlayer(sessionId: UserDefaults.standard.integer(forKey: "sessionId"), email: email, headline: headline, main1: main1, main2: main2) { (result) in
-            print(result)
-            print("UPDATEPLAYER")
+
             guard let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainStart") as? UINavigationController else {return}
             
             UserDefaults.standard.set(0, forKey: "enterForeground")
@@ -373,63 +367,35 @@ class PublishViewController: UIViewController {
 }
 
 extension PublishViewController: AlerPopupViewDelegate, TwobuttonAlertViewDelegate, UITextFieldDelegate {
-    func tapOk(sender: Any) {
-        print(sender)
+    func tapOk(sender: Any) { // 기사 생성 팝업에서 OK 누를 때
         
-
         var headline:String!
         var main1:String?
         var main2:String?
         var others:[String]?
-        // 여기서 서버 호출, 호출 완료되면 팝업 띄우기
 
-        if let headlineId = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[0]}).map({
-            
-            return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
-            
-        }).first {
+        if let headlineId = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[0]}).map({return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"}).first {
             headline = headlineId
         }
-        
         if defaultHeadlines.count == 2 {
-            if let main1Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[1]}).map({
-                return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
-            }).first {
-                main1 = main1Id
-            }
+            if let main1Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[1]}).map({return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"}).first {main1 = main1Id}
         }
-        
         if defaultHeadlines.count == 3 {
-            if let main1Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[1]}).map({
-                return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
-            }).first {
-                main1 = main1Id
-            }
-            if let main2Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[2]}).map({
-                return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
-            }).first {
-                main2 = main2Id
-            }
+            if let main1Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[1]}).map({return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"}).first {main1 = main1Id}
+            if let main2Id = RealmArticle.shared.getAll().filter({$0.id == defaultHeadlines[2]}).map({return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"}).first {main2 = main2Id}
         }
         
-        others = RealmArticle.shared.getAll().filter({$0.isCompleted}).filter({!defaultHeadlines.contains($0.id)}).map({
-            return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"
-        })
-        
-        
-//        if !email?.contains("@")
+        others = RealmArticle.shared.getAll().filter({$0.isCompleted}).filter({!defaultHeadlines.contains($0.id)}).map({return "\($0.id).\($0.selectedPictureId).\($0.selectedHashtag)"})
         
         if let emailAdd = sender as? String {
             
             
-            if !emailAdd.contains("@") && !emailAdd.contains(".") {
+            if !emailAdd.contains("@") && !emailAdd.contains(".") { // @ 나 . 이 없으면(이메일 형식이 아니면 오류 팝업 띄우기
                 PopUp.callAlert(time: "", desc: "errorinputemail".localized, vc: self, tag: 99)
-                
                 
                 if let epv = self.view.subviews.filter({$0 is AlertPopUpView}).first {
                     view.bringSubviewToFront(epv)
                 }
-
                 return
             }
             

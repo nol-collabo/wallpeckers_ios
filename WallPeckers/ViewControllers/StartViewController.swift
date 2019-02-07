@@ -41,7 +41,7 @@ class StartViewController: UIViewController {
         
     }
     
-    func transformToRealm(completion:((Any)->())) {
+    func transformToRealm(completion:((Any)->())) { // data.json -> Realm 데이터베이스로 변환하는 함수
         
         if !UserDefaults.standard.bool(forKey: "databaseTransformComplete") {
             
@@ -192,10 +192,9 @@ class StartViewController: UIViewController {
         }
         animatedTimer = nil
        
-//        animatedTimer = ni
     }
     
-    func animatedTitleImage() {
+    func animatedTitleImage() { // 타이틀 이미지 자동 스크롤
         
         if self.descScrollView.scrollView.contentOffset.x  == 0 {
             UIView.animate(withDuration: 0.3) {
@@ -206,12 +205,8 @@ class StartViewController: UIViewController {
                 self.descScrollView.scrollView.contentOffset.x = 0
             }
         }
-        
-//        animatedTitleImage()
+    
     }
-    
-
-    
     
     private func setUI() {
         

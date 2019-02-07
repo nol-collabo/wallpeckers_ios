@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 
-class NavigationCustomView:UIView {
+class NavigationCustomView:UIView { // 게임화면에서 상단 네비게이션 페이지
     
     let backgroundImageView = UIImageView()
     let textLb = UILabel()
@@ -41,7 +41,7 @@ class NavigationCustomView:UIView {
         backgroundImageView.image = backgroundimage
     }
     
-    func updateTime(_ time:Int) {
+    func updateTime(_ time:Int) { // 타이머뷰 데이터 갱신
         
         let (_, m, s) = secondsToHoursMinutesSeconds(seconds: time)
         if s < 0 {
@@ -99,7 +99,6 @@ class GameNavigationBar:UIView {
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //        self.backgroundColor = .red
         setUI()
     }
     

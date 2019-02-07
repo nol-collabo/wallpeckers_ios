@@ -63,11 +63,9 @@ class AlreadyRegisterViewController: UIViewController {
             make.bottom.equalTo(view.safeArea.bottom).offset(-12)
         }
         
-
         newStartBtn.setAttributedTitle("selectload_newgame".localized.makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
         continueBtn.setAttributedTitle("selectload_continuegame".localized.makeAttrString(font: .NotoSans(.medium, size: 21), color: .black), for: .normal)
         
-
         divider.backgroundColor = .black
         
         nextBtn.snp.makeConstraints { (make) in
@@ -91,16 +89,12 @@ class AlreadyRegisterViewController: UIViewController {
             make.width.equalTo(continueBtn.snp.width)
         }
         
-        
         newStartBtn.snp.makeConstraints { (make) in
             make.bottom.equalTo(divider.snp.top).offset(-15)
             make.leading.equalTo(30)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
-        
-
-
         
         newStartBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)
         continueBtn.setBackgroundColor(color: .sunnyYellow, forState: .selected)

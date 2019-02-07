@@ -13,7 +13,9 @@ import AloeStackView
 var TIMERTIME:Int?
 
 
-class BasePopUpView:UIView {
+//팝업뷰 모음
+
+class BasePopUpView:UIView { //베이스 팝업
     
     let baseView = UIView()
     let popupView = UIView()
@@ -53,7 +55,7 @@ class BasePopUpView:UIView {
     
 }
 
-class EmailPopupView:BasePopUpView, UITextFieldDelegate {
+class EmailPopupView:BasePopUpView, UITextFieldDelegate { // 이메일 선택하는 팝업
     
     let titleLb = UILabel()
     let okButton = BottomButton()
@@ -69,8 +71,7 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
     }
     
     private func setUI() {
-//        emailTf.delegate = se
-//        emailTf.textAlignment = .cent
+
         self.setPopUpViewHeight(300)
         self.popupView.setBorder(color: .black, width: 3.5)
         self.popupView.addSubview([titleLb, emailTf, okButton, cancelButton])
@@ -137,7 +138,7 @@ class EmailPopupView:BasePopUpView, UITextFieldDelegate {
     
 }
 
-class AlertTwoButtonView:BasePopUpView {
+class AlertTwoButtonView:BasePopUpView { // 하단에 버튼이 두개인 팝업
     
     let descLb = UILabel()
     let okButton = BottomButton()
@@ -216,7 +217,7 @@ enum PopUpType:String {
     
 }
 
-class LevelBadgePopUpView:BasePopUpView {
+class LevelBadgePopUpView:BasePopUpView { // 레벨, 뱃지획득 시 나오는 팝업
     
     let bgImageView = UIImageView()
     let mainImageView = UIImageView()
@@ -330,7 +331,7 @@ protocol CallBadgeDelegate {
     func callCompleteBadge(tag:Int)
 }
 
-class PairedArticleView:BasePopUpView {
+class PairedArticleView:BasePopUpView { // 연결기사 성공시 호출되는 팝업
     
     let topStackView = UIStackView()
     let leftArticle = ArticleSelectButton()
@@ -494,7 +495,7 @@ protocol PairedPopupDelegate {
     func moveToNext(sender:UIButton)
 }
 
-class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ArticleSubmitView:BasePopUpView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout { // 기사 발행 시 나오는 팝업
     
     
     class HashtagCollectionViewCell:UICollectionViewCell {
@@ -828,7 +829,7 @@ protocol ArticleSubmitDelegate {
     
 }
 
-final class HashTagBtn:UIButton {
+final class HashTagBtn:UIButton { // 해시태그 선택하는 버튼
     
     
     override var isSelected: Bool {
@@ -861,7 +862,7 @@ final class HashTagBtn:UIButton {
 }
 
 
-class SelectPopUpView:BasePopUpView {
+class SelectPopUpView:BasePopUpView { // 선택지가 나오는 팝업
     
 
     let titleView = UIView()
@@ -1027,7 +1028,7 @@ protocol SelectPopupDelegate {
     
 }
 
-class AlertPopUpView:BasePopUpView {
+class AlertPopUpView:BasePopUpView { // 알럿 팝업
  
     let timeLb = UILabel()
     let descLb = UILabel()
@@ -1082,7 +1083,6 @@ class AlertPopUpView:BasePopUpView {
                 make.leading.equalTo(20)
             }
             bottomButton.snp.makeConstraints { (make) in
-                //            make.top.equalTo(descLb.snp.bottom).offset(10)
                 make.width.equalTo(200)
                 make.height.equalTo(43)
                 make.centerX.equalToSuperview()
@@ -1095,7 +1095,6 @@ class AlertPopUpView:BasePopUpView {
     }
     
     @objc func tapButton(sender:AlertPopUpView) {
-//        self.removeFromSuperview()
         delegate?.tapBottomButton(sender: self)
     }
     
@@ -1111,7 +1110,7 @@ protocol AlerPopupViewDelegate {
     func tapBottomButton(sender:AlertPopUpView)
 }
 
-final class CluePopUpView:UIView, UITextFieldDelegate {
+final class CluePopUpView:UIView, UITextFieldDelegate { // 증거 선택할 때 나오는 팝업
     
     let baseView = UIView()
     let popupView = UIView()
@@ -1236,7 +1235,7 @@ protocol CluePopUpViewDelegate {
 }
 
 
-struct PopUp {
+struct PopUp { // 팝업 호출하는 함수들 모음
     
     static func callEmailPopUp(vc:UIViewController) {
         

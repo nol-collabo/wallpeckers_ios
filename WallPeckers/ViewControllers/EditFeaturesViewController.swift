@@ -26,9 +26,7 @@ class EditFeaturesViewController: UIViewController {
     let topCircle = UIView()
     var selectedId:[Int] = [] {
         didSet {
-            
             let count = RealmArticle.shared.get(Standard.shared.getLocalized()).filter({$0.isCompleted}).count
-            
             if count >= 3 {
                 if selectedId.count == 2 {
                     nextButton.isEnabled = true
@@ -45,11 +43,11 @@ class EditFeaturesViewController: UIViewController {
         super.viewDidLoad()
         
         setUI()
-        
+        addAction()
         // Do any additional setup after loading the view.
     }
     
-    func setUI() {
+    private func setUI() {
         dismissBtn.setImage(UIImage.init(named: "dismissButton")!, for: .normal)
         
         scrollView.setScrollView(vc: self)
@@ -165,16 +163,9 @@ class EditFeaturesViewController: UIViewController {
                     tv.selectButton.isEnabled = false
                     tv.isUserInteractionEnabled = false
                 }
-                //                defaultHeadlines.remove(at: 1)
-                //                defaultHeadlines.remove(at: 1)
-                
-                print(defaultHeadlines)
             }
             aStackView.addRow(tv)
         }
-        
-        
-        
         
         nextButton.snp.makeConstraints { (make) in
             make.top.equalTo(aStackView.snp.bottom).offset(DeviceSize.width > 320 ? 50 : 30)
@@ -202,21 +193,22 @@ class EditFeaturesViewController: UIViewController {
                 nextButton.isEnabled = false
             }
         }
-        //
-        nextButton.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
         nextButton.setTitle("OK".localized, for: .normal)
+        
+        
+        
+    }
+    
+    private func addAction() {
+        nextButton.addTarget(self, action: #selector(moveToNext(sender:)), for: .touchUpInside)
         dismissBtn.addTarget(self, action: #selector(touchDismiss(sender:)), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(moveBack(sender:)), for: UIControl.Event.touchUpInside)
-        //
-        
     }
     
     @objc func moveBack(sender:UIButton) {
         
         sender.isUserInteractionEnabled = false
-        
         self.navigationController?.popViewController(animated: true)
-        
         sender.isUserInteractionEnabled = true
         
     }
@@ -224,9 +216,7 @@ class EditFeaturesViewController: UIViewController {
     @objc func touchDismiss(sender:UIButton) {
         
         sender.isUserInteractionEnabled = false
-        
         self.navigationController?.popToRootViewController(animated: true)
-        
         sender.isUserInteractionEnabled = true
         
     }
@@ -244,8 +234,6 @@ class EditFeaturesViewController: UIViewController {
         }else if completedCount == 2 {
             if selectedId.count > 0 {
                 defaultHeadlines[1] = selectedId[0]
-            }else{
-                //                defaultHeadlines.remove(at: 1)
             }
         }else{
             
@@ -273,29 +261,17 @@ class EditFeaturesViewController: UIViewController {
         
         
     }
-    
-    
-    
+
 }
 
 extension EditFeaturesViewController:ThumnailDelegate {
     func moveToNext(id: Int) {
         
-        if let aa = self.aStackView.getAllRows().filter({$0 is CompletedArticleView}) as? [CompletedArticleView] {
-            
-            
-//            defaultHeadlines
-            
-            
-        }
-        
-        if selectedId.count == 2 {
+        if selectedId.count == 2 { // 이미 선택된 기사가 2개 일때 추가 선택 시 기존에 선택된 기사 제거하는 로직
             
             
             if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
-                //마지막 선택한 것 추가
                 
-            
                 
                 if let aaa = aa.filter({$0.tag == id}).first {
                     if !selectedId.contains(id) {
@@ -314,63 +290,22 @@ extension EditFeaturesViewController:ThumnailDelegate {
                         }
                     }
                 }
-                // 기존것 지우고 선택 해제
-                
-                
-//                _ = aa.map({
-//
-//                    if $0.tag == id {
-//
-//                        if let idx = selectedId.firstIndex(of: $0.tag) {
-//                            selectedId.remove(at: idx)
-//                        }
-//                        $0.selectButton.isSelected = !($0.selectButton.isSelected)
-//
-//                    }else{
-//
-//                        let beforeSelected = selectedId.removeFirst()
-//
-////                        if id == beforeSelected {
-//                            $0.selectButton.isSelected = true
-////                        }
-//
-//                    }
-//
-//                })
-                //기존 로직, 2개 선택되어있을때는 추가 선택 불가, 누르면 해제하게
-                //                _ = aa.map({
-                //
-                //                    if selectedId.contains(id) {
-                //
-                //                        if $0.tag == id {
-                //
-                //                            $0.selectButton.isSelected = false
-                //                            if let idx = selectedId.firstIndex(of: $0.tag) {
-                //                                selectedId.remove(at: idx)
-                //                            }
-                //                        }
-                //
-                //                    }
-                //                })
             }
             return
         }else{
-          
-                if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
-                    if let sv = aa.filter({$0.tag == id}).first {
-                        if !selectedId.contains(id) {
-                            selectedId.append(id)
-                            sv.selectButton.isSelected = true
-                        }else{
-                            sv.selectButton.isSelected = false
-                            if let idx = selectedId.firstIndex(of: id) {
-                                selectedId.remove(at: idx)
-                            }
+            if let aa = self.aStackView.getAllRows().filter({$0 is CompleteArticleThumnailView}) as? [CompleteArticleThumnailView] {
+                if let sv = aa.filter({$0.tag == id}).first {
+                    if !selectedId.contains(id) {
+                        selectedId.append(id)
+                        sv.selectButton.isSelected = true
+                    }else{
+                        sv.selectButton.isSelected = false
+                        if let idx = selectedId.firstIndex(of: id) {
+                            selectedId.remove(at: idx)
                         }
                     }
-                    
                 }
-            
+            }
         }
     }
     
@@ -386,6 +321,4 @@ extension EditFeaturesViewController:EditHeadlineProtocol {
             return defaultHeadlines
         }
     }
-    
-    
 }

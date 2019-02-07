@@ -23,11 +23,10 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     var questionPoint:String?
     var checkedFactList = Array(RealmUser.shared.getUserData()?.factCheckList ?? List<FactCheck>())
     var articleTrycount:Int?
-//    var myTryCount = RealmArticle.shared.get
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        // Do any additional setup after loading the view.
     }
     
     func setData(article:Article, five:[Five_W_One_Hs]) {
@@ -66,7 +65,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
     
     func setStack() {
         
-        stackView.removeAllRows()
+        stackView.removeAllRows() // 기존에 있던 데이터 초기화
         stackView.backgroundColor = .basicBackground
         
         let articleView = ArticleView()
@@ -87,7 +86,6 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                 view.tag = v.clue
                 
                 _ = checkedFactList.map({
-                    
                     if view.tag == $0.correctClue {
                         view.indicatedWhenBeforeChecked($0, tryCount:articleTrycount ?? 0)
                         factCheckButton.backgroundColor = .black
@@ -96,8 +94,6 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                         print("VV")
                     }
                 })
-//                clueViews?.append(view)
-
                 stackView.addRow(view)
             }
   
@@ -110,10 +106,9 @@ class ClueSelectViewController: GameTransitionBaseViewController {
             stackView.addRow(backButton)
             
         }
-
     }
     
-    func changeColor() {
+    func changeColor() { // 정답 선택 시 버튼 색상 변경
         if let csv = stackView.getAllRows().filter({$0 is ClueSelectView}) as? [ClueSelectView] {
             
             let selected = Array((RealmUser.shared.getUserData()?.factCheckList)!).filter({$0.selectedArticleId == article?.id})
@@ -129,25 +124,20 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                         id.layoutIfNeeded()
                     }else{
                         _ = five_W_One_Hs!.map({
-                            
                             if !$0.given {
-                                
                                 if $0.clue == id.tag {
                                     id.clueButton.setTitleColor(.red, for: .normal)
                                 }
-            
                             }
                         })
                     }
                 })
             })
-//            stackView.
         }
     }
     
-    @objc func moveToFactCheck(sender:UIButton) {
+    @objc func moveToFactCheck(sender:UIButton) { // 팩트체크 페이지로 이동하는 버튼 누를 때
         var sendingData:[FactCheck] = []
-
         
         _ = checkedFactList.map({
             
@@ -158,10 +148,8 @@ class ClueSelectViewController: GameTransitionBaseViewController {
                     try! realm.commitWrite()
                     
                 }
-                
                 sendingData.append($0)
             }
-            
         })
         
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "FactCheckViewController") as? FactCheckViewController else {return}
@@ -175,7 +163,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
 
         
     }
-    @objc func moveToBack(sender:UIButton) {
+    @objc func moveToBack(sender:UIButton) { // 뒤로가기 버튼 누를 때
         sender.isUserInteractionEnabled = false
         
         guard let vc = self.findBeforeVc(type: .article) else {return}
@@ -193,7 +181,7 @@ class ClueSelectViewController: GameTransitionBaseViewController {
         sender.isUserInteractionEnabled = true
     }
     
-    func factCheckBtnStatus() {
+    func factCheckBtnStatus() { // 팩트체크 버튼 활성화 관련 함수
         if articleTrycount == 0 {
             factCheckButton.backgroundColor = .basicBackground
             factCheckButton.setTitleColor(.black, for: .normal)
@@ -246,9 +234,6 @@ extension ClueSelectViewController: ClueSelectDelegate, CluePopUpViewDelegate {
                 }
             }
             
-//            stackView.getAllRows().filter({$0.tag == tag})
-            
-            
         }else{
             PopUp.callAlert(time: "", desc: "writearticleerrordialog_desc".localized, vc: self, tag: 9)
         }
@@ -286,26 +271,4 @@ extension ClueSelectViewController:AlerPopupViewDelegate {
     }
     
     
-}
-
-
-
-
-
-extension UIView {
-    
-    func dropShadow() {
-        
-        self.layer.masksToBounds = false
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowOffset = CGSize(width: -1, height: 1)
-        self.layer.shadowRadius = 1
-        
-        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        self.layer.shouldRasterize = true
-        
-        self.layer.rasterizationScale = UIScreen.main.scale
-        
-    }
 }
