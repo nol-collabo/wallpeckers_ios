@@ -260,7 +260,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		017C9B0DC671FC551E6A8B4B /* Pods-WallPeckersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WallPeckersUITests/Pods-WallPeckersUITests.release.xcconfig"; sourceTree = "<group>"; };
 		0AA3C91735A775D042209DCC /* Pods-WallPeckersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.release.xcconfig"; path = "Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.release.xcconfig"; sourceTree = "<group>"; };
+		0B3A73757B215012C2042590 /* Pods-WallPeckers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WallPeckers/Pods-WallPeckers.debug.xcconfig"; sourceTree = "<group>"; };
 		1D0997FD62F62E72A2ECCE9E /* Pods_WallPeckers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WallPeckers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		230BD46E21BA102700503CD5 /* NotoSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.otf"; sourceTree = "<group>"; };
 		230BD46F21BA102800503CD5 /* NotoSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.otf"; sourceTree = "<group>"; };
@@ -411,8 +413,11 @@
 		23D86F3821B4D74A00CDC5B6 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		23D86F3A21B4FA0900CDC5B6 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		23D86F3C21B50DE700CDC5B6 /* Game.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
+		360437BB8DFB8490CC7CC1D9 /* Pods-WallPeckersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		49F5683513EC949641C5B431 /* Pods-WallPeckersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BDA4C6BCF9B2F1F789F276F /* Pods-WallPeckersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersUITests.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckersUITests/Pods-WallPeckersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		52A25A376A3540BF1C3A86D3 /* Pods-WallPeckersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WallPeckersUITests/Pods-WallPeckersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		641E03A2DAE12A4ABBBE460B /* Pods-WallPeckers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckers.release.xcconfig"; path = "Pods/Target Support Files/Pods-WallPeckers/Pods-WallPeckers.release.xcconfig"; sourceTree = "<group>"; };
 		75112EF021DF2F0000DE755C /* image_article_016_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_016_03.png; sourceTree = "<group>"; };
 		7515844B21F5B49300D428B6 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		75FBA8B921DE0E8A009C66A0 /* image_article_013_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_013_02.png; sourceTree = "<group>"; };
@@ -502,6 +507,7 @@
 		75FBA90E21DE0E9B009C66A0 /* image_article_019_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_019_05.png; sourceTree = "<group>"; };
 		75FBA90F21DE0E9B009C66A0 /* image_article_05_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_article_05_03.png; sourceTree = "<group>"; };
 		75FF39E421C2560300136D03 /* FactCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactCheckViewController.swift; sourceTree = "<group>"; };
+		95E2684CE7183ECA1354B349 /* Pods-WallPeckersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckersTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WallPeckersTests/Pods-WallPeckersTests.release.xcconfig"; sourceTree = "<group>"; };
 		AFDE0B94297251E5C4707EB8 /* Pods-WallPeckers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckers.debug.xcconfig"; path = "Target Support Files/Pods-WallPeckers/Pods-WallPeckers.debug.xcconfig"; sourceTree = "<group>"; };
 		B6198233D5C2D9F782F81725 /* Pods-WallPeckers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WallPeckers.release.xcconfig"; path = "Target Support Files/Pods-WallPeckers/Pods-WallPeckers.release.xcconfig"; sourceTree = "<group>"; };
 		BEDA8DB709A58CD1F5D0B019 /* Pods_WallPeckersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WallPeckersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -890,6 +896,12 @@
 				0AA3C91735A775D042209DCC /* Pods-WallPeckersTests.release.xcconfig */,
 				4BDA4C6BCF9B2F1F789F276F /* Pods-WallPeckersUITests.debug.xcconfig */,
 				BFD062AFAF2A5F9093199AE7 /* Pods-WallPeckersUITests.release.xcconfig */,
+				0B3A73757B215012C2042590 /* Pods-WallPeckers.debug.xcconfig */,
+				641E03A2DAE12A4ABBBE460B /* Pods-WallPeckers.release.xcconfig */,
+				360437BB8DFB8490CC7CC1D9 /* Pods-WallPeckersTests.debug.xcconfig */,
+				95E2684CE7183ECA1354B349 /* Pods-WallPeckersTests.release.xcconfig */,
+				52A25A376A3540BF1C3A86D3 /* Pods-WallPeckersUITests.debug.xcconfig */,
+				017C9B0DC671FC551E6A8B4B /* Pods-WallPeckersUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1219,7 +1231,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WallPeckers/Pods-WallPeckers-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-WallPeckers/Pods-WallPeckers-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AloeStackView/AloeStackView.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -1244,7 +1256,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WallPeckers/Pods-WallPeckers-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WallPeckers/Pods-WallPeckers-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C592847364BDDB94CB75F476 /* [CP] Check Pods Manifest.lock */ = {
@@ -1446,6 +1458,7 @@
 /* Begin XCBuildConfiguration section */
 		2357817C21ABF29000338CB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AFDE0B94297251E5C4707EB8 /* Pods-WallPeckers.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -1584,7 +1597,7 @@
 		};
 		2357818021ABF29000338CB9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6198233D5C2D9F782F81725 /* Pods-WallPeckers.release.xcconfig */;
+			baseConfigurationReference = 641E03A2DAE12A4ABBBE460B /* Pods-WallPeckers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1604,7 +1617,7 @@
 		};
 		2357818221ABF29000338CB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49F5683513EC949641C5B431 /* Pods-WallPeckersTests.debug.xcconfig */;
+			baseConfigurationReference = 360437BB8DFB8490CC7CC1D9 /* Pods-WallPeckersTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1626,7 +1639,7 @@
 		};
 		2357818321ABF29000338CB9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AA3C91735A775D042209DCC /* Pods-WallPeckersTests.release.xcconfig */;
+			baseConfigurationReference = 95E2684CE7183ECA1354B349 /* Pods-WallPeckersTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1648,7 +1661,7 @@
 		};
 		2357818521ABF29000338CB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4BDA4C6BCF9B2F1F789F276F /* Pods-WallPeckersUITests.debug.xcconfig */;
+			baseConfigurationReference = 52A25A376A3540BF1C3A86D3 /* Pods-WallPeckersUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1669,7 +1682,7 @@
 		};
 		2357818621ABF29000338CB9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BFD062AFAF2A5F9093199AE7 /* Pods-WallPeckersUITests.release.xcconfig */;
+			baseConfigurationReference = 017C9B0DC671FC551E6A8B4B /* Pods-WallPeckersUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
