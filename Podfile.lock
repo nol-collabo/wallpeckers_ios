@@ -1,0 +1,47 @@
+PODS:
+  - Alamofire (4.8.2)
+  - AloeStackView (1.0.1)
+  - Kingfisher (5.3.1)
+  - ObjectMapper (3.4.2)
+  - Realm (3.14.1):
+    - Realm/Headers (= 3.14.1)
+  - Realm/Headers (3.14.1)
+  - RealmSwift (3.14.1):
+    - Realm (= 3.14.1)
+  - SnapKit (4.2.0)
+  - SwiftyJSON (4.3.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AloeStackView
+  - Kingfisher
+  - ObjectMapper
+  - Realm
+  - RealmSwift
+  - SnapKit
+  - SwiftyJSON
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AloeStackView
+    - Kingfisher
+    - ObjectMapper
+    - Realm
+    - RealmSwift
+    - SnapKit
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AloeStackView: d22c006da4510db5e220968234174654b5ed6ea5
+  Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
+  Realm: e12c9c2387d05c5bba3a9c394838f5870e85763b
+  RealmSwift: a82eab9b04c3e1616082c7e17aa300740847769c
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+
+PODFILE CHECKSUM: ca9eae7c569f3f70890f8dac20c1c066cd8792c5
+
+COCOAPODS: 1.5.3
