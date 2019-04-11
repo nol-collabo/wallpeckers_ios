@@ -39,8 +39,9 @@ struct CustomAPI {
     }
     
     static func getSessionID(passcode:String, completion:@escaping ((Int)->Void)) { // 세션아이디 획득
-        
-        Alamofire.request("\(domainUrl)session/\(passcode)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+        let url = domainUrl+"session/"+passcode
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        Alamofire.request(encodedUrl, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             switch response.result {
                 
             case .success(let value):

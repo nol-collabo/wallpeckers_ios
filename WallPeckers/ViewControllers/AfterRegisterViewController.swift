@@ -18,7 +18,7 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeDescLb = UILabel()
     var userInfo:User?
     let keyboardResigner = UITapGestureRecognizer()
-    let pressCodes:[String] = ["berlin", "wall","10", "20", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "dmz", "dorasan", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "베를린", "장벽"]
+    let pressCodes:[String] = ["berlin", "wall","10", "20", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "dmz", "dorasan", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "베를린", "장벽","testss"]
     let dePressCodes:[String] = []
     
     override func viewDidLoad() {
@@ -200,15 +200,17 @@ class AfterRegisterViewController: UIViewController {
                     vc.inputCode = _inputCode
                     
                     if sessionId == -1 {
+                        self.pressCodeTf.text = ""
+                        self.pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
                         
-                        UserDefaults.standard.set(0, forKey: "sessionId")
-                        
-                        try! realm.write {
-                            RealmUser.shared.getUserData()?.allocatedId = 0
-                            self.navigationController?.pushViewController(vc, animated: true)
-                            
-                        }
-                        
+//                        UserDefaults.standard.set(0, forKey: "sessionId")
+//
+//                        try! realm.write {
+//                            RealmUser.shared.getUserData()?.allocatedId = 0
+//                            self.navigationController?.pushViewController(vc, animated: true)
+//
+//                        }
+//
                     }else{
                         CustomAPI.newPlayer(completion: { (id) in
                             
