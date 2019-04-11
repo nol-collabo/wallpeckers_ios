@@ -18,7 +18,7 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeDescLb = UILabel()
     var userInfo:User?
     let keyboardResigner = UITapGestureRecognizer()
-    let enPressCodes:[String] = ["berlin", "wall", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape"]
+    let enPressCodes:[String] = ["berlin", "wall", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape","test"]
     let dePressCodes:[String] = ["dmz", "dorasan", "2", "5", "60", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht"]
     
     override func viewDidLoad() {
@@ -230,7 +230,11 @@ class AfterRegisterViewController: UIViewController {
                     
                     
                     CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
-                        
+                        if sessionId == -1{
+                            pressCodeTf.text = ""
+                            pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                            return
+                        }
                         UserDefaults.standard.set(sessionId, forKey: "sessionId")
                         
                         vc.inputCode = _inputCode
