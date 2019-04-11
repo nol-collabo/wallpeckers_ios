@@ -1,6 +1,0 @@
-framework module Pods_WallPeckers {
-  umbrella header "Pods-WallPeckers-umbrella.h"
-
-  export *
-  module * { export * }
-}
