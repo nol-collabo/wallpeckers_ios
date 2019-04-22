@@ -18,9 +18,9 @@ class AfterRegisterViewController: UIViewController {
     let pressCodeDescLb = UILabel()
     var userInfo:User?
     let keyboardResigner = UITapGestureRecognizer()
+
     let pressCodes:[String] = ["berlin", "wall","10", "20", "2", "5", "60","peace", "sunshine", "treaty", "agreement", "relations", "highway", "travel", "cow", "march", "border", "evolution", "threat", "deal", "monday", "immediately", "leeway", "emotion", "heroes", "resistance", "revival" ,"joy", "tie", "dream","freedom","bullet", "blood","love", "basement", "memories", "escape", "dmz", "dorasan", "frieden", "sonnenschein", "vereinbarung", "einigung", "beziehungen", "weg", "reise", "rinder", "marsch", "grenze", "entwicklung", "bedrohung", "handel", "montag", "sofort", "spalt", "ergriffenheit", "helden", "widerstand", "wiederbelebung" ,"begeisterung", "gleichstand", "traum","freiheit","kugel", "blut","liebe", "keller", "gedenken", "flucht", "평화","햇볕","약속","합의","관계","길","여행","황소","행진","경계","진화","위협","거래","월요일","즉시","틈","감동","영웅","저항","부활","환희","무승부","꿈","자유","총알","피","사랑","지하","기억","탈출", "베를린", "장벽","testss"]
-    let dePressCodes:[String] = []
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -275,10 +275,25 @@ class AfterRegisterViewController: UIViewController {
                     let articleHash = (articles[i].hashArray)
                     
                     
+<<<<<<< HEAD:WallPeckers/ViewControllers/AfterRegisterViewController.swift
                     if articleHash.count == 5 {
                         break
                     }else{
                         for _ in 0...4 {
+=======
+                    
+                    CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
+                        if sessionId == -1{
+                            pressCodeTf.text = ""
+                            pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
+                            return
+                        }
+                        UserDefaults.standard.set(sessionId, forKey: "sessionId")
+                        
+                        vc.inputCode = _inputCode
+                        
+                        CustomAPI.newPlayer(completion: { (id) in
+>>>>>>> feature/nolgong2:WallPeckers/AfterRegisterViewController.swift
                             try! realm.write {
                                 articleHash.append(10)
                             }
