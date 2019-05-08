@@ -32,12 +32,15 @@ class StartViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.basicBackground
         self.navigationController?.isNavigationBarHidden = true
-        
-        transformToRealm { (_) in
-            
-            self.setUI()
+        CustomAPI.checkVersion(versionName: "1.1.0") { (result) in
+            print("결과값 \(result)")
             
         }
+//        transformToRealm { (_) in
+//
+//            self.setUI()
+//
+//        }
         
     }
     

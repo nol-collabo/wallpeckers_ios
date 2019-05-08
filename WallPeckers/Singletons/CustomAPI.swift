@@ -258,5 +258,32 @@ struct CustomAPI {
     }
     
     
+    static let checkVersionDomain = "http://acc.nolple.kr:8000/"
+    static func checkVersion(versionName:String, completion:@escaping ((String)->Void)) { // 세션아이디 획득
+        let url = checkVersionDomain+"version/"+versionName+"/ios"
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        Alamofire.request(encodedUrl, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+            switch response.result {
+                
+            case .success(let value):
+                
+                let json = JSON(value)
+                
+                if let result = json["result"].string {
+                    print(result)
+                    completion(result)
+//                    completion(sessionId)
+                }else{
+//                    completion(-1)
+                    //에러구간, 팝업 띄우기
+                }
+                
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+                
+            }
+        }
+    }
     
 }

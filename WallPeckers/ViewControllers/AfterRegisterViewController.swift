@@ -275,25 +275,10 @@ class AfterRegisterViewController: UIViewController {
                     let articleHash = (articles[i].hashArray)
                     
                     
-<<<<<<< HEAD:WallPeckers/ViewControllers/AfterRegisterViewController.swift
                     if articleHash.count == 5 {
                         break
                     }else{
                         for _ in 0...4 {
-=======
-                    
-                    CustomAPI.getSessionID(passcode: _inputCode) { (sessionId) in
-                        if sessionId == -1{
-                            pressCodeTf.text = ""
-                            pressCodeLb.attributedText = "inputkey_errorguide".localized.makeAttrString(font: .NotoSans(.medium, size: 16), color: .red)
-                            return
-                        }
-                        UserDefaults.standard.set(sessionId, forKey: "sessionId")
-                        
-                        vc.inputCode = _inputCode
-                        
-                        CustomAPI.newPlayer(completion: { (id) in
->>>>>>> feature/nolgong2:WallPeckers/AfterRegisterViewController.swift
                             try! realm.write {
                                 articleHash.append(10)
                             }
