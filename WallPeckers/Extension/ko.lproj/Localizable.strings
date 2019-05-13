@@ -8,6 +8,10 @@
 "WALLPECKERS" = "월페커즈";
 "selectlanguage_subtitle" = "FDMZ에서 베를린장벽까지";
 "selectlanguage_playbtn" = "PLAY";
+"version_title" = "\"월페커즈\" 업데이트 알림";
+"version_desc" = "필수 업데이트가 있습니다.\n새 버전으로 지금 바로 업데이트하세요!";
+"version_okbtn" = "업데이트 하기";
+"version_cancel" = "취소";
 
 "registration_toptitle" = "기자증 신청";
 "registration_undertoptitle" = "PRESS PASS";

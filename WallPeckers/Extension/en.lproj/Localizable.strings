@@ -9,6 +9,10 @@
 "WALLPECKERS" = "WALLPECKERS";
 "selectlanguage_subtitle" = "From the DMZ to the Berlin Wall";
 "selectlanguage_playbtn" = "PLAY";
+"version_title" = "\"Wallpeckers\" needs to be updated";
+"version_desc" = "A newer version of the Wallpeckers is now available.\nPlease get the update to play the new version of the game.";
+"version_okbtn" = "OK";
+"version_cancel" = "NO";
 
 "registration_toptitle" = "REGISTRATION";
 "registration_undertoptitle" = "PRESS PASS";

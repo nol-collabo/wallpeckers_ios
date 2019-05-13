@@ -9,6 +9,10 @@
 "WALLPECKERS" = "Mauerspechte";
 "selectlanguage_subtitle" = "Von der DMZ zur Berliner Mauer";
 "selectlanguage_playbtn" = "PLAY";
+"version_title" = "„Mauerspechte“ muss aktualisiert werden";
+"version_desc" = "Es ist eine neue Version von Mauerspechte verfügbar.\nBitte installiere die neueste Version der App um das Spiel zu spielen.";
+"version_okbtn" = "OK";
+"version_cancel" = "NO";
 
 "registration_toptitle" = "ANMELDUNG";
 "registration_undertoptitle" = "PRESSEAUSWEIS";

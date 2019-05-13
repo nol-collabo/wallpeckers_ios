@@ -12,7 +12,7 @@ import RealmSwift
 import SwiftyJSON
 
 class StartViewController: UIViewController {
-
+    
     let titleImv = UIImageView()
     let descScrollView = BaseHorizontalScrollView()
     let desc1View = UIImageView()
@@ -32,15 +32,45 @@ class StartViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.basicBackground
         self.navigationController?.isNavigationBarHidden = true
-        CustomAPI.checkVersion(versionName: "1.1.0") { (result) in
+        let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+        print(appVersion)
+        
+        CustomAPI.checkVersion(versionName: appVersion) { (result) in
             print("결과값 \(result)")
-            
+            if result == "OK"{
+                self.transformToRealm { (_) in
+                    
+                    self.setUI()
+                    
+                }
+            }else{
+                let alertController = UIAlertController.init(title: "version_title".localized, message: "version_desc".localized, preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction.init(title: "version_okbtn".localized, style: UIAlertAction.Style.default, handler: { (action) in
+                    // 앱스토어마켓으로 이동
+                    let url = URL(string: "http://itunes.apple.com/app/id1413571170?mt=8")
+                    if #available(iOS 10.0, *){
+                        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                    }else{
+                        UIApplication.shared.openURL(url!)
+                    }
+                    
+                }))
+                alertController.addAction(UIAlertAction.init(title: "version_cancel".localized, style: UIAlertAction.Style.default, handler: { (action) in
+                    // 앱 종료
+                    exit(0)
+                }))
+                var topController = UIApplication.shared.keyWindow?.rootViewController
+                if topController != nil {
+                    while let presentedViewController = topController?.presentedViewController {
+                        topController = presentedViewController
+                    }
+                }
+                topController!.present(alertController, animated: false, completion: {
+                    
+                })
+            }
         }
-//        transformToRealm { (_) in
-//
-//            self.setUI()
-//
-//        }
+        
         
     }
     
@@ -194,7 +224,7 @@ class StartViewController: UIViewController {
             timer.invalidate()
         }
         animatedTimer = nil
-       
+        
     }
     
     func animatedTitleImage() { // 타이틀 이미지 자동 스크롤
@@ -208,7 +238,7 @@ class StartViewController: UIViewController {
                 self.descScrollView.scrollView.contentOffset.x = 0
             }
         }
-    
+        
     }
     
     private func setUI() {
@@ -216,7 +246,7 @@ class StartViewController: UIViewController {
         self.view.addSubview([playButton, titleImv, nolgongView, goetheView])
         self.view.backgroundColor = UIColor.basicBackground
         
-
+        
         self.navigationController?.isNavigationBarHidden = true
         playButton.backgroundColor = .black
         playButton.setAttributedTitle("selectlanguage_playbtn".localized.makeAttrString(font: .NotoSans(.bold, size: 30), color: .white), for: .normal)
@@ -256,7 +286,7 @@ class StartViewController: UIViewController {
         }
         
         goetheView.snp.makeConstraints { (make) in
-
+            
             make.leading.equalTo(80)
             make.width.equalTo(53)
             make.height.equalTo(25)
@@ -283,7 +313,7 @@ class StartViewController: UIViewController {
         
         PopUp.call(mainTitle: "LANGUAGE", selectButtonTitles: ["Deutsch","한국어","English"], bottomButtonTitle: "OK", bottomButtonType: 0, self, buttonImages: [UIImage.init(named: "languageDeBlack")!, UIImage.init(named: "languageKrBlack")!, UIImage.init(named: "languageEnBlack")!])
     }
-
+    
 }
 
 
@@ -291,7 +321,7 @@ extension StartViewController:SelectPopupDelegate {
     func bottomButtonTouched(sender: UIButton) {
         
         if let _ = selectedLanguage {
-
+            
             if user.count > 0 { // 유저정보 있을 떄
                 
                 if let _ = RealmUser.shared.getUserData() {
@@ -301,20 +331,20 @@ extension StartViewController:SelectPopupDelegate {
                         
                         self.navigationController?.pushViewController(vc, animated: true)
                     }else{ // 한문제 이상 풀어서 이어하기 선택 가능할 때
-
+                        
                         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "AlreadyRegisterViewController") as? AlreadyRegisterViewController else {return}
                         
                         
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
-
+                
             }else{ // 신규유저
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "RegisterViewController") as? RegisterViewController else {return}
                 
                 self.navigationController?.pushViewController(vc, animated: true)
             }
-
+            
         }else{
             print("언어를 선택해주세요")
         }
@@ -328,23 +358,24 @@ extension StartViewController:SelectPopupDelegate {
             
             UserDefaults.standard.set([Language.GERMAN.rawValue], forKey: "AppleLanguages")
             UserDefaults.standard.synchronize()
-
-
+            
+            
         }else if tag == 1 {
             UserDefaults.standard.set([Language.KOREAN.rawValue], forKey: "AppleLanguages")
             UserDefaults.standard.synchronize()
-
+            
             Standard.shared.changeLocalized(Language.KOREAN.rawValue)
-
+            
         }else {
             Standard.shared.changeLocalized(Language.ENGLISH.rawValue)
             UserDefaults.standard.set([Language.ENGLISH.rawValue], forKey: "AppleLanguages")
             UserDefaults.standard.synchronize()
         }
-
+        
         
     }
-
+    
 }
+
 
 
